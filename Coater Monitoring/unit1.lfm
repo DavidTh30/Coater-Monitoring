@@ -1,0 +1,743 @@
+object Form1: TForm1
+  Left = 563
+  Height = 497
+  Top = 231
+  Width = 566
+  Caption = 'Coater Monitoring'
+  ClientHeight = 497
+  ClientWidth = 566
+  Menu = MainMenu1
+  LCLVersion = '4.8.0.0'
+  OnClose = FormClose
+  OnCreate = FormCreate
+  object PageControl1: TPageControl
+    Left = 7
+    Height = 468
+    Top = 0
+    Width = 502
+    ActivePage = TabSheet1
+    TabIndex = 0
+    TabOrder = 0
+    object TabSheet1: TTabSheet
+      Caption = 'Communication'
+      ClientHeight = 440
+      ClientWidth = 494
+      object Label32: TLabel
+        AnchorSideTop.Control = EditPort
+        AnchorSideTop.Side = asrCenter
+        AnchorSideRight.Control = EditPort
+        Left = 252
+        Height = 15
+        Top = 64
+        Width = 28
+        Anchors = [akTop, akRight]
+        Caption = 'Port: '
+      end
+      object EditPort: TSpinEditEx
+        Left = 280
+        Height = 23
+        Top = 60
+        Width = 80
+        MaxLength = 0
+        SpinButtonWidth = 17
+        TabOrder = 0
+        OnEditingDone = EditPortEditingDone
+        NullValue = 0
+        UpDownVisible = False
+        Value = 105
+      end
+      object MaskEditIP: TEdit
+        Left = 72
+        Height = 23
+        Top = 64
+        Width = 136
+        TabOrder = 1
+        Text = '192.168.0.20'
+        OnEditingDone = MaskEditIPEditingDone
+      end
+      object Label31: TLabel
+        AnchorSideTop.Control = MaskEditIP
+        AnchorSideTop.Side = asrCenter
+        AnchorSideRight.Control = MaskEditIP
+        Left = 56
+        Height = 15
+        Top = 68
+        Width = 16
+        Anchors = [akTop, akRight]
+        Caption = 'IP: '
+      end
+    end
+    object TabSheet4: TTabSheet
+      Caption = 'Operate'
+      ClientHeight = 440
+      ClientWidth = 494
+      object BCSVGButton1: TBCSVGButton
+        Left = 480
+        Height = 11
+        Top = 0
+        Width = 13
+        SVGString = '<?xml version="1.0" encoding="utf-8"?>'#13#10'<svg width="100%" xmlns="http://www.w3.org/2000/svg" height="100%"/>'#13#10
+        StretchMode = smNone
+        Proportional = False
+        Color = clMoneyGreen
+        ColorOpacity = 128
+        Caption = 'BCSVGButton1'
+        Position = 0
+        Maximum = 0
+      end
+      object BCButton1: TBCButton
+        Left = 64
+        Height = 38
+        Top = 56
+        Width = 101
+        StateClicked.Background.Gradient1.StartColor = clWhite
+        StateClicked.Background.Gradient1.EndColor = clSkyBlue
+        StateClicked.Background.Gradient1.GradientType = gtRadial
+        StateClicked.Background.Gradient1.Point1XPercent = 50
+        StateClicked.Background.Gradient1.Point1YPercent = 100
+        StateClicked.Background.Gradient1.Point2XPercent = 0
+        StateClicked.Background.Gradient1.Point2YPercent = 0
+        StateClicked.Background.Gradient2.StartColor = clWhite
+        StateClicked.Background.Gradient2.EndColor = clSkyBlue
+        StateClicked.Background.Gradient2.GradientType = gtLinear
+        StateClicked.Background.Gradient2.Point1XPercent = 0
+        StateClicked.Background.Gradient2.Point1YPercent = 0
+        StateClicked.Background.Gradient2.Point2XPercent = 0
+        StateClicked.Background.Gradient2.Point2YPercent = 100
+        StateClicked.Background.Gradient1EndPercent = 100
+        StateClicked.Background.Style = bbsGradient
+        StateClicked.Border.Style = bboNone
+        StateClicked.FontEx.Color = 16770790
+        StateClicked.FontEx.FontQuality = fqSystemClearType
+        StateClicked.FontEx.Shadow = True
+        StateClicked.FontEx.ShadowRadius = 2
+        StateClicked.FontEx.ShadowOffsetX = 1
+        StateClicked.FontEx.ShadowOffsetY = 1
+        StateClicked.FontEx.Style = [fsBold]
+        StateHover.Background.Gradient1.StartColor = clSkyBlue
+        StateHover.Background.Gradient1.EndColor = clSkyBlue
+        StateHover.Background.Gradient1.GradientType = gtRadial
+        StateHover.Background.Gradient1.Point1XPercent = 50
+        StateHover.Background.Gradient1.Point1YPercent = 100
+        StateHover.Background.Gradient1.Point2XPercent = 0
+        StateHover.Background.Gradient1.Point2YPercent = 0
+        StateHover.Background.Gradient2.StartColor = clWhite
+        StateHover.Background.Gradient2.EndColor = clBlack
+        StateHover.Background.Gradient2.GradientType = gtLinear
+        StateHover.Background.Gradient2.Point1XPercent = 0
+        StateHover.Background.Gradient2.Point1YPercent = 0
+        StateHover.Background.Gradient2.Point2XPercent = 0
+        StateHover.Background.Gradient2.Point2YPercent = 100
+        StateHover.Background.Gradient1EndPercent = 100
+        StateHover.Background.Style = bbsGradient
+        StateHover.Border.Style = bboNone
+        StateHover.FontEx.Color = clWhite
+        StateHover.FontEx.FontQuality = fqSystemClearType
+        StateHover.FontEx.Shadow = True
+        StateHover.FontEx.ShadowRadius = 2
+        StateHover.FontEx.ShadowOffsetX = 1
+        StateHover.FontEx.ShadowOffsetY = 1
+        StateHover.FontEx.Style = [fsBold]
+        StateNormal.Background.Gradient1.StartColor = clSkyBlue
+        StateNormal.Background.Gradient1.EndColor = clSkyBlue
+        StateNormal.Background.Gradient1.GradientType = gtLinear
+        StateNormal.Background.Gradient1.Point1XPercent = 0
+        StateNormal.Background.Gradient1.Point1YPercent = 0
+        StateNormal.Background.Gradient1.Point2XPercent = 0
+        StateNormal.Background.Gradient1.Point2YPercent = 100
+        StateNormal.Background.Gradient2.StartColor = clSkyBlue
+        StateNormal.Background.Gradient2.EndColor = clSkyBlue
+        StateNormal.Background.Gradient2.GradientType = gtRadial
+        StateNormal.Background.Gradient2.Point1XPercent = 50
+        StateNormal.Background.Gradient2.Point1YPercent = 100
+        StateNormal.Background.Gradient2.Point2XPercent = 0
+        StateNormal.Background.Gradient2.Point2YPercent = 0
+        StateNormal.Background.Gradient1EndPercent = 60
+        StateNormal.Background.Style = bbsGradient
+        StateNormal.Border.Style = bboNone
+        StateNormal.FontEx.Color = 16770790
+        StateNormal.FontEx.FontQuality = fqSystemClearType
+        StateNormal.FontEx.Shadow = True
+        StateNormal.FontEx.ShadowRadius = 2
+        StateNormal.FontEx.ShadowOffsetX = 1
+        StateNormal.FontEx.ShadowOffsetY = 1
+        StateNormal.FontEx.Style = [fsBold]
+        Caption = 'Coating Mode'
+        Color = clNone
+        DropDownWidth = 16
+        DropDownArrowSize = 8
+        Enabled = False
+        GlobalOpacity = 255
+        OnClick = BCButton1Click
+        ParentColor = False
+        Rounding.RoundX = 5
+        Rounding.RoundY = 5
+        RoundingDropDown.RoundX = 1
+        RoundingDropDown.RoundY = 1
+        TextApplyGlobalOpacity = False
+        MemoryUsage = bmuHigh
+      end
+      object BCButton2: TBCButton
+        Left = 64
+        Height = 38
+        Top = 104
+        Width = 101
+        StateClicked.Background.Gradient1.StartColor = clWhite
+        StateClicked.Background.Gradient1.EndColor = clSkyBlue
+        StateClicked.Background.Gradient1.GradientType = gtRadial
+        StateClicked.Background.Gradient1.Point1XPercent = 50
+        StateClicked.Background.Gradient1.Point1YPercent = 100
+        StateClicked.Background.Gradient1.Point2XPercent = 0
+        StateClicked.Background.Gradient1.Point2YPercent = 0
+        StateClicked.Background.Gradient2.StartColor = clWhite
+        StateClicked.Background.Gradient2.EndColor = clSkyBlue
+        StateClicked.Background.Gradient2.GradientType = gtLinear
+        StateClicked.Background.Gradient2.Point1XPercent = 0
+        StateClicked.Background.Gradient2.Point1YPercent = 0
+        StateClicked.Background.Gradient2.Point2XPercent = 0
+        StateClicked.Background.Gradient2.Point2YPercent = 100
+        StateClicked.Background.Gradient1EndPercent = 100
+        StateClicked.Background.Style = bbsGradient
+        StateClicked.Border.Style = bboNone
+        StateClicked.FontEx.Color = 16770790
+        StateClicked.FontEx.FontQuality = fqSystemClearType
+        StateClicked.FontEx.Shadow = True
+        StateClicked.FontEx.ShadowRadius = 2
+        StateClicked.FontEx.ShadowOffsetX = 1
+        StateClicked.FontEx.ShadowOffsetY = 1
+        StateClicked.FontEx.Style = [fsBold]
+        StateHover.Background.Gradient1.StartColor = clSkyBlue
+        StateHover.Background.Gradient1.EndColor = clSkyBlue
+        StateHover.Background.Gradient1.GradientType = gtRadial
+        StateHover.Background.Gradient1.Point1XPercent = 50
+        StateHover.Background.Gradient1.Point1YPercent = 100
+        StateHover.Background.Gradient1.Point2XPercent = 0
+        StateHover.Background.Gradient1.Point2YPercent = 0
+        StateHover.Background.Gradient2.StartColor = clWhite
+        StateHover.Background.Gradient2.EndColor = clBlack
+        StateHover.Background.Gradient2.GradientType = gtLinear
+        StateHover.Background.Gradient2.Point1XPercent = 0
+        StateHover.Background.Gradient2.Point1YPercent = 0
+        StateHover.Background.Gradient2.Point2XPercent = 0
+        StateHover.Background.Gradient2.Point2YPercent = 100
+        StateHover.Background.Gradient1EndPercent = 100
+        StateHover.Background.Style = bbsGradient
+        StateHover.Border.Style = bboNone
+        StateHover.FontEx.Color = clWhite
+        StateHover.FontEx.FontQuality = fqSystemClearType
+        StateHover.FontEx.Shadow = True
+        StateHover.FontEx.ShadowRadius = 2
+        StateHover.FontEx.ShadowOffsetX = 1
+        StateHover.FontEx.ShadowOffsetY = 1
+        StateHover.FontEx.Style = [fsBold]
+        StateNormal.Background.Gradient1.StartColor = clSkyBlue
+        StateNormal.Background.Gradient1.EndColor = clSkyBlue
+        StateNormal.Background.Gradient1.GradientType = gtLinear
+        StateNormal.Background.Gradient1.Point1XPercent = 0
+        StateNormal.Background.Gradient1.Point1YPercent = 0
+        StateNormal.Background.Gradient1.Point2XPercent = 0
+        StateNormal.Background.Gradient1.Point2YPercent = 100
+        StateNormal.Background.Gradient2.StartColor = clSkyBlue
+        StateNormal.Background.Gradient2.EndColor = clSkyBlue
+        StateNormal.Background.Gradient2.GradientType = gtRadial
+        StateNormal.Background.Gradient2.Point1XPercent = 50
+        StateNormal.Background.Gradient2.Point1YPercent = 100
+        StateNormal.Background.Gradient2.Point2XPercent = 0
+        StateNormal.Background.Gradient2.Point2YPercent = 0
+        StateNormal.Background.Gradient1EndPercent = 60
+        StateNormal.Background.Style = bbsGradient
+        StateNormal.Border.Style = bboNone
+        StateNormal.FontEx.Color = 16770790
+        StateNormal.FontEx.FontQuality = fqSystemClearType
+        StateNormal.FontEx.Shadow = True
+        StateNormal.FontEx.ShadowRadius = 2
+        StateNormal.FontEx.ShadowOffsetX = 1
+        StateNormal.FontEx.ShadowOffsetY = 1
+        StateNormal.FontEx.Style = [fsBold]
+        Caption = 'Bypass Mode'
+        Color = clNone
+        DropDownWidth = 16
+        DropDownArrowSize = 8
+        Enabled = False
+        GlobalOpacity = 255
+        OnClick = BCButton2Click
+        ParentColor = False
+        Rounding.RoundX = 5
+        Rounding.RoundY = 5
+        RoundingDropDown.RoundX = 1
+        RoundingDropDown.RoundY = 1
+        TextApplyGlobalOpacity = False
+        MemoryUsage = bmuHigh
+      end
+    end
+    object TabSheet5: TTabSheet
+      Caption = 'Corona Roll'
+      ClientHeight = 440
+      ClientWidth = 494
+      object GroupBox2: TGroupBox
+        Left = 6
+        Height = 318
+        Top = 8
+        Width = 452
+        Caption = 'Enable Corona Roll'
+        TabOrder = 0
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'Corona Generator Interlock'
+      ClientHeight = 440
+      ClientWidth = 494
+      object GroupBox1: TGroupBox
+        Left = 0
+        Height = 280
+        Top = 8
+        Width = 400
+        Caption = 'Enable Corona Generator'
+        ClientHeight = 260
+        ClientWidth = 396
+        Color = clWhite
+        ParentBackground = False
+        ParentColor = False
+        TabOrder = 0
+        object Shape9: TShape
+          AnchorSideLeft.Control = GroupBox1
+          AnchorSideRight.Control = GroupBox1
+          AnchorSideRight.Side = asrBottom
+          Left = 3
+          Height = 88
+          Top = 104
+          Width = 390
+          Anchors = [akTop, akLeft, akRight]
+          BorderSpacing.Left = 3
+          BorderSpacing.Right = 3
+        end
+        object Shape15: TShape
+          AnchorSideLeft.Control = GroupBox1
+          AnchorSideRight.Control = GroupBox1
+          AnchorSideRight.Side = asrBottom
+          Left = 3
+          Height = 3
+          Top = 232
+          Width = 390
+          Anchors = [akTop, akLeft, akRight]
+          BorderSpacing.Left = 3
+          BorderSpacing.Right = 3
+        end
+        object Label5: TLabel
+          Left = 208
+          Height = 15
+          Top = 192
+          Width = 166
+          Caption = '<< Done by HMI and Hardware'
+        end
+        object Label6: TLabel
+          Left = 208
+          Height = 15
+          Top = 208
+          Width = 166
+          Caption = '<< Done by HMI and Hardware'
+        end
+        object Label7: TLabel
+          Left = 208
+          Height = 15
+          Top = 72
+          Width = 166
+          Caption = '<< Done by HMI and Hardware'
+        end
+        object Label8: TLabel
+          Left = 208
+          Height = 15
+          Top = 88
+          Width = 89
+          Caption = '<< Done by HMI'
+        end
+        object Label9: TLabel
+          Left = 208
+          Height = 15
+          Top = 8
+          Width = 89
+          Caption = '<< Done by HMI'
+        end
+        object Label10: TLabel
+          Left = 208
+          Height = 15
+          Top = 40
+          Width = 89
+          Caption = '<< Done by HMI'
+        end
+        object Label11: TLabel
+          Left = 7
+          Height = 15
+          Top = 208
+          Width = 189
+          AutoSize = False
+          Caption = 'Blower Run (Q0.1=1)'
+          Color = clWhite
+          ParentColor = False
+          Transparent = False
+        end
+        object Label12: TLabel
+          Left = 7
+          Height = 15
+          Top = 240
+          Width = 189
+          AutoSize = False
+          Caption = 'Corona Start (Q0.5=1)'
+          Color = clWhite
+          ParentColor = False
+          Transparent = False
+        end
+        object Label13: TLabel
+          Left = 7
+          Height = 15
+          Top = 56
+          Width = 189
+          AutoSize = False
+          Caption = 'E-Stop OK (I0.0=1)'
+          Color = clWhite
+          ParentColor = False
+          Transparent = False
+        end
+        object Label14: TLabel
+          Left = 7
+          Height = 15
+          Top = 112
+          Width = 189
+          AutoSize = False
+          Caption = 'MDO Film Brake (I0.2=1)'
+          Color = clWhite
+          ParentColor = False
+          Transparent = False
+        end
+        object Label15: TLabel
+          Left = 7
+          Height = 15
+          Top = 131
+          Width = 189
+          AutoSize = False
+          Caption = 'All zone TDO Film Break (I0.7=1)'
+          Color = clWhite
+          ParentColor = False
+          Transparent = False
+        end
+        object Label16: TLabel
+          Left = 7
+          Height = 15
+          Top = 8
+          Width = 189
+          AutoSize = False
+          Caption = 'GenOn_Hmi_Cmd (M0.6=1)'
+          Color = clWhite
+          ParentColor = False
+          Transparent = False
+        end
+        object Label17: TLabel
+          Left = 7
+          Height = 15
+          Top = 24
+          Width = 189
+          AutoSize = False
+          Caption = 'GenOff_Hmi_Cmd (M0.7=0)'
+          Color = clWhite
+          ParentColor = False
+          Transparent = False
+        end
+        object Label18: TLabel
+          Left = 208
+          Height = 15
+          Top = 24
+          Width = 89
+          Caption = '<< Done by HMI'
+        end
+        object Label19: TLabel
+          Left = 7
+          Height = 15
+          Top = 40
+          Width = 189
+          AutoSize = False
+          Caption = 'Bypass Mode (M30.1=0)'
+          Color = clWhite
+          ParentColor = False
+          Transparent = False
+        end
+        object Label20: TLabel
+          Left = 7
+          Height = 15
+          Top = 88
+          Width = 189
+          AutoSize = False
+          Caption = 'Coating Mode (M30.0=1)'
+          Color = clWhite
+          ParentColor = False
+          Transparent = False
+        end
+        object Label21: TLabel
+          Left = 7
+          Height = 15
+          Top = 168
+          Width = 189
+          AutoSize = False
+          Caption = 'Bypass Filmbrake (M98.0=1)'
+          Color = clWhite
+          ParentColor = False
+          Transparent = False
+        end
+        object Label22: TLabel
+          Left = 64
+          Height = 15
+          Top = 152
+          Width = 13
+          Caption = 'Or'
+        end
+        object Label23: TLabel
+          Left = 208
+          Height = 15
+          Top = 168
+          Width = 89
+          Caption = '<< Done by HMI'
+        end
+        object Label24: TLabel
+          Left = 7
+          Height = 15
+          Top = 72
+          Width = 189
+          AutoSize = False
+          Caption = 'Infeed On (System On) (Q201.0=1)'
+          Color = clWhite
+          ParentColor = False
+          Transparent = False
+        end
+        object Label25: TLabel
+          Left = 7
+          Height = 15
+          Top = 192
+          Width = 189
+          AutoSize = False
+          Caption = 'Electrode In position (I0.5=1)'
+          Color = clWhite
+          ParentColor = False
+          Transparent = False
+        end
+      end
+    end
+    object TabSheet3: TTabSheet
+      Caption = 'Parameter'
+      ClientHeight = 440
+      ClientWidth = 494
+      object HMIEdit1: THMIEdit
+        Left = 136
+        Height = 23
+        Top = 32
+        Width = 89
+        Color = clWindow
+        Enabled = False
+        Font.Color = clWindowText
+        ParentFont = False
+        TabStop = False
+        TabOrder = 0
+        NumberFormat = '#0.0'
+        PLCTag = DB10_DBD42
+        EnableMinValue = False
+        EnableMaxValue = False
+      end
+      object Label1: TLabel
+        AnchorSideTop.Control = HMIEdit1
+        AnchorSideTop.Side = asrCenter
+        AnchorSideRight.Control = HMIEdit1
+        Left = 18
+        Height = 15
+        Top = 36
+        Width = 118
+        Anchors = [akTop, akRight]
+        Caption = 'LineSpeedDetectStart: '
+      end
+      object HMICheckBox1: THMICheckBox
+        Left = 21
+        Height = 19
+        Top = 66
+        Width = 152
+        Enabled = False
+        ParentColor = False
+        TabOrder = 1
+        TabStop = False
+        CaptionFalse = 'Bypass Filmbrake (M98.0)'
+        CaptionTrue = 'Bypass Filmbrake (M98.0)'
+        CaptionGrayed = 'Bypass Filmbrake (M98.0)'
+        ValueTrue = 1
+      end
+    end
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 474
+    Width = 566
+    Panels = <    
+      item
+        Width = 80
+      end    
+      item
+        Width = 50
+      end    
+      item
+        Width = 50
+      end>
+    SimplePanel = False
+  end
+  object P1: TShape
+    AnchorSideLeft.Control = StatusBar1
+    AnchorSideBottom.Control = StatusBar1
+    AnchorSideBottom.Side = asrBottom
+    Left = 7
+    Height = 16
+    Top = 479
+    Width = 5
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Left = 7
+    BorderSpacing.Bottom = 2
+    Brush.Color = clSilver
+  end
+  object P2: TShape
+    AnchorSideLeft.Control = P1
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideBottom.Control = StatusBar1
+    AnchorSideBottom.Side = asrBottom
+    Left = 14
+    Height = 16
+    Top = 479
+    Width = 5
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Left = 2
+    BorderSpacing.Bottom = 2
+    Brush.Color = clSilver
+  end
+  object P3: TShape
+    AnchorSideLeft.Control = P2
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideBottom.Control = StatusBar1
+    AnchorSideBottom.Side = asrBottom
+    Left = 21
+    Height = 16
+    Top = 479
+    Width = 5
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Left = 2
+    BorderSpacing.Bottom = 2
+    Brush.Color = clSilver
+  end
+  object P4: TShape
+    AnchorSideLeft.Control = P3
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideBottom.Control = StatusBar1
+    AnchorSideBottom.Side = asrBottom
+    Left = 28
+    Height = 16
+    Top = 479
+    Width = 5
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Left = 2
+    BorderSpacing.Bottom = 2
+    Brush.Color = clSilver
+  end
+  object P5: TShape
+    AnchorSideLeft.Control = P4
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideBottom.Control = StatusBar1
+    AnchorSideBottom.Side = asrBottom
+    Left = 35
+    Height = 16
+    Top = 479
+    Width = 5
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Left = 2
+    BorderSpacing.Bottom = 2
+    Brush.Color = clSilver
+  end
+  object P6: TShape
+    AnchorSideLeft.Control = P5
+    AnchorSideLeft.Side = asrBottom
+    AnchorSideBottom.Control = StatusBar1
+    AnchorSideBottom.Side = asrBottom
+    Left = 42
+    Height = 16
+    Top = 479
+    Width = 5
+    Anchors = [akLeft, akBottom]
+    BorderSpacing.Left = 2
+    BorderSpacing.Bottom = 2
+    Brush.Color = clSilver
+  end
+  object TCP_UDPPort1: TTCP_UDPPort
+    Host = '192.168.0.20'
+    ExclusiveDevice = False
+    OnCommPortOpened = TCP_UDPPort1CommPortOpened
+    OnCommPortOpenError = TCP_UDPPort1CommPortOpenError
+    OnCommErrorReading = TCP_UDPPort1CommErrorReading
+    Left = 520
+    Top = 72
+  end
+  object ISOTCPDriver1: TISOTCPDriver
+    CommunicationPort = TCP_UDPPort1
+    ForcePDUSize = pduAuto
+    ConnectionWay = ISOTCP
+    ReadOnly = False
+    Left = 568
+    Top = 224
+  end
+  object MainMenu1: TMainMenu
+    Left = 576
+    object MenuIFile: TMenuItem
+      Caption = 'File'
+      object Menuexit: TMenuItem
+        Caption = 'Exit'
+        OnClick = MenuexitClick
+      end
+    end
+    object MenuConnect: TMenuItem
+      Caption = 'Connection'
+      object Connect: TMenuItem
+        Caption = 'Connect'
+        OnClick = ConnectClick
+      end
+      object Disconnect: TMenuItem
+        Caption = 'Disconnect'
+        OnClick = DisconnectClick
+      end
+    end
+  end
+  object DB10: TPLCBlock
+    TagGUID = '{8C820606-61FF-4029-AF05-0F6761A0425A}'
+    PLCRack = 0
+    PLCSlot = 0
+    PLCStation = 2
+    MemFile_DB = 10
+    MemAddress = 42
+    MemSubElement = 0
+    MemReadFunction = 4
+    MemWriteFunction = 0
+    ProtocolDriver = ISOTCPDriver1
+    LongAddress = ''
+    Size = 1
+    TagType = pttFloat
+    SwapBytes = True
+    SwapWords = True
+    Left = 544
+    Top = 160
+  end
+  object DB10_DBD42: TPLCBlockElement
+    TagGUID = '{B7E8247B-5474-47C1-A609-91DBA0CEA9BC}'
+    PLCBlock = DB10
+    Index = 0
+    EnableMaxValue = False
+    EnableMinValue = False
+    Left = 544
+    Top = 160
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 200
+    OnTimer = Timer1Timer
+    Left = 535
+    Top = 34
+  end
+end
