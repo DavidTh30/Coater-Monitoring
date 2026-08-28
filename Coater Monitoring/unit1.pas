@@ -11,24 +11,45 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, Menus,
   StdCtrls, ExtCtrls, SpinEx, tcp_udpport, ISOTCPDriver, PLCBlock,
-  PLCBlockElement, TagBit, HMIEdit, HMICheckBox, dbugintf,
-  commtypes, TypInfo, StrUtils, Tag, BCSVGButton, BCButton;
+  PLCBlockElement, TagBit, HMIEdit, HMICheckBox, HMILabel, dbugintf,
+  commtypes, TypInfo, StrUtils, Tag, BCSVGButton, BCButton, simpleipc;
+
+function IsDebuggerPresent(): integer stdcall; external 'kernel32.dll';
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
-    BCButton1: TBCButton;
-    BCButton2: TBCButton;
+    CmdCoronaRollOn: TBCButton;
+    CmdCoronaRollOff: TBCButton;
+    CmdSystemOff: TBCButton;
+    CmdCoatingMode: TBCButton;
+    CmdBypassMode: TBCButton;
+    CmdSystemOn: TBCButton;
+    CmdElectrodeIn: TBCButton;
+    CmdElectrodeOut: TBCButton;
     BCSVGButton1: TBCSVGButton;
-    DB10: TPLCBlock;
+    DB10_DBD4: TPLCBlockElement;
+
+    DB10_DBD42_: TPLCBlock;
     DB10_DBD42: TPLCBlockElement;
+    DB10_DBD4_: TPLCBlock;
+    DB9_DBD32_: TPLCBlock;
+    DB9_DBD32: TPLCBlockElement;
+
     EditPort: TSpinEditEx;
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
+    GroupBox3: TGroupBox;
+    GroupBox4: TGroupBox;
+    GroupBox5: TGroupBox;
+    GroupBox6: TGroupBox;
+    GroupBox7: TGroupBox;
     HMICheckBox1: THMICheckBox;
     HMIEdit1: THMIEdit;
+    HMILabel1: THMILabel;
+    HMILabel2: THMILabel;
 
     IB0_: TPLCBlock;
     IB0: TPLCBlockElement;
@@ -59,9 +80,32 @@ type
     Label23: TLabel;
     Label24: TLabel;
     Label25: TLabel;
+    Label26: TLabel;
+    Label27: TLabel;
+    Label28: TLabel;
+    Label29: TLabel;
+    Label30: TLabel;
     Label31: TLabel;
     Label32: TLabel;
+    Label33: TLabel;
+    Label34: TLabel;
+    Label35: TLabel;
+    Label36: TLabel;
+    Label37: TLabel;
+    Label38: TLabel;
+    Label39: TLabel;
+    Label40: TLabel;
+    Label41: TLabel;
+    Label42: TLabel;
+    Label43: TLabel;
+    Label44: TLabel;
+    Label45: TLabel;
+    Label46: TLabel;
+    Label47: TLabel;
+    Label48: TLabel;
+    Label49: TLabel;
     Label5: TLabel;
+    Label50: TLabel;
     Label6: TLabel;
     Label7: TLabel;
     Label8: TLabel;
@@ -80,6 +124,39 @@ type
     M0_6: TTagBit;
     M0_7: TTagBit;
 
+    MB1_: TPLCBlock;
+    MB1: TPLCBlockElement;
+    M1_0: TTagBit;
+    M1_1: TTagBit;
+    M1_2: TTagBit;
+    M1_3: TTagBit;
+    M1_4: TTagBit;
+    M1_5: TTagBit;
+    M1_6: TTagBit;
+    M1_7: TTagBit;
+
+    MB2_: TPLCBlock;
+    MB2: TPLCBlockElement;
+    M2_0: TTagBit;
+    M2_1: TTagBit;
+    M2_2: TTagBit;
+    M2_3: TTagBit;
+    M2_4: TTagBit;
+    M2_5: TTagBit;
+    M2_6: TTagBit;
+    M2_7: TTagBit;
+
+    MB17_: TPLCBlock;
+    MB17: TPLCBlockElement;
+    M17_0: TTagBit;
+    M17_1: TTagBit;
+    M17_2: TTagBit;
+    M17_3: TTagBit;
+    M17_4: TTagBit;
+    M17_5: TTagBit;
+    M17_6: TTagBit;
+    M17_7: TTagBit;
+
     MB30_: TPLCBlock;
     MB30: TPLCBlockElement;
     M30_0: TTagBit;
@@ -91,6 +168,17 @@ type
     M30_6: TTagBit;
     M30_7: TTagBit;
 
+    MB31_: TPLCBlock;
+    MB31: TPLCBlockElement;
+    M31_0: TTagBit;
+    M31_1: TTagBit;
+    M31_2: TTagBit;
+    M31_3: TTagBit;
+    M31_4: TTagBit;
+    M31_5: TTagBit;
+    M31_6: TTagBit;
+    M31_7: TTagBit;
+
     MB32_: TPLCBlock;
     MB32: TPLCBlockElement;
     M32_0: TTagBit;
@@ -101,6 +189,17 @@ type
     M32_5: TTagBit;
     M32_6: TTagBit;
     M32_7: TTagBit;
+
+    MB34_: TPLCBlock;
+    MB34: TPLCBlockElement;
+    M34_0: TTagBit;
+    M34_1: TTagBit;
+    M34_2: TTagBit;
+    M34_3: TTagBit;
+    M34_4: TTagBit;
+    M34_5: TTagBit;
+    M34_6: TTagBit;
+    M34_7: TTagBit;
 
     MB98_: TPLCBlock;
     MB98: TPLCBlockElement;
@@ -153,13 +252,27 @@ type
     Q201_6: TTagBit;
     Q201_7: TTagBit;
 
+    QB209_: TPLCBlock;
+    QB209: TPLCBlockElement;
+    Q209_0: TTagBit;
+    Q209_1: TTagBit;
+    Q209_2: TTagBit;
+    Q209_3: TTagBit;
+    Q209_4: TTagBit;
+    Q209_5: TTagBit;
+    Q209_6: TTagBit;
+    Q209_7: TTagBit;
+
     P1: TShape;
+    Shape10: TShape;
     Shape15: TShape;
     P2: TShape;
     P3: TShape;
     P4: TShape;
     P5: TShape;
     P6: TShape;
+    Shape16: TShape;
+    Shape17: TShape;
     Shape9: TShape;
     StatusBar1: TStatusBar;
     TabSheet1: TTabSheet;
@@ -169,8 +282,26 @@ type
     TabSheet5: TTabSheet;
     TCP_UDPPort1: TTCP_UDPPort;
     Timer1: TTimer;
-    procedure BCButton1Click(Sender: TObject);
-    procedure BCButton2Click(Sender: TObject);
+    procedure CmdCoronaRollOnMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdCoronaRollOnMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdCoronaRollOffMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdCoronaRollOffMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdSystemOffClick(Sender: TObject);
+    procedure CmdSystemOnClick(Sender: TObject);
+    procedure CmdCoatingModeClick(Sender: TObject);
+    procedure CmdBypassModeClick(Sender: TObject);
+    procedure CmdElectrodeInMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdElectrodeInMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdElectrodeOutMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdElectrodeOutMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure ConnectClick(Sender: TObject);
     procedure DisconnectClick(Sender: TObject);
     procedure EditPortEditingDone(Sender: TObject);
@@ -193,6 +324,7 @@ var
   Form1: TForm1;
   OldClock_Bool:boolean;
   Communication_Active:boolean;
+  DebugIsActive:boolean;
 
 implementation
 
@@ -200,8 +332,26 @@ implementation
 
 { TForm1 }
 
+function IsAppAlreadyRunning(const AppID: string): Boolean;
+var
+  Client: TSimpleIPCClient;
+begin
+  Result := False;
+  Client := TSimpleIPCClient.Create(nil);
+  try
+    Client.ServerID := AppID;
+    // Check if a server with this ID is listening
+    if Client.ServerRunning then
+      Result := True;
+  finally
+    Client.Free;
+  end;
+end;
+
+
 procedure log(message_: string);
 begin
+if not DebugIsActive then exit;
 {$IFOPT D+}
   SendDebug(message_);
 {$ELSE}
@@ -333,14 +483,40 @@ begin
   Label21.Color:=clSilver;
   Label24.Color:=clSilver;
   Label25.Color:=clSilver;
+  Label26.Color:=clSilver;
+  Label28.Color:=clSilver;
+  Label29.Color:=clSilver;
+  Label30.Color:=clSilver;
+  Label33.Color:=clSilver;
+  Label35.Color:=clSilver;
+  Label36.Color:=clSilver;
+  Label37.Color:=clSilver;
+  Label39.Color:=clSilver;
+  Label41.Color:=clSilver;
+  Label42.Color:=clSilver;
+  Label43.Color:=clSilver;
+  Label45.Color:=clSilver;
+  Label46.Color:=clSilver;
+  Label47.Color:=clSilver;
+  Label49.Color:=clSilver;
 
   Shape9.Brush.Color:=clSilver;
+  Shape10.Brush.Color:=clSilver;
 
   HMIEdit1.Enabled:=false;
   HMICheckBox1.Enabled:=false;
 
-  BCButton1.Enabled:=false;
-  BCButton2.Enabled:=false;
+  CmdCoatingMode.Enabled:=false;
+  CmdBypassMode.Enabled:=false;
+
+  CmdElectrodeIn.Enabled:=false;
+  CmdElectrodeOut.Enabled:=false;
+
+  CmdSystemOn.Enabled:=false;
+  CmdSystemOff.Enabled:=false;
+
+  CmdCoronaRollOn.Enabled:=false;
+  CmdCoronaRollOff.Enabled:=false;
 end;
 
 procedure TForm1.CommunicationIsActive;
@@ -358,8 +534,23 @@ begin
   HMIEdit1.Enabled:=true;
   HMICheckBox1.Enabled:=true;
 
-  BCButton1.Enabled:=true;
-  BCButton2.Enabled:=true;
+  CmdCoatingMode.Enabled:=true;
+  CmdBypassMode.Enabled:=true;
+
+  CmdElectrodeIn.Enabled:=true;
+  CmdElectrodeOut.Enabled:=true;
+  Label28.Color:=clWhite;
+
+  CmdSystemOn.Enabled:=true;
+  CmdSystemOff.Enabled:=true;
+
+  Label29.Color:=clWhite;
+  Label30.Color:=clWhite;
+  Label45.Color:=clWhite;
+
+  CmdCoronaRollOn.Enabled:=true;
+  CmdCoronaRollOff.Enabled:=true;
+
 end;
 
 procedure TForm1.MenuexitClick(Sender: TObject);
@@ -412,108 +603,356 @@ begin
     OldClock_Bool:=not OldClock_Bool;
     Communication_Active:=true;
 
-    if Q0_1.Value > 0 then begin Label11.Color:=clMoneyGreen; end
-    else begin Label11.Color:=clWhite end;
+    if Q0_1.Value > 0 then
+    begin Label11.Color:=clMoneyGreen; Label42.Color:=clMoneyGreen; end
+    else
+    begin Label11.Color:=clWhite; Label42.Color:=clWhite; end;
+    if Q0_3.Value > 0 then
+    begin Label28.Caption:='Electrode: In'; Label43.Color:=clMoneyGreen; end
+    else
+    begin Label28.Caption:='Electrode: Out'; Label43.Color:=clWhite; end;
     if Q0_5.Value > 0 then begin Label12.Color:=clMoneyGreen; end
-    else begin Label12.Color:=clWhite end;
+    else begin Label12.Color:=clWhite; end;
 
     if Q201_0.Value > 0 then begin Label24.Color:=clMoneyGreen; end
-    else begin Label24.Color:=clWhite end;
+    else begin Label24.Color:=clWhite; end;
 
-    if I0_0.Value > 0 then begin Label13.Color:=clMoneyGreen; end
-    else begin Label13.Color:=clWhite end;
-    if I0_2.Value > 0 then begin Label14.Color:=clMoneyGreen; end
-    else begin Label14.Color:=clWhite end;
+    if Q209_0.Value > 0 then
+    begin Label46.Color:=clMoneyGreen; Label45.Caption:='Corona Roll: Run'; end
+    else
+    begin Label46.Color:=clWhite; Label45.Caption:='Corona Roll: Off'; end;
+
+    if I0_0.Value > 0 then
+    begin Label13.Color:=clMoneyGreen; Label35.Color:=clMoneyGreen; end
+    else
+    begin Label13.Color:=clWhite; Label35.Color:=clMoneyGreen; end;
+    if I0_2.Value > 0 then
+    begin Label14.Color:=clMoneyGreen; Label36.Color:=clMoneyGreen; end
+    else
+    begin Label14.Color:=clWhite; Label36.Color:=clWhite; end;
     if I0_5.Value > 0 then begin Label25.Color:=clMoneyGreen; end
-    else begin Label25.Color:=clWhite end;
-    if I0_7.Value > 0 then begin Label15.Color:=clMoneyGreen; end
-    else begin Label15.Color:=clWhite end;
+    else begin Label25.Color:=clWhite; end;
+    if I0_7.Value > 0 then
+    begin Label15.Color:=clMoneyGreen; Label37.Color:=clMoneyGreen; end
+    else
+    begin Label15.Color:=clWhite; Label37.Color:=clWhite; end;
 
     if M0_6.Value > 0 then begin Label16.Color:=clMoneyGreen; end
-    else begin Label16.Color:=clWhite end;
+    else begin Label16.Color:=clWhite; end;
     if M0_7.Value > 0 then begin Label17.Color:=clWhite; end
-    else begin Label17.Color:=clMoneyGreen end;
+    else begin Label17.Color:=clMoneyGreen; end;
+
+    if M2_0.Value > 0 then begin Label26.Color:=clMoneyGreen; end
+    else begin Label26.Color:=clWhite; end;
+    if M2_1.Value > 0 then begin Label33.Color:=clWhite; end
+    else begin Label33.Color:=clMoneyGreen; end;
+
+    if M17_0.Value > 0 then begin Label41.Color:=clMoneyGreen; end
+    else begin Label41.Color:=clWhite; end;
+    Label41.Caption:='LineSpeed Upper: '+DB10_DBD42.Value.ToString+' (M17.0=1)';
 
     if M30_1.Value > 0 then begin Label19.Color:=clWhite; end
-    else begin Label19.Color:=clMoneyGreen end;
-    if M30_0.Value > 0 then begin Label20.Color:=clMoneyGreen; end
-    else begin Label20.Color:=clWhite end;
+    else begin Label19.Color:=clMoneyGreen; end;
+    if M30_0.Value > 0 then
+    begin Label20.Color:=clMoneyGreen; Label47.Color:=clMoneyGreen; end
+    else
+    begin Label20.Color:=clWhite; Label47.Color:=clWhite; end;
+    if M31_0.Value > 0 then begin Label29.Caption:='System: On'; end
+    else begin Label29.Caption:='System: Off'; end;
+    if M32_0.Value > 0 then begin Label30.Caption:='Mode: Coating'; end
+    else begin Label30.Caption:='Mode: Bypass'; end;
+    if M34_0.Value > 0 then begin Label49.Color:=clMoneyGreen; end
+    else begin Label49.Color:=clWhite; end;
 
     if M30_0.Value > 0 then
     begin
-      BCButton1.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
-      BCButton1.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
-      BCButton1.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
-      BCButton1.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
+      CmdCoatingMode.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
+      CmdCoatingMode.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
+      CmdCoatingMode.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
+      CmdCoatingMode.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
 
-      BCButton1.StateHover.Background.Gradient1.StartColor:=clGreen;
-      BCButton1.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
-      BCButton1.StateHover.Background.Gradient2.StartColor:=clWhite;
-      BCButton1.StateHover.Background.Gradient2.EndColor:=clBlack;
+      CmdCoatingMode.StateHover.Background.Gradient1.StartColor:=clGreen;
+      CmdCoatingMode.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
+      CmdCoatingMode.StateHover.Background.Gradient2.StartColor:=clWhite;
+      CmdCoatingMode.StateHover.Background.Gradient2.EndColor:=clBlack;
 
-      BCButton1.StateClicked.Background.Gradient1.StartColor:=clWhite;
-      BCButton1.StateClicked.Background.Gradient1.EndColor:=clGreen;
-      BCButton1.StateClicked.Background.Gradient2.StartColor:=clWhite;
-      BCButton1.StateClicked.Background.Gradient2.EndColor:=clGreen;
+      CmdCoatingMode.StateClicked.Background.Gradient1.StartColor:=clWhite;
+      CmdCoatingMode.StateClicked.Background.Gradient1.EndColor:=clGreen;
+      CmdCoatingMode.StateClicked.Background.Gradient2.StartColor:=clWhite;
+      CmdCoatingMode.StateClicked.Background.Gradient2.EndColor:=clGreen;
     end
     else
     begin
-      BCButton1.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
-      BCButton1.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
-      BCButton1.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
-      BCButton1.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
+      CmdCoatingMode.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
+      CmdCoatingMode.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdCoatingMode.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
+      CmdCoatingMode.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
 
-      BCButton1.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
-      BCButton1.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
-      BCButton1.StateHover.Background.Gradient2.StartColor:=clWhite;
-      BCButton1.StateHover.Background.Gradient2.EndColor:=clBlack;
+      CmdCoatingMode.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
+      CmdCoatingMode.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdCoatingMode.StateHover.Background.Gradient2.StartColor:=clWhite;
+      CmdCoatingMode.StateHover.Background.Gradient2.EndColor:=clBlack;
 
-      BCButton1.StateClicked.Background.Gradient1.StartColor:=clWhite;
-      BCButton1.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
-      BCButton1.StateClicked.Background.Gradient2.StartColor:=clWhite;
-      BCButton1.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
+      CmdCoatingMode.StateClicked.Background.Gradient1.StartColor:=clWhite;
+      CmdCoatingMode.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdCoatingMode.StateClicked.Background.Gradient2.StartColor:=clWhite;
+      CmdCoatingMode.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
     end;
 
     if M30_1.Value > 0 then
     begin
-      BCButton2.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
-      BCButton2.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
-      BCButton2.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
-      BCButton2.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
+      CmdBypassMode.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
+      CmdBypassMode.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
+      CmdBypassMode.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
+      CmdBypassMode.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
 
-      BCButton2.StateHover.Background.Gradient1.StartColor:=clGreen;
-      BCButton2.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
-      BCButton2.StateHover.Background.Gradient2.StartColor:=clWhite;
-      BCButton2.StateHover.Background.Gradient2.EndColor:=clBlack;
+      CmdBypassMode.StateHover.Background.Gradient1.StartColor:=clGreen;
+      CmdBypassMode.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
+      CmdBypassMode.StateHover.Background.Gradient2.StartColor:=clWhite;
+      CmdBypassMode.StateHover.Background.Gradient2.EndColor:=clBlack;
 
-      BCButton2.StateClicked.Background.Gradient1.StartColor:=clWhite;
-      BCButton2.StateClicked.Background.Gradient1.EndColor:=clGreen;
-      BCButton2.StateClicked.Background.Gradient2.StartColor:=clWhite;
-      BCButton2.StateClicked.Background.Gradient2.EndColor:=clGreen;
+      CmdBypassMode.StateClicked.Background.Gradient1.StartColor:=clWhite;
+      CmdBypassMode.StateClicked.Background.Gradient1.EndColor:=clGreen;
+      CmdBypassMode.StateClicked.Background.Gradient2.StartColor:=clWhite;
+      CmdBypassMode.StateClicked.Background.Gradient2.EndColor:=clGreen;
     end
     else
     begin
-      BCButton2.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
-      BCButton2.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
-      BCButton2.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
-      BCButton2.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
+      CmdBypassMode.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
+      CmdBypassMode.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdBypassMode.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
+      CmdBypassMode.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
 
-      BCButton2.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
-      BCButton2.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
-      BCButton2.StateHover.Background.Gradient2.StartColor:=clWhite;
-      BCButton2.StateHover.Background.Gradient2.EndColor:=clBlack;
+      CmdBypassMode.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
+      CmdBypassMode.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdBypassMode.StateHover.Background.Gradient2.StartColor:=clWhite;
+      CmdBypassMode.StateHover.Background.Gradient2.EndColor:=clBlack;
 
-      BCButton2.StateClicked.Background.Gradient1.StartColor:=clWhite;
-      BCButton2.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
-      BCButton2.StateClicked.Background.Gradient2.StartColor:=clWhite;
-      BCButton2.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
+      CmdBypassMode.StateClicked.Background.Gradient1.StartColor:=clWhite;
+      CmdBypassMode.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdBypassMode.StateClicked.Background.Gradient2.StartColor:=clWhite;
+      CmdBypassMode.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
     end;
 
-    if M98_0.Value > 0 then begin Label21.Color:=clMoneyGreen; end
-    else begin Label21.Color:=clWhite end;
+    if Q0_3.Value > 0 then
+    begin
+      CmdElectrodeIn.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
+      CmdElectrodeIn.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
+      CmdElectrodeIn.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
+      CmdElectrodeIn.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
 
-    if (M98_0.Value > 0) or ((I0_0.Value > 0) and (I0_7.Value > 0)) then begin Shape9.Brush.Color:=clMoneyGreen; end
-    else begin Shape9.Brush.Color:=clWhite; end;
+      CmdElectrodeIn.StateHover.Background.Gradient1.StartColor:=clGreen;
+      CmdElectrodeIn.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
+      CmdElectrodeIn.StateHover.Background.Gradient2.StartColor:=clWhite;
+      CmdElectrodeIn.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+      CmdElectrodeIn.StateClicked.Background.Gradient1.StartColor:=clWhite;
+      CmdElectrodeIn.StateClicked.Background.Gradient1.EndColor:=clGreen;
+      CmdElectrodeIn.StateClicked.Background.Gradient2.StartColor:=clWhite;
+      CmdElectrodeIn.StateClicked.Background.Gradient2.EndColor:=clGreen;
+    end
+    else
+    begin
+      CmdElectrodeIn.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
+      CmdElectrodeIn.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdElectrodeIn.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
+      CmdElectrodeIn.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
+
+      CmdElectrodeIn.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
+      CmdElectrodeIn.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdElectrodeIn.StateHover.Background.Gradient2.StartColor:=clWhite;
+      CmdElectrodeIn.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+      CmdElectrodeIn.StateClicked.Background.Gradient1.StartColor:=clWhite;
+      CmdElectrodeIn.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdElectrodeIn.StateClicked.Background.Gradient2.StartColor:=clWhite;
+      CmdElectrodeIn.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
+    end;
+
+    if Q0_3.Value < 1 then
+    begin
+      CmdElectrodeOut.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
+      CmdElectrodeOut.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
+      CmdElectrodeOut.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
+      CmdElectrodeOut.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
+
+      CmdElectrodeOut.StateHover.Background.Gradient1.StartColor:=clGreen;
+      CmdElectrodeOut.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
+      CmdElectrodeOut.StateHover.Background.Gradient2.StartColor:=clWhite;
+      CmdElectrodeOut.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+      CmdElectrodeOut.StateClicked.Background.Gradient1.StartColor:=clWhite;
+      CmdElectrodeOut.StateClicked.Background.Gradient1.EndColor:=clGreen;
+      CmdElectrodeOut.StateClicked.Background.Gradient2.StartColor:=clWhite;
+      CmdElectrodeOut.StateClicked.Background.Gradient2.EndColor:=clGreen;
+    end
+    else
+    begin
+      CmdElectrodeOut.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
+      CmdElectrodeOut.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdElectrodeOut.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
+      CmdElectrodeOut.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
+
+      CmdElectrodeOut.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
+      CmdElectrodeOut.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdElectrodeOut.StateHover.Background.Gradient2.StartColor:=clWhite;
+      CmdElectrodeOut.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+      CmdElectrodeOut.StateClicked.Background.Gradient1.StartColor:=clWhite;
+      CmdElectrodeOut.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdElectrodeOut.StateClicked.Background.Gradient2.StartColor:=clWhite;
+      CmdElectrodeOut.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
+    end;
+
+    if Q209_0.Value > 0 then
+    begin
+      CmdCoronaRollOn.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
+      CmdCoronaRollOn.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
+      CmdCoronaRollOn.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
+      CmdCoronaRollOn.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
+
+      CmdCoronaRollOn.StateHover.Background.Gradient1.StartColor:=clGreen;
+      CmdCoronaRollOn.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
+      CmdCoronaRollOn.StateHover.Background.Gradient2.StartColor:=clWhite;
+      CmdCoronaRollOn.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+      CmdCoronaRollOn.StateClicked.Background.Gradient1.StartColor:=clWhite;
+      CmdCoronaRollOn.StateClicked.Background.Gradient1.EndColor:=clGreen;
+      CmdCoronaRollOn.StateClicked.Background.Gradient2.StartColor:=clWhite;
+      CmdCoronaRollOn.StateClicked.Background.Gradient2.EndColor:=clGreen;
+    end
+    else
+    begin
+      CmdCoronaRollOn.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
+      CmdCoronaRollOn.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdCoronaRollOn.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
+      CmdCoronaRollOn.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
+
+      CmdCoronaRollOn.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
+      CmdCoronaRollOn.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdCoronaRollOn.StateHover.Background.Gradient2.StartColor:=clWhite;
+      CmdCoronaRollOn.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+      CmdCoronaRollOn.StateClicked.Background.Gradient1.StartColor:=clWhite;
+      CmdCoronaRollOn.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdCoronaRollOn.StateClicked.Background.Gradient2.StartColor:=clWhite;
+      CmdCoronaRollOn.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
+    end;
+
+    if Q209_0.Value < 1 then
+    begin
+      CmdCoronaRollOff.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
+      CmdCoronaRollOff.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
+      CmdCoronaRollOff.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
+      CmdCoronaRollOff.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
+
+      CmdCoronaRollOff.StateHover.Background.Gradient1.StartColor:=clGreen;
+      CmdCoronaRollOff.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
+      CmdCoronaRollOff.StateHover.Background.Gradient2.StartColor:=clWhite;
+      CmdCoronaRollOff.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+      CmdCoronaRollOff.StateClicked.Background.Gradient1.StartColor:=clWhite;
+      CmdCoronaRollOff.StateClicked.Background.Gradient1.EndColor:=clGreen;
+      CmdCoronaRollOff.StateClicked.Background.Gradient2.StartColor:=clWhite;
+      CmdCoronaRollOff.StateClicked.Background.Gradient2.EndColor:=clGreen;
+    end
+    else
+    begin
+      CmdCoronaRollOff.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
+      CmdCoronaRollOff.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdCoronaRollOff.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
+      CmdCoronaRollOff.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
+
+      CmdCoronaRollOff.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
+      CmdCoronaRollOff.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdCoronaRollOff.StateHover.Background.Gradient2.StartColor:=clWhite;
+      CmdCoronaRollOff.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+      CmdCoronaRollOff.StateClicked.Background.Gradient1.StartColor:=clWhite;
+      CmdCoronaRollOff.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdCoronaRollOff.StateClicked.Background.Gradient2.StartColor:=clWhite;
+      CmdCoronaRollOff.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
+    end;
+
+    if M31_0.Value > 0 then
+    begin
+      CmdSystemOn.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
+      CmdSystemOn.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
+      CmdSystemOn.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
+      CmdSystemOn.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
+
+      CmdSystemOn.StateHover.Background.Gradient1.StartColor:=clGreen;
+      CmdSystemOn.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
+      CmdSystemOn.StateHover.Background.Gradient2.StartColor:=clWhite;
+      CmdSystemOn.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+      CmdSystemOn.StateClicked.Background.Gradient1.StartColor:=clWhite;
+      CmdSystemOn.StateClicked.Background.Gradient1.EndColor:=clGreen;
+      CmdSystemOn.StateClicked.Background.Gradient2.StartColor:=clWhite;
+      CmdSystemOn.StateClicked.Background.Gradient2.EndColor:=clGreen;
+    end
+    else
+    begin
+      CmdSystemOn.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
+      CmdSystemOn.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdSystemOn.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
+      CmdSystemOn.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
+
+      CmdSystemOn.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
+      CmdSystemOn.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdSystemOn.StateHover.Background.Gradient2.StartColor:=clWhite;
+      CmdSystemOn.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+      CmdSystemOn.StateClicked.Background.Gradient1.StartColor:=clWhite;
+      CmdSystemOn.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdSystemOn.StateClicked.Background.Gradient2.StartColor:=clWhite;
+      CmdSystemOn.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
+    end;
+
+    if M31_0.Value < 1 then
+    begin
+      CmdSystemOff.StateNormal.Background.Gradient1.StartColor:=$008080FF;
+      CmdSystemOff.StateNormal.Background.Gradient1.EndColor:=$008080FF;
+      CmdSystemOff.StateNormal.Background.Gradient2.StartColor:=$008080FF;
+      CmdSystemOff.StateNormal.Background.Gradient2.EndColor:=$008080FF;
+
+      CmdSystemOff.StateHover.Background.Gradient1.StartColor:=clRed;
+      CmdSystemOff.StateHover.Background.Gradient1.EndColor:=$008080FF;
+      CmdSystemOff.StateHover.Background.Gradient2.StartColor:=clWhite;
+      CmdSystemOff.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+      CmdSystemOff.StateClicked.Background.Gradient1.StartColor:=clWhite;
+      CmdSystemOff.StateClicked.Background.Gradient1.EndColor:=clRed;
+      CmdSystemOff.StateClicked.Background.Gradient2.StartColor:=clWhite;
+      CmdSystemOff.StateClicked.Background.Gradient2.EndColor:=clRed;
+    end
+    else
+    begin
+      CmdSystemOff.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
+      CmdSystemOff.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdSystemOff.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
+      CmdSystemOff.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
+
+      CmdSystemOff.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
+      CmdSystemOff.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdSystemOff.StateHover.Background.Gradient2.StartColor:=clWhite;
+      CmdSystemOff.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+      CmdSystemOff.StateClicked.Background.Gradient1.StartColor:=clWhite;
+      CmdSystemOff.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
+      CmdSystemOff.StateClicked.Background.Gradient2.StartColor:=clWhite;
+      CmdSystemOff.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
+    end;
+
+    if M98_0.Value > 0 then
+    begin Label21.Color:=clMoneyGreen; Label39.Color:=clMoneyGreen; end
+    else
+    begin Label21.Color:=clWhite; Label39.Color:=clWhite; end;
+
+    if (M98_0.Value > 0) or ((I0_0.Value > 0) and (I0_7.Value > 0)) then
+    begin Shape9.Brush.Color:=clMoneyGreen; Shape10.Brush.Color:=clMoneyGreen; end
+    else
+    begin Shape9.Brush.Color:=clWhite; Shape10.Brush.Color:=clWhite; end;
 
   end;
 
@@ -531,14 +970,73 @@ begin
   EditPort.Enabled:=false;
 end;
 
-procedure TForm1.BCButton1Click(Sender: TObject);
+procedure TForm1.CmdCoatingModeClick(Sender: TObject);
 begin
   M32_0.Value:=1;
 end;
 
-procedure TForm1.BCButton2Click(Sender: TObject);
+procedure TForm1.CmdSystemOnClick(Sender: TObject);
+begin
+  M31_0.Value:=1;
+end;
+
+procedure TForm1.CmdSystemOffClick(Sender: TObject);
+begin
+  M31_0.Value:=0;
+end;
+
+procedure TForm1.CmdCoronaRollOnMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  M34_0.Value:=1;
+end;
+
+procedure TForm1.CmdCoronaRollOnMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  M34_0.Value:=0;
+end;
+
+procedure TForm1.CmdCoronaRollOffMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  M34_0.Value:=0;
+  M34_1.Value:=1;
+end;
+
+procedure TForm1.CmdCoronaRollOffMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  M34_1.Value:=0;
+end;
+
+procedure TForm1.CmdBypassModeClick(Sender: TObject);
 begin
   M32_0.Value:=0;
+end;
+
+procedure TForm1.CmdElectrodeInMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  M2_0.Value:=1;
+end;
+
+procedure TForm1.CmdElectrodeInMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  M2_0.Value:=0;
+end;
+
+procedure TForm1.CmdElectrodeOutMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  M2_1.Value:=1;
+end;
+
+procedure TForm1.CmdElectrodeOutMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  M2_1.Value:=0;
 end;
 
 procedure TForm1.DisconnectClick(Sender: TObject);
@@ -578,6 +1076,39 @@ begin
   FreeAndNil(MB0);
   FreeAndNil(MB0_);
 
+  FreeAndNil(M1_0);
+  FreeAndNil(M1_1);
+  FreeAndNil(M1_2);
+  FreeAndNil(M1_3);
+  FreeAndNil(M1_4);
+  FreeAndNil(M1_5);
+  FreeAndNil(M1_6);
+  FreeAndNil(M1_7);
+  FreeAndNil(MB1);
+  FreeAndNil(MB1_);
+
+  FreeAndNil(M2_0);
+  FreeAndNil(M2_1);
+  FreeAndNil(M2_2);
+  FreeAndNil(M2_3);
+  FreeAndNil(M2_4);
+  FreeAndNil(M2_5);
+  FreeAndNil(M2_6);
+  FreeAndNil(M2_7);
+  FreeAndNil(MB2);
+  FreeAndNil(MB2_);
+
+  FreeAndNil(M17_0);
+  FreeAndNil(M17_1);
+  FreeAndNil(M17_2);
+  FreeAndNil(M17_3);
+  FreeAndNil(M17_4);
+  FreeAndNil(M17_5);
+  FreeAndNil(M17_6);
+  FreeAndNil(M17_7);
+  FreeAndNil(MB17);
+  FreeAndNil(MB17_);
+
   FreeAndNil(M30_0);
   FreeAndNil(M30_1);
   FreeAndNil(M30_2);
@@ -589,6 +1120,17 @@ begin
   FreeAndNil(MB30);
   FreeAndNil(MB30_);
 
+  FreeAndNil(M31_0);
+  FreeAndNil(M31_1);
+  FreeAndNil(M31_2);
+  FreeAndNil(M31_3);
+  FreeAndNil(M31_4);
+  FreeAndNil(M31_5);
+  FreeAndNil(M31_6);
+  FreeAndNil(M31_7);
+  FreeAndNil(MB31);
+  FreeAndNil(MB31_);
+
   FreeAndNil(M32_0);
   FreeAndNil(M32_1);
   FreeAndNil(M32_2);
@@ -599,6 +1141,17 @@ begin
   FreeAndNil(M32_7);
   FreeAndNil(MB32);
   FreeAndNil(MB32_);
+
+  FreeAndNil(M34_0);
+  FreeAndNil(M34_1);
+  FreeAndNil(M34_2);
+  FreeAndNil(M34_3);
+  FreeAndNil(M34_4);
+  FreeAndNil(M34_5);
+  FreeAndNil(M34_6);
+  FreeAndNil(M34_7);
+  FreeAndNil(MB34);
+  FreeAndNil(MB34_);
 
   FreeAndNil(M98_0);
   FreeAndNil(M98_1);
@@ -644,6 +1197,17 @@ begin
   FreeAndNil(QB201);
   FreeAndNil(QB201_);
 
+  FreeAndNil(Q209_0);
+  FreeAndNil(Q209_1);
+  FreeAndNil(Q209_2);
+  FreeAndNil(Q209_3);
+  FreeAndNil(Q209_4);
+  FreeAndNil(Q209_5);
+  FreeAndNil(Q209_6);
+  FreeAndNil(Q209_7);
+  FreeAndNil(QB209);
+  FreeAndNil(QB209_);
+
   FreeAndNil(I0_0);
   FreeAndNil(I0_1);
   FreeAndNil(I0_2);
@@ -654,12 +1218,31 @@ begin
   FreeAndNil(I0_7);
   FreeAndNil(IB0);
   FreeAndNil(IB0_);
+
+  FreeAndNil(DB10_DBD42);
+  FreeAndNil(DB10_DBD42_);
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 //var
 //  i:integer= 25;
 begin
+
+  DebugIsActive:=false;
+  {$IFOPT D+}
+    try
+      //if IsDebuggerPresent > 0 then
+      //DebugIsActive:=true;
+      DebugIsActive:=IsAppAlreadyRunning(dbugintf.DefaultDebugServer)
+    except
+      DebugIsActive:=false;
+    end;
+  {$ELSE}
+    DebugIsActive:=false;
+  {$ENDIF}
+  //showmessage(dbugintf.DefaultDebugServer);
+  //showmessage(dbugintf.DebugServerExe);
+  //showmessage(DebugIsActive.ToInteger.ToString);
 
   MB0_:= TPLCBlock.Create(nil);
   MB0_.PLCRack:=0;
@@ -719,6 +1302,180 @@ begin
   M0_7.EndBit:=7;
   M0_7.PLCTag:=MB0;
 
+  MB1_:= TPLCBlock.Create(nil);
+  MB1_.PLCRack:=0;
+  MB1_.PLCSlot:=0;
+  MB1_.PLCStation:=2;
+  MB1_.MemAddress:=1;
+  MB1_.MemReadFunction:=3;
+  MB1_.AutoRead:=true;
+  MB1_.AutoWrite:=false;
+  MB1_.TagType:= TTagType.pttByte;
+  MB1_.Size:=1;
+  MB1_.RefreshTime:=500;
+  MB1_.ProtocolDriver:=ISOTCPDriver1;
+
+  MB1:= TPLCBlockElement.Create(nil);
+  MB1.Index:=0;
+  MB1.PLCBlock:=MB1_;
+
+  M1_0:= TTagBit.Create(nil);
+  M1_1:= TTagBit.Create(nil);
+  M1_2:= TTagBit.Create(nil);
+  M1_3:= TTagBit.Create(nil);
+  M1_4:= TTagBit.Create(nil);
+  M1_5:= TTagBit.Create(nil);
+  M1_6:= TTagBit.Create(nil);
+  M1_7:= TTagBit.Create(nil);
+
+  M1_0.StartBit:=0;
+  M1_0.EndBit:=0;
+  M1_0.PLCTag:=MB1;
+
+  M1_1.StartBit:=1;
+  M1_1.EndBit:=1;
+  M1_1.PLCTag:=MB1;
+
+  M1_2.StartBit:=2;
+  M1_2.EndBit:=2;
+  M1_2.PLCTag:=MB1;
+
+  M1_3.StartBit:=3;
+  M1_3.EndBit:=3;
+  M1_3.PLCTag:=MB1;
+
+  M1_4.StartBit:=4;
+  M1_4.EndBit:=4;
+  M1_4.PLCTag:=MB1;
+
+  M1_5.StartBit:=5;
+  M1_5.EndBit:=5;
+  M1_5.PLCTag:=MB1;
+
+  M1_6.StartBit:=6;
+  M1_6.EndBit:=6;
+  M1_6.PLCTag:=MB1;
+
+  M1_7.StartBit:=7;
+  M1_7.EndBit:=7;
+  M1_7.PLCTag:=MB1;
+
+  MB2_:= TPLCBlock.Create(nil);
+  MB2_.PLCRack:=0;
+  MB2_.PLCSlot:=0;
+  MB2_.PLCStation:=2;
+  MB2_.MemAddress:=2;
+  MB2_.MemReadFunction:=3;
+  MB2_.AutoRead:=true;
+  MB2_.AutoWrite:=true;
+  MB2_.TagType:= TTagType.pttByte;
+  MB2_.Size:=1;
+  MB2_.RefreshTime:=500;
+  MB2_.ProtocolDriver:=ISOTCPDriver1;
+
+  MB2:= TPLCBlockElement.Create(nil);
+  MB2.Index:=0;
+  MB2.PLCBlock:=MB2_;
+
+  M2_0:= TTagBit.Create(nil);
+  M2_1:= TTagBit.Create(nil);
+  M2_2:= TTagBit.Create(nil);
+  M2_3:= TTagBit.Create(nil);
+  M2_4:= TTagBit.Create(nil);
+  M2_5:= TTagBit.Create(nil);
+  M2_6:= TTagBit.Create(nil);
+  M2_7:= TTagBit.Create(nil);
+
+  M2_0.StartBit:=0;
+  M2_0.EndBit:=0;
+  M2_0.PLCTag:=MB2;
+
+  M2_1.StartBit:=1;
+  M2_1.EndBit:=1;
+  M2_1.PLCTag:=MB2;
+
+  M2_2.StartBit:=2;
+  M2_2.EndBit:=2;
+  M2_2.PLCTag:=MB2;
+
+  M2_3.StartBit:=3;
+  M2_3.EndBit:=3;
+  M2_3.PLCTag:=MB2;
+
+  M2_4.StartBit:=4;
+  M2_4.EndBit:=4;
+  M2_4.PLCTag:=MB2;
+
+  M2_5.StartBit:=5;
+  M2_5.EndBit:=5;
+  M2_5.PLCTag:=MB2;
+
+  M2_6.StartBit:=6;
+  M2_6.EndBit:=6;
+  M2_6.PLCTag:=MB2;
+
+  M2_7.StartBit:=7;
+  M2_7.EndBit:=7;
+  M2_7.PLCTag:=MB2;
+
+  MB17_:= TPLCBlock.Create(nil);
+  MB17_.PLCRack:=0;
+  MB17_.PLCSlot:=0;
+  MB17_.PLCStation:=2;
+  MB17_.MemAddress:=17;
+  MB17_.MemReadFunction:=3;
+  MB17_.AutoRead:=true;
+  MB17_.AutoWrite:=true;
+  MB17_.TagType:= TTagType.pttByte;
+  MB17_.Size:=1;
+  MB17_.RefreshTime:=500;
+  MB17_.ProtocolDriver:=ISOTCPDriver1;
+
+  MB17:= TPLCBlockElement.Create(nil);
+  MB17.Index:=0;
+  MB17.PLCBlock:=MB17_;
+
+  M17_0:= TTagBit.Create(nil);
+  M17_1:= TTagBit.Create(nil);
+  M17_2:= TTagBit.Create(nil);
+  M17_3:= TTagBit.Create(nil);
+  M17_4:= TTagBit.Create(nil);
+  M17_5:= TTagBit.Create(nil);
+  M17_6:= TTagBit.Create(nil);
+  M17_7:= TTagBit.Create(nil);
+
+  M17_0.StartBit:=0;
+  M17_0.EndBit:=0;
+  M17_0.PLCTag:=MB17;
+
+  M17_1.StartBit:=1;
+  M17_1.EndBit:=1;
+  M17_1.PLCTag:=MB17;
+
+  M17_2.StartBit:=2;
+  M17_2.EndBit:=2;
+  M17_2.PLCTag:=MB17;
+
+  M17_3.StartBit:=3;
+  M17_3.EndBit:=3;
+  M17_3.PLCTag:=MB17;
+
+  M17_4.StartBit:=4;
+  M17_4.EndBit:=4;
+  M17_4.PLCTag:=MB17;
+
+  M17_5.StartBit:=5;
+  M17_5.EndBit:=5;
+  M17_5.PLCTag:=MB17;
+
+  M17_6.StartBit:=6;
+  M17_6.EndBit:=6;
+  M17_6.PLCTag:=MB17;
+
+  M17_7.StartBit:=7;
+  M17_7.EndBit:=7;
+  M17_7.PLCTag:=MB17;
+
   MB30_:= TPLCBlock.Create(nil);
   MB30_.PLCRack:=0;
   MB30_.PLCSlot:=0;
@@ -777,6 +1534,64 @@ begin
   M30_7.EndBit:=7;
   M30_7.PLCTag:=MB30;
 
+  MB31_:= TPLCBlock.Create(nil);
+  MB31_.PLCRack:=0;
+  MB31_.PLCSlot:=0;
+  MB31_.PLCStation:=2;
+  MB31_.MemAddress:=31;
+  MB31_.MemReadFunction:=3;
+  MB31_.AutoRead:=true;
+  MB31_.AutoWrite:=true;
+  MB31_.TagType:= TTagType.pttByte;
+  MB31_.Size:=1;
+  MB31_.RefreshTime:=500;
+  MB31_.ProtocolDriver:=ISOTCPDriver1;
+
+  MB31:= TPLCBlockElement.Create(nil);
+  MB31.Index:=0;
+  MB31.PLCBlock:=MB31_;
+
+  M31_0:= TTagBit.Create(nil);
+  M31_1:= TTagBit.Create(nil);
+  M31_2:= TTagBit.Create(nil);
+  M31_3:= TTagBit.Create(nil);
+  M31_4:= TTagBit.Create(nil);
+  M31_5:= TTagBit.Create(nil);
+  M31_6:= TTagBit.Create(nil);
+  M31_7:= TTagBit.Create(nil);
+
+  M31_0.StartBit:=0;
+  M31_0.EndBit:=0;
+  M31_0.PLCTag:=MB31;
+
+  M31_1.StartBit:=1;
+  M31_1.EndBit:=1;
+  M31_1.PLCTag:=MB31;
+
+  M31_2.StartBit:=2;
+  M31_2.EndBit:=2;
+  M31_2.PLCTag:=MB31;
+
+  M31_3.StartBit:=3;
+  M31_3.EndBit:=3;
+  M31_3.PLCTag:=MB31;
+
+  M31_4.StartBit:=4;
+  M31_4.EndBit:=4;
+  M31_4.PLCTag:=MB31;
+
+  M31_5.StartBit:=5;
+  M31_5.EndBit:=5;
+  M31_5.PLCTag:=MB31;
+
+  M31_6.StartBit:=6;
+  M31_6.EndBit:=6;
+  M31_6.PLCTag:=MB31;
+
+  M31_7.StartBit:=7;
+  M31_7.EndBit:=7;
+  M31_7.PLCTag:=MB31;
+
   MB32_:= TPLCBlock.Create(nil);
   MB32_.PLCRack:=0;
   MB32_.PLCSlot:=0;
@@ -834,6 +1649,64 @@ begin
   M32_7.StartBit:=7;
   M32_7.EndBit:=7;
   M32_7.PLCTag:=MB32;
+
+  MB34_:= TPLCBlock.Create(nil);
+  MB34_.PLCRack:=0;
+  MB34_.PLCSlot:=0;
+  MB34_.PLCStation:=2;
+  MB34_.MemAddress:=34;
+  MB34_.MemReadFunction:=3;
+  MB34_.AutoRead:=true;
+  MB34_.AutoWrite:=true;
+  MB34_.TagType:= TTagType.pttByte;
+  MB34_.Size:=1;
+  MB34_.RefreshTime:=500;
+  MB34_.ProtocolDriver:=ISOTCPDriver1;
+
+  MB34:= TPLCBlockElement.Create(nil);
+  MB34.Index:=0;
+  MB34.PLCBlock:=MB34_;
+
+  M34_0:= TTagBit.Create(nil);
+  M34_1:= TTagBit.Create(nil);
+  M34_2:= TTagBit.Create(nil);
+  M34_3:= TTagBit.Create(nil);
+  M34_4:= TTagBit.Create(nil);
+  M34_5:= TTagBit.Create(nil);
+  M34_6:= TTagBit.Create(nil);
+  M34_7:= TTagBit.Create(nil);
+
+  M34_0.StartBit:=0;
+  M34_0.EndBit:=0;
+  M34_0.PLCTag:=MB34;
+
+  M34_1.StartBit:=1;
+  M34_1.EndBit:=1;
+  M34_1.PLCTag:=MB34;
+
+  M34_2.StartBit:=2;
+  M34_2.EndBit:=2;
+  M34_2.PLCTag:=MB34;
+
+  M34_3.StartBit:=3;
+  M34_3.EndBit:=3;
+  M34_3.PLCTag:=MB34;
+
+  M34_4.StartBit:=4;
+  M34_4.EndBit:=4;
+  M34_4.PLCTag:=MB34;
+
+  M34_5.StartBit:=5;
+  M34_5.EndBit:=5;
+  M34_5.PLCTag:=MB34;
+
+  M34_6.StartBit:=6;
+  M34_6.EndBit:=6;
+  M34_6.PLCTag:=MB34;
+
+  M34_7.StartBit:=7;
+  M34_7.EndBit:=7;
+  M34_7.PLCTag:=MB34;
 
   MB98_:= TPLCBlock.Create(nil);
   MB98_.PLCRack:=0;
@@ -1072,6 +1945,64 @@ begin
   Q201_7.EndBit:=7;
   Q201_7.PLCTag:=QB201;
 
+  QB209_:= TPLCBlock.Create(nil);
+  QB209_.PLCRack:=0;
+  QB209_.PLCSlot:=0;
+  QB209_.PLCStation:=2;
+  QB209_.MemAddress:=209;
+  QB209_.MemReadFunction:=2;
+  QB209_.AutoRead:=true;
+  QB209_.AutoWrite:=false;
+  QB209_.TagType:= TTagType.pttByte;
+  QB209_.Size:=1;
+  QB209_.RefreshTime:=500;
+  QB209_.ProtocolDriver:=ISOTCPDriver1;
+
+  QB209:= TPLCBlockElement.Create(nil);
+  QB209.Index:=0;
+  QB209.PLCBlock:=QB209_;
+
+  Q209_0:= TTagBit.Create(nil);
+  Q209_1:= TTagBit.Create(nil);
+  Q209_2:= TTagBit.Create(nil);
+  Q209_3:= TTagBit.Create(nil);
+  Q209_4:= TTagBit.Create(nil);
+  Q209_5:= TTagBit.Create(nil);
+  Q209_6:= TTagBit.Create(nil);
+  Q209_7:= TTagBit.Create(nil);
+
+  Q209_0.StartBit:=0;
+  Q209_0.EndBit:=0;
+  Q209_0.PLCTag:=QB209;
+
+  Q209_1.StartBit:=1;
+  Q209_1.EndBit:=1;
+  Q209_1.PLCTag:=QB209;
+
+  Q209_2.StartBit:=2;
+  Q209_2.EndBit:=2;
+  Q209_2.PLCTag:=QB209;
+
+  Q209_3.StartBit:=3;
+  Q209_3.EndBit:=3;
+  Q209_3.PLCTag:=QB209;
+
+  Q209_4.StartBit:=4;
+  Q209_4.EndBit:=4;
+  Q209_4.PLCTag:=QB209;
+
+  Q209_5.StartBit:=5;
+  Q209_5.EndBit:=5;
+  Q209_5.PLCTag:=QB209;
+
+  Q209_6.StartBit:=6;
+  Q209_6.EndBit:=6;
+  Q209_6.PLCTag:=QB209;
+
+  Q209_7.StartBit:=7;
+  Q209_7.EndBit:=7;
+  Q209_7.PLCTag:=QB209;
+
   IB0_:= TPLCBlock.Create(nil);
   IB0_.PLCRack:=0;
   IB0_.PLCSlot:=0;
@@ -1137,7 +2068,31 @@ begin
   P5.Parent:=StatusBar1;
   P6.Parent:=StatusBar1;
 
+  DB10_DBD42_:= TPLCBlock.Create(nil);
+  DB10_DBD42_.PLCRack:=0;
+  DB10_DBD42_.PLCSlot:=0;
+  DB10_DBD42_.PLCStation:=2;
+  DB10_DBD42_.MemAddress:=42;
+  DB10_DBD42_.MemFile_DB:=10;
+  DB10_DBD42_.MemReadFunction:=4;
+  DB10_DBD42_.MemWriteFunction:=0;
+  DB10_DBD42_.AutoRead:=true;
+  DB10_DBD42_.AutoWrite:=true;
+  DB10_DBD42_.TagType:= TTagType.pttFloat;
+  DB10_DBD42_.Size:=1;
+  DB10_DBD42_.SwapBytes:=true;
+  DB10_DBD42_.SwapDWords:=false;
+  DB10_DBD42_.SwapWords:=true;
+  DB10_DBD42_.RefreshTime:=1000;
+  DB10_DBD42_.ProtocolDriver:=ISOTCPDriver1;
+
+  DB10_DBD42:= TPLCBlockElement.Create(nil);
+  DB10_DBD42.Index:=0;
+  DB10_DBD42.PLCBlock:=DB10_DBD42_;
+
+  HMIEdit1.PLCTag:=DB10_DBD42;
   HMICheckBox1.PLCTag:=M98_0;
+  Label41.Caption:='LineSpeed Upper: '+DB10_DBD42.Value.ToString+' (M17.0=1)';
 end;
 
 procedure TForm1.MaskEditIPEditingDone(Sender: TObject);
