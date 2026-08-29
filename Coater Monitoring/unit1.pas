@@ -43,6 +43,7 @@ type
 
 
     EditPort: TSpinEditEx;
+    FilmBypass: THMIPolyline;
     GroupBox1: TGroupBox;
     GroupBox10: TGroupBox;
     GroupBox2: TGroupBox;
@@ -54,13 +55,13 @@ type
     BypassFilmbrake_Set: THMICheckBox;
     GroupBox8: TGroupBox;
     GroupBox9: TGroupBox;
-    HMIPolyline1: THMIPolyline;
+    FilmCoater: THMIPolyline;
+    HMIPolyline10: THMIPolyline;
+    HMIPolyline11: THMIPolyline;
     HMIPolyline2: THMIPolyline;
     HMIPolyline3: THMIPolyline;
-    HMIPolyline4: THMIPolyline;
     HMIPolyline5: THMIPolyline;
-    HMIPolyline6: THMIPolyline;
-    HMIPolyline7: THMIPolyline;
+    ImageList1: TImageList;
     Label4: TLabel;
     Label51: TLabel;
     Label52: TLabel;
@@ -141,6 +142,9 @@ type
     MenuConnect: TMenuItem;
     Connect: TMenuItem;
     Disconnect: TMenuItem;
+    MenuView: TMenuItem;
+    MenuProductionView: TMenuItem;
+    MenuMaintenanceView: TMenuItem;
     PageControl1: TPageControl;
 
     P1: TShape;
@@ -169,6 +173,7 @@ type
     TabSheet3: TTabSheet;
     TabSheet4: TTabSheet;
     TabSheet5: TTabSheet;
+    TabSheet6: TTabSheet;
     TCP_UDPPort1: TTCP_UDPPort;
     Timer1: TTimer;
     procedure CmdCoronaRollOffClick(Sender: TObject);
@@ -223,6 +228,8 @@ type
     procedure FormCreate(Sender: TObject);
     procedure MaskEditIPEditingDone(Sender: TObject);
     procedure MenuexitClick(Sender: TObject);
+    procedure MenuProductionViewClick(Sender: TObject);
+    procedure MenuMaintenanceViewClick(Sender: TObject);
     procedure TCP_UDPPort1CommErrorReading(Error: TIOResult);
     procedure TCP_UDPPort1CommPortOpened(Sender: TObject);
     procedure TCP_UDPPort1CommPortOpenError(Sender: TObject);
@@ -507,6 +514,108 @@ begin
   //halt;
 end;
 
+procedure TForm1.MenuProductionViewClick(Sender: TObject);
+begin
+  ProductionView:=true;
+  MenuMaintenanceView.ImageIndex:=9;
+  MenuProductionView.ImageIndex:=7;
+  Label16.Caption:='Generator On by production';
+  Label9.Visible:=false;
+  Label17.Caption:='Generator Off by production';
+  Label18.Visible:=false;
+  Label19.Caption:='Not Bypass Mode';
+  Label10.Visible:=false;
+  Label13.Caption:='E-Stop OK';
+  Label24.Caption:='System On';
+  Label7.Visible:=false;
+  Label20.Caption:='Coating Mode';
+  Label8.Visible:=false;
+  Label14.Caption:='MDO Film Brake';
+  Label15.Caption:='All zone TDO Film Break';
+  Label21.Caption:='Bypass Filmbrake';
+  Label23.Visible:=false;
+  Label25.Caption:='Electrode In position';
+  Label5.Visible:=false;
+  Label11.Caption:='Blower Run';
+  Label6.Visible:=false;
+  Label12.Caption:='Corona Start';
+  Label49.Caption:='Corona Roll On by production';
+  Label50.Visible:=false;
+  Label47.Caption:='Coating Mode';
+  Label48.Visible:=false;
+  Label46.Caption:='Corona Roll Run';
+  Label26.Caption:='Electrode In by production';
+  Label27.Visible:=false;
+  Label33.Caption:='Electrode Out by production';
+  Label34.Visible:=false;
+  Label35.Caption:='E-Stop OK';
+  Label36.Caption:='MDO Film Brake';
+  Label37.Caption:='All zone TDO Film Break';
+  Label39.Caption:='Bypass Filmbrake';
+  Label40.Visible:=false;
+  Label41.Caption:='LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min';
+  Label42.Caption:='Blower Run';
+  Label44.Visible:=false;
+  Label43.Caption:='Electrode In Position';
+  Label52.Caption:='Exhaust Fan Run by production';
+  Label53.Visible:=false;
+  Label54.Caption:='Exhaust Fan Off by production';
+  Label55.Visible:=false;
+  Label56.Caption:='E-Stop OK';
+  Label64.Caption:='Corona Exhaust Fan Run';
+end;
+
+procedure TForm1.MenuMaintenanceViewClick(Sender: TObject);
+begin
+  ProductionView:=false;
+  MenuMaintenanceView.ImageIndex:=7;
+  MenuProductionView.ImageIndex:=9;
+  Label16.Caption:='GenOn_Hmi_Cmd (M0.6=1)';
+  Label9.Visible:=true;
+  Label17.Caption:='GenOff_Hmi_Cmd (M0.7=0)';
+  Label18.Visible:=true;
+  Label19.Caption:='Not Bypass Mode (M30.1=0)';
+  Label10.Visible:=true;
+  Label13.Caption:='E-Stop OK (I0.0=1)';
+  Label24.Caption:='Infeed On (System On) (Q201.0=1)';
+  Label7.Visible:=true;
+  Label20.Caption:='Coating Mode (M30.0=1)';
+  Label8.Visible:=true;
+  Label14.Caption:='MDO Film Brake (I0.2=1)';
+  Label15.Caption:='All zone TDO Film Break (I0.7=1)';
+  Label21.Caption:='Bypass Filmbrake (M98.0=1)';
+  Label23.Visible:=true;
+  Label25.Caption:='Electrode In position (I0.5=1)';
+  Label5.Visible:=true;
+  Label11.Caption:='Blower Run (Q0.1=1)';
+  Label6.Visible:=true;
+  Label12.Caption:='Corona Start (Q0.5=1)';
+  Label49.Caption:='Corona Roll On_Hmi_Cmd (M34.0=1)';
+  Label50.Visible:=true;
+  Label47.Caption:='Coating Mode (M30.0=1)';
+  Label48.Visible:=true;
+  Label46.Caption:='Corona Roll Run (Q209.0=1)';
+  Label26.Caption:='Electrode In HMI Cmd (M2.0=1)';
+  Label27.Visible:=true;
+  Label33.Caption:='Electrode Out HMI Cmd (M2.1=0)';
+  Label34.Visible:=true;
+  Label35.Caption:='E-Stop OK (I0.0=1)';
+  Label36.Caption:='MDO Film Brake (I0.2=1)';
+  Label37.Caption:='All zone TDO Film Break (I0.7=1)';
+  Label39.Caption:='Bypass Filmbrake (M98.0=1)';
+  Label40.Visible:=true;
+  Label41.Caption:='LineSpeed Upper: '+DB10_DBD42.Value.ToString+' (M17.0=1)';
+  Label42.Caption:='Blower Run (Q0.1=1)';
+  Label44.Visible:=true;
+  Label43.Caption:='Electrode In (Q0.3=1)';
+  Label52.Caption:='Exhaust Fan Run HMI Cmd (M22.0=1)';
+  Label53.Visible:=true;
+  Label54.Caption:='Exhaust Fan Off HMI Cmd (M22.1=0)';
+  Label55.Visible:=true;
+  Label56.Caption:='E-Stop OK (I0.0=1)';
+  Label64.Caption:='Corona Exhaust Fan Run (Q0.1=1)';
+end;
+
 procedure TForm1.TCP_UDPPort1CommErrorReading(Error: TIOResult);
 begin
   log({$I %LINE%}+' TCP_UDPPort1CommErrorReading Error: '+GetEnumName(TypeInfo(TIOResult), Ord(Error)));
@@ -600,7 +709,11 @@ begin
 
     if M17_0.Value > 0 then begin Label41.Color:=clMoneyGreen; end
     else begin Label41.Color:=clWhite; end;
-    Label41.Caption:='LineSpeed Upper: '+DB10_DBD42.Value.ToString+' (M17.0=1)';
+
+    if ProductionView then
+      Label41.Caption:='LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min'
+    else
+      Label41.Caption:='LineSpeed Upper: '+DB10_DBD42.Value.ToString+' (M17.0=1)';
 
     if M22_0.Value > 0 then begin Label52.Color:=clMoneyGreen; end
     else begin Label52.Color:=clWhite; end;
@@ -887,7 +1000,7 @@ procedure TForm1.FormCreate(Sender: TObject);
 //var
 //  i:integer= 25;
 begin
-
+  ProductionView:=true;
   DebugIsActive:=false;
   {$IFOPT D+}
     try
@@ -949,7 +1062,10 @@ begin
   AdditionalCoronaSpeed_Set02.PLCTag:=DB10_DBD22;
   LineSpeedUpper_Set.PLCTag:=DB10_DBD42;
   BypassFilmbrake_Set.PLCTag:=M98_0;
-  Label41.Caption:='LineSpeed Upper: '+DB10_DBD42.Value.ToString+' (M17.0=1)';
+  if ProductionView then
+      Label41.Caption:='LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min'
+    else
+      Label41.Caption:='LineSpeed Upper: '+DB10_DBD42.Value.ToString+' (M17.0=1)';
 end;
 
 procedure TForm1.MaskEditIPEditingDone(Sender: TObject);

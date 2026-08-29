@@ -1,10 +1,10 @@
 object Form1: TForm1
-  Left = 634
-  Height = 636
-  Top = 136
+  Left = 431
+  Height = 635
+  Top = 138
   Width = 834
   Caption = 'Coater Monitoring 0.1'
-  ClientHeight = 636
+  ClientHeight = 635
   ClientWidth = 834
   Color = clWhite
   Menu = MainMenu1
@@ -19,7 +19,7 @@ object Form1: TForm1
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = StatusBar1
     Left = 8
-    Height = 613
+    Height = 612
     Top = 0
     Width = 826
     ActivePage = TabSheet1
@@ -28,7 +28,7 @@ object Form1: TForm1
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Communication'
-      ClientHeight = 585
+      ClientHeight = 584
       ClientWidth = 818
       object Label32: TLabel
         AnchorSideTop.Control = EditPort
@@ -77,124 +77,378 @@ object Form1: TForm1
     end
     object TabSheet5: TTabSheet
       Caption = 'Overview'
-      ClientHeight = 585
+      ClientHeight = 584
       ClientWidth = 818
-      object HMIPolyline7: THMIPolyline
+      object FilmBypass: THMIPolyline
         Left = 0
         Height = 585
         Top = 0
-        Width = 818
+        Width = 819
+        LineColor = 4210816
+        PenStyle = psDashDotDot
         PointCoordinates = <        
           item
-            X = 387
-            Y = 180
+            X = 617
+            Y = 368
           end        
           item
-            X = 394
-            Y = 192
+            X = 482
+            Y = 109
           end        
           item
-            X = 397
-            Y = 200
+            X = 481
+            Y = 105
           end        
           item
-            X = 397
-            Y = 207
+            X = 479
+            Y = 103
           end        
           item
-            X = 397
-            Y = 213
+            X = 478
+            Y = 100
           end        
           item
-            X = 394
-            Y = 220
+            X = 474
+            Y = 96
           end        
           item
-            X = 391
-            Y = 227
+            X = 471
+            Y = 93
           end        
           item
-            X = 386
-            Y = 233
+            X = 467
+            Y = 90
           end        
           item
-            X = 392
-            Y = 240
+            X = 462
+            Y = 88
           end        
           item
-            X = 411
-            Y = 236
+            X = 460
+            Y = 87
           end        
           item
-            X = 411
+            X = 456
+            Y = 87
+          end        
+          item
+            X = 451
+            Y = 87
+          end        
+          item
+            X = 345
+            Y = 87
+          end        
+          item
+            X = 342
+            Y = 87
+          end        
+          item
+            X = 338
+            Y = 88
+          end        
+          item
+            X = 335
+            Y = 88
+          end        
+          item
+            X = 332
+            Y = 89
+          end        
+          item
+            X = 329
+            Y = 90
+          end        
+          item
+            X = 324
+            Y = 94
+          end        
+          item
+            X = 321
+            Y = 97
+          end        
+          item
+            X = 317
+            Y = 103
+          end        
+          item
+            X = 314
+            Y = 110
+          end        
+          item
+            X = 314
+            Y = 116
+          end        
+          item
+            X = 314
+            Y = 262
+          end        
+          item
+            X = 315
+            Y = 267
+          end        
+          item
+            X = 314
+            Y = 274
+          end        
+          item
+            X = 314
+            Y = 409
+          end        
+          item
+            X = 314
+            Y = 417
+          end        
+          item
+            X = 312
+            Y = 427
+          end        
+          item
+            X = 299
+            Y = 441
+          end        
+          item
+            X = 292
+            Y = 442
+          end        
+          item
+            X = 285
+            Y = 443
+          end        
+          item
+            X = 277
+            Y = 443
+          end        
+          item
+            X = 116
+            Y = 443
+          end>
+      end
+      object FilmCoater: THMIPolyline
+        Left = 0
+        Height = 585
+        Top = 0
+        Width = 819
+        PointCoordinates = <        
+          item
+            X = 617
+            Y = 368
+          end        
+          item
+            X = 482
+            Y = 109
+          end        
+          item
+            X = 481
+            Y = 105
+          end        
+          item
+            X = 479
+            Y = 103
+          end        
+          item
+            X = 478
+            Y = 100
+          end        
+          item
+            X = 474
+            Y = 96
+          end        
+          item
+            X = 471
+            Y = 93
+          end        
+          item
+            X = 467
+            Y = 90
+          end        
+          item
+            X = 462
+            Y = 88
+          end        
+          item
+            X = 460
+            Y = 87
+          end        
+          item
+            X = 456
+            Y = 87
+          end        
+          item
+            X = 451
+            Y = 87
+          end        
+          item
+            X = 345
+            Y = 87
+          end        
+          item
+            X = 342
+            Y = 87
+          end        
+          item
+            X = 338
+            Y = 88
+          end        
+          item
+            X = 335
+            Y = 88
+          end        
+          item
+            X = 332
+            Y = 89
+          end        
+          item
+            X = 329
+            Y = 90
+          end        
+          item
+            X = 324
+            Y = 94
+          end        
+          item
+            X = 321
+            Y = 97
+          end        
+          item
+            X = 317
+            Y = 103
+          end        
+          item
+            X = 314
+            Y = 110
+          end        
+          item
+            X = 314
+            Y = 116
+          end        
+          item
+            X = 317
+            Y = 125
+          end        
+          item
+            X = 319
+            Y = 130
+          end        
+          item
+            X = 323
+            Y = 136
+          end        
+          item
+            X = 328
+            Y = 141
+          end        
+          item
+            X = 336
+            Y = 147
+          end        
+          item
+            X = 380
             Y = 176
           end        
           item
-            X = 396
-            Y = 172
+            X = 387
+            Y = 183
+          end        
+          item
+            X = 391
+            Y = 193
+          end        
+          item
+            X = 393
+            Y = 202
+          end        
+          item
+            X = 392
+            Y = 213
+          end        
+          item
+            X = 389
+            Y = 220
           end        
           item
             X = 387
-            Y = 180
-          end>
-      end
-      object HMIPolyline6: THMIPolyline
-        Left = 0
-        Height = 585
-        Top = 0
-        Width = 818
-        PointCoordinates = <        
-          item
-            X = 402
-            Y = 320
+            Y = 225
           end        
           item
-            X = 409
-            Y = 332
+            X = 383
+            Y = 229
           end        
           item
-            X = 412
-            Y = 340
+            X = 378
+            Y = 234
           end        
           item
-            X = 412
-            Y = 347
+            X = 372
+            Y = 237
           end        
           item
-            X = 412
-            Y = 353
+            X = 367
+            Y = 240
           end        
           item
-            X = 409
-            Y = 360
+            X = 363
+            Y = 241
           end        
           item
-            X = 402
-            Y = 367
+            X = 327
+            Y = 257
           end        
           item
-            X = 401
-            Y = 373
+            X = 322
+            Y = 260
           end        
           item
-            X = 407
-            Y = 380
+            X = 319
+            Y = 262
           end        
           item
-            X = 426
-            Y = 372
+            X = 315
+            Y = 267
           end        
           item
-            X = 426
-            Y = 320
+            X = 314
+            Y = 274
           end        
           item
-            X = 411
-            Y = 312
+            X = 314
+            Y = 409
           end        
           item
-            X = 402
-            Y = 320
+            X = 314
+            Y = 417
+          end        
+          item
+            X = 312
+            Y = 427
+          end        
+          item
+            X = 308
+            Y = 433
+          end        
+          item
+            X = 302
+            Y = 438
+          end        
+          item
+            X = 299
+            Y = 441
+          end        
+          item
+            X = 292
+            Y = 442
+          end        
+          item
+            X = 285
+            Y = 443
+          end        
+          item
+            X = 277
+            Y = 443
+          end        
+          item
+            X = 116
+            Y = 443
           end>
       end
       object HMIPolyline5: THMIPolyline
@@ -214,245 +468,6 @@ object Form1: TForm1
             Y = 117
           end>
       end
-      object HMIPolyline4: THMIPolyline
-        Left = 0
-        Height = 585
-        Top = 0
-        Width = 818
-        PointCoordinates = <        
-          item
-            X = 618
-            Y = 369
-          end        
-          item
-            X = 481
-            Y = 105
-          end        
-          item
-            X = 475
-            Y = 96
-          end        
-          item
-            X = 469
-            Y = 92
-          end        
-          item
-            X = 465
-            Y = 89
-          end        
-          item
-            X = 457
-            Y = 87
-          end        
-          item
-            X = 448
-            Y = 87
-          end        
-          item
-            X = 305
-            Y = 87
-          end        
-          item
-            X = 296
-            Y = 87
-          end        
-          item
-            X = 290
-            Y = 89
-          end        
-          item
-            X = 284
-            Y = 92
-          end        
-          item
-            X = 279
-            Y = 96
-          end        
-          item
-            X = 274
-            Y = 104
-          end        
-          item
-            X = 272
-            Y = 110
-          end        
-          item
-            X = 272
-            Y = 122
-          end        
-          item
-            X = 275
-            Y = 131
-          end        
-          item
-            X = 281
-            Y = 137
-          end        
-          item
-            X = 285
-            Y = 142
-          end        
-          item
-            X = 294
-            Y = 145
-          end        
-          item
-            X = 359
-            Y = 168
-          end        
-          item
-            X = 364
-            Y = 170
-          end        
-          item
-            X = 371
-            Y = 175
-          end        
-          item
-            X = 376
-            Y = 179
-          end        
-          item
-            X = 381
-            Y = 184
-          end        
-          item
-            X = 385
-            Y = 193
-          end        
-          item
-            X = 387
-            Y = 198
-          end        
-          item
-            X = 388
-            Y = 207
-          end        
-          item
-            X = 387
-            Y = 214
-          end        
-          item
-            X = 386
-            Y = 221
-          end        
-          item
-            X = 383
-            Y = 228
-          end        
-          item
-            X = 381
-            Y = 231
-          end        
-          item
-            X = 376
-            Y = 237
-          end        
-          item
-            X = 372
-            Y = 240
-          end        
-          item
-            X = 366
-            Y = 243
-          end        
-          item
-            X = 361
-            Y = 244
-          end        
-          item
-            X = 357
-            Y = 246
-          end        
-          item
-            X = 352
-            Y = 247
-          end        
-          item
-            X = 336
-            Y = 259
-          end        
-          item
-            X = 335
-            Y = 261
-          end        
-          item
-            X = 331
-            Y = 265
-          end        
-          item
-            X = 329
-            Y = 273
-          end        
-          item
-            X = 330
-            Y = 279
-          end        
-          item
-            X = 333
-            Y = 286
-          end        
-          item
-            X = 338
-            Y = 292
-          end        
-          item
-            X = 345
-            Y = 296
-          end        
-          item
-            X = 383
-            Y = 314
-          end        
-          item
-            X = 389
-            Y = 317
-          end        
-          item
-            X = 396
-            Y = 323
-          end        
-          item
-            X = 400
-            Y = 329
-          end        
-          item
-            X = 403
-            Y = 337
-          end        
-          item
-            X = 404
-            Y = 350
-          end        
-          item
-            X = 402
-            Y = 360
-          end        
-          item
-            X = 397
-            Y = 368
-          end        
-          item
-            X = 390
-            Y = 375
-          end        
-          item
-            X = 302
-            Y = 439
-          end        
-          item
-            X = 286
-            Y = 442
-          end        
-          item
-            X = 277
-            Y = 443
-          end        
-          item
-            X = 115
-            Y = 443
-          end>
-      end
       object HMIPolyline3: THMIPolyline
         Left = 0
         Height = 585
@@ -470,24 +485,6 @@ object Form1: TForm1
             Y = 207
           end>
       end
-      object HMIPolyline1: THMIPolyline
-        Left = 0
-        Height = 585
-        Top = 0
-        Width = 818
-        LineColor = clBackground
-        LineWidth = 1
-        PenStyle = psDot
-        PointCoordinates = <        
-          item
-            X = 349
-            Y = 150
-          end        
-          item
-            X = 349
-            Y = 303
-          end>
-      end
       object HMIPolyline2: THMIPolyline
         Left = 0
         Height = 585
@@ -497,12 +494,12 @@ object Form1: TForm1
         PenStyle = psDot
         PointCoordinates = <        
           item
-            X = 370
-            Y = 250
+            X = 315
+            Y = 100
           end        
           item
-            X = 370
-            Y = 400
+            X = 315
+            Y = 420
           end>
       end
       object Shape1: TShape
@@ -514,23 +511,23 @@ object Form1: TForm1
         Shape = stCircle
       end
       object Shape2: TShape
-        Left = 336
-        Height = 70
+        Left = 325
+        Height = 68
         Top = 312
-        Width = 70
+        Width = 68
         Brush.Color = clSilver
         Shape = stCircle
       end
       object Shape3: TShape
-        Left = 310
-        Height = 80
+        Left = 319
+        Height = 75
         Top = 168
-        Width = 80
+        Width = 75
         Brush.Color = clSkyBlue
         Shape = stCircle
       end
       object Shape4: TShape
-        Left = 330
+        Left = 315
         Height = 40
         Top = 256
         Width = 40
@@ -538,7 +535,7 @@ object Form1: TForm1
         Shape = stCircle
       end
       object Shape5: TShape
-        Left = 271
+        Left = 315
         Height = 60
         Top = 88
         Width = 60
@@ -568,21 +565,21 @@ object Form1: TForm1
         Caption = 'Take off roll'
       end
       object Label62: TLabel
-        Left = 270
+        Left = 240
         Height = 15
-        Top = 344
+        Top = 336
         Width = 61
         Caption = 'Gravure roll'
       end
       object Shape7: TShape
-        Left = 392
+        Left = 400
         Height = 39
         Top = 188
         Width = 4
       end
       object Shape8: TShape
-        Left = 397
-        Height = 37
+        Left = 395
+        Height = 39
         Top = 188
         Width = 4
       end
@@ -609,7 +606,7 @@ object Form1: TForm1
         Font.Color = clWindowText
         ParentFont = False
         TabStop = False
-        TabOrder = 7
+        TabOrder = 3
         NumberFormat = '#0.0'
         EnableMinValue = False
         EnableMaxValue = False
@@ -642,10 +639,128 @@ object Form1: TForm1
         Sufix = ' m/min'
         FormatDateTimeOptions = []
       end
+      object HMIPolyline10: THMIPolyline
+        Left = 390
+        Height = 72
+        Top = 171
+        Width = 34
+        PointCoordinates = <        
+          item
+            X = 1
+            Y = 8
+          end        
+          item
+            X = 8
+            Y = 20
+          end        
+          item
+            X = 11
+            Y = 28
+          end        
+          item
+            X = 11
+            Y = 35
+          end        
+          item
+            X = 11
+            Y = 41
+          end        
+          item
+            X = 8
+            Y = 48
+          end        
+          item
+            X = 1
+            Y = 55
+          end        
+          item
+            X = 0
+            Y = 61
+          end        
+          item
+            X = 6
+            Y = 68
+          end        
+          item
+            X = 25
+            Y = 60
+          end        
+          item
+            X = 25
+            Y = 8
+          end        
+          item
+            X = 10
+            Y = 0
+          end        
+          item
+            X = 1
+            Y = 8
+          end>
+      end
+      object HMIPolyline11: THMIPolyline
+        Left = 390
+        Height = 72
+        Top = 312
+        Width = 34
+        PointCoordinates = <        
+          item
+            X = 1
+            Y = 8
+          end        
+          item
+            X = 8
+            Y = 20
+          end        
+          item
+            X = 11
+            Y = 28
+          end        
+          item
+            X = 11
+            Y = 35
+          end        
+          item
+            X = 11
+            Y = 41
+          end        
+          item
+            X = 8
+            Y = 48
+          end        
+          item
+            X = 1
+            Y = 55
+          end        
+          item
+            X = 0
+            Y = 61
+          end        
+          item
+            X = 6
+            Y = 68
+          end        
+          item
+            X = 25
+            Y = 60
+          end        
+          item
+            X = 25
+            Y = 8
+          end        
+          item
+            X = 10
+            Y = 0
+          end        
+          item
+            X = 1
+            Y = 8
+          end>
+      end
     end
     object TabSheet4: TTabSheet
       Caption = 'Operate'
-      ClientHeight = 585
+      ClientHeight = 584
       ClientWidth = 818
       object BCSVGButton1: TBCSVGButton
         Left = 480
@@ -2109,7 +2224,7 @@ object Form1: TForm1
     end
     object TabSheet2: TTabSheet
       Caption = 'Corona Interlock'
-      ClientHeight = 585
+      ClientHeight = 584
       ClientWidth = 818
       object GroupBox1: TGroupBox
         Left = 0
@@ -2152,133 +2267,113 @@ object Form1: TForm1
           BorderSpacing.Left = 3
           BorderSpacing.Right = 3
         end
-        object Label5: TLabel
-          Left = 216
-          Height = 15
-          Top = 192
-          Width = 166
-          Caption = '<< Done by HMI and Hardware'
-          ParentFont = False
-        end
-        object Label6: TLabel
-          Left = 216
-          Height = 15
-          Top = 208
-          Width = 166
-          Caption = '<< Done by HMI and Hardware'
-          ParentFont = False
-        end
-        object Label7: TLabel
-          Left = 216
-          Height = 15
-          Top = 72
-          Width = 166
-          Caption = '<< Done by HMI and Hardware'
-          ParentFont = False
-        end
-        object Label8: TLabel
-          Left = 216
-          Height = 15
-          Top = 88
-          Width = 89
-          Caption = '<< Done by HMI'
-          ParentFont = False
-        end
-        object Label9: TLabel
-          Left = 216
-          Height = 15
-          Top = 8
-          Width = 89
-          Caption = '<< Done by HMI'
-          ParentFont = False
-        end
-        object Label10: TLabel
-          Left = 216
-          Height = 15
-          Top = 40
-          Width = 89
-          Caption = '<< Done by HMI'
-          ParentFont = False
-        end
         object Label11: TLabel
+          AnchorSideRight.Control = GroupBox1
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 208
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'Blower Run (Q0.1=1)'
+          BorderSpacing.Right = 4
+          Caption = 'Blower Run'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
         object Label12: TLabel
+          AnchorSideRight.Control = GroupBox1
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 240
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'Corona Start (Q0.5=1)'
+          BorderSpacing.Right = 4
+          Caption = 'Corona Start'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
         object Label13: TLabel
+          AnchorSideRight.Control = GroupBox1
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 56
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'E-Stop OK (I0.0=1)'
+          BorderSpacing.Right = 4
+          Caption = 'E-Stop OK'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
         object Label14: TLabel
+          AnchorSideRight.Control = GroupBox1
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 112
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'MDO Film Brake (I0.2=1)'
+          BorderSpacing.Right = 4
+          Caption = 'MDO Film Brake'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
         object Label15: TLabel
+          AnchorSideRight.Control = GroupBox1
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 131
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'All zone TDO Film Break (I0.7=1)'
+          BorderSpacing.Right = 4
+          Caption = 'All zone TDO Film Break'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
         object Label16: TLabel
+          AnchorSideRight.Control = GroupBox1
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 8
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'GenOn_Hmi_Cmd (M0.6=1)'
+          BorderSpacing.Right = 4
+          Caption = 'Generator On by production'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
         object Label17: TLabel
+          AnchorSideRight.Control = GroupBox1
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 24
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'GenOff_Hmi_Cmd (M0.7=0)'
+          BorderSpacing.Right = 4
+          Caption = 'Generator Off by production'
           Color = clWhite
           ParentColor = False
           ParentFont = False
@@ -2291,38 +2386,51 @@ object Form1: TForm1
           Width = 89
           Caption = '<< Done by HMI'
           ParentFont = False
+          Visible = False
         end
         object Label19: TLabel
+          AnchorSideRight.Control = GroupBox1
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 40
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'Bypass Mode (M30.1=0)'
+          BorderSpacing.Right = 4
+          Caption = 'Not Bypass Mode'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
         object Label20: TLabel
+          AnchorSideRight.Control = GroupBox1
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 88
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'Coating Mode (M30.0=1)'
+          BorderSpacing.Right = 4
+          Caption = 'Coating Mode'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
         object Label21: TLabel
+          AnchorSideRight.Control = GroupBox1
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 168
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'Bypass Filmbrake (M98.0=1)'
+          BorderSpacing.Right = 4
+          Caption = 'Bypass Filmbrake'
           Color = clWhite
           ParentColor = False
           ParentFont = False
@@ -2336,6 +2444,74 @@ object Form1: TForm1
           Caption = 'Or'
           ParentFont = False
         end
+        object Label24: TLabel
+          AnchorSideRight.Control = GroupBox1
+          AnchorSideRight.Side = asrBottom
+          Left = 7
+          Height = 15
+          Top = 72
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
+          AutoSize = False
+          BorderSpacing.Right = 4
+          Caption = 'System On'
+          Color = clWhite
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label25: TLabel
+          AnchorSideRight.Control = GroupBox1
+          AnchorSideRight.Side = asrBottom
+          Left = 7
+          Height = 15
+          Top = 192
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
+          AutoSize = False
+          BorderSpacing.Right = 4
+          Caption = 'Electrode In position'
+          Color = clWhite
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object Label9: TLabel
+          Left = 216
+          Height = 15
+          Top = 8
+          Width = 89
+          Caption = '<< Done by HMI'
+          ParentFont = False
+          Visible = False
+        end
+        object Label7: TLabel
+          Left = 216
+          Height = 15
+          Top = 72
+          Width = 166
+          Caption = '<< Done by HMI and Hardware'
+          ParentFont = False
+          Visible = False
+        end
+        object Label8: TLabel
+          Left = 216
+          Height = 15
+          Top = 88
+          Width = 89
+          Caption = '<< Done by HMI'
+          ParentFont = False
+          Visible = False
+        end
+        object Label10: TLabel
+          Left = 216
+          Height = 15
+          Top = 40
+          Width = 89
+          Caption = '<< Done by HMI'
+          ParentFont = False
+          Visible = False
+        end
         object Label23: TLabel
           Left = 216
           Height = 15
@@ -2343,30 +2519,25 @@ object Form1: TForm1
           Width = 89
           Caption = '<< Done by HMI'
           ParentFont = False
+          Visible = False
         end
-        object Label24: TLabel
-          Left = 7
-          Height = 15
-          Top = 72
-          Width = 201
-          AutoSize = False
-          Caption = 'Infeed On (System On) (Q201.0=1)'
-          Color = clWhite
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-        object Label25: TLabel
-          Left = 7
+        object Label5: TLabel
+          Left = 216
           Height = 15
           Top = 192
-          Width = 201
-          AutoSize = False
-          Caption = 'Electrode In position (I0.5=1)'
-          Color = clWhite
-          ParentColor = False
+          Width = 166
+          Caption = '<< Done by HMI and Hardware'
           ParentFont = False
-          Transparent = False
+          Visible = False
+        end
+        object Label6: TLabel
+          Left = 216
+          Height = 15
+          Top = 208
+          Width = 166
+          Caption = '<< Done by HMI and Hardware'
+          ParentFont = False
+          Visible = False
         end
       end
       object GroupBox2: TGroupBox
@@ -2388,87 +2559,91 @@ object Form1: TForm1
         TabOrder = 1
         object Shape10: TShape
           AnchorSideLeft.Control = GroupBox1
-          AnchorSideRight.Control = GroupBox1
+          AnchorSideRight.Control = GroupBox2
           AnchorSideRight.Side = asrBottom
           Left = 3
           Height = 88
           Top = 56
-          Width = 338
+          Width = 390
           Anchors = [akTop, akLeft, akRight]
           BorderSpacing.Left = 3
           BorderSpacing.Right = 3
         end
         object Label26: TLabel
+          AnchorSideRight.Control = GroupBox2
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 8
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'Electrode In HMI Cmd (M2.0=1)'
+          BorderSpacing.Right = 4
+          Caption = 'Electrode On by production'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
-        end
-        object Label27: TLabel
-          Left = 216
-          Height = 15
-          Top = 8
-          Width = 89
-          Caption = '<< Done by HMI'
-          ParentFont = False
         end
         object Label33: TLabel
+          AnchorSideRight.Control = GroupBox2
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 24
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'Electrode In HMI Cmd (M2.1=0)'
+          BorderSpacing.Right = 4
+          Caption = 'Electrode Off by production'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
-        object Label34: TLabel
-          Left = 216
-          Height = 15
-          Top = 24
-          Width = 89
-          Caption = '<< Done by HMI'
-          ParentFont = False
-        end
         object Label35: TLabel
+          AnchorSideRight.Control = GroupBox2
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 40
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'E-Stop OK (I0.0=1)'
+          BorderSpacing.Right = 4
+          Caption = 'E-Stop OK'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
         object Label36: TLabel
+          AnchorSideRight.Control = GroupBox2
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 64
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'MDO Film Brake (I0.2=1)'
+          BorderSpacing.Right = 4
+          Caption = 'MDO Film Brake'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
         object Label37: TLabel
+          AnchorSideRight.Control = GroupBox2
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 83
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'All zone TDO Film Break (I0.7=1)'
+          BorderSpacing.Right = 4
+          Caption = 'All zone TDO Film Break'
           Color = clWhite
           ParentColor = False
           ParentFont = False
@@ -2483,44 +2658,48 @@ object Form1: TForm1
           ParentFont = False
         end
         object Label39: TLabel
+          AnchorSideRight.Control = GroupBox2
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 120
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'Bypass Filmbrake (M98.0=1)'
+          BorderSpacing.Right = 4
+          Caption = 'Bypass Filmbrake'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
-        object Label40: TLabel
-          Left = 216
-          Height = 15
-          Top = 120
-          Width = 89
-          Caption = '<< Done by HMI'
-          ParentFont = False
-        end
         object Label41: TLabel
+          AnchorSideRight.Control = GroupBox2
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 144
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'LineSpeed Upper: xxx (M17.0=1)'
+          BorderSpacing.Right = 4
+          Caption = 'LineSpeed Upper: xxx m/min'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
         object Label42: TLabel
+          AnchorSideRight.Control = GroupBox2
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 160
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'Blower Run (Q0.1=1)'
+          BorderSpacing.Right = 4
+          Caption = 'Blower Run'
           Color = clWhite
           ParentColor = False
           ParentFont = False
@@ -2539,12 +2718,16 @@ object Form1: TForm1
           BorderSpacing.Right = 3
         end
         object Label43: TLabel
+          AnchorSideRight.Control = GroupBox2
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 240
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'Electrode In (Q0.3=1)'
+          BorderSpacing.Right = 4
+          Caption = 'Electrode In Position'
           Color = clWhite
           ParentColor = False
           ParentFont = False
@@ -2557,6 +2740,34 @@ object Form1: TForm1
           Width = 166
           Caption = '<< Done by HMI and Hardware'
           ParentFont = False
+          Visible = False
+        end
+        object Label40: TLabel
+          Left = 216
+          Height = 15
+          Top = 120
+          Width = 89
+          Caption = '<< Done by HMI'
+          ParentFont = False
+          Visible = False
+        end
+        object Label34: TLabel
+          Left = 216
+          Height = 15
+          Top = 24
+          Width = 89
+          Caption = '<< Done by HMI'
+          ParentFont = False
+          Visible = False
+        end
+        object Label27: TLabel
+          Left = 216
+          Height = 15
+          Top = 8
+          Width = 89
+          Caption = '<< Done by HMI'
+          ParentFont = False
+          Visible = False
         end
       end
       object GroupBox6: TGroupBox
@@ -2587,44 +2798,48 @@ object Form1: TForm1
           BorderSpacing.Right = 3
         end
         object Label46: TLabel
+          AnchorSideRight.Control = GroupBox6
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 240
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'Corona Roll Run (Q209.0=1)'
+          BorderSpacing.Right = 4
+          Caption = 'Corona Roll Run'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
         object Label47: TLabel
+          AnchorSideRight.Control = GroupBox6
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 24
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'Coating Mode (M30.0=1)'
+          BorderSpacing.Right = 4
+          Caption = 'Coating Mode'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
-        object Label48: TLabel
-          Left = 216
-          Height = 15
-          Top = 24
-          Width = 89
-          Caption = '<< Done by HMI'
-          ParentFont = False
-        end
         object Label49: TLabel
+          AnchorSideRight.Control = GroupBox6
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 8
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'Corona Roll On_Hmi_Cmd (M34.0=1)'
+          BorderSpacing.Right = 4
+          Caption = 'Corona Roll On by production'
           Color = clWhite
           ParentColor = False
           ParentFont = False
@@ -2637,6 +2852,16 @@ object Form1: TForm1
           Width = 89
           Caption = '<< Done by HMI'
           ParentFont = False
+          Visible = False
+        end
+        object Label48: TLabel
+          Left = 216
+          Height = 15
+          Top = 24
+          Width = 89
+          Caption = '<< Done by HMI'
+          ParentFont = False
+          Visible = False
         end
       end
       object GroupBox9: TGroupBox
@@ -2657,52 +2882,48 @@ object Form1: TForm1
         ParentFont = False
         TabOrder = 3
         object Label52: TLabel
+          AnchorSideRight.Control = GroupBox9
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 8
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'Exhaust Fan Run HMI Cmd (M22.0=1)'
+          BorderSpacing.Right = 4
+          Caption = 'Exhaust Fan Run by production'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
-        end
-        object Label53: TLabel
-          Left = 216
-          Height = 15
-          Top = 8
-          Width = 89
-          Caption = '<< Done by HMI'
-          ParentFont = False
         end
         object Label54: TLabel
+          AnchorSideRight.Control = GroupBox9
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 24
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'Exhaust Fan Off HMI Cmd (M22.1=0)'
+          BorderSpacing.Right = 4
+          Caption = 'Exhaust Fan Off by production'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
-        object Label55: TLabel
-          Left = 216
-          Height = 15
-          Top = 24
-          Width = 89
-          Caption = '<< Done by HMI'
-          ParentFont = False
-        end
         object Label56: TLabel
+          AnchorSideRight.Control = GroupBox9
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 40
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'E-Stop OK (I0.0=1)'
+          BorderSpacing.Right = 4
+          Caption = 'E-Stop OK'
           Color = clWhite
           ParentColor = False
           ParentFont = False
@@ -2721,22 +2942,44 @@ object Form1: TForm1
           BorderSpacing.Right = 3
         end
         object Label64: TLabel
+          AnchorSideRight.Control = GroupBox9
+          AnchorSideRight.Side = asrBottom
           Left = 7
           Height = 15
           Top = 240
-          Width = 201
+          Width = 385
+          Anchors = [akTop, akLeft, akRight]
           AutoSize = False
-          Caption = 'Corona Exhaust Fan Run (Q0.1=1)'
+          BorderSpacing.Right = 4
+          Caption = 'Corona Exhaust Fan Run'
           Color = clWhite
           ParentColor = False
           ParentFont = False
           Transparent = False
         end
+        object Label55: TLabel
+          Left = 216
+          Height = 15
+          Top = 24
+          Width = 89
+          Caption = '<< Done by HMI'
+          ParentFont = False
+          Visible = False
+        end
+        object Label53: TLabel
+          Left = 216
+          Height = 15
+          Top = 8
+          Width = 89
+          Caption = '<< Done by HMI'
+          ParentFont = False
+          Visible = False
+        end
       end
     end
     object TabSheet3: TTabSheet
       Caption = 'Parameter'
-      ClientHeight = 585
+      ClientHeight = 584
       ClientWidth = 818
       object LineSpeedUpper_Set: THMIEdit
         Left = 136
@@ -2779,11 +3022,14 @@ object Form1: TForm1
         ValueTrue = 1
       end
     end
+    object TabSheet6: TTabSheet
+      Caption = 'TabSheet6'
+    end
   end
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23
-    Top = 613
+    Top = 612
     Width = 834
     Panels = <    
       item
@@ -2803,7 +3049,7 @@ object Form1: TForm1
     AnchorSideBottom.Side = asrBottom
     Left = 7
     Height = 16
-    Top = 618
+    Top = 617
     Width = 5
     Anchors = [akLeft, akBottom]
     BorderSpacing.Left = 7
@@ -2817,7 +3063,7 @@ object Form1: TForm1
     AnchorSideBottom.Side = asrBottom
     Left = 14
     Height = 16
-    Top = 618
+    Top = 617
     Width = 5
     Anchors = [akLeft, akBottom]
     BorderSpacing.Left = 2
@@ -2831,7 +3077,7 @@ object Form1: TForm1
     AnchorSideBottom.Side = asrBottom
     Left = 21
     Height = 16
-    Top = 618
+    Top = 617
     Width = 5
     Anchors = [akLeft, akBottom]
     BorderSpacing.Left = 2
@@ -2845,7 +3091,7 @@ object Form1: TForm1
     AnchorSideBottom.Side = asrBottom
     Left = 28
     Height = 16
-    Top = 618
+    Top = 617
     Width = 5
     Anchors = [akLeft, akBottom]
     BorderSpacing.Left = 2
@@ -2859,7 +3105,7 @@ object Form1: TForm1
     AnchorSideBottom.Side = asrBottom
     Left = 35
     Height = 16
-    Top = 618
+    Top = 617
     Width = 5
     Anchors = [akLeft, akBottom]
     BorderSpacing.Left = 2
@@ -2873,7 +3119,7 @@ object Form1: TForm1
     AnchorSideBottom.Side = asrBottom
     Left = 42
     Height = 16
-    Top = 618
+    Top = 617
     Width = 5
     Anchors = [akLeft, akBottom]
     BorderSpacing.Left = 2
@@ -2896,6 +3142,7 @@ object Form1: TForm1
     Left = 752
   end
   object MainMenu1: TMainMenu
+    Images = ImageList1
     Left = 576
     object MenuIFile: TMenuItem
       Caption = 'File'
@@ -2915,11 +3162,80 @@ object Form1: TForm1
         OnClick = DisconnectClick
       end
     end
+    object MenuView: TMenuItem
+      Caption = 'View'
+      object MenuProductionView: TMenuItem
+        Caption = 'Production'
+        ImageIndex = 7
+        OnClick = MenuProductionViewClick
+      end
+      object MenuMaintenanceView: TMenuItem
+        Caption = 'Maintenance'
+        OnClick = MenuMaintenanceViewClick
+      end
+    end
   end
   object Timer1: TTimer
     Enabled = False
     Interval = 200
     OnTimer = Timer1Timer
     Left = 696
+  end
+  object ImageList1: TImageList
+    Height = 20
+    Width = 20
+    Left = 616
+    Bitmap = {
+      4C7A0E00000014000000140000000E0600000000000078DAED9C6D4C144718C7
+      91F8A52F5ADAB4892F7D49C327357E10148554D12252ABB6162DB54D2C500A45
+      A3106A6D532B6962E52545489A34ADA68DA41A4300A5A8417C29B68752459096
+      F310F0EEE05092F6A38934FD509B7FF79966EC7ADCDDEEECCEF688CC24FFDCE6
+      76EEB7CFCCFC67F6B9CBCE8D8C8C6064922A76CF54A668F0BA07BA9173340F4F
+      55CDB0C5639C863C4CAB7C1CCF1D5A12B17E245ECF600F0A9AB6E0D1CAC730BB
+      36010B5CF9587CB94498178EC3659667C411E11187F74F82AB2024279A3CD9ED
+      75623C9CF28B537E766ABE29294553667C6C9A63729E45929575408463669D12
+      E188F064ADF34EF164B7D789F170CA2F4EF9D9A9F9A6A4F47F68C6BED9CCAFE4
+      5B59DF699EF92E499BAF71C869B4CF251ECDF7840B8578F670321EAE988E37EA
+      DEC495FE2BB6785C76B9C13CBBDC70BC7B5CED3EC0FB37FF58E184E1C96AAFAC
+      F190E917997E963DDF9494A2F57B17E538225E36E2D139CAC52827A3DCCC886B
+      86476B01E58C943B520E49B924E59476785C465C519E11D72A4FBFD6F3FE25EE
+      44E1C96AAFACF190E917997E963DDFA2FDFBB79252B0EA8B57E0C87B494C746C
+      97471C782F02832E762C85D7DF06F49D95C7BB760AE83D6989A7EF2F5243712A
+      F04B3370F5281A8A96DD77AEBE78B9503C9C83AE7AA0F30870E910D0510B5CF8
+      0670ED37152FE31970F0E39740DB17A678D486FBDAABB591731A8A96DEDFDEA2
+      E5D6C643201E53BC7335C099CFE5F15A2B8096CFA4F0EA8B5275FD95AAD62025
+      A5497ABF35D28378FF88D85E0BF70F25252531793C43686D1D94C65AB0A00DD3
+      A675A3B9F9A62D96DFEF4759D9794C99D2859898518DF9976526B18E1F3F8EF6
+      F67654548C68CCBF35E66F1AB307A74E0D08B1FA07FDD8FCD579D45FEA422010
+      0095AAAA51C4C65EC5FCF93FC0EDF60BB1D6D59CC3F4CE009EBC7307BD637FB0
+      F729CEF2F29F587F5A61C58C8D61AAC78BF8966E34B67568FDD60C9FCF678B15
+      D7DC89A7AB4E2377DF69D69F42ACEAB32159EB3E3D81BE81E8B048D5C7DC78E2
+      CAF038D6FA3D27D9B54458EEFE61E4D67850D278030F797CB6E2221D68BE86EC
+      EA7FB5E3701F9EAF3E6399E5F5F9B174E52BC8DA7582F128CE9A865EE13672D5
+      D5D5213131112F68CCFDDF7BD0ABB5DDCE5C77B95C8C4971AA355949A67CC33E
+      94B694B25719AC95B5ABF048651CD2B4573B4CCE9A75601E165DDC869907E61A
+      32E95CA8F37A56D2CF454C463C7A3FEDE02A267D1DFEBE9E45C7C1F5C25D5F7F
+      5D2B719176B7EC667D4CFDA2BFBE685C466DB2C28AD4E7226D0C99A70CFB915E
+      9B81995FCFC122C62AC6ACFDF390FAED8BF00E796DFBCC6A5C66BD6397298BA5
+      347174F3E62D833AA302DF2F6E61CEDCB3E8E808843D4F39785DDD0D53ACF455
+      9DF860D75D64BCD4338E49E7D3D23AB175DB5DBCBCE67A44E6D0D02D24A7B433
+      D647A5C0CE4F809519FF31F5ACADDBA1BD024B97FDAAE5F9E1F3A6F2723736BD
+      1560AC1D1F03EF7FA831D37B70F0E0C038D6C6ACDBD8B0F1B2615F9769CCAC4D
+      01C62AD90914EF00D233BC9658F798656EBCAE31895554026C2F866516D7962D
+      5D589FF9FB38D6C2856DC2AC507D5FB8152828A4FEF498F24A24D6DB397F3256
+      7E01F06E3E909171DDB4FF428D637C7C2BD6BD1A60ACBC3CE09D5C6D8CD28DFD
+      B778497BD871DCBBD78DB56B038C959DAD6933909212D97F34AEAF6D08841D47
+      62AE5E1D60ACB56B6E2333D3789CE933CB57F485F5049D4F49EE33C5E26A6AF2
+      46AC6B747E32491555545145155554512526268649264B066FA2B21E943E33AA
+      271A57A4FA56DB18EA7376FB4BFF79597D2F93E594673933DA453DC7AA9E6355
+      CFB14EFCE758B91FCCCE1DA3E758B9DF65C4AEF7971D9EDEF3DCEF7AAF8BAE1B
+      2CA660BFEB3C2ACAD37B94FB53EF4D3BEB1AF7A7D4F1D0FC298B476DE352BFDB
+      19FF4F0549068BF65AD17E2952B87D57A2B1D11E2C92DD18291EDA1346FBDE48
+      746C27468A87F699F1FD6B746C35461E9BFE7F37E8D86A8CC1B1D98991F6AB05
+      C7161CA3C87E68DA4B172A367D8C54C76C6CE4B570FF83C263A43A6662A4FD79
+      E4B548FB26495487EA1AF168CF1FDF776724F59F234A4AF6247BBEC95E0F64AF
+      57B2D75327D67BD9F72327EE97B2EFE74EE41BB2F32127F235D9F9E483A67F00
+      18EC7784
+    }
   end
 end

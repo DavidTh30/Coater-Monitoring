@@ -48,6 +48,7 @@ procedure FreeAndNil_IB0();
 procedure FreeAndNil_DBD();
 
 var
+  ProductionView:boolean;
   MB0_: TPLCBlock;
   MB0: TPLCBlockElement;
   M0_0: TTagBit;
