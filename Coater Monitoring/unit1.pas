@@ -10,9 +10,9 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, Menus,
-  StdCtrls, ExtCtrls, SpinEx, tcp_udpport, ISOTCPDriver,
-   HMIEdit, HMICheckBox, HMILabel, hmi_polyline, dbugintf,
-  commtypes, TypInfo, StrUtils, Tag, BCSVGButton, BCButton, simpleipc;
+  StdCtrls, ExtCtrls, SpinEx, tcp_udpport, ISOTCPDriver, HMIEdit, HMICheckBox,
+  HMILabel, hmi_polyline, dbugintf, commtypes, TypInfo, StrUtils, Tag,
+  BCSVGButton, BCButton, BCImageButton, BCMDButton, simpleipc;
 
 function IsDebuggerPresent(): integer stdcall; external 'kernel32.dll';
 
@@ -22,6 +22,8 @@ type
 
   TForm1 = class(TForm)
     AdditionalCoronaSpeed_Set02: THMIEdit;
+    AdditionalGravureSpeed_Set: THMIEdit;
+    AdditionalTakeOffRollSpeed_Set: THMIEdit;
     CoronaSetpoint: THMIEdit;
     CmdCoronaRollRun: TBCButton;
     CmdCoronaRollOff: TBCButton;
@@ -37,6 +39,13 @@ type
     BCSVGButton1: TBCSVGButton;
     CmdGeneratorOn: TBCButton;
     CoronaSpeed_Act02: THMILabel;
+    GravureSpeed_Act: THMILabel;
+    Label64: TLabel;
+    Label66: TLabel;
+    Label67: TLabel;
+    Label68: TLabel;
+    TakeOffRollSpeed_Act: THMILabel;
+    LineSpeed_Act: THMILabel;
     CoronaWattDensityAct: THMILabel;
 
 
@@ -44,31 +53,27 @@ type
 
     EditPort: TSpinEditEx;
     FilmBypass: THMIPolyline;
-    GroupBox1: TGroupBox;
     GroupBox10: TGroupBox;
-    GroupBox2: TGroupBox;
     GroupBox3: TGroupBox;
     GroupBox4: TGroupBox;
     GroupBox5: TGroupBox;
-    GroupBox6: TGroupBox;
     GroupBox7: TGroupBox;
     BypassFilmbrake_Set: THMICheckBox;
     GroupBox8: TGroupBox;
-    GroupBox9: TGroupBox;
     FilmCoater: THMIPolyline;
     HMIPolyline10: THMIPolyline;
     HMIPolyline11: THMIPolyline;
     HMIPolyline2: THMIPolyline;
     HMIPolyline3: THMIPolyline;
     HMIPolyline5: THMIPolyline;
+    ImageCoronaExhaustFan: TImage;
+    Image2: TImage;
+    ImageFlow1: TImage;
+    ImageFlow2: TImage;
     ImageList1: TImageList;
+    ImageList2: TImageList;
     Label4: TLabel;
     Label51: TLabel;
-    Label52: TLabel;
-    Label53: TLabel;
-    Label54: TLabel;
-    Label55: TLabel;
-    Label56: TLabel;
     Label57: TLabel;
     Label58: TLabel;
     Label59: TLabel;
@@ -76,7 +81,6 @@ type
     Label61: TLabel;
     Label62: TLabel;
     Label63: TLabel;
-    Label64: TLabel;
     Label65: TLabel;
     LineSpeedUpper_Set: THMIEdit;
     AdditionalCoronaSpeed_Set: THMIEdit;
@@ -85,54 +89,14 @@ type
 
     ISOTCPDriver1: TISOTCPDriver;
     Label1: TLabel;
-    Label10: TLabel;
-    Label11: TLabel;
-    Label12: TLabel;
-    Label13: TLabel;
-    Label14: TLabel;
-    Label15: TLabel;
-    Label16: TLabel;
-    Label17: TLabel;
-    Label18: TLabel;
-    Label19: TLabel;
     Label2: TLabel;
-    Label20: TLabel;
-    Label21: TLabel;
-    Label22: TLabel;
-    Label23: TLabel;
-    Label24: TLabel;
-    Label25: TLabel;
-    Label26: TLabel;
-    Label27: TLabel;
     Label28: TLabel;
     Label29: TLabel;
     Label3: TLabel;
     Label30: TLabel;
     Label31: TLabel;
     Label32: TLabel;
-    Label33: TLabel;
-    Label34: TLabel;
-    Label35: TLabel;
-    Label36: TLabel;
-    Label37: TLabel;
-    Label38: TLabel;
-    Label39: TLabel;
-    Label40: TLabel;
-    Label41: TLabel;
-    Label42: TLabel;
-    Label43: TLabel;
-    Label44: TLabel;
     Label45: TLabel;
-    Label46: TLabel;
-    Label47: TLabel;
-    Label48: TLabel;
-    Label49: TLabel;
-    Label5: TLabel;
-    Label50: TLabel;
-    Label6: TLabel;
-    Label7: TLabel;
-    Label8: TLabel;
-    Label9: TLabel;
     Corona_Act: THMILabel;
     MainMenu1: TMainMenu;
     MaskEditIP: TEdit;
@@ -142,31 +106,32 @@ type
     MenuConnect: TMenuItem;
     Connect: TMenuItem;
     Disconnect: TMenuItem;
+    MenuIInterlockCoronaRoll: TMenuItem;
+    MenuIInterlockCoronaExhaustFan: TMenuItem;
+    MenuIInterlockElectrode: TMenuItem;
+    MenuInterlockCorona: TMenuItem;
     MenuView: TMenuItem;
     MenuProductionView: TMenuItem;
     MenuMaintenanceView: TMenuItem;
     PageControl1: TPageControl;
 
     P1: TShape;
-    Shape1: TShape;
-    Shape10: TShape;
-    Shape15: TShape;
+    PopupMenuInterlockCoronaRoll: TPopupMenu;
+    PopupMenuElectrode: TPopupMenu;
+    PopupMenuInterlockCoronaExhaustFan: TPopupMenu;
+    TakeOffRoll: TShape;
     P2: TShape;
     P3: TShape;
     P4: TShape;
     P5: TShape;
     P6: TShape;
-    Shape16: TShape;
-    Shape17: TShape;
-    Shape18: TShape;
-    Shape2: TShape;
-    Shape3: TShape;
+    GravureRoll: TShape;
+    CoronaRoll: TShape;
     Shape4: TShape;
     Shape5: TShape;
     Shape6: TShape;
     Shape7: TShape;
     Shape8: TShape;
-    Shape9: TShape;
     StatusBar1: TStatusBar;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
@@ -228,6 +193,10 @@ type
     procedure FormCreate(Sender: TObject);
     procedure MaskEditIPEditingDone(Sender: TObject);
     procedure MenuexitClick(Sender: TObject);
+    procedure MenuIInterlockCoronaExhaustFanClick(Sender: TObject);
+    procedure MenuIInterlockCoronaRollClick(Sender: TObject);
+    procedure MenuIInterlockElectrodeClick(Sender: TObject);
+    procedure MenuInterlockCoronaClick(Sender: TObject);
     procedure MenuProductionViewClick(Sender: TObject);
     procedure MenuMaintenanceViewClick(Sender: TObject);
     procedure TCP_UDPPort1CommErrorReading(Error: TIOResult);
@@ -244,12 +213,11 @@ type
 var
   Form1: TForm1;
   OldClock_Bool:boolean;
-  Communication_Active:boolean;
   DebugIsActive:boolean;
 
 implementation
 
-uses Unit2, Unit3;
+uses Unit2, Unit3, Unit4;
 
 {$R *.lfm}
 
@@ -394,43 +362,11 @@ begin
   p5.Brush.Color:=clSilver;
   p6.Brush.Color:=clSilver;
 
-  Label11.Color:=clSilver;
-  Label12.Color:=clSilver;
-  Label13.Color:=clSilver;
-  Label14.Color:=clSilver;
-  Label15.Color:=clSilver;
-  Label16.Color:=clSilver;
-  Label17.Color:=clSilver;
-  Label19.Color:=clSilver;
-  Label20.Color:=clSilver;
-  Label21.Color:=clSilver;
-  Label24.Color:=clSilver;
-  Label25.Color:=clSilver;
-  Label26.Color:=clSilver;
   Label28.Color:=clSilver;
   Label29.Color:=clSilver;
   Label30.Color:=clSilver;
-  Label33.Color:=clSilver;
-  Label35.Color:=clSilver;
-  Label36.Color:=clSilver;
-  Label37.Color:=clSilver;
-  Label39.Color:=clSilver;
-  Label41.Color:=clSilver;
-  Label42.Color:=clSilver;
-  Label43.Color:=clSilver;
   Label45.Color:=clSilver;
-  Label46.Color:=clSilver;
-  Label47.Color:=clSilver;
-  Label49.Color:=clSilver;
-  Label51.Color:=clSilver;
-  Label52.Color:=clSilver;
-  Label54.Color:=clSilver;
-  Label56.Color:=clSilver;
-  Label57.Color:=clSilver;
-  Label64.Color:=clSilver;
 
-  Shape9.Brush.Color:=clSilver;
-  Shape10.Brush.Color:=clSilver;
 
   LineSpeedUpper_Set.Enabled:=false;
   BypassFilmbrake_Set.Enabled:=false;
@@ -458,6 +394,19 @@ begin
   CoronaSetpoint.Enabled:=false;
   CoronaSpeed_Act02.Enabled:=false;
   CoronaSpeed_Act01.Enabled:=false;
+  CoronaRoll.Brush.Color:=clSkyBlue;
+  CoronaRoll.Brush.Style:=bsDiagCross;
+  GravureRoll.Brush.Style:=bsDiagCross;
+  TakeOffRoll.Brush.Style:=bsDiagCross;
+  FilmCoater.PenStyle:=psDot;
+  FilmCoater.LineColor:=clGray;
+  FilmBypass.PenStyle:=psDot;
+  FilmBypass.LineColor:=clGray;
+
+  ImageCoronaExhaustFan.ImageIndex:=14;
+
+  AdditionalGravureSpeed_Set.Enabled:=false;
+  AdditionalTakeOffRollSpeed_Set.Enabled:=false;
 end;
 
 procedure TForm1.CommunicationIsActive;
@@ -506,6 +455,13 @@ begin
 
   CoronaSpeed_Act02.Enabled:=true;
   CoronaSpeed_Act01.Enabled:=true;
+  CoronaRoll.Brush.Style:=bsSolid;
+  GravureRoll.Brush.Style:=bsSolid;
+  TakeOffRoll.Brush.Style:=bsSolid;
+
+  AdditionalGravureSpeed_Set.Enabled:=true;
+  AdditionalTakeOffRollSpeed_Set.Enabled:=true;
+
 end;
 
 procedure TForm1.MenuexitClick(Sender: TObject);
@@ -514,55 +470,53 @@ begin
   //halt;
 end;
 
+procedure TForm1.MenuIInterlockCoronaExhaustFanClick(Sender: TObject);
+var
+  ff:Tform2;
+begin
+  ff:= Tform2.Create(self);
+  ff.InterlockName_:='Corona Exhaust Fan Interlock';
+  ff.DateTime_:=FormatDateTime('dd/mm/yyyy ', Now())+TimeToStr(Time);
+  ff.Show;
+end;
+
+procedure TForm1.MenuIInterlockCoronaRollClick(Sender: TObject);
+var
+  ff:Tform2;
+begin
+  //Application.CreateForm(TForm2, ff);
+  ff:= Tform2.Create(self);
+  ff.InterlockName_:='Corona roll Interlock';
+  ff.DateTime_:=FormatDateTime('dd/mm/yyyy ', Now())+TimeToStr(Time);
+  ff.Show;
+end;
+
+procedure TForm1.MenuIInterlockElectrodeClick(Sender: TObject);
+var
+  ff:Tform2;
+begin
+  ff:= Tform2.Create(self);
+  ff.InterlockName_:='Corona Electrode Interlock';
+  ff.DateTime_:=FormatDateTime('dd/mm/yyyy ', Now())+TimeToStr(Time);
+  ff.Show;
+end;
+
+procedure TForm1.MenuInterlockCoronaClick(Sender: TObject);
+var
+  ff:Tform2;
+begin
+ ff:= Tform2.Create(self);
+  ff.InterlockName_:='Corona Generator Interlock';
+  ff.DateTime_:=FormatDateTime('dd/mm/yyyy ', Now())+TimeToStr(Time);
+  ff.Show;
+end;
+
 procedure TForm1.MenuProductionViewClick(Sender: TObject);
 begin
   ProductionView:=true;
   MenuMaintenanceView.ImageIndex:=9;
   MenuProductionView.ImageIndex:=7;
-  Label16.Caption:='Generator On by production';
-  Label9.Visible:=false;
-  Label17.Caption:='Generator Off by production';
-  Label18.Visible:=false;
-  Label19.Caption:='Not Bypass Mode';
-  Label10.Visible:=false;
-  Label13.Caption:='E-Stop OK';
-  Label24.Caption:='System On';
-  Label7.Visible:=false;
-  Label20.Caption:='Coating Mode';
-  Label8.Visible:=false;
-  Label14.Caption:='MDO Film Brake';
-  Label15.Caption:='All zone TDO Film Break';
-  Label21.Caption:='Bypass Filmbrake';
-  Label23.Visible:=false;
-  Label25.Caption:='Electrode In position';
-  Label5.Visible:=false;
-  Label11.Caption:='Blower Run';
-  Label6.Visible:=false;
-  Label12.Caption:='Corona Start';
-  Label49.Caption:='Corona Roll On by production';
-  Label50.Visible:=false;
-  Label47.Caption:='Coating Mode';
-  Label48.Visible:=false;
-  Label46.Caption:='Corona Roll Run';
-  Label26.Caption:='Electrode In by production';
-  Label27.Visible:=false;
-  Label33.Caption:='Electrode Out by production';
-  Label34.Visible:=false;
-  Label35.Caption:='E-Stop OK';
-  Label36.Caption:='MDO Film Brake';
-  Label37.Caption:='All zone TDO Film Break';
-  Label39.Caption:='Bypass Filmbrake';
-  Label40.Visible:=false;
-  Label41.Caption:='LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min';
-  Label42.Caption:='Blower Run';
-  Label44.Visible:=false;
-  Label43.Caption:='Electrode In Position';
-  Label52.Caption:='Exhaust Fan Run by production';
-  Label53.Visible:=false;
-  Label54.Caption:='Exhaust Fan Off by production';
-  Label55.Visible:=false;
-  Label56.Caption:='E-Stop OK';
-  Label64.Caption:='Corona Exhaust Fan Run';
+
 end;
 
 procedure TForm1.MenuMaintenanceViewClick(Sender: TObject);
@@ -570,50 +524,7 @@ begin
   ProductionView:=false;
   MenuMaintenanceView.ImageIndex:=7;
   MenuProductionView.ImageIndex:=9;
-  Label16.Caption:='GenOn_Hmi_Cmd (M0.6=1)';
-  Label9.Visible:=true;
-  Label17.Caption:='GenOff_Hmi_Cmd (M0.7=0)';
-  Label18.Visible:=true;
-  Label19.Caption:='Not Bypass Mode (M30.1=0)';
-  Label10.Visible:=true;
-  Label13.Caption:='E-Stop OK (I0.0=1)';
-  Label24.Caption:='Infeed On (System On) (Q201.0=1)';
-  Label7.Visible:=true;
-  Label20.Caption:='Coating Mode (M30.0=1)';
-  Label8.Visible:=true;
-  Label14.Caption:='MDO Film Brake (I0.2=1)';
-  Label15.Caption:='All zone TDO Film Break (I0.7=1)';
-  Label21.Caption:='Bypass Filmbrake (M98.0=1)';
-  Label23.Visible:=true;
-  Label25.Caption:='Electrode In position (I0.5=1)';
-  Label5.Visible:=true;
-  Label11.Caption:='Blower Run (Q0.1=1)';
-  Label6.Visible:=true;
-  Label12.Caption:='Corona Start (Q0.5=1)';
-  Label49.Caption:='Corona Roll On_Hmi_Cmd (M34.0=1)';
-  Label50.Visible:=true;
-  Label47.Caption:='Coating Mode (M30.0=1)';
-  Label48.Visible:=true;
-  Label46.Caption:='Corona Roll Run (Q209.0=1)';
-  Label26.Caption:='Electrode In HMI Cmd (M2.0=1)';
-  Label27.Visible:=true;
-  Label33.Caption:='Electrode Out HMI Cmd (M2.1=0)';
-  Label34.Visible:=true;
-  Label35.Caption:='E-Stop OK (I0.0=1)';
-  Label36.Caption:='MDO Film Brake (I0.2=1)';
-  Label37.Caption:='All zone TDO Film Break (I0.7=1)';
-  Label39.Caption:='Bypass Filmbrake (M98.0=1)';
-  Label40.Visible:=true;
-  Label41.Caption:='LineSpeed Upper: '+DB10_DBD42.Value.ToString+' (M17.0=1)';
-  Label42.Caption:='Blower Run (Q0.1=1)';
-  Label44.Visible:=true;
-  Label43.Caption:='Electrode In (Q0.3=1)';
-  Label52.Caption:='Exhaust Fan Run HMI Cmd (M22.0=1)';
-  Label53.Visible:=true;
-  Label54.Caption:='Exhaust Fan Off HMI Cmd (M22.1=0)';
-  Label55.Visible:=true;
-  Label56.Caption:='E-Stop OK (I0.0=1)';
-  Label64.Caption:='Corona Exhaust Fan Run (Q0.1=1)';
+
 end;
 
 procedure TForm1.TCP_UDPPort1CommErrorReading(Error: TIOResult);
@@ -639,6 +550,9 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
+  LiveCounter_:=LiveCounter_+1;
+  if LiveCounter_ > 100000 then LiveCounter_:=0;
+
   if OldClock_Bool <> round(M101_2.Value).ToBoolean then
   //if OldClock_Bool <> boolean(round(MB101.Value) and 3) then
   begin
@@ -662,81 +576,112 @@ begin
     Communication_Active:=true;
 
     if Q0_1.Value > 0 then
-    begin Label11.Color:=clMoneyGreen; Label42.Color:=clMoneyGreen; end
+    begin Label51.Caption:='Exhaust: Run'; end
     else
-    begin Label11.Color:=clWhite; Label42.Color:=clWhite; end;
-    if Q0_3.Value > 0 then
-    begin Label28.Caption:='Electrode: In'; Label43.Color:=clMoneyGreen; end
-    else
-    begin Label28.Caption:='Electrode: Out'; Label43.Color:=clWhite; end;
-    if Q0_5.Value > 0 then
-    begin Label12.Color:=clMoneyGreen; Label57.Caption:='Generator: On'; end
-    else
-    begin Label12.Color:=clWhite; Label57.Caption:='Generator: Off'; end;
-
-    if Q201_0.Value > 0 then begin Label24.Color:=clMoneyGreen; end
-    else begin Label24.Color:=clWhite; end;
-
-    if Q209_0.Value > 0 then
-    begin Label46.Color:=clMoneyGreen; Label45.Caption:='Corona Roll: Run'; end
-    else
-    begin Label46.Color:=clWhite; Label45.Caption:='Corona Roll: Off'; end;
-
-    if I0_0.Value > 0 then
-    begin Label13.Color:=clMoneyGreen; Label35.Color:=clMoneyGreen; Label56.Color:=clMoneyGreen; end
-    else
-    begin Label13.Color:=clWhite; Label35.Color:=clWhite; Label56.Color:=clWhite; end;
-    if I0_2.Value > 0 then
-    begin Label14.Color:=clMoneyGreen; Label36.Color:=clMoneyGreen; end
-    else
-    begin Label14.Color:=clWhite; Label36.Color:=clWhite; end;
-    if I0_5.Value > 0 then begin Label25.Color:=clMoneyGreen; end
-    else begin Label25.Color:=clWhite; end;
-    if I0_7.Value > 0 then
-    begin Label15.Color:=clMoneyGreen; Label37.Color:=clMoneyGreen; end
-    else
-    begin Label15.Color:=clWhite; Label37.Color:=clWhite; end;
-
-    if M0_6.Value > 0 then begin Label16.Color:=clMoneyGreen; end
-    else begin Label16.Color:=clWhite; end;
-    if M0_7.Value > 0 then begin Label17.Color:=clWhite; end
-    else begin Label17.Color:=clMoneyGreen; end;
-
-    if M2_0.Value > 0 then begin Label26.Color:=clMoneyGreen; end
-    else begin Label26.Color:=clWhite; end;
-    if M2_1.Value > 0 then begin Label33.Color:=clWhite; end
-    else begin Label33.Color:=clMoneyGreen; end;
-
-    if M17_0.Value > 0 then begin Label41.Color:=clMoneyGreen; end
-    else begin Label41.Color:=clWhite; end;
-
-    if ProductionView then
-      Label41.Caption:='LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min'
-    else
-      Label41.Caption:='LineSpeed Upper: '+DB10_DBD42.Value.ToString+' (M17.0=1)';
-
-    if M22_0.Value > 0 then begin Label52.Color:=clMoneyGreen; end
-    else begin Label52.Color:=clWhite; end;
-    if M22_1.Value < 1 then begin Label54.Color:=clMoneyGreen; end
-    else begin Label54.Color:=clWhite; end;
-
-    if M30_1.Value > 0 then begin Label19.Color:=clWhite; end
-    else begin Label19.Color:=clMoneyGreen; end;
-    if M30_0.Value > 0 then
-    begin Label20.Color:=clMoneyGreen; Label47.Color:=clMoneyGreen; end
-    else
-    begin Label20.Color:=clWhite; Label47.Color:=clWhite; end;
-    if M31_0.Value > 0 then begin Label29.Caption:='System: On'; end
-    else begin Label29.Caption:='System: Off'; end;
-    if M32_0.Value > 0 then begin Label30.Caption:='Mode: Coating'; end
-    else begin Label30.Caption:='Mode: Bypass'; end;
-    if M34_0.Value > 0 then begin Label49.Color:=clMoneyGreen; end
-    else begin Label49.Color:=clWhite; end;
+    begin Label51.Caption:='Exhaust: Off'; end;
 
     if Q0_1.Value > 0 then
-    begin Label64.Color:=clMoneyGreen; Label51.Caption:='Exhaust: Run'; end
+    begin ImageCoronaExhaustFan.ImageIndex:=12;
+          ImageFlow1.Top:=80; ImageFlow1.Height:=79;
+          ImageFlow2.Left:=552; ImageFlow2.Width:=100;
+    end
     else
-    begin Label64.Color:=clWhite; Label51.Caption:='Exhaust: Off'; end;
+    begin  ImageCoronaExhaustFan.ImageIndex:=11;
+           ImageFlow1.Top:=120; ImageFlow1.Height:=39;
+           ImageFlow2.Left:=608; ImageFlow2.Width:=44;
+    end;
+
+    if Q0_3.Value > 0 then
+    begin Label28.Caption:='Electrode: In'; end
+    else
+    begin Label28.Caption:='Electrode: Out'; end;
+    if Q0_5.Value > 0 then
+    begin Label57.Caption:='Generator: On'; end
+    else
+    begin Label57.Caption:='Generator: Off'; end;
+
+    if Q201_0.Value > 0 then begin end
+    else begin end;
+
+    if Q209_0.Value > 0 then
+    begin Label45.Caption:='Corona Roll: Run'; CoronaRoll.Brush.Color:=clLime; end
+    else
+    begin Label45.Caption:='Corona Roll: Off'; CoronaRoll.Brush.Color:=clSkyBlue; end;
+
+    if Q213_0.Value > 0 then
+    begin GravureRoll.Brush.Color:=clLime; end
+    else
+    begin GravureRoll.Brush.Color:=clSilver; end;
+
+    if Q217_0.Value > 0 then
+    begin TakeOffRoll.Brush.Color:=clLime; end
+    else
+    begin TakeOffRoll.Brush.Color:=clCream; end;
+
+    if I0_0.Value > 0 then
+    begin end
+    else
+    begin end;
+    if I0_2.Value > 0 then
+    begin end
+    else
+    begin end;
+    if I0_5.Value > 0 then begin end
+    else begin  end;
+    if I0_7.Value > 0 then
+    begin end
+    else
+    begin end;
+
+    if M0_6.Value > 0 then begin end
+    else begin end;
+    if M0_7.Value > 0 then begin end
+    else begin end;
+
+    if M2_0.Value > 0 then begin end
+    else begin end;
+    if M2_1.Value > 0 then begin end
+    else begin end;
+
+    if M17_0.Value > 0 then begin end
+    else begin end;
+
+    if ProductionView then
+      begin end
+    else
+      begin end;
+
+    if M22_0.Value > 0 then begin end
+    else begin end;
+    if M22_1.Value < 1 then begin end
+    else begin end;
+
+    if M30_1.Value > 0 then begin end
+    else begin end;
+    if M30_0.Value > 0 then
+    begin end
+    else
+    begin end;
+    if M31_0.Value > 0 then begin Label29.Caption:='System: On'; end
+    else begin Label29.Caption:='System: Off'; end;
+    if M32_0.Value > 0 then
+    begin
+      Label30.Caption:='Mode: Coating';
+      FilmCoater.PenStyle:=psSolid;
+      FilmCoater.LineColor:=clBlack;
+      FilmBypass.PenStyle:=psDashDotDot;
+      FilmBypass.LineColor:=$00404080;
+    end
+    else
+    begin
+      Label30.Caption:='Mode: Bypass';
+      FilmCoater.PenStyle:=psDashDotDot;
+      FilmCoater.LineColor:=$00404080;
+      FilmBypass.PenStyle:=psSolid;
+      FilmBypass.LineColor:=clBlack;
+    end;
+    if M34_0.Value > 0 then begin end
+    else begin end;
 
     IsCoatingMode();
     IsBypassMode();
@@ -752,14 +697,14 @@ begin
     IsCoronaGeneratorOff();
 
     if M98_0.Value > 0 then
-    begin Label21.Color:=clMoneyGreen; Label39.Color:=clMoneyGreen; end
+    begin end
     else
-    begin Label21.Color:=clWhite; Label39.Color:=clWhite; end;
+    begin end;
 
     if (M98_0.Value > 0) or ((I0_0.Value > 0) and (I0_7.Value > 0)) then
-    begin Shape9.Brush.Color:=clMoneyGreen; Shape10.Brush.Color:=clMoneyGreen; end
+    begin end
     else
-    begin Shape9.Brush.Color:=clWhite; Shape10.Brush.Color:=clWhite; end;
+    begin end;
 
   end;
 
@@ -978,6 +923,8 @@ begin
   FreeAndNil_QB0();
   FreeAndNil_QB201();
   FreeAndNil_QB209();
+  FreeAndNil_QB213();
+  FreeAndNil_QB217();
   FreeAndNil_IB0();
 
   FreeAndNil_DBD();
@@ -1000,6 +947,9 @@ procedure TForm1.FormCreate(Sender: TObject);
 //var
 //  i:integer= 25;
 begin
+  LiveCounter_:=0;
+  CoronaRoll.PopupMenu := PopupMenuInterlockCoronaRoll;
+  ImageCoronaExhaustFan.PopupMenu := PopupMenuInterlockCoronaExhaustFan;
   ProductionView:=true;
   DebugIsActive:=false;
   {$IFOPT D+}
@@ -1031,13 +981,19 @@ begin
   CreateTag_QB0();
   CreateTag_QB201();
   CreateTag_QB209();
+  CreateTag_QB213();  //Gravure roll run
+  CreateTag_QB217();  //Takeoff roll run
   CreateTag_IB0();
   CreateTag_DB9_DBD32();  //CoronaSpeed_Act
+  CreateTag_DB9_DBD36();  //GravureRoll_Act
+  CreateTag_DB9_DBD40();  //TakeOffRoll_Act
   CreateTag_DB9_DBD56();  //CoronaSetpoin
   CreateTag_DB9_DBD60();  //CoronaActual
   CreateTag_DB9_DBD64();  //CoronaWattDensityAct
   CreateTag_DB10_DBD4();  //LineSpeed_Act01
   CreateTag_DB10_DBD22(); //AdditionalCoronaSpeed_Set
+  CreateTag_DB10_DBD26(); //AdditionalGravureRollSpeed_Set
+  CreateTag_DB10_DBD30(); //AdditionalTakeOffRollSpeed_Set
   CreateTag_DB10_DBD42(); //LineSpeedUpper_Set
 
   //if boolean(i and 36) then
@@ -1054,18 +1010,23 @@ begin
 
   CoronaSpeed_Act01.PLCTag:=DB9_DBD32;
   CoronaSpeed_Act02.PLCTag:=DB9_DBD32;
+  GravureSpeed_Act.PLCTag:=DB9_DBD36;
+  TakeOffRollSpeed_Act.PLCTag:=DB9_DBD40;
   Corona_Act.PLCTag:=DB9_DBD60;
   CoronaSetpoint.PLCTag:=DB9_DBD56;
   CoronaWattDensityAct.PLCTag:=DB9_DBD64;
   LineSpeed_Act01.PLCTag:=DB10_DBD4;
+  LineSpeed_Act.PLCTag:=DB10_DBD4;
   AdditionalCoronaSpeed_Set.PLCTag:=DB10_DBD22;
   AdditionalCoronaSpeed_Set02.PLCTag:=DB10_DBD22;
+  AdditionalGravureSpeed_Set.PLCTag:=DB10_DBD26;
+  AdditionalTakeOffRollSpeed_Set.PLCTag:=DB10_DBD30;
   LineSpeedUpper_Set.PLCTag:=DB10_DBD42;
   BypassFilmbrake_Set.PLCTag:=M98_0;
   if ProductionView then
-      Label41.Caption:='LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min'
-    else
-      Label41.Caption:='LineSpeed Upper: '+DB10_DBD42.Value.ToString+' (M17.0=1)';
+    begin end
+  else
+    begin end;
 end;
 
 procedure TForm1.MaskEditIPEditingDone(Sender: TObject);

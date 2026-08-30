@@ -22,13 +22,19 @@ procedure CreateTag_MB101();
 procedure CreateTag_QB0();
 procedure CreateTag_QB201();
 procedure CreateTag_QB209();
+procedure CreateTag_QB213();  //Gravure roll run
+procedure CreateTag_QB217();  //Takeoff roll run
 procedure CreateTag_IB0();
 procedure CreateTag_DB9_DBD32();  //CoronaSpeed_Act
+procedure CreateTag_DB9_DBD36();  //GravureRoll_Act
+procedure CreateTag_DB9_DBD40();  //TakeOffRoll_Act
 procedure CreateTag_DB9_DBD56();  //CoronaSetpoint
 procedure CreateTag_DB9_DBD60();  //CoronaActual
 procedure CreateTag_DB9_DBD64();  //CoronaWattDensityAct
 procedure CreateTag_DB10_DBD4();  //LineSpeed_Act01
 procedure CreateTag_DB10_DBD22(); //AdditionalCoronaSpeed_Set
+procedure CreateTag_DB10_DBD26(); //AdditionalGravureRollSpeed_Set
+procedure CreateTag_DB10_DBD30(); //AdditionalTakeOffRollSpeed_Set
 procedure CreateTag_DB10_DBD42(); //LineSpeedUpper_Set
 procedure FreeAndNil_MB0();
 procedure FreeAndNil_MB1();
@@ -44,10 +50,14 @@ procedure FreeAndNil_MB101();
 procedure FreeAndNil_QB0();
 procedure FreeAndNil_QB201();
 procedure FreeAndNil_QB209();
+procedure FreeAndNil_QB213();
+procedure FreeAndNil_QB217();
 procedure FreeAndNil_IB0();
 procedure FreeAndNil_DBD();
 
 var
+  LiveCounter_:integer;
+  Communication_Active:boolean;
   ProductionView:boolean;
   MB0_: TPLCBlock;
   MB0: TPLCBlockElement;
@@ -194,7 +204,7 @@ var
 
   QB201_: TPLCBlock;
   QB201: TPLCBlockElement;
-  Q201_0: TTagBit;
+  Q201_0: TTagBit;  // Infeed On
   Q201_1: TTagBit;
   Q201_2: TTagBit;
   Q201_3: TTagBit;
@@ -214,8 +224,36 @@ var
   Q209_6: TTagBit;
   Q209_7: TTagBit;
 
+  QB213_: TPLCBlock;
+  QB213: TPLCBlockElement;
+  Q213_0: TTagBit;  // Gravure roll run
+  Q213_1: TTagBit;
+  Q213_2: TTagBit;
+  Q213_3: TTagBit;
+  Q213_4: TTagBit;
+  Q213_5: TTagBit;
+  Q213_6: TTagBit;
+  Q213_7: TTagBit;
+
+  QB217_: TPLCBlock;
+  QB217: TPLCBlockElement;
+  Q217_0: TTagBit;  // Takeoff roll run
+  Q217_1: TTagBit;
+  Q217_2: TTagBit;
+  Q217_3: TTagBit;
+  Q217_4: TTagBit;
+  Q217_5: TTagBit;
+  Q217_6: TTagBit;
+  Q217_7: TTagBit;
+
   DB9_DBD32_: TPLCBlock;        //CoronaSpeed_Act
   DB9_DBD32: TPLCBlockElement;  //CoronaSpeed_Act
+
+  DB9_DBD36_: TPLCBlock;        //GravureRoll_Act
+  DB9_DBD36: TPLCBlockElement;  //GravureRoll_Act
+
+  DB9_DBD40_: TPLCBlock;        //TakeOffRoll_Act
+  DB9_DBD40: TPLCBlockElement;  //TakeOffRoll_Act
 
   DB9_DBD56_: TPLCBlock;        //CoronaSetpoint
   DB9_DBD56: TPLCBlockElement;  //CoronaSetpoint
@@ -228,6 +266,10 @@ var
   DB10_DBD4: TPLCBlockElement;  //LineSpeed_Act01
   DB10_DBD22_: TPLCBlock;       //AdditionalCoronaSpeed_Set
   DB10_DBD22: TPLCBlockElement; //AdditionalCoronaSpeed_Set
+  DB10_DBD26_: TPLCBlock;       //AdditionalGravureRollSpeed_Set
+  DB10_DBD26: TPLCBlockElement; //AdditionalGravureRollSpeed_Set
+  DB10_DBD30_: TPLCBlock;       //AdditionalTakeOffRollSpeed_Set
+  DB10_DBD30: TPLCBlockElement; //AdditionalTakeOffRollSpeed_Set
   DB10_DBD42_: TPLCBlock;       //LineSpeedUpper_Set
   DB10_DBD42: TPLCBlockElement; //LineSpeedUpper_Set
 
@@ -1094,6 +1136,128 @@ begin
   Q209_7.PLCTag:=QB209;
 end;
 
+procedure CreateTag_QB213();  //Gravure roll run
+begin
+  QB213_:= TPLCBlock.Create(nil);
+  QB213_.PLCRack:=0;
+  QB213_.PLCSlot:=0;
+  QB213_.PLCStation:=2;
+  QB213_.MemAddress:=213;
+  QB213_.MemReadFunction:=2;
+  QB213_.AutoRead:=true;
+  QB213_.AutoWrite:=false;
+  QB213_.TagType:= TTagType.pttByte;
+  QB213_.Size:=1;
+  QB213_.RefreshTime:=500;
+  QB213_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
+
+  QB213:= TPLCBlockElement.Create(nil);
+  QB213.Index:=0;
+  QB213.PLCBlock:=QB213_;
+
+  Q213_0:= TTagBit.Create(nil);
+  Q213_1:= TTagBit.Create(nil);
+  Q213_2:= TTagBit.Create(nil);
+  Q213_3:= TTagBit.Create(nil);
+  Q213_4:= TTagBit.Create(nil);
+  Q213_5:= TTagBit.Create(nil);
+  Q213_6:= TTagBit.Create(nil);
+  Q213_7:= TTagBit.Create(nil);
+
+  Q213_0.StartBit:=0;
+  Q213_0.EndBit:=0;
+  Q213_0.PLCTag:=QB213;
+
+  Q213_1.StartBit:=1;
+  Q213_1.EndBit:=1;
+  Q213_1.PLCTag:=QB213;
+
+  Q213_2.StartBit:=2;
+  Q213_2.EndBit:=2;
+  Q213_2.PLCTag:=QB213;
+
+  Q213_3.StartBit:=3;
+  Q213_3.EndBit:=3;
+  Q213_3.PLCTag:=QB213;
+
+  Q213_4.StartBit:=4;
+  Q213_4.EndBit:=4;
+  Q213_4.PLCTag:=QB213;
+
+  Q213_5.StartBit:=5;
+  Q213_5.EndBit:=5;
+  Q213_5.PLCTag:=QB213;
+
+  Q213_6.StartBit:=6;
+  Q213_6.EndBit:=6;
+  Q213_6.PLCTag:=QB213;
+
+  Q213_7.StartBit:=7;
+  Q213_7.EndBit:=7;
+  Q213_7.PLCTag:=QB213;
+end;
+
+procedure CreateTag_QB217();  //Takeoff roll run
+begin
+  QB217_:= TPLCBlock.Create(nil);
+  QB217_.PLCRack:=0;
+  QB217_.PLCSlot:=0;
+  QB217_.PLCStation:=2;
+  QB217_.MemAddress:=217;
+  QB217_.MemReadFunction:=2;
+  QB217_.AutoRead:=true;
+  QB217_.AutoWrite:=false;
+  QB217_.TagType:= TTagType.pttByte;
+  QB217_.Size:=1;
+  QB217_.RefreshTime:=500;
+  QB217_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
+
+  QB217:= TPLCBlockElement.Create(nil);
+  QB217.Index:=0;
+  QB217.PLCBlock:=QB217_;
+
+  Q217_0:= TTagBit.Create(nil);
+  Q217_1:= TTagBit.Create(nil);
+  Q217_2:= TTagBit.Create(nil);
+  Q217_3:= TTagBit.Create(nil);
+  Q217_4:= TTagBit.Create(nil);
+  Q217_5:= TTagBit.Create(nil);
+  Q217_6:= TTagBit.Create(nil);
+  Q217_7:= TTagBit.Create(nil);
+
+  Q217_0.StartBit:=0;
+  Q217_0.EndBit:=0;
+  Q217_0.PLCTag:=QB217;
+
+  Q217_1.StartBit:=1;
+  Q217_1.EndBit:=1;
+  Q217_1.PLCTag:=QB217;
+
+  Q217_2.StartBit:=2;
+  Q217_2.EndBit:=2;
+  Q217_2.PLCTag:=QB217;
+
+  Q217_3.StartBit:=3;
+  Q217_3.EndBit:=3;
+  Q217_3.PLCTag:=QB217;
+
+  Q217_4.StartBit:=4;
+  Q217_4.EndBit:=4;
+  Q217_4.PLCTag:=QB217;
+
+  Q217_5.StartBit:=5;
+  Q217_5.EndBit:=5;
+  Q217_5.PLCTag:=QB217;
+
+  Q217_6.StartBit:=6;
+  Q217_6.EndBit:=6;
+  Q217_6.PLCTag:=QB217;
+
+  Q217_7.StartBit:=7;
+  Q217_7.EndBit:=7;
+  Q217_7.PLCTag:=QB217;
+end;
+
 procedure CreateTag_IB0();
 begin
   IB0_:= TPLCBlock.Create(nil);
@@ -1178,6 +1342,56 @@ begin
   DB9_DBD32:= TPLCBlockElement.Create(nil);
   DB9_DBD32.Index:=0;
   DB9_DBD32.PLCBlock:=DB9_DBD32_;
+end;
+
+procedure CreateTag_DB9_DBD36();  //GravureRoll_Act
+begin
+  DB9_DBD36_:= TPLCBlock.Create(nil);
+  DB9_DBD36_.PLCRack:=0;
+  DB9_DBD36_.PLCSlot:=0;
+  DB9_DBD36_.PLCStation:=2;
+  DB9_DBD36_.MemAddress:=36;
+  DB9_DBD36_.MemFile_DB:=9;
+  DB9_DBD36_.MemReadFunction:=4;
+  DB9_DBD36_.MemWriteFunction:=0;
+  DB9_DBD36_.AutoRead:=true;
+  DB9_DBD36_.AutoWrite:=false;
+  DB9_DBD36_.TagType:= TTagType.pttFloat;
+  DB9_DBD36_.Size:=1;
+  DB9_DBD36_.SwapBytes:=true;
+  DB9_DBD36_.SwapDWords:=false;
+  DB9_DBD36_.SwapWords:=true;
+  DB9_DBD36_.RefreshTime:=1000;
+  DB9_DBD36_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
+
+  DB9_DBD36:= TPLCBlockElement.Create(nil);
+  DB9_DBD36.Index:=0;
+  DB9_DBD36.PLCBlock:=DB9_DBD36_;
+end;
+
+procedure CreateTag_DB9_DBD40();  //TakeOffRoll_Act
+begin
+  DB9_DBD40_:= TPLCBlock.Create(nil);
+  DB9_DBD40_.PLCRack:=0;
+  DB9_DBD40_.PLCSlot:=0;
+  DB9_DBD40_.PLCStation:=2;
+  DB9_DBD40_.MemAddress:=40;
+  DB9_DBD40_.MemFile_DB:=9;
+  DB9_DBD40_.MemReadFunction:=4;
+  DB9_DBD40_.MemWriteFunction:=0;
+  DB9_DBD40_.AutoRead:=true;
+  DB9_DBD40_.AutoWrite:=false;
+  DB9_DBD40_.TagType:= TTagType.pttFloat;
+  DB9_DBD40_.Size:=1;
+  DB9_DBD40_.SwapBytes:=true;
+  DB9_DBD40_.SwapDWords:=false;
+  DB9_DBD40_.SwapWords:=true;
+  DB9_DBD40_.RefreshTime:=1000;
+  DB9_DBD40_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
+
+  DB9_DBD40:= TPLCBlockElement.Create(nil);
+  DB9_DBD40.Index:=0;
+  DB9_DBD40.PLCBlock:=DB9_DBD40_;
 end;
 
 procedure CreateTag_DB9_DBD56();  //CoronaSetpoint
@@ -1303,6 +1517,56 @@ begin
   DB10_DBD22:= TPLCBlockElement.Create(nil);
   DB10_DBD22.Index:=0;
   DB10_DBD22.PLCBlock:=DB10_DBD22_;
+end;
+
+procedure CreateTag_DB10_DBD26();  //AdditionalGravureRollSpeed_Set
+begin
+  DB10_DBD26_:= TPLCBlock.Create(nil);
+  DB10_DBD26_.PLCRack:=0;
+  DB10_DBD26_.PLCSlot:=0;
+  DB10_DBD26_.PLCStation:=2;
+  DB10_DBD26_.MemAddress:=26;
+  DB10_DBD26_.MemFile_DB:=10;
+  DB10_DBD26_.MemReadFunction:=4;
+  DB10_DBD26_.MemWriteFunction:=0;
+  DB10_DBD26_.AutoRead:=true;
+  DB10_DBD26_.AutoWrite:=true;
+  DB10_DBD26_.TagType:= TTagType.pttFloat;
+  DB10_DBD26_.Size:=1;
+  DB10_DBD26_.SwapBytes:=true;
+  DB10_DBD26_.SwapDWords:=false;
+  DB10_DBD26_.SwapWords:=true;
+  DB10_DBD26_.RefreshTime:=1000;
+  DB10_DBD26_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
+
+  DB10_DBD26:= TPLCBlockElement.Create(nil);
+  DB10_DBD26.Index:=0;
+  DB10_DBD26.PLCBlock:=DB10_DBD26_;
+end;
+
+procedure CreateTag_DB10_DBD30();  //AdditionalTakeOffRollSpeed_Set
+begin
+  DB10_DBD30_:= TPLCBlock.Create(nil);
+  DB10_DBD30_.PLCRack:=0;
+  DB10_DBD30_.PLCSlot:=0;
+  DB10_DBD30_.PLCStation:=2;
+  DB10_DBD30_.MemAddress:=30;
+  DB10_DBD30_.MemFile_DB:=10;
+  DB10_DBD30_.MemReadFunction:=4;
+  DB10_DBD30_.MemWriteFunction:=0;
+  DB10_DBD30_.AutoRead:=true;
+  DB10_DBD30_.AutoWrite:=true;
+  DB10_DBD30_.TagType:= TTagType.pttFloat;
+  DB10_DBD30_.Size:=1;
+  DB10_DBD30_.SwapBytes:=true;
+  DB10_DBD30_.SwapDWords:=false;
+  DB10_DBD30_.SwapWords:=true;
+  DB10_DBD30_.RefreshTime:=1000;
+  DB10_DBD30_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
+
+  DB10_DBD30:= TPLCBlockElement.Create(nil);
+  DB10_DBD30.Index:=0;
+  DB10_DBD30.PLCBlock:=DB10_DBD30_;
 end;
 
 procedure CreateTag_DB10_DBD42();
@@ -1526,6 +1790,34 @@ begin
   FreeAndNil(QB209_);
 end;
 
+procedure FreeAndNil_QB213();
+begin
+  FreeAndNil(Q213_0);
+  FreeAndNil(Q213_1);
+  FreeAndNil(Q213_2);
+  FreeAndNil(Q213_3);
+  FreeAndNil(Q213_4);
+  FreeAndNil(Q213_5);
+  FreeAndNil(Q213_6);
+  FreeAndNil(Q213_7);
+  FreeAndNil(QB213);
+  FreeAndNil(QB213_);
+end;
+
+procedure FreeAndNil_QB217();
+begin
+  FreeAndNil(Q217_0);
+  FreeAndNil(Q217_1);
+  FreeAndNil(Q217_2);
+  FreeAndNil(Q217_3);
+  FreeAndNil(Q217_4);
+  FreeAndNil(Q217_5);
+  FreeAndNil(Q217_6);
+  FreeAndNil(Q217_7);
+  FreeAndNil(QB217);
+  FreeAndNil(QB217_);
+end;
+
 procedure FreeAndNil_IB0();
 begin
   FreeAndNil(I0_0);
@@ -1544,6 +1836,10 @@ procedure FreeAndNil_DBD();
 begin
   FreeAndNil(DB9_DBD32);
   FreeAndNil(DB9_DBD32_);
+  FreeAndNil(DB9_DBD36);
+  FreeAndNil(DB9_DBD36_);
+  FreeAndNil(DB9_DBD40);
+  FreeAndNil(DB9_DBD40_);
   FreeAndNil(DB9_DBD56);
   FreeAndNil(DB9_DBD56_);
   FreeAndNil(DB9_DBD60);
@@ -1554,6 +1850,10 @@ begin
   FreeAndNil(DB10_DBD4_);
   FreeAndNil(DB10_DBD22);
   FreeAndNil(DB10_DBD22_);
+  FreeAndNil(DB10_DBD26);
+  FreeAndNil(DB10_DBD26_);
+  FreeAndNil(DB10_DBD30);
+  FreeAndNil(DB10_DBD30_);
   FreeAndNil(DB10_DBD42);
   FreeAndNil(DB10_DBD42_);
 end;
