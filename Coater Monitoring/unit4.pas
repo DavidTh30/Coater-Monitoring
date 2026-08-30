@@ -100,7 +100,7 @@ begin
       Interlock8.Caption:='6.2 or 7.3: All zone TDO Film Break';
       Interlock9.Caption:='6.3: Bypass Filmbrake';
       Interlock10.Caption:='7:  Electrode In position';
-      Interlock11.Caption:='8:  Blower Run';
+      Interlock11.Caption:='8:  Corona Exhaust Fan Run';
       Status_.Caption:='Corona Start';
     end
     else
@@ -115,7 +115,7 @@ begin
       Interlock8.Caption:='6.2 or 7.3: All zone TDO Film Break (I0.7=1)';
       Interlock9.Caption:='6.3: Bypass Filmbrake (M98.0=1)             << Done by HMI';
       Interlock10.Caption:='7:  Electrode In position (I0.5=1)         << Done by HMI and Hardware';
-      Interlock11.Caption:='8:  Blower Run (Q0.1=1)                    << Done by HMI and Hardware';
+      Interlock11.Caption:='8:  Corona Exhaust Fan Run (Q0.1=1)        << Done by HMI and Hardware';
       Status_.Caption:='Corona Start (Q0.5=1)';
     end;
   end;
@@ -149,7 +149,7 @@ begin
       Interlock5.Caption:='3.2 or 3.3: All zone TDO Film Break';
       Interlock6.Caption:='3.3: Bypass Filmbrake';
       Interlock7.Caption:='6:  '+'LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min';
-      Interlock8.Caption:='7:  Blower Run';
+      Interlock8.Caption:='7:  Corona Exhaust Fan Run';
       Status_.Caption:='Electrode In Position';
     end
     else
@@ -161,7 +161,7 @@ begin
       Interlock5.Caption:='3.2 or 3.3: All zone TDO Film Break (I0.7=1)';
       Interlock6.Caption:='3.3: Bypass Filmbrake (M98.0=1)                               << Done by HMI';
       Interlock7.Caption:='6:  '+'LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min'+' (M17.0=1)';
-      Interlock8.Caption:='7:  Blower Run (Q0.1=1)';
+      Interlock8.Caption:='7:  Corona Exhaust Fan Run (Q0.1=1)';
       Status_.Caption:='Electrode In Position (Q0.3=1)                                    << Done by HMI and Hardware';
     end;
   end;

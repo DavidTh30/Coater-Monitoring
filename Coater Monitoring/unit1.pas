@@ -24,26 +24,48 @@ type
     AdditionalCoronaSpeed_Set02: THMIEdit;
     AdditionalGravureSpeed_Set: THMIEdit;
     AdditionalTakeOffRollSpeed_Set: THMIEdit;
+    CmdBypassMode: TBCButton;
+    CmdCoatingMode: TBCButton;
+    CmdGravureRollOff: TBCButton;
+    CmdakeOffRollOff: TBCButton;
+    CmdGravureRollRun: TBCButton;
+    CmdCartridgeIn: TBCButton;
+    CmdCartridgeOut: TBCButton;
+    CmdTakeOffRollRun: TBCButton;
+    CmdSystemOff: TBCButton;
+    CmdSystemOn: TBCButton;
     CoronaSetpoint: THMIEdit;
     CmdCoronaRollRun: TBCButton;
     CmdCoronaRollOff: TBCButton;
     CmdExhaustRun: TBCButton;
     CmdExhaustOff: TBCButton;
-    CmdSystemOff: TBCButton;
-    CmdCoatingMode: TBCButton;
-    CmdBypassMode: TBCButton;
     CmdGeneratorOff: TBCButton;
-    CmdSystemOn: TBCButton;
     CmdElectrodeIn: TBCButton;
     CmdElectrodeOut: TBCButton;
     BCSVGButton1: TBCSVGButton;
     CmdGeneratorOn: TBCButton;
     CoronaSpeed_Act02: THMILabel;
     GravureSpeed_Act: THMILabel;
+    GroupBox1: TGroupBox;
+    GroupBox2: TGroupBox;
+    GroupBox3: TGroupBox;
+    GroupBox5: TGroupBox;
+    GroupBox6: TGroupBox;
+    ImageElectrode: TImage;
+    ImageCartridge: TImage;
+    Label29: TLabel;
+    Label30: TLabel;
+    Label33: TLabel;
+    Label46: TLabel;
+    Label47: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
     Label64: TLabel;
     Label66: TLabel;
     Label67: TLabel;
     Label68: TLabel;
+    Label7: TLabel;
+    LineSpeed_Act01: THMILabel;
     TakeOffRollSpeed_Act: THMILabel;
     LineSpeed_Act: THMILabel;
     CoronaWattDensityAct: THMILabel;
@@ -54,15 +76,13 @@ type
     EditPort: TSpinEditEx;
     FilmBypass: THMIPolyline;
     GroupBox10: TGroupBox;
-    GroupBox3: TGroupBox;
     GroupBox4: TGroupBox;
-    GroupBox5: TGroupBox;
     GroupBox7: TGroupBox;
     BypassFilmbrake_Set: THMICheckBox;
     GroupBox8: TGroupBox;
     FilmCoater: THMIPolyline;
-    HMIPolyline10: THMIPolyline;
-    HMIPolyline11: THMIPolyline;
+    HMIPolylineElectrode: THMIPolyline;
+    HMIPolylineCoatetStation: THMIPolyline;
     HMIPolyline2: THMIPolyline;
     HMIPolyline3: THMIPolyline;
     HMIPolyline5: THMIPolyline;
@@ -85,15 +105,12 @@ type
     LineSpeedUpper_Set: THMIEdit;
     AdditionalCoronaSpeed_Set: THMIEdit;
     CoronaSpeed_Act01: THMILabel;
-    LineSpeed_Act01: THMILabel;
 
     ISOTCPDriver1: TISOTCPDriver;
     Label1: TLabel;
     Label2: TLabel;
     Label28: TLabel;
-    Label29: TLabel;
     Label3: TLabel;
-    Label30: TLabel;
     Label31: TLabel;
     Label32: TLabel;
     Label45: TLabel;
@@ -127,11 +144,11 @@ type
     P6: TShape;
     GravureRoll: TShape;
     CoronaRoll: TShape;
-    Shape4: TShape;
+    BananaRoll: TShape;
     Shape5: TShape;
     Shape6: TShape;
-    Shape7: TShape;
-    Shape8: TShape;
+    Electrode02: TShape;
+    Electrode01: TShape;
     StatusBar1: TStatusBar;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
@@ -407,6 +424,8 @@ begin
 
   AdditionalGravureSpeed_Set.Enabled:=false;
   AdditionalTakeOffRollSpeed_Set.Enabled:=false;
+  ImageElectrode.ImageIndex:=18;
+  ImageCartridge.ImageIndex:=18;
 end;
 
 procedure TForm1.CommunicationIsActive;
@@ -591,10 +610,46 @@ begin
            ImageFlow2.Left:=608; ImageFlow2.Width:=44;
     end;
 
-    if Q0_3.Value > 0 then
-    begin Label28.Caption:='Electrode: In'; end
+    if Q0_2.Value > 0 then  //Cartridge
+    begin
+      ImageCartridge.ImageIndex:=19;
+      ImageCartridge.Left:=410;
+      HMIPolylineCoatetStation.Left:=376;
+      GravureRoll.Left:=315;
+      Label7.Left:=411;
+    end
     else
-    begin Label28.Caption:='Electrode: Out'; end;
+    begin
+      ImageCartridge.ImageIndex:=20;
+      ImageCartridge.Left:=420;
+      HMIPolylineCoatetStation.Left:=386;
+      GravureRoll.Left:=325;
+      Label7.Left:=421;
+    end;
+
+    if Q0_3.Value > 0 then   //Electrode
+    begin
+      Label28.Caption:='Electrode: In';
+      ImageElectrode.ImageIndex:=19;
+      ImageElectrode.Left:=425;
+      Image2.Left:=390;
+      HMIPolylineElectrode.Left:=390;
+      Label5.Left:=426;
+      Electrode01.Left:=395;
+      Electrode02.Left:=400;
+    end
+    else
+    begin
+      Label28.Caption:='Electrode: Out';
+      ImageElectrode.ImageIndex:=20;
+      ImageElectrode.Left:=435;
+      Image2.Left:=400;
+      HMIPolylineElectrode.Left:=400;
+      Label5.Left:=436;
+      Electrode01.Left:=405;
+      Electrode02.Left:=410;
+    end;
+
     if Q0_5.Value > 0 then
     begin Label57.Caption:='Generator: On'; end
     else

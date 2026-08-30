@@ -195,7 +195,7 @@ var
   QB0: TPLCBlockElement;
   Q0_0: TTagBit;
   Q0_1: TTagBit;  // Exhaust fan corona run
-  Q0_2: TTagBit;
+  Q0_2: TTagBit;  // Cartridge In
   Q0_3: TTagBit;  // Electrode In
   Q0_4: TTagBit;  // Generator Off Status
   Q0_5: TTagBit;  // Generator On Status

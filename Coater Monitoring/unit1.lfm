@@ -2,10 +2,12 @@ object Form1: TForm1
   Left = 431
   Height = 635
   Top = 138
-  Width = 832
+  Width = 821
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
   Caption = 'Coater Monitoring 0.2'
   ClientHeight = 635
-  ClientWidth = 832
+  ClientWidth = 821
   Color = clWhite
   Icon.Data = {
     3E08010000000100010080800000010020002808010016000000280000008000
@@ -2138,7 +2140,7 @@ object Form1: TForm1
     Left = 0
     Height = 612
     Top = 0
-    Width = 832
+    Width = 821
     ActivePage = TabSheet1
     Anchors = [akTop, akLeft, akRight, akBottom]
     TabIndex = 0
@@ -2146,7 +2148,7 @@ object Form1: TForm1
     object TabSheet1: TTabSheet
       Caption = 'Communication'
       ClientHeight = 584
-      ClientWidth = 824
+      ClientWidth = 813
       object Label32: TLabel
         AnchorSideTop.Control = EditPort
         AnchorSideTop.Side = asrCenter
@@ -2195,66 +2197,7 @@ object Form1: TForm1
     object TabSheet5: TTabSheet
       Caption = 'Overview'
       ClientHeight = 584
-      ClientWidth = 824
-      object HMIPolyline10: THMIPolyline
-        Left = 390
-        Height = 72
-        Top = 171
-        Width = 34
-        PointCoordinates = <        
-          item
-            X = 1
-            Y = 8
-          end        
-          item
-            X = 8
-            Y = 20
-          end        
-          item
-            X = 11
-            Y = 28
-          end        
-          item
-            X = 11
-            Y = 35
-          end        
-          item
-            X = 11
-            Y = 41
-          end        
-          item
-            X = 8
-            Y = 48
-          end        
-          item
-            X = 1
-            Y = 55
-          end        
-          item
-            X = 0
-            Y = 61
-          end        
-          item
-            X = 6
-            Y = 68
-          end        
-          item
-            X = 25
-            Y = 60
-          end        
-          item
-            X = 25
-            Y = 8
-          end        
-          item
-            X = 10
-            Y = 0
-          end        
-          item
-            X = 1
-            Y = 8
-          end>
-      end
+      ClientWidth = 813
       object FilmBypass: THMIPolyline
         Left = 0
         Height = 585
@@ -2678,6 +2621,83 @@ object Form1: TForm1
             Y = 420
           end>
       end
+      object ImageElectrode: TImage
+        Left = 425
+        Height = 45
+        Top = 208
+        Width = 50
+        ImageIndex = 18
+        Images = ImageList2
+        Stretch = True
+      end
+      object ImageCartridge: TImage
+        Left = 420
+        Height = 45
+        Top = 344
+        Width = 50
+        ImageIndex = 18
+        Images = ImageList2
+        Stretch = True
+      end
+      object HMIPolylineElectrode: THMIPolyline
+        Left = 390
+        Height = 72
+        Top = 171
+        Width = 34
+        PointCoordinates = <        
+          item
+            X = 1
+            Y = 8
+          end        
+          item
+            X = 8
+            Y = 20
+          end        
+          item
+            X = 11
+            Y = 28
+          end        
+          item
+            X = 11
+            Y = 35
+          end        
+          item
+            X = 11
+            Y = 41
+          end        
+          item
+            X = 8
+            Y = 48
+          end        
+          item
+            X = 1
+            Y = 55
+          end        
+          item
+            X = 0
+            Y = 61
+          end        
+          item
+            X = 6
+            Y = 68
+          end        
+          item
+            X = 25
+            Y = 60
+          end        
+          item
+            X = 25
+            Y = 8
+          end        
+          item
+            X = 10
+            Y = 0
+          end        
+          item
+            X = 1
+            Y = 8
+          end>
+      end
       object TakeOffRoll: TShape
         Left = 256
         Height = 60
@@ -2703,7 +2723,7 @@ object Form1: TForm1
         Brush.Color = clSkyBlue
         Shape = stCircle
       end
-      object Shape4: TShape
+      object BananaRoll: TShape
         Left = 315
         Height = 40
         Top = 256
@@ -2737,7 +2757,7 @@ object Form1: TForm1
       object Label61: TLabel
         Left = 325
         Height = 15
-        Top = 408
+        Top = 416
         Width = 59
         Caption = 'Takeoff roll'
       end
@@ -2748,13 +2768,13 @@ object Form1: TForm1
         Width = 61
         Caption = 'Gravure roll'
       end
-      object Shape7: TShape
+      object Electrode02: TShape
         Left = 400
         Height = 39
         Top = 188
         Width = 4
       end
-      object Shape8: TShape
+      object Electrode01: TShape
         Left = 395
         Height = 39
         Top = 188
@@ -2816,8 +2836,8 @@ object Form1: TForm1
         Sufix = ' m/min'
         FormatDateTimeOptions = []
       end
-      object HMIPolyline11: THMIPolyline
-        Left = 390
+      object HMIPolylineCoatetStation: THMIPolyline
+        Left = 386
         Height = 72
         Top = 312
         Width = 34
@@ -2940,7 +2960,7 @@ object Form1: TForm1
       object TakeOffRollSpeed_Act: THMILabel
         Left = 325
         Height = 15
-        Top = 448
+        Top = 456
         Width = 82
         AutoSize = True
         Enabled = True
@@ -2999,7 +3019,7 @@ object Form1: TForm1
         AnchorSideRight.Control = AdditionalTakeOffRollSpeed_Set
         Left = 324
         Height = 15
-        Top = 425
+        Top = 433
         Width = 96
         Anchors = [akTop, akRight]
         Caption = 'Additional Speed: '
@@ -3008,7 +3028,7 @@ object Form1: TForm1
       object AdditionalTakeOffRollSpeed_Set: THMIEdit
         Left = 420
         Height = 23
-        Top = 421
+        Top = 429
         Width = 41
         Alignment = taCenter
         Color = clWindow
@@ -3030,30 +3050,458 @@ object Form1: TForm1
         AnchorSideRight.Side = asrBottom
         Left = 463
         Height = 15
-        Top = 425
+        Top = 433
         Width = 10
         BorderSpacing.Left = 2
         Caption = '%'
         ParentFont = False
       end
+      object Label5: TLabel
+        Left = 426
+        Height = 30
+        Top = 188
+        Width = 49
+        Caption = 'Corona'#13#10'Electrode'
+      end
+      object Label6: TLabel
+        Left = 616
+        Height = 15
+        Top = 224
+        Width = 104
+        Caption = 'Corona Exhaust Fan'
+      end
+      object Label7: TLabel
+        Left = 421
+        Height = 15
+        Top = 336
+        Width = 49
+        Caption = 'Cartridge'
+      end
     end
-    object TabSheet4: TTabSheet
-      Caption = 'Operate'
+    object TabSheet2: TTabSheet
+      Caption = 'Operate Panel 01'
       ClientHeight = 584
-      ClientWidth = 824
-      object BCSVGButton1: TBCSVGButton
-        Left = 480
-        Height = 11
-        Top = 0
-        Width = 13
-        SVGString = '<?xml version="1.0" encoding="utf-8"?>'#13#10'<svg width="100%" xmlns="http://www.w3.org/2000/svg" height="100%"/>'#13#10
-        StretchMode = smNone
-        Proportional = False
-        Color = clMoneyGreen
-        ColorOpacity = 128
-        Caption = 'BCSVGButton1'
-        Position = 0
-        Maximum = 0
+      ClientWidth = 813
+      object GroupBox1: TGroupBox
+        Left = 624
+        Height = 151
+        Top = 200
+        Width = 133
+        Caption = 'Cartridge'
+        ClientHeight = 131
+        ClientWidth = 129
+        ParentBackground = False
+        TabOrder = 0
+        object Label33: TLabel
+          Left = 8
+          Height = 15
+          Top = 0
+          Width = 55
+          Caption = 'Cartridge: '
+          Color = clWhite
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object CmdCartridgeIn: TBCButton
+          Left = 16
+          Height = 38
+          Top = 32
+          Width = 101
+          StateClicked.Background.Gradient1.StartColor = clWhite
+          StateClicked.Background.Gradient1.EndColor = clSkyBlue
+          StateClicked.Background.Gradient1.GradientType = gtRadial
+          StateClicked.Background.Gradient1.Point1XPercent = 50
+          StateClicked.Background.Gradient1.Point1YPercent = 100
+          StateClicked.Background.Gradient1.Point2XPercent = 0
+          StateClicked.Background.Gradient1.Point2YPercent = 0
+          StateClicked.Background.Gradient2.StartColor = clWhite
+          StateClicked.Background.Gradient2.EndColor = clSkyBlue
+          StateClicked.Background.Gradient2.GradientType = gtLinear
+          StateClicked.Background.Gradient2.Point1XPercent = 0
+          StateClicked.Background.Gradient2.Point1YPercent = 0
+          StateClicked.Background.Gradient2.Point2XPercent = 0
+          StateClicked.Background.Gradient2.Point2YPercent = 100
+          StateClicked.Background.Gradient1EndPercent = 100
+          StateClicked.Background.Style = bbsGradient
+          StateClicked.Border.Style = bboNone
+          StateClicked.FontEx.Color = 16770790
+          StateClicked.FontEx.FontQuality = fqSystemClearType
+          StateClicked.FontEx.Shadow = True
+          StateClicked.FontEx.ShadowRadius = 2
+          StateClicked.FontEx.ShadowOffsetX = 1
+          StateClicked.FontEx.ShadowOffsetY = 1
+          StateClicked.FontEx.Style = [fsBold]
+          StateHover.Background.Gradient1.StartColor = clSkyBlue
+          StateHover.Background.Gradient1.EndColor = clSkyBlue
+          StateHover.Background.Gradient1.GradientType = gtRadial
+          StateHover.Background.Gradient1.Point1XPercent = 50
+          StateHover.Background.Gradient1.Point1YPercent = 100
+          StateHover.Background.Gradient1.Point2XPercent = 0
+          StateHover.Background.Gradient1.Point2YPercent = 0
+          StateHover.Background.Gradient2.StartColor = clWhite
+          StateHover.Background.Gradient2.EndColor = clBlack
+          StateHover.Background.Gradient2.GradientType = gtLinear
+          StateHover.Background.Gradient2.Point1XPercent = 0
+          StateHover.Background.Gradient2.Point1YPercent = 0
+          StateHover.Background.Gradient2.Point2XPercent = 0
+          StateHover.Background.Gradient2.Point2YPercent = 100
+          StateHover.Background.Gradient1EndPercent = 100
+          StateHover.Background.Style = bbsGradient
+          StateHover.Border.Style = bboNone
+          StateHover.FontEx.Color = clWhite
+          StateHover.FontEx.FontQuality = fqSystemClearType
+          StateHover.FontEx.Shadow = True
+          StateHover.FontEx.ShadowRadius = 2
+          StateHover.FontEx.ShadowOffsetX = 1
+          StateHover.FontEx.ShadowOffsetY = 1
+          StateHover.FontEx.Style = [fsBold]
+          StateNormal.Background.Gradient1.StartColor = clSkyBlue
+          StateNormal.Background.Gradient1.EndColor = clSkyBlue
+          StateNormal.Background.Gradient1.GradientType = gtLinear
+          StateNormal.Background.Gradient1.Point1XPercent = 0
+          StateNormal.Background.Gradient1.Point1YPercent = 0
+          StateNormal.Background.Gradient1.Point2XPercent = 0
+          StateNormal.Background.Gradient1.Point2YPercent = 100
+          StateNormal.Background.Gradient2.StartColor = clSkyBlue
+          StateNormal.Background.Gradient2.EndColor = clSkyBlue
+          StateNormal.Background.Gradient2.GradientType = gtRadial
+          StateNormal.Background.Gradient2.Point1XPercent = 50
+          StateNormal.Background.Gradient2.Point1YPercent = 100
+          StateNormal.Background.Gradient2.Point2XPercent = 0
+          StateNormal.Background.Gradient2.Point2YPercent = 0
+          StateNormal.Background.Gradient1EndPercent = 60
+          StateNormal.Background.Style = bbsGradient
+          StateNormal.Border.Style = bboNone
+          StateNormal.FontEx.Color = 16770790
+          StateNormal.FontEx.FontQuality = fqSystemClearType
+          StateNormal.FontEx.Shadow = True
+          StateNormal.FontEx.ShadowRadius = 2
+          StateNormal.FontEx.ShadowOffsetX = 1
+          StateNormal.FontEx.ShadowOffsetY = 1
+          StateNormal.FontEx.Style = [fsBold]
+          Caption = 'Cartridge In'
+          Color = clNone
+          DropDownWidth = 16
+          DropDownArrowSize = 8
+          Enabled = False
+          GlobalOpacity = 255
+          OnMouseDown = CmdElectrodeInMouseDown
+          OnMouseUp = CmdElectrodeInMouseUp
+          ParentColor = False
+          Rounding.RoundX = 5
+          Rounding.RoundY = 5
+          RoundingDropDown.RoundX = 1
+          RoundingDropDown.RoundY = 1
+          TextApplyGlobalOpacity = False
+          MemoryUsage = bmuHigh
+        end
+        object CmdCartridgeOut: TBCButton
+          Left = 16
+          Height = 38
+          Top = 80
+          Width = 101
+          StateClicked.Background.Gradient1.StartColor = clWhite
+          StateClicked.Background.Gradient1.EndColor = clSkyBlue
+          StateClicked.Background.Gradient1.GradientType = gtRadial
+          StateClicked.Background.Gradient1.Point1XPercent = 50
+          StateClicked.Background.Gradient1.Point1YPercent = 100
+          StateClicked.Background.Gradient1.Point2XPercent = 0
+          StateClicked.Background.Gradient1.Point2YPercent = 0
+          StateClicked.Background.Gradient2.StartColor = clWhite
+          StateClicked.Background.Gradient2.EndColor = clSkyBlue
+          StateClicked.Background.Gradient2.GradientType = gtLinear
+          StateClicked.Background.Gradient2.Point1XPercent = 0
+          StateClicked.Background.Gradient2.Point1YPercent = 0
+          StateClicked.Background.Gradient2.Point2XPercent = 0
+          StateClicked.Background.Gradient2.Point2YPercent = 100
+          StateClicked.Background.Gradient1EndPercent = 100
+          StateClicked.Background.Style = bbsGradient
+          StateClicked.Border.Style = bboNone
+          StateClicked.FontEx.Color = 16770790
+          StateClicked.FontEx.FontQuality = fqSystemClearType
+          StateClicked.FontEx.Shadow = True
+          StateClicked.FontEx.ShadowRadius = 2
+          StateClicked.FontEx.ShadowOffsetX = 1
+          StateClicked.FontEx.ShadowOffsetY = 1
+          StateClicked.FontEx.Style = [fsBold]
+          StateHover.Background.Gradient1.StartColor = clSkyBlue
+          StateHover.Background.Gradient1.EndColor = clSkyBlue
+          StateHover.Background.Gradient1.GradientType = gtRadial
+          StateHover.Background.Gradient1.Point1XPercent = 50
+          StateHover.Background.Gradient1.Point1YPercent = 100
+          StateHover.Background.Gradient1.Point2XPercent = 0
+          StateHover.Background.Gradient1.Point2YPercent = 0
+          StateHover.Background.Gradient2.StartColor = clWhite
+          StateHover.Background.Gradient2.EndColor = clBlack
+          StateHover.Background.Gradient2.GradientType = gtLinear
+          StateHover.Background.Gradient2.Point1XPercent = 0
+          StateHover.Background.Gradient2.Point1YPercent = 0
+          StateHover.Background.Gradient2.Point2XPercent = 0
+          StateHover.Background.Gradient2.Point2YPercent = 100
+          StateHover.Background.Gradient1EndPercent = 100
+          StateHover.Background.Style = bbsGradient
+          StateHover.Border.Style = bboNone
+          StateHover.FontEx.Color = clWhite
+          StateHover.FontEx.FontQuality = fqSystemClearType
+          StateHover.FontEx.Shadow = True
+          StateHover.FontEx.ShadowRadius = 2
+          StateHover.FontEx.ShadowOffsetX = 1
+          StateHover.FontEx.ShadowOffsetY = 1
+          StateHover.FontEx.Style = [fsBold]
+          StateNormal.Background.Gradient1.StartColor = clSkyBlue
+          StateNormal.Background.Gradient1.EndColor = clSkyBlue
+          StateNormal.Background.Gradient1.GradientType = gtLinear
+          StateNormal.Background.Gradient1.Point1XPercent = 0
+          StateNormal.Background.Gradient1.Point1YPercent = 0
+          StateNormal.Background.Gradient1.Point2XPercent = 0
+          StateNormal.Background.Gradient1.Point2YPercent = 100
+          StateNormal.Background.Gradient2.StartColor = clSkyBlue
+          StateNormal.Background.Gradient2.EndColor = clSkyBlue
+          StateNormal.Background.Gradient2.GradientType = gtRadial
+          StateNormal.Background.Gradient2.Point1XPercent = 50
+          StateNormal.Background.Gradient2.Point1YPercent = 100
+          StateNormal.Background.Gradient2.Point2XPercent = 0
+          StateNormal.Background.Gradient2.Point2YPercent = 0
+          StateNormal.Background.Gradient1EndPercent = 60
+          StateNormal.Background.Style = bbsGradient
+          StateNormal.Border.Style = bboNone
+          StateNormal.FontEx.Color = 16770790
+          StateNormal.FontEx.FontQuality = fqSystemClearType
+          StateNormal.FontEx.Shadow = True
+          StateNormal.FontEx.ShadowRadius = 2
+          StateNormal.FontEx.ShadowOffsetX = 1
+          StateNormal.FontEx.ShadowOffsetY = 1
+          StateNormal.FontEx.Style = [fsBold]
+          Caption = 'Cartridge Out'
+          Color = clNone
+          DropDownWidth = 16
+          DropDownArrowSize = 8
+          Enabled = False
+          GlobalOpacity = 255
+          OnMouseDown = CmdElectrodeOutMouseDown
+          OnMouseUp = CmdElectrodeOutMouseUp
+          ParentColor = False
+          Rounding.RoundX = 5
+          Rounding.RoundY = 5
+          RoundingDropDown.RoundX = 1
+          RoundingDropDown.RoundY = 1
+          TextApplyGlobalOpacity = False
+          MemoryUsage = bmuHigh
+        end
+      end
+      object GroupBox5: TGroupBox
+        Left = 16
+        Height = 151
+        Top = 32
+        Width = 133
+        Caption = 'System On/Off'
+        ClientHeight = 131
+        ClientWidth = 129
+        Color = clWhite
+        Font.CharSet = ANSI_CHARSET
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        ParentBackground = False
+        ParentColor = False
+        ParentFont = False
+        TabOrder = 1
+        object CmdSystemOn: TBCButton
+          Left = 16
+          Height = 38
+          Top = 32
+          Width = 101
+          StateClicked.Background.Gradient1.StartColor = clWhite
+          StateClicked.Background.Gradient1.EndColor = clSkyBlue
+          StateClicked.Background.Gradient1.GradientType = gtRadial
+          StateClicked.Background.Gradient1.Point1XPercent = 50
+          StateClicked.Background.Gradient1.Point1YPercent = 100
+          StateClicked.Background.Gradient1.Point2XPercent = 0
+          StateClicked.Background.Gradient1.Point2YPercent = 0
+          StateClicked.Background.Gradient2.StartColor = clWhite
+          StateClicked.Background.Gradient2.EndColor = clSkyBlue
+          StateClicked.Background.Gradient2.GradientType = gtLinear
+          StateClicked.Background.Gradient2.Point1XPercent = 0
+          StateClicked.Background.Gradient2.Point1YPercent = 0
+          StateClicked.Background.Gradient2.Point2XPercent = 0
+          StateClicked.Background.Gradient2.Point2YPercent = 100
+          StateClicked.Background.Gradient1EndPercent = 100
+          StateClicked.Background.Style = bbsGradient
+          StateClicked.Border.Style = bboNone
+          StateClicked.FontEx.Color = 16770790
+          StateClicked.FontEx.FontQuality = fqSystemClearType
+          StateClicked.FontEx.Shadow = True
+          StateClicked.FontEx.ShadowRadius = 2
+          StateClicked.FontEx.ShadowOffsetX = 1
+          StateClicked.FontEx.ShadowOffsetY = 1
+          StateClicked.FontEx.Style = [fsBold]
+          StateHover.Background.Gradient1.StartColor = clSkyBlue
+          StateHover.Background.Gradient1.EndColor = clSkyBlue
+          StateHover.Background.Gradient1.GradientType = gtRadial
+          StateHover.Background.Gradient1.Point1XPercent = 50
+          StateHover.Background.Gradient1.Point1YPercent = 100
+          StateHover.Background.Gradient1.Point2XPercent = 0
+          StateHover.Background.Gradient1.Point2YPercent = 0
+          StateHover.Background.Gradient2.StartColor = clWhite
+          StateHover.Background.Gradient2.EndColor = clBlack
+          StateHover.Background.Gradient2.GradientType = gtLinear
+          StateHover.Background.Gradient2.Point1XPercent = 0
+          StateHover.Background.Gradient2.Point1YPercent = 0
+          StateHover.Background.Gradient2.Point2XPercent = 0
+          StateHover.Background.Gradient2.Point2YPercent = 100
+          StateHover.Background.Gradient1EndPercent = 100
+          StateHover.Background.Style = bbsGradient
+          StateHover.Border.Style = bboNone
+          StateHover.FontEx.Color = clWhite
+          StateHover.FontEx.FontQuality = fqSystemClearType
+          StateHover.FontEx.Shadow = True
+          StateHover.FontEx.ShadowRadius = 2
+          StateHover.FontEx.ShadowOffsetX = 1
+          StateHover.FontEx.ShadowOffsetY = 1
+          StateHover.FontEx.Style = [fsBold]
+          StateNormal.Background.Gradient1.StartColor = clSkyBlue
+          StateNormal.Background.Gradient1.EndColor = clSkyBlue
+          StateNormal.Background.Gradient1.GradientType = gtLinear
+          StateNormal.Background.Gradient1.Point1XPercent = 0
+          StateNormal.Background.Gradient1.Point1YPercent = 0
+          StateNormal.Background.Gradient1.Point2XPercent = 0
+          StateNormal.Background.Gradient1.Point2YPercent = 100
+          StateNormal.Background.Gradient2.StartColor = clSkyBlue
+          StateNormal.Background.Gradient2.EndColor = clSkyBlue
+          StateNormal.Background.Gradient2.GradientType = gtRadial
+          StateNormal.Background.Gradient2.Point1XPercent = 50
+          StateNormal.Background.Gradient2.Point1YPercent = 100
+          StateNormal.Background.Gradient2.Point2XPercent = 0
+          StateNormal.Background.Gradient2.Point2YPercent = 0
+          StateNormal.Background.Gradient1EndPercent = 60
+          StateNormal.Background.Style = bbsGradient
+          StateNormal.Border.Style = bboNone
+          StateNormal.FontEx.Color = 16770790
+          StateNormal.FontEx.FontQuality = fqSystemClearType
+          StateNormal.FontEx.Shadow = True
+          StateNormal.FontEx.ShadowRadius = 2
+          StateNormal.FontEx.ShadowOffsetX = 1
+          StateNormal.FontEx.ShadowOffsetY = 1
+          StateNormal.FontEx.Style = [fsBold]
+          Caption = 'System On'
+          Color = clNone
+          DropDownWidth = 16
+          DropDownArrowSize = 8
+          Enabled = False
+          GlobalOpacity = 255
+          OnClick = CmdSystemOnClick
+          ParentColor = False
+          Rounding.RoundX = 5
+          Rounding.RoundY = 5
+          RoundingDropDown.RoundX = 1
+          RoundingDropDown.RoundY = 1
+          TextApplyGlobalOpacity = False
+          MemoryUsage = bmuHigh
+        end
+        object CmdSystemOff: TBCButton
+          Left = 16
+          Height = 38
+          Top = 80
+          Width = 101
+          StateClicked.Background.Gradient1.StartColor = clWhite
+          StateClicked.Background.Gradient1.EndColor = clSkyBlue
+          StateClicked.Background.Gradient1.GradientType = gtRadial
+          StateClicked.Background.Gradient1.Point1XPercent = 50
+          StateClicked.Background.Gradient1.Point1YPercent = 100
+          StateClicked.Background.Gradient1.Point2XPercent = 0
+          StateClicked.Background.Gradient1.Point2YPercent = 0
+          StateClicked.Background.Gradient2.StartColor = clWhite
+          StateClicked.Background.Gradient2.EndColor = clSkyBlue
+          StateClicked.Background.Gradient2.GradientType = gtLinear
+          StateClicked.Background.Gradient2.Point1XPercent = 0
+          StateClicked.Background.Gradient2.Point1YPercent = 0
+          StateClicked.Background.Gradient2.Point2XPercent = 0
+          StateClicked.Background.Gradient2.Point2YPercent = 100
+          StateClicked.Background.Gradient1EndPercent = 100
+          StateClicked.Background.Style = bbsGradient
+          StateClicked.Border.Style = bboNone
+          StateClicked.FontEx.Color = 16770790
+          StateClicked.FontEx.FontQuality = fqSystemClearType
+          StateClicked.FontEx.Shadow = True
+          StateClicked.FontEx.ShadowRadius = 2
+          StateClicked.FontEx.ShadowOffsetX = 1
+          StateClicked.FontEx.ShadowOffsetY = 1
+          StateClicked.FontEx.Style = [fsBold]
+          StateHover.Background.Gradient1.StartColor = clSkyBlue
+          StateHover.Background.Gradient1.EndColor = clSkyBlue
+          StateHover.Background.Gradient1.GradientType = gtRadial
+          StateHover.Background.Gradient1.Point1XPercent = 50
+          StateHover.Background.Gradient1.Point1YPercent = 100
+          StateHover.Background.Gradient1.Point2XPercent = 0
+          StateHover.Background.Gradient1.Point2YPercent = 0
+          StateHover.Background.Gradient2.StartColor = clWhite
+          StateHover.Background.Gradient2.EndColor = clBlack
+          StateHover.Background.Gradient2.GradientType = gtLinear
+          StateHover.Background.Gradient2.Point1XPercent = 0
+          StateHover.Background.Gradient2.Point1YPercent = 0
+          StateHover.Background.Gradient2.Point2XPercent = 0
+          StateHover.Background.Gradient2.Point2YPercent = 100
+          StateHover.Background.Gradient1EndPercent = 100
+          StateHover.Background.Style = bbsGradient
+          StateHover.Border.Style = bboNone
+          StateHover.FontEx.Color = clWhite
+          StateHover.FontEx.FontQuality = fqSystemClearType
+          StateHover.FontEx.Shadow = True
+          StateHover.FontEx.ShadowRadius = 2
+          StateHover.FontEx.ShadowOffsetX = 1
+          StateHover.FontEx.ShadowOffsetY = 1
+          StateHover.FontEx.Style = [fsBold]
+          StateNormal.Background.Gradient1.StartColor = clSkyBlue
+          StateNormal.Background.Gradient1.EndColor = clSkyBlue
+          StateNormal.Background.Gradient1.GradientType = gtLinear
+          StateNormal.Background.Gradient1.Point1XPercent = 0
+          StateNormal.Background.Gradient1.Point1YPercent = 0
+          StateNormal.Background.Gradient1.Point2XPercent = 0
+          StateNormal.Background.Gradient1.Point2YPercent = 100
+          StateNormal.Background.Gradient2.StartColor = clSkyBlue
+          StateNormal.Background.Gradient2.EndColor = clSkyBlue
+          StateNormal.Background.Gradient2.GradientType = gtRadial
+          StateNormal.Background.Gradient2.Point1XPercent = 50
+          StateNormal.Background.Gradient2.Point1YPercent = 100
+          StateNormal.Background.Gradient2.Point2XPercent = 0
+          StateNormal.Background.Gradient2.Point2YPercent = 0
+          StateNormal.Background.Gradient1EndPercent = 60
+          StateNormal.Background.Style = bbsGradient
+          StateNormal.Border.Style = bboNone
+          StateNormal.FontEx.Color = 16770790
+          StateNormal.FontEx.FontQuality = fqSystemClearType
+          StateNormal.FontEx.Shadow = True
+          StateNormal.FontEx.ShadowRadius = 2
+          StateNormal.FontEx.ShadowOffsetX = 1
+          StateNormal.FontEx.ShadowOffsetY = 1
+          StateNormal.FontEx.Style = [fsBold]
+          Caption = 'System Off'
+          Color = clNone
+          DropDownWidth = 16
+          DropDownArrowSize = 8
+          Enabled = False
+          GlobalOpacity = 255
+          OnClick = CmdSystemOffClick
+          ParentColor = False
+          Rounding.RoundX = 5
+          Rounding.RoundY = 5
+          RoundingDropDown.RoundX = 1
+          RoundingDropDown.RoundY = 1
+          TextApplyGlobalOpacity = False
+          MemoryUsage = bmuHigh
+        end
+        object Label29: TLabel
+          Left = 8
+          Height = 15
+          Top = 0
+          Width = 44
+          Caption = 'System: '
+          Color = clWhite
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
       end
       object GroupBox3: TGroupBox
         Left = 16
@@ -3071,7 +3519,7 @@ object Form1: TForm1
         ParentBackground = False
         ParentColor = False
         ParentFont = False
-        TabOrder = 0
+        TabOrder = 2
         object CmdCoatingMode: TBCButton
           Left = 16
           Height = 38
@@ -3281,10 +3729,445 @@ object Form1: TForm1
           FormatDateTimeOptions = []
         end
       end
-      object GroupBox4: TGroupBox
-        Left = 476
+      object GroupBox2: TGroupBox
+        Left = 320
         Height = 151
         Top = 200
+        Width = 288
+        Caption = 'Gravure roll'
+        ClientHeight = 131
+        ClientWidth = 284
+        ParentBackground = False
+        TabOrder = 3
+        object CmdGravureRollRun: TBCButton
+          Left = 16
+          Height = 38
+          Top = 32
+          Width = 101
+          StateClicked.Background.Gradient1.StartColor = clWhite
+          StateClicked.Background.Gradient1.EndColor = clSkyBlue
+          StateClicked.Background.Gradient1.GradientType = gtRadial
+          StateClicked.Background.Gradient1.Point1XPercent = 50
+          StateClicked.Background.Gradient1.Point1YPercent = 100
+          StateClicked.Background.Gradient1.Point2XPercent = 0
+          StateClicked.Background.Gradient1.Point2YPercent = 0
+          StateClicked.Background.Gradient2.StartColor = clWhite
+          StateClicked.Background.Gradient2.EndColor = clSkyBlue
+          StateClicked.Background.Gradient2.GradientType = gtLinear
+          StateClicked.Background.Gradient2.Point1XPercent = 0
+          StateClicked.Background.Gradient2.Point1YPercent = 0
+          StateClicked.Background.Gradient2.Point2XPercent = 0
+          StateClicked.Background.Gradient2.Point2YPercent = 100
+          StateClicked.Background.Gradient1EndPercent = 100
+          StateClicked.Background.Style = bbsGradient
+          StateClicked.Border.Style = bboNone
+          StateClicked.FontEx.Color = 16770790
+          StateClicked.FontEx.FontQuality = fqSystemClearType
+          StateClicked.FontEx.Shadow = True
+          StateClicked.FontEx.ShadowRadius = 2
+          StateClicked.FontEx.ShadowOffsetX = 1
+          StateClicked.FontEx.ShadowOffsetY = 1
+          StateClicked.FontEx.Style = [fsBold]
+          StateHover.Background.Gradient1.StartColor = clSkyBlue
+          StateHover.Background.Gradient1.EndColor = clSkyBlue
+          StateHover.Background.Gradient1.GradientType = gtRadial
+          StateHover.Background.Gradient1.Point1XPercent = 50
+          StateHover.Background.Gradient1.Point1YPercent = 100
+          StateHover.Background.Gradient1.Point2XPercent = 0
+          StateHover.Background.Gradient1.Point2YPercent = 0
+          StateHover.Background.Gradient2.StartColor = clWhite
+          StateHover.Background.Gradient2.EndColor = clBlack
+          StateHover.Background.Gradient2.GradientType = gtLinear
+          StateHover.Background.Gradient2.Point1XPercent = 0
+          StateHover.Background.Gradient2.Point1YPercent = 0
+          StateHover.Background.Gradient2.Point2XPercent = 0
+          StateHover.Background.Gradient2.Point2YPercent = 100
+          StateHover.Background.Gradient1EndPercent = 100
+          StateHover.Background.Style = bbsGradient
+          StateHover.Border.Style = bboNone
+          StateHover.FontEx.Color = clWhite
+          StateHover.FontEx.FontQuality = fqSystemClearType
+          StateHover.FontEx.Shadow = True
+          StateHover.FontEx.ShadowRadius = 2
+          StateHover.FontEx.ShadowOffsetX = 1
+          StateHover.FontEx.ShadowOffsetY = 1
+          StateHover.FontEx.Style = [fsBold]
+          StateNormal.Background.Gradient1.StartColor = clSkyBlue
+          StateNormal.Background.Gradient1.EndColor = clSkyBlue
+          StateNormal.Background.Gradient1.GradientType = gtLinear
+          StateNormal.Background.Gradient1.Point1XPercent = 0
+          StateNormal.Background.Gradient1.Point1YPercent = 0
+          StateNormal.Background.Gradient1.Point2XPercent = 0
+          StateNormal.Background.Gradient1.Point2YPercent = 100
+          StateNormal.Background.Gradient2.StartColor = clSkyBlue
+          StateNormal.Background.Gradient2.EndColor = clSkyBlue
+          StateNormal.Background.Gradient2.GradientType = gtRadial
+          StateNormal.Background.Gradient2.Point1XPercent = 50
+          StateNormal.Background.Gradient2.Point1YPercent = 100
+          StateNormal.Background.Gradient2.Point2XPercent = 0
+          StateNormal.Background.Gradient2.Point2YPercent = 0
+          StateNormal.Background.Gradient1EndPercent = 60
+          StateNormal.Background.Style = bbsGradient
+          StateNormal.Border.Style = bboNone
+          StateNormal.FontEx.Color = 16770790
+          StateNormal.FontEx.FontQuality = fqSystemClearType
+          StateNormal.FontEx.Shadow = True
+          StateNormal.FontEx.ShadowRadius = 2
+          StateNormal.FontEx.ShadowOffsetX = 1
+          StateNormal.FontEx.ShadowOffsetY = 1
+          StateNormal.FontEx.Style = [fsBold]
+          Caption = 'Gravure roll Run'
+          Color = clNone
+          DropDownWidth = 16
+          DropDownArrowSize = 8
+          Enabled = False
+          GlobalOpacity = 255
+          OnMouseDown = CmdCoronaRollRunMouseDown
+          OnMouseUp = CmdCoronaRollRunMouseUp
+          ParentColor = False
+          Rounding.RoundX = 5
+          Rounding.RoundY = 5
+          RoundingDropDown.RoundX = 1
+          RoundingDropDown.RoundY = 1
+          TextApplyGlobalOpacity = False
+          MemoryUsage = bmuHigh
+        end
+        object CmdGravureRollOff: TBCButton
+          Left = 16
+          Height = 38
+          Top = 80
+          Width = 101
+          StateClicked.Background.Gradient1.StartColor = clWhite
+          StateClicked.Background.Gradient1.EndColor = clSkyBlue
+          StateClicked.Background.Gradient1.GradientType = gtRadial
+          StateClicked.Background.Gradient1.Point1XPercent = 50
+          StateClicked.Background.Gradient1.Point1YPercent = 100
+          StateClicked.Background.Gradient1.Point2XPercent = 0
+          StateClicked.Background.Gradient1.Point2YPercent = 0
+          StateClicked.Background.Gradient2.StartColor = clWhite
+          StateClicked.Background.Gradient2.EndColor = clSkyBlue
+          StateClicked.Background.Gradient2.GradientType = gtLinear
+          StateClicked.Background.Gradient2.Point1XPercent = 0
+          StateClicked.Background.Gradient2.Point1YPercent = 0
+          StateClicked.Background.Gradient2.Point2XPercent = 0
+          StateClicked.Background.Gradient2.Point2YPercent = 100
+          StateClicked.Background.Gradient1EndPercent = 100
+          StateClicked.Background.Style = bbsGradient
+          StateClicked.Border.Style = bboNone
+          StateClicked.FontEx.Color = 16770790
+          StateClicked.FontEx.FontQuality = fqSystemClearType
+          StateClicked.FontEx.Shadow = True
+          StateClicked.FontEx.ShadowRadius = 2
+          StateClicked.FontEx.ShadowOffsetX = 1
+          StateClicked.FontEx.ShadowOffsetY = 1
+          StateClicked.FontEx.Style = [fsBold]
+          StateHover.Background.Gradient1.StartColor = clSkyBlue
+          StateHover.Background.Gradient1.EndColor = clSkyBlue
+          StateHover.Background.Gradient1.GradientType = gtRadial
+          StateHover.Background.Gradient1.Point1XPercent = 50
+          StateHover.Background.Gradient1.Point1YPercent = 100
+          StateHover.Background.Gradient1.Point2XPercent = 0
+          StateHover.Background.Gradient1.Point2YPercent = 0
+          StateHover.Background.Gradient2.StartColor = clWhite
+          StateHover.Background.Gradient2.EndColor = clBlack
+          StateHover.Background.Gradient2.GradientType = gtLinear
+          StateHover.Background.Gradient2.Point1XPercent = 0
+          StateHover.Background.Gradient2.Point1YPercent = 0
+          StateHover.Background.Gradient2.Point2XPercent = 0
+          StateHover.Background.Gradient2.Point2YPercent = 100
+          StateHover.Background.Gradient1EndPercent = 100
+          StateHover.Background.Style = bbsGradient
+          StateHover.Border.Style = bboNone
+          StateHover.FontEx.Color = clWhite
+          StateHover.FontEx.FontQuality = fqSystemClearType
+          StateHover.FontEx.Shadow = True
+          StateHover.FontEx.ShadowRadius = 2
+          StateHover.FontEx.ShadowOffsetX = 1
+          StateHover.FontEx.ShadowOffsetY = 1
+          StateHover.FontEx.Style = [fsBold]
+          StateNormal.Background.Gradient1.StartColor = clSkyBlue
+          StateNormal.Background.Gradient1.EndColor = clSkyBlue
+          StateNormal.Background.Gradient1.GradientType = gtLinear
+          StateNormal.Background.Gradient1.Point1XPercent = 0
+          StateNormal.Background.Gradient1.Point1YPercent = 0
+          StateNormal.Background.Gradient1.Point2XPercent = 0
+          StateNormal.Background.Gradient1.Point2YPercent = 100
+          StateNormal.Background.Gradient2.StartColor = clSkyBlue
+          StateNormal.Background.Gradient2.EndColor = clSkyBlue
+          StateNormal.Background.Gradient2.GradientType = gtRadial
+          StateNormal.Background.Gradient2.Point1XPercent = 50
+          StateNormal.Background.Gradient2.Point1YPercent = 100
+          StateNormal.Background.Gradient2.Point2XPercent = 0
+          StateNormal.Background.Gradient2.Point2YPercent = 0
+          StateNormal.Background.Gradient1EndPercent = 60
+          StateNormal.Background.Style = bbsGradient
+          StateNormal.Border.Style = bboNone
+          StateNormal.FontEx.Color = 16770790
+          StateNormal.FontEx.FontQuality = fqSystemClearType
+          StateNormal.FontEx.Shadow = True
+          StateNormal.FontEx.ShadowRadius = 2
+          StateNormal.FontEx.ShadowOffsetX = 1
+          StateNormal.FontEx.ShadowOffsetY = 1
+          StateNormal.FontEx.Style = [fsBold]
+          Caption = 'Gravure roll Off'
+          Color = clNone
+          DropDownWidth = 16
+          DropDownArrowSize = 8
+          Enabled = False
+          GlobalOpacity = 255
+          OnMouseDown = CmdCoronaRollOffMouseDown
+          OnMouseUp = CmdCoronaRollOffMouseUp
+          ParentColor = False
+          Rounding.RoundX = 5
+          Rounding.RoundY = 5
+          RoundingDropDown.RoundX = 1
+          RoundingDropDown.RoundY = 1
+          TextApplyGlobalOpacity = False
+          MemoryUsage = bmuHigh
+        end
+        object Label46: TLabel
+          Left = 8
+          Height = 15
+          Top = 0
+          Width = 67
+          Caption = 'Gravure roll: '
+          Color = clWhite
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+      end
+      object GroupBox6: TGroupBox
+        Left = 320
+        Height = 151
+        Top = 32
+        Width = 288
+        Caption = 'Takeoff roll'
+        ClientHeight = 131
+        ClientWidth = 284
+        ParentBackground = False
+        TabOrder = 4
+        object CmdTakeOffRollRun: TBCButton
+          Left = 16
+          Height = 38
+          Top = 32
+          Width = 101
+          StateClicked.Background.Gradient1.StartColor = clWhite
+          StateClicked.Background.Gradient1.EndColor = clSkyBlue
+          StateClicked.Background.Gradient1.GradientType = gtRadial
+          StateClicked.Background.Gradient1.Point1XPercent = 50
+          StateClicked.Background.Gradient1.Point1YPercent = 100
+          StateClicked.Background.Gradient1.Point2XPercent = 0
+          StateClicked.Background.Gradient1.Point2YPercent = 0
+          StateClicked.Background.Gradient2.StartColor = clWhite
+          StateClicked.Background.Gradient2.EndColor = clSkyBlue
+          StateClicked.Background.Gradient2.GradientType = gtLinear
+          StateClicked.Background.Gradient2.Point1XPercent = 0
+          StateClicked.Background.Gradient2.Point1YPercent = 0
+          StateClicked.Background.Gradient2.Point2XPercent = 0
+          StateClicked.Background.Gradient2.Point2YPercent = 100
+          StateClicked.Background.Gradient1EndPercent = 100
+          StateClicked.Background.Style = bbsGradient
+          StateClicked.Border.Style = bboNone
+          StateClicked.FontEx.Color = 16770790
+          StateClicked.FontEx.FontQuality = fqSystemClearType
+          StateClicked.FontEx.Shadow = True
+          StateClicked.FontEx.ShadowRadius = 2
+          StateClicked.FontEx.ShadowOffsetX = 1
+          StateClicked.FontEx.ShadowOffsetY = 1
+          StateClicked.FontEx.Style = [fsBold]
+          StateHover.Background.Gradient1.StartColor = clSkyBlue
+          StateHover.Background.Gradient1.EndColor = clSkyBlue
+          StateHover.Background.Gradient1.GradientType = gtRadial
+          StateHover.Background.Gradient1.Point1XPercent = 50
+          StateHover.Background.Gradient1.Point1YPercent = 100
+          StateHover.Background.Gradient1.Point2XPercent = 0
+          StateHover.Background.Gradient1.Point2YPercent = 0
+          StateHover.Background.Gradient2.StartColor = clWhite
+          StateHover.Background.Gradient2.EndColor = clBlack
+          StateHover.Background.Gradient2.GradientType = gtLinear
+          StateHover.Background.Gradient2.Point1XPercent = 0
+          StateHover.Background.Gradient2.Point1YPercent = 0
+          StateHover.Background.Gradient2.Point2XPercent = 0
+          StateHover.Background.Gradient2.Point2YPercent = 100
+          StateHover.Background.Gradient1EndPercent = 100
+          StateHover.Background.Style = bbsGradient
+          StateHover.Border.Style = bboNone
+          StateHover.FontEx.Color = clWhite
+          StateHover.FontEx.FontQuality = fqSystemClearType
+          StateHover.FontEx.Shadow = True
+          StateHover.FontEx.ShadowRadius = 2
+          StateHover.FontEx.ShadowOffsetX = 1
+          StateHover.FontEx.ShadowOffsetY = 1
+          StateHover.FontEx.Style = [fsBold]
+          StateNormal.Background.Gradient1.StartColor = clSkyBlue
+          StateNormal.Background.Gradient1.EndColor = clSkyBlue
+          StateNormal.Background.Gradient1.GradientType = gtLinear
+          StateNormal.Background.Gradient1.Point1XPercent = 0
+          StateNormal.Background.Gradient1.Point1YPercent = 0
+          StateNormal.Background.Gradient1.Point2XPercent = 0
+          StateNormal.Background.Gradient1.Point2YPercent = 100
+          StateNormal.Background.Gradient2.StartColor = clSkyBlue
+          StateNormal.Background.Gradient2.EndColor = clSkyBlue
+          StateNormal.Background.Gradient2.GradientType = gtRadial
+          StateNormal.Background.Gradient2.Point1XPercent = 50
+          StateNormal.Background.Gradient2.Point1YPercent = 100
+          StateNormal.Background.Gradient2.Point2XPercent = 0
+          StateNormal.Background.Gradient2.Point2YPercent = 0
+          StateNormal.Background.Gradient1EndPercent = 60
+          StateNormal.Background.Style = bbsGradient
+          StateNormal.Border.Style = bboNone
+          StateNormal.FontEx.Color = 16770790
+          StateNormal.FontEx.FontQuality = fqSystemClearType
+          StateNormal.FontEx.Shadow = True
+          StateNormal.FontEx.ShadowRadius = 2
+          StateNormal.FontEx.ShadowOffsetX = 1
+          StateNormal.FontEx.ShadowOffsetY = 1
+          StateNormal.FontEx.Style = [fsBold]
+          Caption = 'Takeoff roll Run'
+          Color = clNone
+          DropDownWidth = 16
+          DropDownArrowSize = 8
+          Enabled = False
+          GlobalOpacity = 255
+          OnMouseDown = CmdCoronaRollRunMouseDown
+          OnMouseUp = CmdCoronaRollRunMouseUp
+          ParentColor = False
+          Rounding.RoundX = 5
+          Rounding.RoundY = 5
+          RoundingDropDown.RoundX = 1
+          RoundingDropDown.RoundY = 1
+          TextApplyGlobalOpacity = False
+          MemoryUsage = bmuHigh
+        end
+        object CmdakeOffRollOff: TBCButton
+          Left = 16
+          Height = 38
+          Top = 80
+          Width = 101
+          StateClicked.Background.Gradient1.StartColor = clWhite
+          StateClicked.Background.Gradient1.EndColor = clSkyBlue
+          StateClicked.Background.Gradient1.GradientType = gtRadial
+          StateClicked.Background.Gradient1.Point1XPercent = 50
+          StateClicked.Background.Gradient1.Point1YPercent = 100
+          StateClicked.Background.Gradient1.Point2XPercent = 0
+          StateClicked.Background.Gradient1.Point2YPercent = 0
+          StateClicked.Background.Gradient2.StartColor = clWhite
+          StateClicked.Background.Gradient2.EndColor = clSkyBlue
+          StateClicked.Background.Gradient2.GradientType = gtLinear
+          StateClicked.Background.Gradient2.Point1XPercent = 0
+          StateClicked.Background.Gradient2.Point1YPercent = 0
+          StateClicked.Background.Gradient2.Point2XPercent = 0
+          StateClicked.Background.Gradient2.Point2YPercent = 100
+          StateClicked.Background.Gradient1EndPercent = 100
+          StateClicked.Background.Style = bbsGradient
+          StateClicked.Border.Style = bboNone
+          StateClicked.FontEx.Color = 16770790
+          StateClicked.FontEx.FontQuality = fqSystemClearType
+          StateClicked.FontEx.Shadow = True
+          StateClicked.FontEx.ShadowRadius = 2
+          StateClicked.FontEx.ShadowOffsetX = 1
+          StateClicked.FontEx.ShadowOffsetY = 1
+          StateClicked.FontEx.Style = [fsBold]
+          StateHover.Background.Gradient1.StartColor = clSkyBlue
+          StateHover.Background.Gradient1.EndColor = clSkyBlue
+          StateHover.Background.Gradient1.GradientType = gtRadial
+          StateHover.Background.Gradient1.Point1XPercent = 50
+          StateHover.Background.Gradient1.Point1YPercent = 100
+          StateHover.Background.Gradient1.Point2XPercent = 0
+          StateHover.Background.Gradient1.Point2YPercent = 0
+          StateHover.Background.Gradient2.StartColor = clWhite
+          StateHover.Background.Gradient2.EndColor = clBlack
+          StateHover.Background.Gradient2.GradientType = gtLinear
+          StateHover.Background.Gradient2.Point1XPercent = 0
+          StateHover.Background.Gradient2.Point1YPercent = 0
+          StateHover.Background.Gradient2.Point2XPercent = 0
+          StateHover.Background.Gradient2.Point2YPercent = 100
+          StateHover.Background.Gradient1EndPercent = 100
+          StateHover.Background.Style = bbsGradient
+          StateHover.Border.Style = bboNone
+          StateHover.FontEx.Color = clWhite
+          StateHover.FontEx.FontQuality = fqSystemClearType
+          StateHover.FontEx.Shadow = True
+          StateHover.FontEx.ShadowRadius = 2
+          StateHover.FontEx.ShadowOffsetX = 1
+          StateHover.FontEx.ShadowOffsetY = 1
+          StateHover.FontEx.Style = [fsBold]
+          StateNormal.Background.Gradient1.StartColor = clSkyBlue
+          StateNormal.Background.Gradient1.EndColor = clSkyBlue
+          StateNormal.Background.Gradient1.GradientType = gtLinear
+          StateNormal.Background.Gradient1.Point1XPercent = 0
+          StateNormal.Background.Gradient1.Point1YPercent = 0
+          StateNormal.Background.Gradient1.Point2XPercent = 0
+          StateNormal.Background.Gradient1.Point2YPercent = 100
+          StateNormal.Background.Gradient2.StartColor = clSkyBlue
+          StateNormal.Background.Gradient2.EndColor = clSkyBlue
+          StateNormal.Background.Gradient2.GradientType = gtRadial
+          StateNormal.Background.Gradient2.Point1XPercent = 50
+          StateNormal.Background.Gradient2.Point1YPercent = 100
+          StateNormal.Background.Gradient2.Point2XPercent = 0
+          StateNormal.Background.Gradient2.Point2YPercent = 0
+          StateNormal.Background.Gradient1EndPercent = 60
+          StateNormal.Background.Style = bbsGradient
+          StateNormal.Border.Style = bboNone
+          StateNormal.FontEx.Color = 16770790
+          StateNormal.FontEx.FontQuality = fqSystemClearType
+          StateNormal.FontEx.Shadow = True
+          StateNormal.FontEx.ShadowRadius = 2
+          StateNormal.FontEx.ShadowOffsetX = 1
+          StateNormal.FontEx.ShadowOffsetY = 1
+          StateNormal.FontEx.Style = [fsBold]
+          Caption = 'Takeoff roll Off'
+          Color = clNone
+          DropDownWidth = 16
+          DropDownArrowSize = 8
+          Enabled = False
+          GlobalOpacity = 255
+          OnMouseDown = CmdCoronaRollOffMouseDown
+          OnMouseUp = CmdCoronaRollOffMouseUp
+          ParentColor = False
+          Rounding.RoundX = 5
+          Rounding.RoundY = 5
+          RoundingDropDown.RoundX = 1
+          RoundingDropDown.RoundY = 1
+          TextApplyGlobalOpacity = False
+          MemoryUsage = bmuHigh
+        end
+        object Label47: TLabel
+          Left = 8
+          Height = 15
+          Top = 0
+          Width = 65
+          Caption = 'Takeoff roll: '
+          Color = clWhite
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+      end
+    end
+    object TabSheet4: TTabSheet
+      Caption = 'Operate Panel 02'
+      ClientHeight = 584
+      ClientWidth = 813
+      object BCSVGButton1: TBCSVGButton
+        Left = 0
+        Height = 11
+        Top = 0
+        Width = 13
+        SVGString = '<?xml version="1.0" encoding="utf-8"?>'#13#10'<svg width="100%" xmlns="http://www.w3.org/2000/svg" height="100%"/>'#13#10
+        StretchMode = smNone
+        Proportional = False
+        Color = clMoneyGreen
+        ColorOpacity = 128
+        Caption = 'BCSVGButton1'
+        Position = 0
+        Maximum = 0
+      end
+      object GroupBox4: TGroupBox
+        Left = 464
+        Height = 151
+        Top = 32
         Width = 132
         Caption = 'Electrode'
         ClientHeight = 131
@@ -3297,7 +4180,7 @@ object Form1: TForm1
         ParentBackground = False
         ParentColor = False
         ParentFont = False
-        TabOrder = 1
+        TabOrder = 0
         object CmdElectrodeIn: TBCButton
           Left = 16
           Height = 38
@@ -3498,221 +4381,8 @@ object Form1: TForm1
           Transparent = False
         end
       end
-      object GroupBox5: TGroupBox
-        Left = 16
-        Height = 151
-        Top = 32
-        Width = 133
-        Caption = 'System On/Off'
-        ClientHeight = 131
-        ClientWidth = 129
-        Color = clWhite
-        Font.CharSet = ANSI_CHARSET
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
-        Font.Style = [fsBold]
-        ParentBackground = False
-        ParentColor = False
-        ParentFont = False
-        TabOrder = 2
-        object CmdSystemOn: TBCButton
-          Left = 16
-          Height = 38
-          Top = 32
-          Width = 101
-          StateClicked.Background.Gradient1.StartColor = clWhite
-          StateClicked.Background.Gradient1.EndColor = clSkyBlue
-          StateClicked.Background.Gradient1.GradientType = gtRadial
-          StateClicked.Background.Gradient1.Point1XPercent = 50
-          StateClicked.Background.Gradient1.Point1YPercent = 100
-          StateClicked.Background.Gradient1.Point2XPercent = 0
-          StateClicked.Background.Gradient1.Point2YPercent = 0
-          StateClicked.Background.Gradient2.StartColor = clWhite
-          StateClicked.Background.Gradient2.EndColor = clSkyBlue
-          StateClicked.Background.Gradient2.GradientType = gtLinear
-          StateClicked.Background.Gradient2.Point1XPercent = 0
-          StateClicked.Background.Gradient2.Point1YPercent = 0
-          StateClicked.Background.Gradient2.Point2XPercent = 0
-          StateClicked.Background.Gradient2.Point2YPercent = 100
-          StateClicked.Background.Gradient1EndPercent = 100
-          StateClicked.Background.Style = bbsGradient
-          StateClicked.Border.Style = bboNone
-          StateClicked.FontEx.Color = 16770790
-          StateClicked.FontEx.FontQuality = fqSystemClearType
-          StateClicked.FontEx.Shadow = True
-          StateClicked.FontEx.ShadowRadius = 2
-          StateClicked.FontEx.ShadowOffsetX = 1
-          StateClicked.FontEx.ShadowOffsetY = 1
-          StateClicked.FontEx.Style = [fsBold]
-          StateHover.Background.Gradient1.StartColor = clSkyBlue
-          StateHover.Background.Gradient1.EndColor = clSkyBlue
-          StateHover.Background.Gradient1.GradientType = gtRadial
-          StateHover.Background.Gradient1.Point1XPercent = 50
-          StateHover.Background.Gradient1.Point1YPercent = 100
-          StateHover.Background.Gradient1.Point2XPercent = 0
-          StateHover.Background.Gradient1.Point2YPercent = 0
-          StateHover.Background.Gradient2.StartColor = clWhite
-          StateHover.Background.Gradient2.EndColor = clBlack
-          StateHover.Background.Gradient2.GradientType = gtLinear
-          StateHover.Background.Gradient2.Point1XPercent = 0
-          StateHover.Background.Gradient2.Point1YPercent = 0
-          StateHover.Background.Gradient2.Point2XPercent = 0
-          StateHover.Background.Gradient2.Point2YPercent = 100
-          StateHover.Background.Gradient1EndPercent = 100
-          StateHover.Background.Style = bbsGradient
-          StateHover.Border.Style = bboNone
-          StateHover.FontEx.Color = clWhite
-          StateHover.FontEx.FontQuality = fqSystemClearType
-          StateHover.FontEx.Shadow = True
-          StateHover.FontEx.ShadowRadius = 2
-          StateHover.FontEx.ShadowOffsetX = 1
-          StateHover.FontEx.ShadowOffsetY = 1
-          StateHover.FontEx.Style = [fsBold]
-          StateNormal.Background.Gradient1.StartColor = clSkyBlue
-          StateNormal.Background.Gradient1.EndColor = clSkyBlue
-          StateNormal.Background.Gradient1.GradientType = gtLinear
-          StateNormal.Background.Gradient1.Point1XPercent = 0
-          StateNormal.Background.Gradient1.Point1YPercent = 0
-          StateNormal.Background.Gradient1.Point2XPercent = 0
-          StateNormal.Background.Gradient1.Point2YPercent = 100
-          StateNormal.Background.Gradient2.StartColor = clSkyBlue
-          StateNormal.Background.Gradient2.EndColor = clSkyBlue
-          StateNormal.Background.Gradient2.GradientType = gtRadial
-          StateNormal.Background.Gradient2.Point1XPercent = 50
-          StateNormal.Background.Gradient2.Point1YPercent = 100
-          StateNormal.Background.Gradient2.Point2XPercent = 0
-          StateNormal.Background.Gradient2.Point2YPercent = 0
-          StateNormal.Background.Gradient1EndPercent = 60
-          StateNormal.Background.Style = bbsGradient
-          StateNormal.Border.Style = bboNone
-          StateNormal.FontEx.Color = 16770790
-          StateNormal.FontEx.FontQuality = fqSystemClearType
-          StateNormal.FontEx.Shadow = True
-          StateNormal.FontEx.ShadowRadius = 2
-          StateNormal.FontEx.ShadowOffsetX = 1
-          StateNormal.FontEx.ShadowOffsetY = 1
-          StateNormal.FontEx.Style = [fsBold]
-          Caption = 'System On'
-          Color = clNone
-          DropDownWidth = 16
-          DropDownArrowSize = 8
-          Enabled = False
-          GlobalOpacity = 255
-          OnClick = CmdSystemOnClick
-          ParentColor = False
-          Rounding.RoundX = 5
-          Rounding.RoundY = 5
-          RoundingDropDown.RoundX = 1
-          RoundingDropDown.RoundY = 1
-          TextApplyGlobalOpacity = False
-          MemoryUsage = bmuHigh
-        end
-        object CmdSystemOff: TBCButton
-          Left = 16
-          Height = 38
-          Top = 80
-          Width = 101
-          StateClicked.Background.Gradient1.StartColor = clWhite
-          StateClicked.Background.Gradient1.EndColor = clSkyBlue
-          StateClicked.Background.Gradient1.GradientType = gtRadial
-          StateClicked.Background.Gradient1.Point1XPercent = 50
-          StateClicked.Background.Gradient1.Point1YPercent = 100
-          StateClicked.Background.Gradient1.Point2XPercent = 0
-          StateClicked.Background.Gradient1.Point2YPercent = 0
-          StateClicked.Background.Gradient2.StartColor = clWhite
-          StateClicked.Background.Gradient2.EndColor = clSkyBlue
-          StateClicked.Background.Gradient2.GradientType = gtLinear
-          StateClicked.Background.Gradient2.Point1XPercent = 0
-          StateClicked.Background.Gradient2.Point1YPercent = 0
-          StateClicked.Background.Gradient2.Point2XPercent = 0
-          StateClicked.Background.Gradient2.Point2YPercent = 100
-          StateClicked.Background.Gradient1EndPercent = 100
-          StateClicked.Background.Style = bbsGradient
-          StateClicked.Border.Style = bboNone
-          StateClicked.FontEx.Color = 16770790
-          StateClicked.FontEx.FontQuality = fqSystemClearType
-          StateClicked.FontEx.Shadow = True
-          StateClicked.FontEx.ShadowRadius = 2
-          StateClicked.FontEx.ShadowOffsetX = 1
-          StateClicked.FontEx.ShadowOffsetY = 1
-          StateClicked.FontEx.Style = [fsBold]
-          StateHover.Background.Gradient1.StartColor = clSkyBlue
-          StateHover.Background.Gradient1.EndColor = clSkyBlue
-          StateHover.Background.Gradient1.GradientType = gtRadial
-          StateHover.Background.Gradient1.Point1XPercent = 50
-          StateHover.Background.Gradient1.Point1YPercent = 100
-          StateHover.Background.Gradient1.Point2XPercent = 0
-          StateHover.Background.Gradient1.Point2YPercent = 0
-          StateHover.Background.Gradient2.StartColor = clWhite
-          StateHover.Background.Gradient2.EndColor = clBlack
-          StateHover.Background.Gradient2.GradientType = gtLinear
-          StateHover.Background.Gradient2.Point1XPercent = 0
-          StateHover.Background.Gradient2.Point1YPercent = 0
-          StateHover.Background.Gradient2.Point2XPercent = 0
-          StateHover.Background.Gradient2.Point2YPercent = 100
-          StateHover.Background.Gradient1EndPercent = 100
-          StateHover.Background.Style = bbsGradient
-          StateHover.Border.Style = bboNone
-          StateHover.FontEx.Color = clWhite
-          StateHover.FontEx.FontQuality = fqSystemClearType
-          StateHover.FontEx.Shadow = True
-          StateHover.FontEx.ShadowRadius = 2
-          StateHover.FontEx.ShadowOffsetX = 1
-          StateHover.FontEx.ShadowOffsetY = 1
-          StateHover.FontEx.Style = [fsBold]
-          StateNormal.Background.Gradient1.StartColor = clSkyBlue
-          StateNormal.Background.Gradient1.EndColor = clSkyBlue
-          StateNormal.Background.Gradient1.GradientType = gtLinear
-          StateNormal.Background.Gradient1.Point1XPercent = 0
-          StateNormal.Background.Gradient1.Point1YPercent = 0
-          StateNormal.Background.Gradient1.Point2XPercent = 0
-          StateNormal.Background.Gradient1.Point2YPercent = 100
-          StateNormal.Background.Gradient2.StartColor = clSkyBlue
-          StateNormal.Background.Gradient2.EndColor = clSkyBlue
-          StateNormal.Background.Gradient2.GradientType = gtRadial
-          StateNormal.Background.Gradient2.Point1XPercent = 50
-          StateNormal.Background.Gradient2.Point1YPercent = 100
-          StateNormal.Background.Gradient2.Point2XPercent = 0
-          StateNormal.Background.Gradient2.Point2YPercent = 0
-          StateNormal.Background.Gradient1EndPercent = 60
-          StateNormal.Background.Style = bbsGradient
-          StateNormal.Border.Style = bboNone
-          StateNormal.FontEx.Color = 16770790
-          StateNormal.FontEx.FontQuality = fqSystemClearType
-          StateNormal.FontEx.Shadow = True
-          StateNormal.FontEx.ShadowRadius = 2
-          StateNormal.FontEx.ShadowOffsetX = 1
-          StateNormal.FontEx.ShadowOffsetY = 1
-          StateNormal.FontEx.Style = [fsBold]
-          Caption = 'System Off'
-          Color = clNone
-          DropDownWidth = 16
-          DropDownArrowSize = 8
-          Enabled = False
-          GlobalOpacity = 255
-          OnClick = CmdSystemOffClick
-          ParentColor = False
-          Rounding.RoundX = 5
-          Rounding.RoundY = 5
-          RoundingDropDown.RoundX = 1
-          RoundingDropDown.RoundY = 1
-          TextApplyGlobalOpacity = False
-          MemoryUsage = bmuHigh
-        end
-        object Label29: TLabel
-          Left = 8
-          Height = 15
-          Top = 0
-          Width = 44
-          Caption = 'System: '
-          Color = clWhite
-          ParentColor = False
-          ParentFont = False
-          Transparent = False
-        end
-      end
       object GroupBox7: TGroupBox
-        Left = 320
+        Left = 168
         Height = 151
         Top = 32
         Width = 288
@@ -3727,7 +4397,7 @@ object Form1: TForm1
         ParentBackground = False
         ParentColor = False
         ParentFont = False
-        TabOrder = 3
+        TabOrder = 1
         object CmdCoronaRollRun: TBCButton
           Left = 16
           Height = 38
@@ -3985,11 +4655,11 @@ object Form1: TForm1
         end
       end
       object GroupBox8: TGroupBox
-        Left = 320
+        Left = 24
         Height = 151
-        Top = 200
+        Top = 32
         Width = 132
-        Caption = 'Corona exhaust fan'
+        Caption = 'Corona Exhaust Fan'
         ClientHeight = 131
         ClientWidth = 128
         Color = clWhite
@@ -4000,7 +4670,7 @@ object Form1: TForm1
         ParentBackground = False
         ParentColor = False
         ParentFont = False
-        TabOrder = 4
+        TabOrder = 2
         object CmdExhaustRun: TBCButton
           Left = 16
           Height = 38
@@ -4202,9 +4872,9 @@ object Form1: TForm1
         end
       end
       object GroupBox10: TGroupBox
-        Left = 320
+        Left = 168
         Height = 149
-        Top = 360
+        Top = 200
         Width = 288
         Caption = 'Corona Generator'
         ClientHeight = 129
@@ -4215,7 +4885,7 @@ object Form1: TForm1
         Font.Style = [fsBold]
         ParentBackground = False
         ParentFont = False
-        TabOrder = 5
+        TabOrder = 3
         object CmdGeneratorOn: TBCButton
           Left = 16
           Height = 38
@@ -4501,13 +5171,10 @@ object Form1: TForm1
         end
       end
     end
-    object TabSheet2: TTabSheet
-      Caption = '---'
-    end
     object TabSheet3: TTabSheet
       Caption = 'Parameter'
       ClientHeight = 584
-      ClientWidth = 824
+      ClientWidth = 813
       object LineSpeedUpper_Set: THMIEdit
         Left = 136
         Height = 23
@@ -4550,14 +5217,14 @@ object Form1: TForm1
       end
     end
     object TabSheet6: TTabSheet
-      Caption = '---'
+      Caption = 'Maintenance'
     end
   end
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23
     Top = 612
-    Width = 832
+    Width = 821
     Panels = <    
       item
         Width = 80
@@ -4778,7 +5445,7 @@ object Form1: TForm1
     Width = 128
     Left = 496
     Bitmap = {
-      4C7A120000008000000080000000BCFD00000000000078DAEC5D079415C5D21E
+      4C7A1500000080000000800000005D0A01000000000078DAEC5D079415C5D21E
       4104148982802808081830FB7C802020226941894B0EE22A2EA048109E886401
       1111E343E529392F6C242CB0441113A2185111139803EA5358F69F6F9979FF30
       DE7BA767A67BA667A6EA9C3AEC2EF7CE74F7575D5D5D555DAD28444444444444
@@ -6609,211 +7276,312 @@ object Form1: TForm1
       3110EDCB79081B90014E97AB15EE680176793C3026915163C7A8CE75D877E0C0
       CAB1C8F69B5C5EFEC594A9533F2F9F36ED6F2C4F9E5AFEF9C4C993BE2685FFF0
       9123CF8F9F38F1EB0993267D053C71F2E42F81274D99F2F96802FA274BFF7F7B
-      571A1CD575A5FD7B7E4C1C3B46EA7D79FBD2DD120881101220015A0183D95713
-      0392C16C462C124BC066B3596C834C0C18BB924A323355494D52938AC7F1CC0F
-      4F4D2693C9785C4E26934C65821DDB89E36C04BBD5DDEA8D39DFEDF75A8F46C2
-      60B30874BFAA53DD6A49DDF7DDEFDC73CEBDAFCF398D8D8DBF6F6A6E7E9F3EFB
-      FDE974FDA8FF3AB569FA6F311F93685F70E2F99B5FCF0158B870E15B0D0D0D7F
-      441F4808CDC37B10F4FD9A4CAF3FDED5F5D57B38383838383838383838383838
-      3838383838383838383838383838383838383838383838383838383838383838
-      3838383838383886310E1C3CD4B57BF7978E400E1D7E6A239F91BB1B6BD76DF8
-      36EABEF902A194C71748E0D1170C17849E7BFDC1A4A61AF9C686A91F3EBE79CB
-      D7EEA46BEBEDED9DDADADAFAEBC65B98EF7827E0CCD973DED6F699E70321A11F
-      9C8BB2829E46F9A16AEFEBBA990F06C229B7CBDB2784A5F49C39737F3E9CAFAF
-      ABABEBE5582C96B9EFBEFB2EA2F61D677C00531AA7FDCEE5F125C03DEABFA1FE
-      B7A216EA80974AB1F6BD11CD9B96E89A79291C12D33E6F20F9E04DAED1F96978
-      477D11D4991304211D0804529CF102162D59FA6397DBD7170C8B69AC757BBDDB
-      3A7035FE9D3D218A3AA147F2A2206520DBB66E7FF1765FDFF8F1E3E36EB7BBCF
-      AE33841A4C5BB76E3D37D2793F7AFCB925462496757BFD0949D1581F0BFCECAC
-      FD5AE0DB203BA05F26B26E0EF462A2FF5320764F04FA9D69C4721AFD1D6C41DD
-      C44F5F2FF1B360CD9A35AF8642A17EF43428F4CF89E450EBB6BDBDFDFC48E77E
-      FE82C56FBA3DFE0462B8D2F57BADFCDB3A00FE6508F4013D03C80F202E843F60
-      3E81EC8ACF174876756D7BE9565D9FCD35FAD36A9AC6D63DFC7D4545457AA473
-      3F7ACCD8A43F803A6411F44D66BD34D56BE05F92D5AC2829198840F622AC6859
-      E8806671EFE45F7788AAE8795531F2017F38356572E31F6EE6B56DDEBCF9EBB0
-      EFF0F1E0DD165996B3B0052399F775EB377ECB4F7BB70089A4A28F41D492821D
-      1F8AFFB020A53DE423C2A29C41DF6BD88B4058ECF7078594843E314EFB4FFCE3
-      7F9CFCEB2AC5141085E282B09C962535BB6FEF134FDEF8F8B5F143D41255886B
-      DDC13D6C005E5FB76EDD77462AF713EB27FDD9E5F1F6452A2AD3A85F2F6BA8B3
-      67A29705ADDBC223FA5A21F633CC820F0F929EB8693F30A1B6EE2F3BBA7B7AAF
-      586B5BBABE326EC2C48BE51E5F5F986C02EC40A16F106CBF51E45F23EE8BA2A1
-      CEA29EF7B87D89B6B6F6776EC4B5F5ECD9FDB4A42A597F30988AD0DECE8C60FC
-      7A917BF87FC4802373CDAFFF166A8E05C3E17ECD405D67F4B120BBEDE869209B
-      465681E87AAED07347CD61BD4C9A34E94F2FBCF0E58A4FFA8C23478F7F3136BA
-      2AF580CB1317612348B710FBD9EB5ED52E174535993F816EA1D657CFAE5DC73F
-      EDF5D537367C58E6A5CF25FE0BD7875E413A6ADB15D73FF81F69BC1F397E6CD9
-      E8B15514DFF9937AC4CCEA26D6377A68DA7D2CF46C51887BE8804CBC07695F5C
-      5555957CE69967165EEF676EDAB2F52BC190D01FF0075357E3BF20E82F65E651
-      F7ADDCE38ED74F997C5DBDF31E5EB9F275E8B22F1C4A61FC2A09E3DF28F00F41
-      CC8FEBD9B061C337470AEF4F1CD8BF635C4DCD47DE803F899AC546349201FF1A
-      EBE931C0BFDDD348B4F80F4862BACCED8EA32EF8671DC3F4694DBF2D2F73C715
-      893818847FF4152BF611A6F14150FB0FBA8A7A74C79F7D76C81E0FAB56AF7E4D
-      56E4ACB7D02F2F27D3B54924451B66E901F45D92A4CCD8B16313773BE78F7775
-      BD3CA961CA879A69E4604FB18ED99A77C815FCAB6ACEEA6994457F3B2316CD9C
-      3E7B3670A3C6D4DDBDB317E73FE19090D67116A047F3B2823E2E853E72C55EB2
-      8E312A58CFE4AB5003D28C46332D6D6D6FAFEEEC7865EEFCF96F55568D49E2DA
-      CA4947B1EE1507DF4E510BF55BD1C7849DF5E19CFF6EE77F7243C387887D18CF
-      A40306C53FA5FC97EA01EB6BA52959F4B77B68C182B76ED6D86A293EC4D9A220
-      2A19FBEC40D5596DDDC1C787F1933DC0237AE0F8491702E42304F2EFD05B8D7E
-      87B5CE7C56B11FDB80CDB7F9C7DA9F356BD62F4782CDC73A418F6CDBD65F55D0
-      DB87E2FC40209852142577E0E0C1AD377B7CAB56777E1FF7154261292D2BA877
-      ACE73F719CB63E90A82562C72BAA31E0E71D7DA3F222713F92CEF751B755A06B
-      B6D7CF507309FD9014255BE672C5A73434FCFE568FB3A6B6F6E27DF77FE1A390
-      20A6ED7814E31D4CAE957FECF30CEB5C1F363F48761072E0C081ED238E7F6B4E
-      D91AB7798F9A4C2F3057F09F78DCDED37DF2768DB573EDDA7F28F8F870CAB6D5
-      8389F31AB4123D607E9EFE86D97B5AEF567FE49CC7E349D4D5D55DB86784A1A5
-      A5E55D411433760F0D033E94F57033D8FC8405210D997F13FDFCF5A2B5BDED7C
-      30144A615C6CAC18BB357EFB3E5DE13A8C2BF440B1F67BB6EDC7FE1EE7FD7BF7
-      EEDD7FCF0804E35F28F4CA66F73A28BEC2B9177C608062E0B6B6B67786E3B8CF
-      9E3923363735BD8F3D3AC68A315FC6BFAD03119389AD07E03E44FB5597DBDD07
-      9BBF71E3C6BF1BC9E7FA0DE4CB61FBB00EECEF36603DDC88BDFCADC2430F3DF4
-      3FB847833D1BC68F7B35B85F07412C8FC7A020F4E39C00FEA3B6BEEECF3B77EE
-      7CF61E0ED4AF7FB3BABA3A81FD0EEE7F9D3E7D5ABF53AFE5B9E79E7B70E5CA95
-      FF82EFE6E1FC196791F0E9B0710B162D7A63E7EEDD4739E31C1C1C1C1C1C1C1C
-      1C1C1C1C1C1C1C1C1C1C1C1C1C1C1C1C1C1CD70FE4002C5EBCF88D8ACA4AD69F
-      1DDFB976793D0997D79BF0D0F3B02466AAAAAB13F4476F9CECED6DE2337677E0
-      E1958FBC1E895664FCBE4052088B694190D28AA2B19C3045372F298699574DE4
-      8E1A7941923301D482F1FA139515A3D39B363DFE0D3E83772656ADEE784D46CE
-      3EF18947C38CE54C239A8B183126063D478E9F5350EBC116495498CEC8929AD9
-      B871F3DFF219BD33B073F79E6392A2E6F01D6D0DF99F91428E2FF836754B8CC2
-      CFC5BC0D3B7FC7E25E2FE4FCE635E47EAA46CEE7F127AAC78E4B9C78AE77269F
-      E1E18BC6A9D33F28D67E29D481C8DBA2EB036258FCB31A214E29E1BFA0030509
-      85C4FEB232777CEEDC79FFCD677A98ADF93D7B8F205713DC17F9B6F8570711CD
-      5AEFB0034E71F26FF3AE58825C3FF811E8804636E18553A7C7F299BFFD98396B
-      F62F51F74552B5CBD6BB2D8A2532C57A4CF0DC8C321D60FE81F82EE55F73D486
-      2AFE1FF8B7723EC38292F6FBC3C9A54B1EFE77CEC0EDC1F1674FCC5789171F71
-      8FC7C1B81F8C7F917CBA5F94D26E8AED503F24483C22CE1305398D75EFE45F19
-      827F660B643DE7F7861263ABC627381BB716CB56ACFC01EABE200FF3B25A6E83
-      E801E39FD6BB0FFE8178D6639599F94B96FEE7A1A78FAEB5DFEFC9270EEC9E39
-      E3C1FF93248AF9499F1415B93857E75F55CD9CA69839E84F90F6181BD66FFC26
-      67E6E6E2F0D1E3AB61B7B16E1556C7A9A49EE360FCD3DF79891F9378EFDAD1F3
-      C2277D4667C7DAEFA9E4DFBDBE6052C6FBA30690550748B5E20096F76FC587AA
-      A293DF30F3E5E5EEF8983163781DC69B84E96DADEFDCEF76C5FD829056596E15
-      F283F42BC47E3D16ABC8088298166539FBC89A35AF5DEFE72D5CB8E84DE466F8
-      C3E17E993E0FF105EA0C15F50C7E428FB2FA402A7275E96FC2A2900E8442A965
-      CB96F1B8E00661CE82F93FF10603494F289812911F6F1A39C5911F5D2AC8B342
-      EE8DDBE58A374C99F299F382C78CABEEFB4279D9C7822C67F0B905BF6014EA7E
-      A04EAC498F5196CB95C3237401F9E818C7EAD5ABFF8933787D38F17CEFB44768
-      DEAA274CF8C81DF0273DC47D5855B282A6A2BE0B6A7C30FE1DF5D072B660CE05
-      ACC16020B569D3A6BFB951635AB464C98F3D3E5F222C8A1959D550F72167EF31
-      19FF857C3E262CDFDB1A1FF2D790EF357DFAF4DFA06ECFBE7DFB9EE8E9E93939
-      7FFEFC9F8CC4DCDE6BC1A42953FEF0F9FBEFBF18A279934D5613232F59BC8B85
-      1A19057BEBE0DFAE89883A5FC81DBB19E37AFED4A97AC334F35E7F20899A0FAC
-      EE07E33E9273F20F31AD1C4F96EF0BDF416343EE2AF21A51C713F57BE7CC99F3
-      73CEF69568696F7BDBCAEDCFAB26ABF193971D829F35476E35B8479E25E6F556
-      E48836B5B6BC5BEE71F7A1269B4EFAC038C7238986F53F88E077A6439013BA65
-      CB96AF72B6AFC4D4A6E9BF41CD24700CC15A778AC6D65D611EC13F788F46A3D9
-      5B39C6BD4F3CB10FBEC0477E46D1B5C23821C43584C5282412898CBA05563D00
-      3B0F1C76E0D0A1438F73B6AFC4B4E6A6F7834238CDD693639DDB6BDDCEA787BD
-      478EF812F2CDB773ACAC361D6AB4421F63D18CCDFDD5F8879F3A7B03EB93DD55
-      FBBC96E6F7F0FD0C231A29D4FFB1E60CBCC3D7DB79F513283E1C0EE33D72FCF8
-      8A8A31A3531E1A9384984F91B312C5AACEB8C5C93FAE017121677A08FFCAEABF
-      481993D692CE62A8829DC75AC7BAC119CBFEFDFB7B86DBB83BD73EFA5DD88151
-      E5E5F1A024A62543B3F62A05FF60D78381FE420F38D343F0DFDCFC3EB8462D2C
-      D4CD807F47BC3485F605076F417DB7CF8A2D5BB7BE5435AEBA0F7E6114C589AC
-      A6ABA2B0FD29EA3AE19A10BB70A607077A58A1E6D9B8EAEA3ED4CD58BF7EFDB7
-      EED46B59D3D9F94A735BDB3B63491F50471AD7057DAE9D507B9133CDC1C1C1C1
-      C1C1C1C1C1C1C1C1C1C1C1C1C1C1C1C1C1C1C1C1C1F1D9D0D3DDF37C4B4BCB7B
-      D5D5D5C9582C96B5FB2C555656666A6A6AE26D33679E7FF2E0C11D7CA6EE1E1C
-      3F766CC5F4E9D33F080683C96030901445312DCB72C6FADE301355537312BD16
-      12857E1FFD4D5008A71AE97F9EEB3DD9C667F0CEC4E1C34F6DAA1C3D3A5D565E
-      FE31B8374ABE83EB94D2EF6F6B9148DEEDF325DC5E6FDFA42953FE78F2C4495E
-      F7E10E425DFDE40BC809176535A39B51BB0648FE9344758862442E293AABFB90
-      F2FB8289B6D619EFF0991DDE58B26CC58FDC1E7F9FC71740ED974BD7C27929EF
-      10562300B9A356DE2772C2C3A407904D9B37F39A50C310B1CA3169B7C7D7877E
-      CCD7C3FD50FC4B85DC71E4135FB26A82E450F7C3EDF1F64D9C54FF673EE3C303
-      AB3B1E7D3518125212D97AAB17F7758B937B6D08FE6D1DD00DF3525894D3C1B0
-      D8DFDDB3AB973370FB505B37E942B9DB1B671C12F772212FF392534AB996152D
-      0B017F6EAF3F01413D01895E8B568E4ECB869917557C6FDB2CF476B7F9D7A239
-      4821E7DBCC4BB29E2D77F9E24D2D6DEF71266E2DF67C69DF6117F10EDEC0A993
-      EBA1F807978809BD141B4CA8ADBBB86A4DE76BDBB6779F812C59BAE23F22B1CA
-      AC97E23CAF37909011375A756074BB26A083FF0189E5FD8130EACFE48F1C3BFE
-      0867E6E6A361DAF4DFD9B1BDEDEB2F13569721E2C8CF8FE605FADB10ADF73973
-      E7FFEC6AEFDD7BF25473D3B4E6DF8688D350309C445D0FE3AAFC47518324075B
-      E20F869273E6CDFD1967E8E6A0F3B10DDF11143553EE6535DE2E614F3718F7CE
-      7A30A2A466B01798D230F5BAEA409C7BF1A55163C78E4B7ADCBEB8AA18598378
-      36B408E35F75D600626230916405F9A0499C1F7475EF7881337663F0F8D66D2F
-      6B9168BECCEB8D87897F19FDA0AD38AF947FBC5EE0836C3DD972D4F87DFAE8B1
-      359FF6B37BBA77F6A22E18F67D1133C6EAC30DD400322F9342EC61E44545CE8C
-      F2B8E335F575170E3EFDD406CEE0F5E3C903FB77CE5DB8F02D5153B32EBFAF2F
-      244B69D9CAA7455EAD66E5051A8E9C5A48341ACD499294F6F97C89050B16FCE4
-      468DA7BEBEFE82ABDCFD316A01DB36C6AEFFA3B138B1909BCEEA1358630C8842
-      BF2B184898951599C52B96FFF0E8F1E32BF05EA74E9DAADFBC79F337C68F1FDF
-      D7D9D9F90A67FB724C6E6CFC3DEA7F947B3D71BF104E396B3F38F93707E13F14
-      0AA5C2E1706ADFBE7D4FDEE871757474BCCADE9FEC81A29AB981D80335C70AF9
-      FF7249AD0A8C3744F6A0DCE7EDF3078349DC77C059745959D947908686863F70
-      C62F47736BEBBB6CAE742D279188248225ACFE4F09FF78541425EB72B9E28DA4
-      3B377B7C63AAAA53F02D57F06FAD7FC91A27C41E37AB01A069765D203B17348B
-      47CEF8E5686A69793F1022FEADB9941C7A0091759DDDA38944228C7F4110FA71
-      4F6FFBF6ED676ED518973FBCF20788F743F4D9C53A25C600FF76EEBFA35E554E
-      73D4B1B0F500B68A337E25FFFE106ABAD27CD21C4914031485E696D50532581E
-      7D067EBEAEAEEE2FB7639C675F3AF7B9AAEAEAA4CBED8EB37A34147BC8AA9AC5
-      98655B07E85181B07BCC5AF17EB366D9028CBFBBBBFB14677D00D39B9B7F837D
-      14E64B56940CE65481BD448D37EB3517C5D758F37BF6EC3972BBC7BBE6D1CE57
-      50AF48A0F1E03B048A46EB1DB5A859AD22D40B2C703F18FF880566CF9EFDBF9C
-      F512FE03A8B146F69E62274112D32AF480E6D64D6B0D31D8A2458BDE1C6EE36E
-      9F39F3575EBF3F514E63641C436FC9C76B25BC3BBF7782DFC38F71D60730ADA9
-      89F12FD09E0FEB2A406BC44FF38A386FF9F2E5C3BEAEEAC2C58BFF4BA43DA8C7
-      E389C3BE633F6AF36EC77D36F761DADFDCFBF97B2F9C397346E5CC173091F6DA
-      7F7DEFBD175047775CCDF8F8DC79F37E76F8F0E1CD77DA75600F3A63E68C5FE1
-      4C027A001D0E905EE339EC18FCD7E4C993FFD4B1A6E3FB9CF59101BECE393838
-      3838383838383838383838383838383838383838386E2CCE9D7DF9739D9D8F7D
-      B7B56DD6F9DADAFA0BD535B51F554F9878B1A6AEEE42737BDBDB1B366FE2B9BD
-      772156AE58F57AC4A8C8BACB7D71AF27980885E47448903321496122A02F872C
-      65CB3D9EC4036565F1EA71E3E21D6BD6FC239FB93B1B33DA67FDCAEF0D2503DE
-      705220CE590E9711CBE924AA1E2DF686677DDBA2E8E31861FD7A4449C2F7B4F1
-      5DF2F4DCB93CA7EB4EC3B2A52B7E180C8453C16038651AC4B91ECD997A8CE56F
-      E9F4DCEE0DAE5A52ECD5687D97B7B4579B100EF73FB66EDDDFF3991DDED8B1A3
-      FB9422AB59AFD79750647CB72E9631CD68AE90BF89FC3D5AE32485DC1D93B827
-      71F6ED74F0CF74C0647946F8EE69DEE572F5555456A65F3C77EEAFF84C0F3FB4
-      CE683F5FEE76F5A1C796AEEB978AA211974CCC5C51D4087B54E8F70AEB336BE9
-      C040CFD14BA5827EAF41F207A35CE5F1C5CB96FE88CFF8F0C053478E74801FF4
-      63D59CBC974AA90EB07A116A9EF5F11DE8DD3D24FFB6842531E3F5FB93918A8A
-      CCADB8BE79F3E6FD143DC338D3576211AD430FCD0D38B479BB16FE5559CB89A2
-      9CF1D2FFFA29CE931439C7FE77101DB06D825374F21B214148430F567774BC7A
-      B3AE6FF4E8D129C4A190F6F6F6F39CF10144C817BB03FEA444F1BA6A0E7063F3
-      E6E4DEEA1F7B49241B81780ECF1B1B1A3F5CB468D11B88EFEB68FF8FD782E150
-      BF4436C1B6F783716F8B61F57D777B7C89FA490D7FBC91D7D6B176ED77CBC897
-      49B40FC1D8D1F718E3EEEDED9D3AD2795FF1F0C3FF8AFEF002EDD735BBDF3689
-      4C3A009190836DE9803D77B22CE7DC6E77DFE8CAD1A9BD7BF7EE1F327EECE9E9
-      ADAC1A93F4F87D49D1B20943D901D69B3682BD4434E70F88A900C9864D5D5FFF
-      ACD757535B7B91D934D24313F1A7A5BBE8198CDEB72395F7DE9327A7A1CF7B79
-      79791C365AB7B8572DEE254B442B0F93F14673E876B9E2B1582C733D3D8377EE
-      DE7D0CB1017A3AC30E0CE507340339C0A80913237F62641E28F3C46B6B275FF8
-      34D7B7BAB3E31597C793F00502290D35494B72DB21E883BB6EDDBAEF8C34EEA7
-      36367EE023FB87758C3551B4F58EF52F412C1D5048308F98AFCECECEEF7DDACF
-      9D3567F62FC089A4D29EC2EA475F5CFF4C07C90758FC6B5A2C272B462E1892D2
-      8190D0FFD0BC053FBD96CFE8DABEFD8C1E8DE4FCA1503F74CEF939C6208233A9
-      91C0F9F6EDDB4F4FACADBDE021DE434238CDF6E4D6BA28E5DFD601256220573C
-      EF0B0652B5E4D36FC4380E3DF5D47AF46F0E103FEC732D7E2EE79FD50263BEC0
-      AA43477B4591E2C340B28DF6A5FB0F1EDCE67CCF2F9F39A32EFBE2CAD761A710
-      C304E1CBF0BE253AE6E4DD8E653CA48F55555577ED7EA0A9A5F95D17F96A37F1
-      1EA0B8D7B6BF26D9FEE25EDCB6EFC40104EB07FDE203A42798CFB5EB1FBBE167
-      75E0D14FF644D1B06754ADF3A148CEC0F992619D2BE36C518BE4144D67BA8A18
-      224863422F70C42B32FD5F50A47D03E9E70314DF09645770EE2C1B463186D59D
-      E74F96208601F77EF247B07F274E9C68BF5BF96F696F7B1BEB97C5DFE0DAE25B
-      A675AD583FDBFEDD8EED613761EF8D68247B33C7B66BD7AE63E15088F5F0C667
-      47887F1342DC33C13933E9827D9E80F114CF16689C4AA12E048B53EDD895F9AB
-      08AB6B7319E7A661E4ECE788FDD0377EF6ECD9BFB8DBED7EDB8C19E7616BC1BF
-      CD75B19E8E2D7AC126201EC4791FF6F10F3E34E7E7B76A8C93264DFA13F6E458
-      97A611619C3B85F929A714EBCA9B8C67C5DAABD871AB6CBDA697D87BBC3FB88F
-      909F397CF8F0C691E0F76DFEB1DE4BB9172DEEB18E3037C100F907E2FFA9A79F
-      7EF4568FB3BBBBBB3748762A403EFE72FE23B92BF68A960E38F917ADEBB1C5C9
-      BFCDFBA851A33E6E6969797724C5FA57E35FB26C6820543813C3F9CD6DF757C4
-      0FF61938AB816F66FB13F393F92F5E9BF51C31A6EA38ABC0FB1C387060FB48DB
-      EBB5B6B7BF8D3359FB6C9EF9009C7FC87216E73E389B99583FBCEAAF9F3C79B2
-      B9A6A6E623E801CE18ED98D5797674597F11AB5E1CAE4DA298107122EE5F60AF
-      83F758B56AD53F8FD4739E96B6B67710CB817F08EEB9E1DE2BD6FBD4A9533FC0
-      5C0FD7B1C347430F705F00677802D904FB1CB9947FF877F82EF08DF805367FD9
-      F2E5FF36D2CF771BA64EFD1DCE5CE003B00F185B5D9DB813D7C3A2A54B7E1CAB
-      AC4C430FA0CFD0633CC775412FB0B7858D6F6D6DFD754F4FCF897B380A6BE8C8
-      918EEE5D3B9FF9F2E9D3D1BBE59A9E397162D6D61D3B5E58FBD863DFEEDAB6ED
-      C543870F6FE24C737070DC49F87F33DAAFBA
+      67025D4595EE7BC4A945112E5E2539F35C67CC2404302648400824622B880232
+      D912D2200282405014651684166805447AA9F7CA7B8BDBBE6E5F2BAFC5A70BF5
+      AAA8BC5EDAAF5F8BB6E055A49914C18CE7E4A4DEFED7A90A8743484E421292D4
+      FFB7D6B712865476EDDFAEBD77D5A9FDEDC183071F1B56507048FCEE4343C5F9
+      23FFEB9061430FA33E068AFB820DBF6DFD7C0EE09E7BEEF92C3F3FFF04F68144
+      887AF80E817DBF6E117FFFD0BC792F7521841042082184104208218410420821
+      841042082184104208218410420821849076CCF2152BE72D5EFCF81AC4CA55AB
+      67B1463A37D3673CF807E47D335BED5546B3B5025FCD36472CC4F7268BADD2E7
+      0DD40ECE1F72F4A13973FFAD239DDBA64D9B868C1831E2BF06B7E17AC78EC0D6
+      E75F308D281A79C06A7756C3B9CB23614FA3DAF3E5DEF7FB83B536ABA3CA906A
+      2A773ADCE13BEF1CFDF7F67C7EF3E6CDFB5D7A7A7AA457AF5EA790FB8EC6CF30
+      68F0AD47528DE60AB847FE37E4FF96BCB13CE0895197FB3E90561B54C3EF0BCA
+      0EBB2B6C36592B7FD9CA393A9BE31DF9459067CEE97486AD566B158DC7183BFE
+      DE4F520DE6729BC315C6B5AE5DEF5A1B68C87FFC9E10756DC21FAA7539DD11C4
+      FC87176CBBD8E7D7BF7FFF3283C150AEE519420EA6871F7EF805BD7B5FBBEE99
+      F181507A8DC164A9704B3E651F0BFC393EF76BCC7740F403FEB3C2E30F9ED98B
+      49FC9C84D0F64410FF160CA4477DE2FFA12FC8BDB9F9F9122F84E2E2E23FDBED
+      F66AEC6910DB3F271445AEDBA2A2A2037A773FE6EE717F31182D1598C3255EBF
+      C9FAD7DA00FC7B10680FD833408C039817623C50C604D1AF98CDD6CA79F3E66F
+      6FABF3D35C637F5A9FCFA75CF718EF333232C27A779F7563DF4A8B1579C842D8
+      3759D94BD39B847FB7C75BE3724B118453F4170EC9578336E053DDC7FBF7C785
+      57F2D77AA540ADD5E2A81A74CBE0E3AD796E73E6CCF977F4EF18E3E15D0B8FC7
+      5383BE40CFDE67CC9CF57B8BB877B38A707BB18F419A1AB17EFC7CFE1D4E77D8
+      28C60887CB13C1BED7E82FAC0E57B5C5E6AC72639F98F8FE5FF8C7CFC4FBF77B
+      C59C0221897981C313F6B8BD354F2C797269CBCF5F071F452E5149B8F6C7B947
+      1F80BF9F3163C61FF5EAFEE6BC813FA61A4DE5A18CCC30F2D77B7CC8B317C45E
+      16E2BA8D7DC5BE5698FB0582B131DC26DA8941DC0FDC9493FBD3C2D2459BCEB9
+      D6E6CE7BB1DF4D379F4A319ACB1DA24F403F10DB37087D7FA0CEBF4FB8AF0B1F
+      F22CFA6B8D0673456161D1372D716E8B1E5BFC94DB2BD5586CB6AA90B8B70B86
+      507E7F9D7B8CFF9803EAF39A9FF97BE41CB3391CD5BE00F23A631F0BD16FC7ED
+      69E009066A2484DF1F8DEDB9E38DE27A193870E00F9B373F97D1D8EF58B376DD
+      7DE9597DAAAE4F3596B9D04788B685B99F76DD7B7D6787E40D2AE309DA16727D
+      2D7AF4D175CD3DBFBCC1F9477B9BC4EF15FE63E787BD82FCC86D5777FDC3BFDE
+      BCAF59F7F484ACBE7DC4FCCE52E90F056BFC415CDFD84353DBC7C25F5317C23D
+      DA804778B789FBE23E7DFA54AE5FBFFE9EA6FECED9731F7ED16677565B2DB6AA
+      86FCC702FB4B056B91F72DC56828CB1B744B93F6CE9B3C65CA1EB465B3C35E85
+      F27B4528FE0331FF08CCF9713E0F3EF8E07FE8C5FB93CB972DEC3760C06993D5
+      52899CC581B45004FE7DCA9E1E67FC6B7B1AB954FF56B72BDCDB6028435EF00B
+      2DC3D05B871D4EE96D2893DCC2413DFEB1AF58DD3EC2A27C08E4FE435B453EBA
+      75BFF9CD79F778B87FEAD4DD1EC953638AED9717F58873738BA8EBC3D47680F6
+      EE76BB237DFBF6ADE8ECCE1F9A37EF7703F3071DF5050351F4A7B88E956B3E2E
+      CEF1EFF546D53D8D6AB0BF5D203D2DB2E5F9E7AD2D55A6D2D24736E1F98FC3EE
+      0CFBF12CC09F56EB91B08F4B6C1FB9BABD64E3CA28E17A166315724006D3D222
+      C30B0B0F4E2D99B66BF498319F65F6B9B112E79622DA28AE7B29CE777C7863F9
+      5BB18F89F2AC0FCFF93BBBFF5BF2F38F62EEA378166D2020E63F89FE13DB81B2
+      AF954FAAC1FE76A3EEBEFBB3D62A5B8E981FE2D9A2D32545B467075EBF925BB7
+      FEF2A1FCA23FC057EC8163116DC12AC608A718DFD16E7DE2DF70AD2B6356DD7E
+      6C67FA7CCD3FAEFDDB6FBFFD2B3DF4F9B84EB047B6D6D73718D8DB47CCF3AD56
+      5B952449D1E52B563CDCDAE5BB7F6AC99BF85CC1EE70873D12F21DFB6B1B2DA7
+      D61E447813429BAF780367C6F9B87DA36A5DC2BD9E9EEF236FAB539CB376FD9C
+      AF2ED13EDC9254D33B35B56C507EFEB1B62EE7809C9C53BDAEFBD7D376A72BAC
+      CD4751DEFA2259FFB8CF0BA8CFF5D1E7DB443F8858BE7CF902DDF957EB54B9C6
+      35EF6941A55DA0AE307EE2EB8245A51B2F56594BA64FFF9FB131DE51A5F5D5F5
+      45FC39F812DA8132CE8BFFA3F4F7E27A57F7478E1A8DC68ADCDCDC935D74C6F0
+      E1C3BF75BA5C116D0F8D00C650650FB780523F0EA7338C18D38AE37C53195154
+      78C066B757A15C4A595176B5FCDAE774B1F3089CD30E24F57E4FEBFB717F8FE7
+      FD4B962C59D6458728FE9DB1BDB295CF3AC4FC0ACFBD30065AC51CB8B0B0F09B
+      F658EEE7B76E75150C1B7608F7E8282BCA7C967FAD0D84824A68ED00EEEDE27E
+      35D56028479F3F6BD6ACFFAEE7E7FAF9622C47DF87EB407BB701D7434BDCCBB7
+      15A3468DFA7FF88C06F76C283F3EABC1E77508CCE5F1D5E67456E33901C68F9C
+      BCDC1F1F79E491DF7421C85FFF97ECECEC0ADCEFE0F3AF2D5BB6F83BEAB93CF3
+      CC33BF9C3265CABB78370FCF9FF12C12633AFAB8BBC78EDDF7C8E2C56B699C10
+      420821841042082184104208218490A6833500E3C68DDB979199A9ECCF8E77AE
+      534DC68A5493A9C228BE77B85D913ED9D915E23FEDDBB869D330D658E760F294
+      5FED09A565442C666BA5D3E10A3B9DEEB024F9943561923F284B8160AD3788B5
+      A3815AA7DB13B122178CC952919991159E3DFBA15758831D93FBA74EDBEDC19A
+      7DE1135F03C1F4683090160D05D2950888EFB1C62F3E90EB410BB74B52DA8CC7
+      ED8DCC9A35E7BFB1463B068F2C7EEC69B7E48DE21D6D1FD67F86626B7CE13BE8
+      572310FB73DDBA0D6DFD8EEADE1F5BF35BEBC3DA4F6F206A365A2AB2FBF6ABD8
+      F0CCA691ACE1F6CBE02143FF5997FB259607A2560BBFFF4C0454FF4A8E90F848
+      F01F6B03B1B0DB5DD5BD7B1BCA468FBEEBFFB2A6DBD935FFD8923558AB09F775
+      BE55FFDE7AC2A75EEFE807E223DEBFE65D52036BFD308EA00DF8449FB0F9D92D
+      7D59F3179F91B7DFF115F2BEB8BDBEB3AE772D24353C62AEA704BE0FA6296D40
+      191F84EF44FFBEB8DC50753F07FFEA9A4F87530A5B2C8ECA7BC74FFE88062E0E
+      EB7EB3618C5778310BF7F85A9FFBFAFCBBC4986E71B9C30631B743FE109BF088
+      799ECBE909E3BA8FF72F9DC7BFD21778FC518BC95ED1B74FFF0ADA685B264C9A
+      F29FC8FB82759867E572ABA71D28FEC5F56EC6F8203CFBD3332363C6DFFBE9CA
+      A7D64ED78EB7F4C9E58B47DEF6CB7FB8DD62CE2FDA93E4C55A9C86FD7BBDC1A8
+      4F0A46D17E6CE21EE3C199B3FE83665A97556BD74D45BF8DEB5652F23825E473
+      ACCFBFF87F26E12728BCCF5BB8687363BFA364DAF437BC627C37996D951E1C1F
+      3980D43C405E751EA0ACFB57E7875EC92FC68D606D4A8AA1ECC61B6F641EC656
+      6268E1886FAE33A496599CCEB057595B85F541FE7342FBFBF4F48C88D3E90ABB
+      3C9E9A5F1517EF6EEAEFBBE79EB17FC1DA0C8BC351ED11BF0FF30BE419AA6B67
+      1827FC694A7E202FD6EA8AFFE37039C356BBBD6AC284099C17B41077DE3DE673
+      93CD5A69B4DBAA5C581F1F0C44A5B8F5D189817556587B63484D2DCB1F34E882
+      D705DFD82FBBFC5F537AFFECF47822F8BDB1712110CBFB813CB141F1354D59CB
+      15C557B405AC474739A64E9DFA160D368D0DBFDD74EBAF44BD65DF74D36983D5
+      526914EE1D5EA9C6E9F322BF0B727C28FEE3F2A145B5409D3B710DDAAC55B367
+      CFDED152651A3B7EFC2746B3B9C2E172453C5E1FF23E44B57B4CC57F6C3D9F12
+      CA7A6FB57C58BF86F55E43870EFD1E797B9E78E28927172D5AB471CC98319FEB
+      716D6F320C1C34E8F8BF5C77DD29BBA8374F50C98951EB56BDBB62393262FD6D
+      9C7F2D2722F27C61ED586B94EBB7CF3E9B1708066B4D166B25723E28793F14F7
+      A168BC7F44505DE3A9ACF7C5D821CA86B5AB58D7883C9EC8DF7BE79D77FE9DB6
+      CF657851E141756D7FAD37A8E4F8A9F5C405FEEC8B5B5B0DF75867897A6D8B35
+      A2C3460CFF36C56828474E36BF680F8A737C15E1C3F55F4FE0DF82718135A173
+      E7CE7D89B6CF65C8B0A1DF2367121C2370ADC7874FB9EE62F508FFF09E969656
+      D396655CF2E4934F602C308B7146F2FB62E54408D708658E22C22DC283BC056A
+      3E006D1D38FA81952B573E44DBE7726BC1B04336A723AC5C4F71D7B976AD6BEB
+      E9D1DF638DF87831365FCCB22AB9E990A315ED313D2DA2B96FC83FC6A9E75B30
+      3F59A7BACF1B5EF01DDECF08A48562F97FD43A83778CF5DABAFA9BC4FCB03D94
+      77CDBA7593326ECCAA328A32B931E7933C356E31578D9FB7C4FBC739605E48D3
+      E7195F95FC2FEE48505C4B7E650E15EBE771ADE3BAC1339665CB962D6A6FE52E
+      99FEEB3FA11FB82125A5CCE67685DD019F7AAF121B1FB47C3068BF6807347D1E
+      FF050587E01AB9B0903703E33BE64B83C47DC18A36C8EF76A1CC7DF8E1ED7DFA
+      6597635CB841CC13959CAE92A4DC9F22AF13CE0973179AAE1FEC61859C67FDB2
+      B3CB913763E6CC99BFEFA8E7525C52B2ABA0B0F09BBEA23D208F34CE0BED39E7
+      A69C53344D082184104208218410420821841042C885B1A874D16F870F1FFE5D
+      767676657A7A7A8DB6CF5266666664C08001658523471E58BA62C542D654E761
+      DDD34F4F1A3A74E83F6D365BA5CD66AD74B95C618FC71351DF1B56C2EBF346DD
+      E2EFEC2E67B559FC1F9BD3513558FCCC339B3616B2063B26AB56AD9E9D999515
+      EE9D92F233DC0712DEC18D8FC4F7B77DA150ADC16CAE30984CE503070D3AB171
+      C346E67DE840E4E6DD72126BC25D1E6FC41F4CD37280D43616DEB890022159F2
+      2B791FAA2C665B45E188DBBE61CDB66FC64F98B4D760B4941BCD56E47E919371
+      9EE81DA1E408C0DA5175DD27D6843B443B40CC9E338739A1DA21E99937860D46
+      7339F6636E8AFBF3F977C7D68E633DB1ACE6048922EF87C1682ABF7960DE8FAC
+      F1F6C1D469BFFEB3CDEEAC728BBE5EDD8BBBC911EFDE771EFF5A1BF00782B2C3
+      E509DB1CAEEAD2458F6EA2818B474EEEC09329065399E250B8F7C4D665CAF191
+      E8DA23F96A10F06730592A10C827E0167F97969915F60482B52E2FDEDB0EC6F6
+      76D7FCFBD2A288D89AEF60ADDBE3AF494935970D1B5EF81D4DB42D8F3DFEC4AA
+      54E11DDEE034DEF5F9FCC325E684263137B82927F7D4FDC525BBE72F28DD8A18
+      7FEFA48F43E999352631CF3399AC151ECC1BD53C307E2D27609CFF33915E6BB1
+      3A907FA676CDD3EB7E4533AD4FFEAD438F68737B6DAC3F2B94BC0CA1B8F5F969
+      B54EF17FEDE27ABF73F498BF3574EC4D1B9F2D18766BC161BB706AB7392A91D7
+      23D0A0FF34E42089A22FB1D8EC9577DE35FA6F34D43A943CF0E01F9D92379262
+      5272BCC9B8A7ABCF7D7C3E1897DB1BC1BDC0A0FC214DCA03F1C2B6ED37F4EDDB
+      AFD268309779A5404D40780EF8428A7F6F7C0E2025024AB83D12D68356E2F9C1
+      BCD2859B69AC6578E8E1F9BFF385D26A7B9B4C650EE1DF83FDA0D5795EA27FFC
+      7DCC87E8EB455F8E1CBF4FAD7DBAB8B9BF7B51E9239B90170CF77DA160BA921F
+      EE4C0EA0E059119B7B046A5D92277283D15036202FF7E48AA7563F48834D67E9
+      F2658F8CBEE79ECF5C3E6F4DAAC55C6EF7B8C31E753D2DD6D5FAD4758181B835
+      B588B4B4B4A8DBED0E9BCDE68ABBEFBEFBF3962A4F5E5EDEC9D414C3CFC805AC
+      F5315AFE1F9F324F8CAD4D57F213A865B4BA9CD5A9366B45303323326ED2C40F
+      D7AE5B3709C77AF6D967F3E6CC99F34AFFFEFDCB4B4A4A76D1F6D9DC3278F031
+      E4FF483119CB2C4E47557CEE8778FFC17AFCDBEDF62A87C351F5C4134F2C6DE9
+      724D9B36EDCFCAF1457F207983D133730FE41C8BADFFF724E4AA4079EDA23F48
+      319BCA2D365B253E77C0B3E8DEBD7B9F46E4E7E71FA7F1B3291831E25BA5AEFC
+      BEA85B844B84530D25FF4F827F7C9524A9263535B56CB0683BAD5DBE1BFB6457
+      616C39C7BF7AFDBBD57222B4722B39007C3E2D2F90B616B4065F69FC6C860D1F
+      7EC86A17FED5BA74C7B50384C7EF573EA30985428A7FA7D3598DCFF4162C58B0
+      B5ADCA3871F294FFC47CDF2E7E775D9E92C019FFDADAFFB87C55515F5C1E0BAD
+      1DA0AFA2F173FD5BECC8E92AEA53D4915BCC01EA42D4AD921728A0ACA38F609C
+      CFCDCDFDE96294F3F9ED2FF4E8939D5D996A309429F968C4DCC3E3F5D6A0CC1E
+      AD0D88AF1242F98CD957F779B34FED0B50FED2D2D26769FD0C430B0ABEC77D14
+      EACB234911D4A984FE1239DED4BF4B15F36B5CF38F3DF6D89A8B5DDEE25F97EC
+      42BE22A7280FDE21907CE27A472E6A255711F205C6DCD7E71F73813BEEB8633F
+      AD27F8B722C79AE8EFC5DCC9E97685BD6807A26E0DE25AC31C6CECD8B17F696F
+      E52E1A39F26B93C5529122CAA83846BB1563BC2FC17BFC7B27F8778C63B47E86
+      5B870D53FC3BC53D1FAE2BABB8462CA25E31CF9B387162BBCFAB7ACFB871FFC7
+      25EE418D466319FA77DC8F6ADEB5799FE6DE21EE6F7AFE4BCF935BB76EF5D27C
+      8C9BC5BDF6B53D7B9E441EDD7E03FA978DBEEBAEBFAD5AB56A4E473B0FDC83DE
+      36F2B6AFF14C02ED006DD82ADA35BE473F86F1EB965B6EF9615AF1B437695D1F
+      F03A27841042082184104208218410420869595E78FE773D4A4A1EF8D388C2DB
+      0FE4E4E49DCC1E90733AFBA69B4F0DC8CD3D59505478F0C139B3B9B6B7133265
+      D2FD7B42818C1A438AB9CC64B455D8ED9EB0DDE989D8DD92124EECCBE171D7A4
+      188D15D7F7EE5D96DDAF5FD9B4E2E2FFC59AEBD8DC5674FBD71693BDD26A7254
+      3A8573650D57203DEA17E1F5A7D5ED0DAFECDB96867D1C43CA7E3D2EB71BEF69
+      E35DF2F0E8D15CD3D5D19870EFA40F6D564795CDE6A80A0684737F5A34E84F57
+      D66FF9C5F7DADEE05E35EAF66A54DFE54DDCABCDE970543F3063C6FF60CDB66F
+      162E2C7D56F2786B4C267385E4C1BB75E99160302D1A5BBF89F57BE21A17115B
+      BB1314EE45C4EFDB19E75F690341659D11DE3DAD4D4D4D2DCFC8CC0C6F7BE185
+      6EACE9F6C788DB8A0EA41852CBB1C796DFEF97EBC2275C2A118CD68537A47C95
+      C4BF4BCA3EB36A1B38B3E7A89C18D8EFD526C6831B5253CAC64DB8772F6BBC7D
+      B07ACD9A69F083FD587DF1DE1323B10D28F922BCB5CA3EBE67F6EE3EAF7F2D1C
+      6E57C464B154863232226D717E77DD75D75FB167184D9FCB58711D1A45DDC0A1
+      E62D19FF5E8F2FEA72792226F1B31631CF734B9EA8F2B3F5B401AD4F880FBF18
+      37EC4E6718ED60EAB4697F6EADF3CBCACAAAC23C145154547480C6CF101263B1
+      C16AA9748BF9BA3778C68DE62DDEBDBA7FACEC127D04E673F87E70FEE0A363C7
+      8EDD87F97DAEB8FFC7DFD91CF66AB7E813B4FEBE3EF75A04D47DDF0D467345DE
+      C0FC132D796ED3A64FFF536F3196B9C57D08CA8E7D8F51EE4D9B360DD1BBF749
+      9327BF8FFDE19DE27EDDA7EDB72DC223DA00C28D35D86A1BD0EACEE3F1440D06
+      4379566656D592254B969D77FEB868D1A6CC3E37561A2DE64A97DA279CAF1F50
+      F6A60DE15E222D6AB1BAAAAC221E9C3DEFDF2FF4FC06E4E49C52FA34D10E8398
+      7FAA6D177B0663EF5BBD7ADFB471E3ADD8E73D2525A50C7DB45F75EF55DDBBD5
+      70A9EB30156FA20E0DA9A965E9E9E991A6EC19FCC8E2C54F636E803D9DD10F9C
+      6F1CF005B006183961D2C57812885CDFDB58969373CBC9E69CDFD49269BB528D
+      C60AB3D55AE5434ED284B5ED08EC833B63C68C3FEACDFD90C183FF6916FD1FAE
+      635C13757D7DDCF5EF46A86D4012817A447D959494BCD1DCDF7BFB9D777C0127
+      6EAFB8A750F7A3AFBBFE953628C600D5BFCF971EF54881A8CDEE0E5BEDCEEA51
+      77DDFDD7647EC7BC050BB6FAD342518BDD5E8D3617FF7B02F5049E49E9C1F982
+      050BB6DC9C9373D228BCDB9D8EB0724FAE5E1789FEB536208502582B5E6BB659
+      AB72C498DE12E558B97AF54CECDF6C157E94DFABFA39DBBF920B4C190BD43C74
+      E25ED125E687D6CA42715FBA6CC58AF9F1C77C6EEB56EF84FBA6EC413F85398C
+      0D63198E9BD0C6E2BD6B7319A3688F7DFAF4E9B4F703C386177C9B2AC66A83F0
+      6E15F35EADFF0D8ABEBFEE5E5CEBDF850304AE1FEC176F15ED04F5397DE6032D
+      FEAC0E1E2DA23F917CB867F4AACF8742D1009E2F05D4E7CA78B6E80B45259F5F
+      69AB9843D84499B01738E62B1EF1733697B86F10EDF37A31BF738A7E05CF9D3D
+      8140DD1CD61FFFFC490DCC61E0DE22C623F47F1B366C28EAACFE8717151EC4F5
+      ABCCBFE15AF5ED11D7B5A4FE591BDFB5B93DFA4DF4F781B4504D6B96EDD1471F
+      7DDA61B72B7B78E3778784FF2042B85702CF99455BD09E27A03C75CF164439A5
+      585E08659EAACD5D95F12AA4E4B539CB793010886ADF63EE877DE3EFB8E38E2F
+      3A7BBF5F78DB6D07D0D7C2BFE6BA2E9F8E16FE589F80F9209EF7E13EFE97A3EE
+      FC7B5B9571E0C0813FE09E1CD7653010529CC787324EC5475D5EF9A0E25952EF
+      55B479AB47FD3B7F427F8FE3C37D488C33AB56AD9AA587715FF38FEB3DD1BD4B
+      758FEB087563B38AF141F85FFDD453BF6EEB729696966EB2897ECA2AC6F8B3FD
+      87A2E7DC2BAA6D20DEBF4B3D1F2DE2FD6BDE6FB8E1869F870F1FFEAD9EE6FA0D
+      F977AB7DA8D51E7B2686E737177DBC127E709F816735189B95FB9360E3FEEBCE
+      4DFD1E734C6FDCB30A1C67F9F2E50BF476AF37A2A8E8209EC96ACFE6953100CF
+      3F3C9E1A3CF7C1B3999BF3DA57FEF58D1B37160C1830E034DA019E316A73D6F8
+      674767ED2FA2E68BC3B9B9C59C10F3447C7E817B1D1CE3FEFBEFFFDF7A7DCE33
+      BCB0F01BCCE5E01F81CFDCF0D92BAEF7214386FC1375DD5ECB8E311AED009F0B
+      E0199E53F409DA73E444FF18DF3176C137E62FE8F3274C9CF881DE9FEFE60F19
+      7204CF5C3006E03EA06F76764547BC1EC6DE3BFE93F4CCCC30DA01DA33DA31BE
+      C779A15DE0DE167DFC881123FE6BD1A2451BBA90D835B466CDB4D2471F59FFDC
+      962D699DE59CD66FD870FBC30B176E9EFEC0037F98377FFEB695AB56CDA66942
+      0821841042082184104208218410420821841042082184104208218410420821
+      84104208218410420821841042082184104208218410420821274E9CF01F3F7E
+      BC6F43515E5E6E48F678B22C5F7EECD8B1ACC68E191FE2677ED1C831BB35E578
+      F181B2A04C345D3FB9B9B9F2B5D75EDB60AC5CB9524EF678274F9ECC30994C8D
+      1E538B9E3D7BCAFFF8C73F263774CC7DFBF66D4DF67889613018E423478EF46F
+      ACDC870F1FCEBBE4924B709ECD8A0F3EF8E0F5868EBF7FFFFE994D39DEA5975E
+      2AA3FD265BEFA5A5A58D1E5392A4733C8642A1467F6EF1E2C549FBC7F576D555
+      5735A9EEBEFCF2CBE90D1D73EFDEBD3B9BEBE5CA2BAF94E1B6B1721F3D7A34E7
+      9A6BAE69B67F51C61D0D1D5FB4F1E2A6B42FB45DD465B2F5BE64C992468F9999
+      99798EC7ACACAC467F4E3D76D2FE7BF4E891F47976EDDA15D77F7123FE7734D7
+      4BF7EEDD65B84DC63FFE6F6BFAC7B9267B3CD4614BFB575DD33FFDD33FFDD33F
+      FDD33FFDD33FFDD33FFDD33FFDD33FFDD33FFDD33FFDD33FFDD33FFDD33FFDD3
+      3FFDD33FFDD33FFDD33FFDD33FFDD33FFDD33FFDD33FFDD33FFDD33FFDD33FFD
+      D33FFDD33FFDD33FFDD33FFDD33FFDD33FFDD33FFDD37F3BF3AFE6846851FFC8
+      5D91EC792227466BFA474E8F64FC23470872855C80FF9D0D1D5FCD7192F4F190
+      43A529FED51C2D0D869AEBE52CD49C300D869A5B262990B306B96B9A72AE6A6E
+      9CF3A2E6D6699617B4AF64F2BF20471072053537CF1072143572FD4F46AEA364
+      8F871C4AC8A5946CBD23475363C744AEA72EA45E9A93B72C218759B7468EFF8B
+      D6CC5B861C6D8D1D13B9DE689A10420821841042082184104208218410420821
+      8410420821841042082184104208218410420821841042082184104208218410
+      4208218410420821841042082184104208218410420821841042082184104208
+      21841042082184104208693F7CF9E597D37FFAE9272F6B427F6CDBB64DEEDEBD
+      BB7CF0E0C171AC0DFD70E4C891BC3163C6C8E25BF9B2CB2E930F1F3E3C84B5A2
+      0F76EDDA25FB7C3EC53DA25BB76EF2F7DF7F3F8C35D3B9A9ADADEDBA70E1C23A
+      EFF4AF1FF6EDDBB7352F2FEF1CF7F4DFF9D9BE7DBB32C7ABCF3DFD775E4E9D3A
+      E51E356AD479BDD37FE7E5F5D75F971D0E47A3EEE9BF73118944BA2D59B22429
+      EFF4DFB9F8E28B2FE6F4EFDFBF49EEE9BF73F0DC73CFC9BD7AF56AB27BC4D557
+      5F2DFFFCF3CF56D662C7E3D8B163FD274E9CD82CEF5A5C79E595F28E1D3BE437
+      DF7CF382A3BE7EA4BABABAE7DB6FBFDDEC63621EDB501D9497971B76EFDE9DF4
+      F150967038DC3DD93AFEFAEBAF273776CC8F3EFAE80F6DEDFEB5D75E939D4EE7
+      05B96FE9D8B2658B9C584E3C6BBEE4924B9A7DCC0F3FFCF0F586EA61FFFEFD33
+      9B72BC4B2FBD543E7EFC78DF64EBB9B4B4B4D1634A9224B795F7AAAAAA5E8B17
+      2F56CEA33DB947E0594362798F1E3D9A73CD35D734FB981F7FFCF18E86EAE3AB
+      AFBE2A6E4AFBBAF6DA6BE513274E64255BDFC9CCA7333333DBC43FDA7ABF7EFD
+      DA9DF7C6FC37F4FCA925FC77EDDA35E9E3F5E8D1A3C5FD676565B5BAFF8D1B37
+      2A6DB7BDBAA7FFD60163D585CEF1E8BF63FA7FE79D774E188DC60EE19EFE5BF6
+      39DEFCF9F33B8C77FA6F39FF9F7FFEF98AFCFCFC0EE79EFE2F1CDC3F5FC8BD12
+      FD774CFFDF7DF7DD6DE3C78FEFB0DEE9BFF9FEDF7AEBAD76F71C8FFEDBC6FFDC
+      B9733B8577FA6F9AFFCF3EFBECA9F3BD8F47FF9DDBFF8B2FBE285F75D5559DCE
+      3DFD37CCC99327FDA3478FEE94DEE9BF61FF6FBCF186ECF1783AB57BFA3F17BC
+      67F0F8E38F777AEFF47FAE7FBCB7909393A31BF7F47F86D3A74F3BFC7EBFAEDC
+      D3FF19B0D60E6BAA3BEA737CFA6FB9F9DFDAB56BE5CB2FBF9CFE753CFFC73BA7
+      191919F4AFE3FB7FBCA75C525242FF3A7FFE8777EDCD6633FDEBF8F93FD6140C
+      1D3A94FE75FEF9DFFAF5EBE95FE79FFFBFFFFEFB1FA8EB07E85FA7EFFF604DCF
+      942953E85FE7EFFFBDFAEAABCD5EC74BFF9DE3FD5F9C4F515111FDEB7CFDC7D2
+      A54BE52BAEB882FE75BCFE079F21AAC7A67F1DFA073FFCF04346717131FDEBD4
+      BFC6CE9D3BE5EBAEBB8EFE75EA1F1C387060C2C89123E95FA7FE35962D5BD62E
+      3F53463EF9C4B222FF0B720C35F7987BF7EEDDD9505D60FF82A61C0FEF5E37C5
+      3F72AD3476CC5028D4A6FEC1A79F7EFA829A77E682036D09B9252E345E7EF9E5
+      73EA0139AA0C0643B38F89DCC58D7D96D2B367CFA48F67329964CCA992ADE795
+      2B57367ACCDCDCDC36F70F901B6BC68C19179CFFEBDD77DFFD2BF24C5C685456
+      565E9F58C668347A39AEB7E61E136BE11BAA839A9A9A5F34E578280BCA946C1D
+      E373FBC68E8977FBBB5C445E7AE925392525A5D9F9FF7EFCF1C75017D2A1C11A
+      E2828202E6FFD431E80B57AF5EAD5CD3F4AF5FDE7BEFBD4F028100FDEB18CC0D
+      67CD9A45FF3AE795575E91535353E95FC71C3A7468C4F9D6A2D0BF7E58B76E9D
+      9C982B97FEF5C59E3D7BF6A7A7A7D3BF8EC173BAFBEEBB4FF18FCF4EB8FFA73E
+      D9BC79B3F2BE219EA1B336F4093E3F6BCAE76184104208218410420821841042
+      0821841042082184104208218410420821841042082184104208218410420821
+      8410420821841042082184104208218410420821841042082184104208218410
+      4208218410425A9713274E647DF9E597D35913FAE4EBAFBF9EDCAB572F79F3E6
+      CD326B437F1C3E7C7848D7AE5DE15EBEEFBEFBE4CACACAEB592BFAE1FBEFBF1F
+      D6AD5B37C53F223D3D5DDEB367CF7ED68C3EFD232EB9E41279DDBA751C0F74EA
+      5F8BFCFC7CF9D0A14323584BFAF48F484D4D955F79E515F6053AF5AFC5AC59B3
+      E453A74EB95963FAF48F080402F27BEFBDF7096B4D9FFE11575F7DB5BC7AF56A
+      B9A6A6E617AC3DFDF9D7A2A0A040FEEEBBEF6E630D766C7EFCF1C710AEE9A6FA
+      47A4A4A4C82FBDF4D2459D1B9E3C79D27FFCF8F1BE0D457979B921D9E345A3D1
+      CBF14CBCB163C647637D612412E9D694E3C507CA8232251E13CFE99A7BCCF878
+      F7DD77FF7AE5955736CBBF163366CCB86873C3DCDC5CF9DA6BAF6D3056AE5C99
+      741BFDE1871F324C2653A3C7D4A267CF9E329EA13774CC7DFBF66D4DF6788961
+      3018E463C78EF54F3CE6CB2FBF2C37F798F171F9E5975F907B2D2449923FFDF4
+      D317DADA7F28146AB46C8B172F4EDA3FAEB7ABAEBAAA49E7DED8E7677BF7EEDD
+      D9DC7AC5B579E4C891BCC4636EDBB6AD45BCB564A02D2D5BB6AC4DC783ACACAC
+      46CBB564C99226F9EFD1A347D2E78CCF4EBEFAEAABE2868EF9F1C71FEF686E9D
+      76EFDE5D3E7AF4684EE231B76FDFDEEEFC6B3172E448F9C0810313E85F9FFE11
+      D75D779DBC73E74E99FEF5E95F8BE2E26219732AFAD7A77F041C7DF8E187AFD3
+      BF3EFD23AEB8E20A79E9D2A532FDEBD3BF164545458DD617FD775EFF08BC6FF8
+      EAABAFCAF4AF4FFF5A4C993245AEAAAAEA45FFFAF48FC8CCCC94DF7FFFFD0FE8
+      5F9FFEB558BF7EBD4CFFFAF58F183A7468A39FA5D07FE7F58F309BCDF28E1D3B
+      64FAD7A77F2D4A4A4AE4643EB7A7FFCE1B191919F2DB6FBF2DD3BF3EFD6B9F29
+      AF5DBB56A67F7DFAEF12B716E5E0C183E36A6B6BBBD2BFFEFC23FC7EBF7CFAF4
+      6907FDEBCF7F4E4E4EBD9F21D27FE78FC71F7F5C0E87C3DD39FEEBCBBFC7E391
+      DF78E30DCEFF75E87FF4E8D132DEEDE7FDBFBEFCE3DDEB175F7C91CFFF74E83F
+      2F2F4FFEECB3CF9EE2F37FFDF99F3B772E3FFFD3A17FA7D329BFF5D65BCD7E17
+      88FE3B6E8C1F3FFE82D710D37FC78B6BAEB946DEB2650BDFFFD3A17F3CC7FFFC
+      F3CF57746921E8BFE3C4FCF9F365AC85EFD282D07FFB0FA3D128BFF3CE3B27BA
+      B402F4DFBE63E2C48932F24C746925E8BF7D06724B6CDCB891EB7F75E8BF5FBF
+      7EF2FEFDFB67766903B07EA0A5FDA3ED267BAEC895DB9AFE71AFD451FC5F7AE9
+      A54AAE950B5DD3D3149077A6B17295969626ED1F6315CEA329E7DD585B57DF5B
+      68569DA27DD597FF45BD7F6E57CFF15E7BEDB536CF05F6D1471FFDE1CD37DF94
+      1B8AA6AC29C07B0678E7B4B1636AB17BF7EE46DF53466EAC648F9718284B7575
+      75CFC463226F5F738F191F78D7FE42F37F618E575F8E2AD2FEF9F9E79FADCDCD
+      FF8775BCCF3DF71C734377609A9BFFB37FFFFEF2175F7C318735A83FFF984FB7
+      F4733CD2FEFD3B1C0EF9F5D75F677FAF43FFA3468D62FE7F1DFAC7F327F55903
+      D1997FBC8F87DCC5AC25FDF95FB870A19CB8D68E747EFF3E9F4FDEB56B17FB7B
+      9D80FD3F2FBBEC32C5FD983163EA7DD64C3A2F58538D399E9A4F9EE88C9F7EFA
+      C9CBFDBF09218410420821841042082184104208218410420821841042082184
+      1042082184104208218410D21CFE3F10EDFF74
     }
   end
   object PopupMenuElectrode: TPopupMenu
-    Left = 536
-    Top = 40
+    Left = 704
+    Top = 48
     object MenuIInterlockElectrode: TMenuItem
       Caption = 'Interlock Corona Electrode'
       OnClick = MenuIInterlockElectrodeClick
