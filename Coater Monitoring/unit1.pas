@@ -65,6 +65,8 @@ type
     GroupBox6: TGroupBox;
     GroupBox9: TGroupBox;
     Image1: TImage;
+    ElectrodeValve: TImage;
+    CartridgeValve: TImage;
     ImageElectrode: TImage;
     ImageCartridge: TImage;
     Label29: TLabel;
@@ -85,14 +87,16 @@ type
     Label70: TLabel;
     Label8: TLabel;
     LineSpeed_Act01: THMILabel;
+    MenuGravureRollInterlock: TMenuItem;
+    MenuItemCartridgeValveInterlock: TMenuItem;
+    PopupMenuCartridge: TPopupMenu;
+    TakeoffRollInterlock: TMenuItem;
+    PopupMenuTakeoffRoll: TPopupMenu;
+    PopupMenuGravureRoll: TPopupMenu;
     ScrollBox1: TScrollBox;
     TakeOffRollSpeed_Act: THMILabel;
     LineSpeed_Act: THMILabel;
     CoronaWattDensityAct: THMILabel;
-
-
-
-
     EditPort: TSpinEditEx;
     FilmBypass: THMIPolyline;
     GroupBox10: TGroupBox;
@@ -153,9 +157,9 @@ type
     PageControl1: TPageControl;
 
     P1: TShape;
-    PopupMenuInterlockCoronaRoll: TPopupMenu;
+    PopupMenuCoronaRoll: TPopupMenu;
     PopupMenuElectrode: TPopupMenu;
-    PopupMenuInterlockCoronaExhaustFan: TPopupMenu;
+    PopupMenuCoronaExhaustFan: TPopupMenu;
     TakeOffRoll: TShape;
     P2: TShape;
     P3: TShape;
@@ -280,12 +284,15 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure MaskEditIPEditingDone(Sender: TObject);
     procedure MenuexitClick(Sender: TObject);
+    procedure MenuGravureRollInterlockClick(Sender: TObject);
     procedure MenuIInterlockCoronaExhaustFanClick(Sender: TObject);
     procedure MenuIInterlockCoronaRollClick(Sender: TObject);
     procedure MenuIInterlockElectrodeClick(Sender: TObject);
     procedure MenuInterlockCoronaClick(Sender: TObject);
+    procedure MenuItemCartridgeValveInterlockClick(Sender: TObject);
     procedure MenuProductionViewClick(Sender: TObject);
     procedure MenuMaintenanceViewClick(Sender: TObject);
+    procedure TakeoffRollInterlockClick(Sender: TObject);
     procedure TCP_UDPPort1CommErrorReading(Error: TIOResult);
     procedure TCP_UDPPort1CommPortOpened(Sender: TObject);
     procedure TCP_UDPPort1CommPortOpenError(Sender: TObject);
@@ -529,6 +536,9 @@ begin
   Label47.Transparent:=false;
   Label51.Transparent:=false;
   Label57.Transparent:=false;
+
+  CartridgeValve.ImageIndex:=24;
+  ElectrodeValve.ImageIndex:=24;
 end;
 
 procedure TForm1.CommunicationIsActive;
@@ -622,6 +632,16 @@ begin
   //halt;
 end;
 
+procedure TForm1.MenuGravureRollInterlockClick(Sender: TObject);
+var
+  ff:Tform2;
+begin
+  ff:= Tform2.Create(self);
+  ff.InterlockName_:='Gravure Roll Interlock';
+  ff.DateTime_:=FormatDateTime('dd/mm/yyyy ', Now())+TimeToStr(Time);
+  ff.Show;
+end;
+
 procedure TForm1.MenuIInterlockCoronaExhaustFanClick(Sender: TObject);
 var
   ff:Tform2;
@@ -663,6 +683,16 @@ begin
   ff.Show;
 end;
 
+procedure TForm1.MenuItemCartridgeValveInterlockClick(Sender: TObject);
+var
+  ff:Tform2;
+begin
+  ff:= Tform2.Create(self);
+  ff.InterlockName_:='Cartridge Valve Interlock';
+  ff.DateTime_:=FormatDateTime('dd/mm/yyyy ', Now())+TimeToStr(Time);
+  ff.Show;
+end;
+
 procedure TForm1.MenuProductionViewClick(Sender: TObject);
 begin
   ProductionView:=true;
@@ -677,6 +707,16 @@ begin
   MenuMaintenanceView.ImageIndex:=7;
   MenuProductionView.ImageIndex:=9;
 
+end;
+
+procedure TForm1.TakeoffRollInterlockClick(Sender: TObject);
+var
+  ff:Tform2;
+begin
+  ff:= Tform2.Create(self);
+  ff.InterlockName_:='Takeoff Roll Interlock';
+  ff.DateTime_:=FormatDateTime('dd/mm/yyyy ', Now())+TimeToStr(Time);
+  ff.Show;
 end;
 
 procedure TForm1.TCP_UDPPort1CommErrorReading(Error: TIOResult);
@@ -751,6 +791,9 @@ begin
       GravureRoll.Left:=315;
       Label7.Left:=411;
       Label33.Caption:='Cartridge: In position';
+      Label35.Left:=413;
+      CartridgeValve.Left:=430;
+      CartridgeValve.ImageIndex:=23;
     end
     else
     begin
@@ -760,6 +803,9 @@ begin
       GravureRoll.Left:=325;
       Label7.Left:=421;
       Label33.Caption:='Cartridge: Out position';
+      Label35.Left:=423;
+      CartridgeValve.Left:=440;
+      CartridgeValve.ImageIndex:=22;
     end;
 
     if Q0_3.Value > 0 then   //Electrode
@@ -772,6 +818,8 @@ begin
       Label5.Left:=426;
       Electrode01.Left:=395;
       Electrode02.Left:=400;
+      ElectrodeValve.Left:=440;
+      ElectrodeValve.ImageIndex:=23;
     end
     else
     begin
@@ -783,6 +831,8 @@ begin
       Label5.Left:=436;
       Electrode01.Left:=405;
       Electrode02.Left:=410;
+      ElectrodeValve.Left:=450;
+      ElectrodeValve.ImageIndex:=22;
     end;
 
     if Q0_5.Value > 0 then
@@ -1291,6 +1341,7 @@ begin
   FreeAndNil_MB35();
   FreeAndNil_MB98();
   FreeAndNil_MB101();
+  FreeAndNil_MW120();
   FreeAndNil_QB0();
   FreeAndNil_QB201();
   FreeAndNil_QB209();
@@ -1324,8 +1375,10 @@ var
   TempBmp: TBitmap;
 begin
   LiveCounter_:=0;
-  CoronaRoll.PopupMenu := PopupMenuInterlockCoronaRoll;
-  ImageCoronaExhaustFan.PopupMenu := PopupMenuInterlockCoronaExhaustFan;
+  CoronaRoll.PopupMenu := PopupMenuCoronaRoll;
+  ImageCoronaExhaustFan.PopupMenu := PopupMenuCoronaExhaustFan;
+  GravureRoll.PopupMenu := PopupMenuGravureRoll;
+  TakeOffRoll.PopupMenu := PopupMenuTakeoffRoll;
   ProductionView:=true;
   DebugIsActive:=false;
   {$IFOPT D+}
@@ -1357,6 +1410,7 @@ begin
   CreateTag_MB35();   //Takeoff roll Run/Off HMI
   CreateTag_MB98();
   CreateTag_MB101();
+  CreateTag_MW120();  // Alarm
   CreateTag_QB0();
   CreateTag_QB201();
   CreateTag_QB209();

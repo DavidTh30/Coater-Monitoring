@@ -496,7 +496,7 @@ end;
 
 procedure IsTakeOffRollRun();
 begin
-  if Q0_2.Value > 0 then
+  if Q217_0.Value > 0 then
   begin
     Unit1.Form1.CmdTakeOffRollRun.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdTakeOffRollRun.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -534,7 +534,7 @@ end;
 
 procedure IsTakeOffRollOff();
 begin
-  if Q0_2.Value < 1 then
+  if Q217_0.Value < 1 then
   begin
     Unit1.Form1.CmdakeOffRollOff.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdakeOffRollOff.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -572,7 +572,7 @@ end;
 
 procedure IsGravureRollRun();
 begin
-  if Q0_2.Value > 0 then
+  if Q213_0.Value > 0 then
   begin
     Unit1.Form1.CmdGravureRollRun.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdGravureRollRun.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -610,7 +610,7 @@ end;
 
 procedure IsGravureRollOff();
 begin
-  if Q0_2.Value < 1 then
+  if Q213_0.Value < 1 then
   begin
     Unit1.Form1.CmdGravureRollOff.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdGravureRollOff.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;

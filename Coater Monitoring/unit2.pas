@@ -22,6 +22,7 @@ procedure CreateTag_MB34();
 procedure CreateTag_MB35();   //Takeoff roll Run/Off HMI
 procedure CreateTag_MB98();
 procedure CreateTag_MB101();
+procedure CreateTag_MW120();  // Alarm
 procedure CreateTag_QB0();
 procedure CreateTag_QB201();
 procedure CreateTag_QB209();
@@ -58,6 +59,7 @@ procedure FreeAndNil_MB34();
 procedure FreeAndNil_MB35();
 procedure FreeAndNil_MB98();
 procedure FreeAndNil_MB101();
+procedure FreeAndNil_MW120();
 procedure FreeAndNil_QB0();
 procedure FreeAndNil_QB201();
 procedure FreeAndNil_QB209();
@@ -294,6 +296,25 @@ var
   M101_5: TTagBit;
   M101_6: TTagBit;
   M101_7: TTagBit;
+
+  MW120_: TPLCBlock;       // Alarm
+  MW120: TPLCBlockElement;
+  M120_0: TTagBit;
+  M120_1: TTagBit;
+  M120_10: TTagBit;
+  M120_11: TTagBit;
+  M120_12: TTagBit;
+  M120_13: TTagBit;
+  M120_14: TTagBit;
+  M120_15: TTagBit;
+  M120_2: TTagBit;
+  M120_3: TTagBit;
+  M120_4: TTagBit;
+  M120_5: TTagBit;
+  M120_6: TTagBit;
+  M120_7: TTagBit;
+  M120_8: TTagBit;
+  M120_9: TTagBit;
 
   QB0_: TPLCBlock;
   QB0: TPLCBlockElement;
@@ -1238,6 +1259,110 @@ begin
   M101_7.StartBit:=7;
   M101_7.EndBit:=7;
   M101_7.PLCTag:=MB101;
+end;
+
+procedure CreateTag_MW120(); // Alarm
+begin
+  MW120_:= TPLCBlock.Create(nil);
+  MW120_.PLCRack:=0;
+  MW120_.PLCSlot:=0;
+  MW120_.PLCStation:=2;
+  MW120_.MemAddress:=120;
+  MW120_.MemReadFunction:=3;
+  MW120_.AutoRead:=true;
+  MW120_.AutoWrite:=false;
+  MW120_.TagType:= TTagType.pttWord;
+  MW120_.Size:=1;
+  MW120_.SwapBytes:=true;
+  MW120_.SwapDWords:=false;
+  MW120_.SwapWords:=false;
+  MW120_.RefreshTime:=500;
+  MW120_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
+
+  MW120:= TPLCBlockElement.Create(nil);
+  MW120.Index:=0;
+  MW120.PLCBlock:=MW120_;
+
+  M120_0:= TTagBit.Create(nil);
+  M120_1:= TTagBit.Create(nil);
+  M120_2:= TTagBit.Create(nil);
+  M120_3:= TTagBit.Create(nil);
+  M120_4:= TTagBit.Create(nil);
+  M120_5:= TTagBit.Create(nil);
+  M120_6:= TTagBit.Create(nil);
+  M120_7:= TTagBit.Create(nil);
+  M120_8:= TTagBit.Create(nil);
+  M120_9:= TTagBit.Create(nil);
+  M120_10:= TTagBit.Create(nil);
+  M120_11:= TTagBit.Create(nil);
+  M120_12:= TTagBit.Create(nil);
+  M120_13:= TTagBit.Create(nil);
+  M120_14:= TTagBit.Create(nil);
+  M120_15:= TTagBit.Create(nil);
+
+  M120_0.StartBit:=0;
+  M120_0.EndBit:=0;
+  M120_0.PLCTag:=MW120;
+
+  M120_1.StartBit:=1;
+  M120_1.EndBit:=1;
+  M120_1.PLCTag:=MW120;
+
+  M120_2.StartBit:=2;
+  M120_2.EndBit:=2;
+  M120_2.PLCTag:=MW120;
+
+  M120_3.StartBit:=3;
+  M120_3.EndBit:=3;
+  M120_3.PLCTag:=MW120;
+
+  M120_4.StartBit:=4;
+  M120_4.EndBit:=4;
+  M120_4.PLCTag:=MW120;
+
+  M120_5.StartBit:=5;
+  M120_5.EndBit:=5;
+  M120_5.PLCTag:=MW120;
+
+  M120_6.StartBit:=6;
+  M120_6.EndBit:=6;
+  M120_6.PLCTag:=MW120;
+
+  M120_7.StartBit:=7;
+  M120_7.EndBit:=7;
+  M120_7.PLCTag:=MW120;
+
+  M120_8.StartBit:=8;
+  M120_8.EndBit:=8;
+  M120_8.PLCTag:=MW120;
+
+  M120_9.StartBit:=9;
+  M120_9.EndBit:=9;
+  M120_9.PLCTag:=MW120;
+
+  M120_10.StartBit:=10;
+  M120_10.EndBit:=10;
+  M120_10.PLCTag:=MW120;
+
+  M120_11.StartBit:=11;
+  M120_11.EndBit:=11;
+  M120_11.PLCTag:=MW120;
+
+  M120_12.StartBit:=12;
+  M120_12.EndBit:=12;
+  M120_12.PLCTag:=MW120;
+
+  M120_13.StartBit:=13;
+  M120_13.EndBit:=13;
+  M120_13.PLCTag:=MW120;
+
+  M120_14.StartBit:=14;
+  M120_14.EndBit:=14;
+  M120_14.PLCTag:=MW120;
+
+  M120_15.StartBit:=15;
+  M120_15.EndBit:=15;
+  M120_15.PLCTag:=MW120;
 end;
 
 procedure CreateTag_QB0();
@@ -2380,6 +2505,28 @@ begin
   FreeAndNil(M101_7);
   FreeAndNil(MB101);
   FreeAndNil(MB101_);
+end;
+
+procedure FreeAndNil_MW120();
+begin
+  FreeAndNil(M120_0);
+  FreeAndNil(M120_1);
+  FreeAndNil(M120_2);
+  FreeAndNil(M120_3);
+  FreeAndNil(M120_4);
+  FreeAndNil(M120_5);
+  FreeAndNil(M120_6);
+  FreeAndNil(M120_7);
+  FreeAndNil(M120_8);
+  FreeAndNil(M120_9);
+  FreeAndNil(M120_10);
+  FreeAndNil(M120_11);
+  FreeAndNil(M120_12);
+  FreeAndNil(M120_13);
+  FreeAndNil(M120_14);
+  FreeAndNil(M120_15);
+  FreeAndNil(MW120);
+  FreeAndNil(MW120_);
 end;
 
 procedure FreeAndNil_QB0();

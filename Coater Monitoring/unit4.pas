@@ -57,6 +57,7 @@ var
   Form2: TForm2;
 
 implementation
+
 uses Unit2;
 
 {$R *.lfm}
@@ -66,6 +67,7 @@ procedure TForm2.Loop_();
 begin
   InterlockName.Caption:=InterlockName_;
   LabelDateTime.Caption:=DateTime_;
+  DateTime_:=FormatDateTime('dd/mm/yyyy ', Now())+TimeToStr(Time);
 
   if ProductionView then self.Width:=DefaultWidth
   else self.Width:=DefaultWidth*2;
@@ -142,14 +144,14 @@ begin
   begin
     if ProductionView then
     begin
-      Interlock1.Caption:='0:  Electrode On by production';
-      Interlock2.Caption:='1:  Electrode Off by production';
+      Interlock1.Caption:='0:  Electrode In by production';
+      Interlock2.Caption:='1:  Electrode Out by production';
       Interlock3.Caption:='2:  E-Stop OK';
       Interlock4.Caption:='3.1 or 3.3: MDO Film Brake';
       Interlock5.Caption:='3.2 or 3.3: All zone TDO Film Break';
       Interlock6.Caption:='3.3: Bypass Filmbrake';
-      Interlock7.Caption:='6:  '+'LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min';
-      Interlock8.Caption:='7:  Corona Exhaust Fan Run';
+      Interlock7.Caption:='4:  '+'LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min';
+      Interlock8.Caption:='5:  Corona Exhaust Fan Run';
       Status_.Caption:='Electrode In Position';
     end
     else
@@ -160,9 +162,73 @@ begin
       Interlock4.Caption:='3.1 or 3.3: MDO Film Brake (I0.2=1)';
       Interlock5.Caption:='3.2 or 3.3: All zone TDO Film Break (I0.7=1)';
       Interlock6.Caption:='3.3: Bypass Filmbrake (M98.0=1)                               << Done by HMI';
-      Interlock7.Caption:='6:  '+'LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min'+' (M17.0=1)';
-      Interlock8.Caption:='7:  Corona Exhaust Fan Run (Q0.1=1)';
+      Interlock7.Caption:='4:  '+'LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min'+' (M17.0=1)';
+      Interlock8.Caption:='5:  Corona Exhaust Fan Run (Q0.1=1)';
       Status_.Caption:='Electrode In Position (Q0.3=1)                                    << Done by HMI and Hardware';
+    end;
+  end;
+
+  if (InterlockName_ = 'Cartridge Valve Interlock') then
+  begin
+    if ProductionView then
+    begin
+      Interlock1.Caption:='0:  Cartridge In by production';
+      Interlock2.Caption:='1:  Cartridge Out by production';
+      Interlock3.Caption:='2:  E-Stop OK';
+      Interlock4.Caption:='3:  System On';
+      Interlock5.Caption:='4.1 or 4.3: MDO Film Brake';
+      Interlock6.Caption:='4.2 or 4.3: All zone TDO Film Break';
+      Interlock7.Caption:='4.3: Bypass Filmbrake';
+      Interlock8.Caption:='5:  '+'LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min';
+      Status_.Caption:='Gravure Roll Run';
+    end
+    else
+    begin
+      Interlock1.Caption:='0:  Cartridge In HMI Cmd (M2.2=1)                           << Done by HMI';
+      Interlock2.Caption:='1:  Cartridge Out HMI Cmd (M2.3=0)                          << Done by HMI';
+      Interlock3.Caption:='2:  E-Stop OK (I0.0=1)';
+      Interlock4.Caption:='3:  Infeed On (System On) (Q201.0=1)                           << Done by HMI and Hardware';
+      Interlock5.Caption:='4.1 or 4.3: MDO Film Brake (I0.2=1)';
+      Interlock6.Caption:='4.2 or 4.3: All zone TDO Film Break (I0.7=1)';
+      Interlock7.Caption:='4.3: Bypass Filmbrake (M98.0=1)                                << Done by HMI';
+      Interlock8.Caption:='5:  '+'LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min'+' (M17.0=1)';
+      Status_.Caption:='Gravure Roll Run (Q0.2=1)                                         << Done by HMI and Hardware';
+    end;
+  end;
+
+  if (InterlockName_ = 'Gravure Roll Interlock') then
+  begin
+    if ProductionView then
+    begin
+      Interlock1.Caption:='0:  Gravure Roll Run by production';
+      Interlock2.Caption:='1:  Gravure Roll Off by production';
+      Interlock3.Caption:='2:  System On';
+      Status_.Caption:='Gravure Roll Run';
+    end
+    else
+    begin
+      Interlock1.Caption:='0:  Gravure Roll Run HMI Cmd (M33.0=1)      << Done by HMI';
+      Interlock2.Caption:='1:  Gravure Roll Off HMI Cmd (M33.1=0)      << Done by HMI';
+      Interlock3.Caption:='2:  Infeed On (System On) (Q201.0=1)        << Done by HMI and Hardware';
+      Status_.Caption:='Gravure Roll Run (Q213.0=1)';
+    end;
+  end;
+
+  if (InterlockName_ = 'Takeoff Roll Interlock') then
+  begin
+    if ProductionView then
+    begin
+      Interlock1.Caption:='0:  Takeoff Roll Run by production';
+      Interlock2.Caption:='1:  Takeoff Roll Off by production';
+      Interlock3.Caption:='2:  System On';
+      Status_.Caption:='Takeoff Roll Run';
+    end
+    else
+    begin
+      Interlock1.Caption:='0:  Takeoff Roll Run HMI Cmd (M35.0=1)      << Done by HMI';
+      Interlock2.Caption:='1:  Takeoff Roll Off HMI Cmd (M35.1=0)      << Done by HMI';
+      Interlock3.Caption:='2:  Infeed On (System On) (Q201.0=1)        << Done by HMI and Hardware';
+      Status_.Caption:='Takeoff Roll Run (Q217.0=1)';
     end;
   end;
 
@@ -277,6 +343,52 @@ begin
     if Q0_1.Value > 0 then  begin Interlock8.Color:=clLime; end
     else begin Interlock8.ParentColor:=true; end;
     if Q0_3.Value > 0 then begin Status_.Color:=clMoneyGreen; end
+    else begin Status_.ParentColor:=true; end;
+  end;
+
+  if (InterlockName_ = 'Cartridge Valve Interlock') then
+  begin
+    if M2_2.Value > 0 then begin Interlock1.Color:=clLime; end
+    else begin Interlock1.ParentColor:=true; end;
+    if M2_3.Value < 1 then begin Interlock2.Color:=clLime; end
+    else begin Interlock2.ParentColor:=true; end;
+    if I0_0.Value > 0 then begin Interlock3.Color:=clLime; end
+    else begin Interlock3.ParentColor:=true; end;
+    if Q201_0.Value > 0 then  begin Interlock4.Color:=clLime; end
+    else begin Interlock4.ParentColor:=true; end;
+    if (I0_2.Value > 0) or (M98_0.Value > 0) then  begin Interlock5.Color:=clLime; end
+    else  begin Interlock5.ParentColor:=true; end;
+     if (I0_7.Value > 0) or (M98_0.Value > 0) then  begin Interlock6.Color:=clLime; end
+    else  begin Interlock6.ParentColor:=true; end;
+    if M98_0.Value > 0 then begin Interlock7.Color:=clLime; end
+    else begin Interlock7.ParentColor:=true; end;
+    if M17_0.Value > 0 then begin Interlock8.Color:=clLime; end
+    else begin Interlock8.ParentColor:=true; end;
+    if Q0_2.Value > 0 then begin Status_.Color:=clMoneyGreen; end
+    else begin Status_.ParentColor:=true; end;
+  end;
+
+  if (InterlockName_ = 'Gravure Roll Interlock') then
+  begin
+    if M33_0.Value > 0 then begin Interlock1.Color:=clLime; end
+    else begin Interlock1.ParentColor:=true; end;
+    if M33_1.Value < 1 then begin Interlock2.Color:=clLime; end
+    else begin Interlock2.ParentColor:=true; end;
+    if Q201_0.Value > 0 then  begin Interlock3.Color:=clLime; end
+    else begin Interlock3.ParentColor:=true; end;
+    if Q213_0.Value > 0 then  begin Status_.Color:=clLime; end
+    else begin Status_.ParentColor:=true; end;
+  end;
+
+  if (InterlockName_ = 'Takeoff Roll Interlock') then
+  begin
+    if M35_0.Value > 0 then begin Interlock1.Color:=clLime; end
+    else begin Interlock1.ParentColor:=true; end;
+    if M35_1.Value < 1 then begin Interlock2.Color:=clLime; end
+    else begin Interlock2.ParentColor:=true; end;
+    if Q201_0.Value > 0 then  begin Interlock3.Color:=clLime; end
+    else begin Interlock3.ParentColor:=true; end;
+    if Q217_0.Value > 0 then  begin Status_.Color:=clLime; end
     else begin Status_.ParentColor:=true; end;
   end;
 end;
