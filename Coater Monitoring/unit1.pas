@@ -11,8 +11,9 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, Menus,
   StdCtrls, ExtCtrls, SpinEx, tcp_udpport, ISOTCPDriver, HMIEdit, HMICheckBox,
-  HMILabel, hmi_polyline, dbugintf, commtypes, TypInfo, StrUtils, Tag,
-  BCSVGButton, BCButton, BCImageButton, BCMDButton, simpleipc;
+  HMILabel, hmi_polyline, dbugintf, commtypes, TypInfo, StrUtils, Tag, PLCBlock,
+  PLCBlockElement, TagBit, BCSVGButton, BCButton, BCMDButton,
+  simpleipc;
 
 function IsDebuggerPresent(): integer stdcall; external 'kernel32.dll';
 
@@ -24,6 +25,12 @@ type
     AdditionalCoronaSpeed_Set02: THMIEdit;
     AdditionalGravureSpeed_Set: THMIEdit;
     AdditionalTakeOffRollSpeed_Set: THMIEdit;
+    Bevel1: TBevel;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Button5: TButton;
     CmdBypassMode: TBCButton;
     CmdGravureAuto: TBCButton;
     CmdGravureManual: TBCButton;
@@ -57,6 +64,7 @@ type
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
     GroupBox9: TGroupBox;
+    Image1: TImage;
     ImageElectrode: TImage;
     ImageCartridge: TImage;
     Label29: TLabel;
@@ -77,6 +85,7 @@ type
     Label70: TLabel;
     Label8: TLabel;
     LineSpeed_Act01: THMILabel;
+    ScrollBox1: TScrollBox;
     TakeOffRollSpeed_Act: THMILabel;
     LineSpeed_Act: THMILabel;
     CoronaWattDensityAct: THMILabel;
@@ -169,6 +178,11 @@ type
     TabSheet6: TTabSheet;
     TCP_UDPPort1: TTCP_UDPPort;
     Timer1: TTimer;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
     procedure CmdakeOffRollOffClick(Sender: TObject);
     procedure CmdakeOffRollOffMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -259,6 +273,11 @@ type
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
+    procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure MaskEditIPEditingDone(Sender: TObject);
     procedure MenuexitClick(Sender: TObject);
     procedure MenuIInterlockCoronaExhaustFanClick(Sender: TObject);
@@ -285,7 +304,7 @@ var
 
 implementation
 
-uses Unit2, Unit3, Unit4;
+uses Unit2, Unit3, Unit4, Unit5;
 
 {$R *.lfm}
 
@@ -889,6 +908,8 @@ begin
     else
     begin end;
 
+    ScanAlarm();
+
   end;
 
   if not Communication_Active then
@@ -952,6 +973,31 @@ procedure TForm1.CmdakeOffRollOffClick(Sender: TObject);
 begin
   M35_0.Value:=0;  // Takeoff roll Run HMI
   M35_1.Value:=0;  // Takeoff roll Off HMI
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  SimulateAlarm1:= not SimulateAlarm1;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  SimulateAlarm2:= not SimulateAlarm2;
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+begin
+  SimulateAlarm3:= not SimulateAlarm3;
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
+begin
+  SimulateAlarm4:= not SimulateAlarm4;
+end;
+
+procedure TForm1.Button5Click(Sender: TObject);
+begin
+  SimulateAlarm5:= not SimulateAlarm5;
 end;
 
 procedure TForm1.CmdakeOffRollOffMouseDown(Sender: TObject;
@@ -1251,7 +1297,11 @@ begin
   FreeAndNil_QB213();
   FreeAndNil_QB217();
   FreeAndNil_IB0();
-
+  FreeAndNil_IB201();
+  FreeAndNil_IB209();
+  FreeAndNil_IB213();
+  FreeAndNil_IB217();
+  FreeAndNil_IB221();
   FreeAndNil_DBD();
 
 end;
@@ -1269,8 +1319,9 @@ begin
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
-//var
+var
 //  i:integer= 25;
+  TempBmp: TBitmap;
 begin
   LiveCounter_:=0;
   CoronaRoll.PopupMenu := PopupMenuInterlockCoronaRoll;
@@ -1312,6 +1363,11 @@ begin
   CreateTag_QB213();  //Gravure roll run
   CreateTag_QB217();  //Takeoff roll run
   CreateTag_IB0();
+  CreateTag_IB201();  // Alarm Drive Infeed
+  CreateTag_IB209();  // Alarm Drive Corona
+  CreateTag_IB213();  // Alarm Drive Gravure Roll
+  CreateTag_IB217();  // Alarm Drive TakeOff Roll
+  CreateTag_IB221();  // Alarm CU
   CreateTag_DB9_DBD32();  //CoronaSpeed_Act
   CreateTag_DB9_DBD36();  //GravureRoll_Act
   CreateTag_DB9_DBD40();  //TakeOffRoll_Act
@@ -1358,6 +1414,36 @@ begin
     begin end
   else
     begin end;
+
+  InitAlarm();
+
+  TempBmp := TBitmap.Create;
+  try
+    ImageList2.GetBitmap(21, TempBmp);
+    //BCImageButton1.LoadFromBitmapResource('PNG_RESET');
+  finally
+    TempBmp.Free;
+  end;
+end;
+
+procedure TForm1.Image1Click(Sender: TObject);
+var
+  i:integer;
+begin
+  ResetAlarm();
+  Bevel1.Style:=bsRaised;
+end;
+
+procedure TForm1.Image1MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Bevel1.Style:=bsLowered;
+end;
+
+procedure TForm1.Image1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  Bevel1.Style:=bsRaised;
 end;
 
 procedure TForm1.MaskEditIPEditingDone(Sender: TObject);

@@ -28,6 +28,11 @@ procedure CreateTag_QB209();
 procedure CreateTag_QB213();  //Gravure roll run
 procedure CreateTag_QB217();  //Takeoff roll run
 procedure CreateTag_IB0();
+procedure CreateTag_IB201();  // Alarm Drive Infeed
+procedure CreateTag_IB209();  // Alarm Drive Corona
+procedure CreateTag_IB213();  // Alarm Drive Gravure Roll
+procedure CreateTag_IB217();  // Alarm Drive TakeOff Roll
+procedure CreateTag_IB221();  // Alarm CU
 procedure CreateTag_DB9_DBD32();  //CoronaSpeed_Act
 procedure CreateTag_DB9_DBD36();  //GravureRoll_Act
 procedure CreateTag_DB9_DBD40();  //TakeOffRoll_Act
@@ -59,6 +64,11 @@ procedure FreeAndNil_QB209();
 procedure FreeAndNil_QB213();
 procedure FreeAndNil_QB217();
 procedure FreeAndNil_IB0();
+procedure FreeAndNil_IB201();
+procedure FreeAndNil_IB209();
+procedure FreeAndNil_IB213();
+procedure FreeAndNil_IB217();
+procedure FreeAndNil_IB221();
 procedure FreeAndNil_DBD();
 
 var
@@ -207,6 +217,61 @@ var
   I0_5: TTagBit;
   I0_6: TTagBit;
   I0_7: TTagBit;
+
+  IB201_: TPLCBlock;
+  IB201: TPLCBlockElement;
+  I201_0: TTagBit;
+  I201_1: TTagBit;  // Alarm Drive Infeed
+  I201_2: TTagBit;
+  I201_3: TTagBit;
+  I201_4: TTagBit;
+  I201_5: TTagBit;
+  I201_6: TTagBit;
+  I201_7: TTagBit;
+
+  IB209_: TPLCBlock;
+  IB209: TPLCBlockElement;
+  I209_0: TTagBit;
+  I209_1: TTagBit;  // Alarm Drive Corona Roll
+  I209_2: TTagBit;
+  I209_3: TTagBit;
+  I209_4: TTagBit;
+  I209_5: TTagBit;
+  I209_6: TTagBit;
+  I209_7: TTagBit;
+
+  IB213_: TPLCBlock;
+  IB213: TPLCBlockElement;
+  I213_0: TTagBit;
+  I213_1: TTagBit;  // Alarm Drive Gravure Roll
+  I213_2: TTagBit;
+  I213_3: TTagBit;
+  I213_4: TTagBit;
+  I213_5: TTagBit;
+  I213_6: TTagBit;
+  I213_7: TTagBit;
+
+  IB217_: TPLCBlock;
+  IB217: TPLCBlockElement;
+  I217_0: TTagBit;
+  I217_1: TTagBit;  // Alarm Drive TakeOff Roll
+  I217_2: TTagBit;
+  I217_3: TTagBit;
+  I217_4: TTagBit;
+  I217_5: TTagBit;
+  I217_6: TTagBit;
+  I217_7: TTagBit;
+
+  IB221_: TPLCBlock;
+  IB221: TPLCBlockElement;
+  I221_0: TTagBit;
+  I221_1: TTagBit;  // Alarm CU
+  I221_2: TTagBit;
+  I221_3: TTagBit;
+  I221_4: TTagBit;
+  I221_5: TTagBit;
+  I221_6: TTagBit;
+  I221_7: TTagBit;
 
   MB98_: TPLCBlock;
   MB98: TPLCBlockElement;
@@ -1541,6 +1606,311 @@ begin
   I0_7.PLCTag:=IB0;
 end;
 
+procedure CreateTag_IB201();
+begin
+  IB201_:= TPLCBlock.Create(nil);
+  IB201_.PLCRack:=0;
+  IB201_.PLCSlot:=0;
+  IB201_.PLCStation:=2;
+  IB201_.MemAddress:=201;
+  IB201_.MemReadFunction:=1;
+  IB201_.AutoRead:=true;
+  IB201_.AutoWrite:=false;
+  IB201_.TagType:= TTagType.pttByte;
+  IB201_.Size:=1;
+  IB201_.RefreshTime:=500;
+  IB201_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
+
+  IB201:= TPLCBlockElement.Create(nil);
+  IB201.Index:=0;
+  IB201.PLCBlock:=IB201_;
+
+  I201_0:= TTagBit.Create(nil);
+  I201_1:= TTagBit.Create(nil);
+  I201_2:= TTagBit.Create(nil);
+  I201_3:= TTagBit.Create(nil);
+  I201_4:= TTagBit.Create(nil);
+  I201_5:= TTagBit.Create(nil);
+  I201_6:= TTagBit.Create(nil);
+  I201_7:= TTagBit.Create(nil);
+
+  I201_0.StartBit:=0;
+  I201_0.EndBit:=0;
+  I201_0.PLCTag:=IB201;
+
+  I201_1.StartBit:=1;
+  I201_1.EndBit:=1;
+  I201_1.PLCTag:=IB201;
+
+  I201_2.StartBit:=2;
+  I201_2.EndBit:=2;
+  I201_2.PLCTag:=IB201;
+
+  I201_3.StartBit:=3;
+  I201_3.EndBit:=3;
+  I201_3.PLCTag:=IB201;
+
+  I201_4.StartBit:=4;
+  I201_4.EndBit:=4;
+  I201_4.PLCTag:=IB201;
+
+  I201_5.StartBit:=5;
+  I201_5.EndBit:=5;
+  I201_5.PLCTag:=IB201;
+
+  I201_6.StartBit:=6;
+  I201_6.EndBit:=6;
+  I201_6.PLCTag:=IB201;
+
+  I201_7.StartBit:=7;
+  I201_7.EndBit:=7;
+  I201_7.PLCTag:=IB201;
+end;
+
+procedure CreateTag_IB209();
+begin
+  IB209_:= TPLCBlock.Create(nil);
+  IB209_.PLCRack:=0;
+  IB209_.PLCSlot:=0;
+  IB209_.PLCStation:=2;
+  IB209_.MemAddress:=209;
+  IB209_.MemReadFunction:=1;
+  IB209_.AutoRead:=true;
+  IB209_.AutoWrite:=false;
+  IB209_.TagType:= TTagType.pttByte;
+  IB209_.Size:=1;
+  IB209_.RefreshTime:=500;
+  IB209_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
+
+  IB209:= TPLCBlockElement.Create(nil);
+  IB209.Index:=0;
+  IB209.PLCBlock:=IB209_;
+
+  I209_0:= TTagBit.Create(nil);
+  I209_1:= TTagBit.Create(nil);
+  I209_2:= TTagBit.Create(nil);
+  I209_3:= TTagBit.Create(nil);
+  I209_4:= TTagBit.Create(nil);
+  I209_5:= TTagBit.Create(nil);
+  I209_6:= TTagBit.Create(nil);
+  I209_7:= TTagBit.Create(nil);
+
+  I209_0.StartBit:=0;
+  I209_0.EndBit:=0;
+  I209_0.PLCTag:=IB209;
+
+  I209_1.StartBit:=1;
+  I209_1.EndBit:=1;
+  I209_1.PLCTag:=IB209;
+
+  I209_2.StartBit:=2;
+  I209_2.EndBit:=2;
+  I209_2.PLCTag:=IB209;
+
+  I209_3.StartBit:=3;
+  I209_3.EndBit:=3;
+  I209_3.PLCTag:=IB209;
+
+  I209_4.StartBit:=4;
+  I209_4.EndBit:=4;
+  I209_4.PLCTag:=IB209;
+
+  I209_5.StartBit:=5;
+  I209_5.EndBit:=5;
+  I209_5.PLCTag:=IB209;
+
+  I209_6.StartBit:=6;
+  I209_6.EndBit:=6;
+  I209_6.PLCTag:=IB209;
+
+  I209_7.StartBit:=7;
+  I209_7.EndBit:=7;
+  I209_7.PLCTag:=IB209;
+end;
+
+procedure CreateTag_IB213();
+begin
+  IB213_:= TPLCBlock.Create(nil);
+  IB213_.PLCRack:=0;
+  IB213_.PLCSlot:=0;
+  IB213_.PLCStation:=2;
+  IB213_.MemAddress:=213;
+  IB213_.MemReadFunction:=1;
+  IB213_.AutoRead:=true;
+  IB213_.AutoWrite:=false;
+  IB213_.TagType:= TTagType.pttByte;
+  IB213_.Size:=1;
+  IB213_.RefreshTime:=500;
+  IB213_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
+
+  IB213:= TPLCBlockElement.Create(nil);
+  IB213.Index:=0;
+  IB213.PLCBlock:=IB213_;
+
+  I213_0:= TTagBit.Create(nil);
+  I213_1:= TTagBit.Create(nil);
+  I213_2:= TTagBit.Create(nil);
+  I213_3:= TTagBit.Create(nil);
+  I213_4:= TTagBit.Create(nil);
+  I213_5:= TTagBit.Create(nil);
+  I213_6:= TTagBit.Create(nil);
+  I213_7:= TTagBit.Create(nil);
+
+  I213_0.StartBit:=0;
+  I213_0.EndBit:=0;
+  I213_0.PLCTag:=IB213;
+
+  I213_1.StartBit:=1;
+  I213_1.EndBit:=1;
+  I213_1.PLCTag:=IB213;
+
+  I213_2.StartBit:=2;
+  I213_2.EndBit:=2;
+  I213_2.PLCTag:=IB213;
+
+  I213_3.StartBit:=3;
+  I213_3.EndBit:=3;
+  I213_3.PLCTag:=IB213;
+
+  I213_4.StartBit:=4;
+  I213_4.EndBit:=4;
+  I213_4.PLCTag:=IB213;
+
+  I213_5.StartBit:=5;
+  I213_5.EndBit:=5;
+  I213_5.PLCTag:=IB213;
+
+  I213_6.StartBit:=6;
+  I213_6.EndBit:=6;
+  I213_6.PLCTag:=IB213;
+
+  I213_7.StartBit:=7;
+  I213_7.EndBit:=7;
+  I213_7.PLCTag:=IB213;
+end;
+
+procedure CreateTag_IB217();
+begin
+  IB217_:= TPLCBlock.Create(nil);
+  IB217_.PLCRack:=0;
+  IB217_.PLCSlot:=0;
+  IB217_.PLCStation:=2;
+  IB217_.MemAddress:=217;
+  IB217_.MemReadFunction:=1;
+  IB217_.AutoRead:=true;
+  IB217_.AutoWrite:=false;
+  IB217_.TagType:= TTagType.pttByte;
+  IB217_.Size:=1;
+  IB217_.RefreshTime:=500;
+  IB217_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
+
+  IB217:= TPLCBlockElement.Create(nil);
+  IB217.Index:=0;
+  IB217.PLCBlock:=IB217_;
+
+  I217_0:= TTagBit.Create(nil);
+  I217_1:= TTagBit.Create(nil);
+  I217_2:= TTagBit.Create(nil);
+  I217_3:= TTagBit.Create(nil);
+  I217_4:= TTagBit.Create(nil);
+  I217_5:= TTagBit.Create(nil);
+  I217_6:= TTagBit.Create(nil);
+  I217_7:= TTagBit.Create(nil);
+
+  I217_0.StartBit:=0;
+  I217_0.EndBit:=0;
+  I217_0.PLCTag:=IB217;
+
+  I217_1.StartBit:=1;
+  I217_1.EndBit:=1;
+  I217_1.PLCTag:=IB217;
+
+  I217_2.StartBit:=2;
+  I217_2.EndBit:=2;
+  I217_2.PLCTag:=IB217;
+
+  I217_3.StartBit:=3;
+  I217_3.EndBit:=3;
+  I217_3.PLCTag:=IB217;
+
+  I217_4.StartBit:=4;
+  I217_4.EndBit:=4;
+  I217_4.PLCTag:=IB217;
+
+  I217_5.StartBit:=5;
+  I217_5.EndBit:=5;
+  I217_5.PLCTag:=IB217;
+
+  I217_6.StartBit:=6;
+  I217_6.EndBit:=6;
+  I217_6.PLCTag:=IB217;
+
+  I217_7.StartBit:=7;
+  I217_7.EndBit:=7;
+  I217_7.PLCTag:=IB217;
+end;
+
+procedure CreateTag_IB221();
+begin
+  IB221_:= TPLCBlock.Create(nil);
+  IB221_.PLCRack:=0;
+  IB221_.PLCSlot:=0;
+  IB221_.PLCStation:=2;
+  IB221_.MemAddress:=221;
+  IB221_.MemReadFunction:=1;
+  IB221_.AutoRead:=true;
+  IB221_.AutoWrite:=false;
+  IB221_.TagType:= TTagType.pttByte;
+  IB221_.Size:=1;
+  IB221_.RefreshTime:=500;
+  IB221_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
+
+  IB221:= TPLCBlockElement.Create(nil);
+  IB221.Index:=0;
+  IB221.PLCBlock:=IB221_;
+
+  I221_0:= TTagBit.Create(nil);
+  I221_1:= TTagBit.Create(nil);
+  I221_2:= TTagBit.Create(nil);
+  I221_3:= TTagBit.Create(nil);
+  I221_4:= TTagBit.Create(nil);
+  I221_5:= TTagBit.Create(nil);
+  I221_6:= TTagBit.Create(nil);
+  I221_7:= TTagBit.Create(nil);
+
+  I221_0.StartBit:=0;
+  I221_0.EndBit:=0;
+  I221_0.PLCTag:=IB221;
+
+  I221_1.StartBit:=1;
+  I221_1.EndBit:=1;
+  I221_1.PLCTag:=IB221;
+
+  I221_2.StartBit:=2;
+  I221_2.EndBit:=2;
+  I221_2.PLCTag:=IB221;
+
+  I221_3.StartBit:=3;
+  I221_3.EndBit:=3;
+  I221_3.PLCTag:=IB221;
+
+  I221_4.StartBit:=4;
+  I221_4.EndBit:=4;
+  I221_4.PLCTag:=IB221;
+
+  I221_5.StartBit:=5;
+  I221_5.EndBit:=5;
+  I221_5.PLCTag:=IB221;
+
+  I221_6.StartBit:=6;
+  I221_6.EndBit:=6;
+  I221_6.PLCTag:=IB221;
+
+  I221_7.StartBit:=7;
+  I221_7.EndBit:=7;
+  I221_7.PLCTag:=IB221;
+end;
+
 procedure CreateTag_DB9_DBD32();  //CoronaSpeed_Act
 begin
   DB9_DBD32_:= TPLCBlock.Create(nil);
@@ -2094,6 +2464,76 @@ begin
   FreeAndNil(I0_7);
   FreeAndNil(IB0);
   FreeAndNil(IB0_);
+end;
+
+procedure FreeAndNil_IB201();
+begin
+  FreeAndNil(I201_0);
+  FreeAndNil(I201_1);
+  FreeAndNil(I201_2);
+  FreeAndNil(I201_3);
+  FreeAndNil(I201_4);
+  FreeAndNil(I201_5);
+  FreeAndNil(I201_6);
+  FreeAndNil(I201_7);
+  FreeAndNil(IB201);
+  FreeAndNil(IB201_);
+end;
+
+procedure FreeAndNil_IB209();
+begin
+  FreeAndNil(I209_0);
+  FreeAndNil(I209_1);
+  FreeAndNil(I209_2);
+  FreeAndNil(I209_3);
+  FreeAndNil(I209_4);
+  FreeAndNil(I209_5);
+  FreeAndNil(I209_6);
+  FreeAndNil(I209_7);
+  FreeAndNil(IB209);
+  FreeAndNil(IB209_);
+end;
+
+procedure FreeAndNil_IB213();
+begin
+  FreeAndNil(I213_0);
+  FreeAndNil(I213_1);
+  FreeAndNil(I213_2);
+  FreeAndNil(I213_3);
+  FreeAndNil(I213_4);
+  FreeAndNil(I213_5);
+  FreeAndNil(I213_6);
+  FreeAndNil(I213_7);
+  FreeAndNil(IB213);
+  FreeAndNil(IB213_);
+end;
+
+procedure FreeAndNil_IB217();
+begin
+  FreeAndNil(I217_0);
+  FreeAndNil(I217_1);
+  FreeAndNil(I217_2);
+  FreeAndNil(I217_3);
+  FreeAndNil(I217_4);
+  FreeAndNil(I217_5);
+  FreeAndNil(I217_6);
+  FreeAndNil(I217_7);
+  FreeAndNil(IB217);
+  FreeAndNil(IB217_);
+end;
+
+procedure FreeAndNil_IB221();
+begin
+  FreeAndNil(I221_0);
+  FreeAndNil(I221_1);
+  FreeAndNil(I221_2);
+  FreeAndNil(I221_3);
+  FreeAndNil(I221_4);
+  FreeAndNil(I221_5);
+  FreeAndNil(I221_6);
+  FreeAndNil(I221_7);
+  FreeAndNil(IB221);
+  FreeAndNil(IB221_);
 end;
 
 procedure FreeAndNil_DBD();
