@@ -1,14 +1,13 @@
 object Form1: TForm1
-  Left = 431
+  Left = 373
   Height = 635
-  Top = 138
+  Top = 176
   Width = 821
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Coater Monitoring 0.2'
   ClientHeight = 635
   ClientWidth = 821
-  Color = clWhite
   Icon.Data = {
     3E08010000000100010080800000010020002808010016000000280000008000
     0000000100000100200000000000000001006400000064000000000000000000
@@ -2749,24 +2748,42 @@ object Form1: TForm1
       end
       object Label60: TLabel
         Left = 90
-        Height = 15
+        Height = 21
         Top = 160
-        Width = 59
+        Width = 85
         Caption = 'Corona roll'
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -16
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        ParentFont = False
       end
       object Label61: TLabel
         Left = 325
-        Height = 15
-        Top = 416
-        Width = 59
+        Height = 21
+        Top = 408
+        Width = 87
         Caption = 'Takeoff roll'
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -16
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        ParentFont = False
       end
       object Label62: TLabel
         Left = 90
-        Height = 15
-        Top = 315
-        Width = 61
+        Height = 21
+        Top = 312
+        Width = 90
         Caption = 'Gravure roll'
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -16
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        ParentFont = False
       end
       object Electrode02: TShape
         Left = 400
@@ -3077,6 +3094,96 @@ object Form1: TForm1
         Width = 49
         Caption = 'Cartridge'
       end
+      object Label8: TLabel
+        Left = 88
+        Height = 21
+        Top = 72
+        Width = 107
+        Caption = 'Corona Power'
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -16
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Corona_Act1: THMILabel
+        Left = 116
+        Height = 15
+        Top = 96
+        Width = 82
+        AutoSize = True
+        Enabled = True
+        ParentFont = False
+        NumberFormat = '#0.0'
+        Prefix = 'Actual: '
+        Sufix = ' kW'
+        FormatDateTimeOptions = []
+      end
+      object Label69: TLabel
+        AnchorSideTop.Control = CoronaSetpoint1
+        AnchorSideTop.Side = asrCenter
+        AnchorSideRight.Control = CoronaSetpoint1
+        Left = 110
+        Height = 15
+        Top = 116
+        Width = 50
+        Anchors = [akTop, akRight]
+        Caption = 'Setpoint: '
+        ParentFont = False
+      end
+      object CoronaSetpoint1: THMIEdit
+        Left = 160
+        Height = 23
+        Top = 112
+        Width = 57
+        Color = clWindow
+        Enabled = False
+        Font.Color = clWindowText
+        ParentFont = False
+        TabStop = False
+        TabOrder = 10
+        NumberFormat = '#0.0'
+        EnableMinValue = True
+        EnableMaxValue = True
+        MaxValue = 25
+      end
+      object Label70: TLabel
+        AnchorSideLeft.Control = CoronaSetpoint1
+        AnchorSideLeft.Side = asrBottom
+        AnchorSideTop.Control = CoronaSetpoint1
+        AnchorSideTop.Side = asrCenter
+        AnchorSideRight.Control = CoronaSetpoint1
+        AnchorSideRight.Side = asrBottom
+        Left = 219
+        Height = 15
+        Top = 116
+        Width = 17
+        BorderSpacing.Left = 2
+        Caption = 'kW'
+        ParentFont = False
+      end
+      object CoronaWattDensityAct1: THMILabel
+        Left = 89
+        Height = 15
+        Top = 136
+        Width = 82
+        AutoSize = True
+        Enabled = True
+        ParentFont = False
+        NumberFormat = '#0.0'
+        Prefix = 'Watt density: '
+        Sufix = ' W/m^2'
+        FormatDateTimeOptions = []
+      end
+      object Label35: TLabel
+        Left = 423
+        Height = 15
+        Top = 312
+        Width = 47
+        Caption = 'Gravure: '
+        WordWrap = True
+      end
     end
     object TabSheet2: TTabSheet
       Caption = 'Operate Panel 01'
@@ -3085,12 +3192,13 @@ object Form1: TForm1
       object GroupBox1: TGroupBox
         Left = 624
         Height = 151
-        Top = 200
+        Top = 368
         Width = 133
         Caption = 'Cartridge'
         ClientHeight = 131
         ClientWidth = 129
         ParentBackground = False
+        ParentColor = False
         TabOrder = 0
         object Label33: TLabel
           Left = 8
@@ -3098,10 +3206,7 @@ object Form1: TForm1
           Top = 0
           Width = 55
           Caption = 'Cartridge: '
-          Color = clWhite
-          ParentColor = False
           ParentFont = False
-          Transparent = False
         end
         object CmdCartridgeIn: TBCButton
           Left = 16
@@ -3186,8 +3291,9 @@ object Form1: TForm1
           DropDownArrowSize = 8
           Enabled = False
           GlobalOpacity = 255
-          OnMouseDown = CmdElectrodeInMouseDown
-          OnMouseUp = CmdElectrodeInMouseUp
+          OnClick = CmdCartridgeInClick
+          OnMouseDown = CmdCartridgeInMouseDown
+          OnMouseUp = CmdCartridgeInMouseUp
           ParentColor = False
           Rounding.RoundX = 5
           Rounding.RoundY = 5
@@ -3279,8 +3385,9 @@ object Form1: TForm1
           DropDownArrowSize = 8
           Enabled = False
           GlobalOpacity = 255
-          OnMouseDown = CmdElectrodeOutMouseDown
-          OnMouseUp = CmdElectrodeOutMouseUp
+          OnClick = CmdCartridgeOutClick
+          OnMouseDown = CmdCartridgeOutMouseDown
+          OnMouseUp = CmdCartridgeOutMouseUp
           ParentColor = False
           Rounding.RoundX = 5
           Rounding.RoundY = 5
@@ -3298,7 +3405,6 @@ object Form1: TForm1
         Caption = 'System On/Off'
         ClientHeight = 131
         ClientWidth = 129
-        Color = clWhite
         Font.CharSet = ANSI_CHARSET
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
@@ -3497,10 +3603,7 @@ object Form1: TForm1
           Top = 0
           Width = 44
           Caption = 'System: '
-          Color = clWhite
-          ParentColor = False
           ParentFont = False
-          Transparent = False
         end
       end
       object GroupBox3: TGroupBox
@@ -3511,7 +3614,6 @@ object Form1: TForm1
         Caption = 'Operlate Mode'
         ClientHeight = 131
         ClientWidth = 284
-        Color = clWhite
         Font.CharSet = ANSI_CHARSET
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
@@ -3710,10 +3812,7 @@ object Form1: TForm1
           Top = 0
           Width = 37
           Caption = 'Mode: '
-          Color = clWhite
-          ParentColor = False
           ParentFont = False
-          Transparent = False
         end
         object LineSpeed_Act01: THMILabel
           Left = 129
@@ -3732,12 +3831,13 @@ object Form1: TForm1
       object GroupBox2: TGroupBox
         Left = 320
         Height = 151
-        Top = 200
+        Top = 368
         Width = 288
         Caption = 'Gravure roll'
         ClientHeight = 131
         ClientWidth = 284
         ParentBackground = False
+        ParentColor = False
         TabOrder = 3
         object CmdGravureRollRun: TBCButton
           Left = 16
@@ -3822,8 +3922,9 @@ object Form1: TForm1
           DropDownArrowSize = 8
           Enabled = False
           GlobalOpacity = 255
-          OnMouseDown = CmdCoronaRollRunMouseDown
-          OnMouseUp = CmdCoronaRollRunMouseUp
+          OnClick = CmdGravureRollRunClick
+          OnMouseDown = CmdGravureRollRunMouseDown
+          OnMouseUp = CmdGravureRollRunMouseUp
           ParentColor = False
           Rounding.RoundX = 5
           Rounding.RoundY = 5
@@ -3915,8 +4016,9 @@ object Form1: TForm1
           DropDownArrowSize = 8
           Enabled = False
           GlobalOpacity = 255
-          OnMouseDown = CmdCoronaRollOffMouseDown
-          OnMouseUp = CmdCoronaRollOffMouseUp
+          OnClick = CmdGravureRollOffClick
+          OnMouseDown = CmdGravureRollOffMouseDown
+          OnMouseUp = CmdGravureRollOffMouseUp
           ParentColor = False
           Rounding.RoundX = 5
           Rounding.RoundY = 5
@@ -3931,10 +4033,7 @@ object Form1: TForm1
           Top = 0
           Width = 67
           Caption = 'Gravure roll: '
-          Color = clWhite
-          ParentColor = False
           ParentFont = False
-          Transparent = False
         end
       end
       object GroupBox6: TGroupBox
@@ -3946,6 +4045,7 @@ object Form1: TForm1
         ClientHeight = 131
         ClientWidth = 284
         ParentBackground = False
+        ParentColor = False
         TabOrder = 4
         object CmdTakeOffRollRun: TBCButton
           Left = 16
@@ -4030,8 +4130,9 @@ object Form1: TForm1
           DropDownArrowSize = 8
           Enabled = False
           GlobalOpacity = 255
-          OnMouseDown = CmdCoronaRollRunMouseDown
-          OnMouseUp = CmdCoronaRollRunMouseUp
+          OnClick = CmdTakeOffRollRunClick
+          OnMouseDown = CmdTakeOffRollRunMouseDown
+          OnMouseUp = CmdTakeOffRollRunMouseUp
           ParentColor = False
           Rounding.RoundX = 5
           Rounding.RoundY = 5
@@ -4123,8 +4224,9 @@ object Form1: TForm1
           DropDownArrowSize = 8
           Enabled = False
           GlobalOpacity = 255
-          OnMouseDown = CmdCoronaRollOffMouseDown
-          OnMouseUp = CmdCoronaRollOffMouseUp
+          OnClick = CmdakeOffRollOffClick
+          OnMouseDown = CmdakeOffRollOffMouseDown
+          OnMouseUp = CmdakeOffRollOffMouseUp
           ParentColor = False
           Rounding.RoundX = 5
           Rounding.RoundY = 5
@@ -4139,10 +4241,215 @@ object Form1: TForm1
           Top = 0
           Width = 65
           Caption = 'Takeoff roll: '
-          Color = clWhite
-          ParentColor = False
           ParentFont = False
-          Transparent = False
+        end
+      end
+      object GroupBox9: TGroupBox
+        Left = 320
+        Height = 151
+        Top = 200
+        Width = 133
+        Caption = 'Gravure Mode'
+        ClientHeight = 131
+        ClientWidth = 129
+        ParentBackground = False
+        ParentColor = False
+        TabOrder = 5
+        object Label34: TLabel
+          Left = 8
+          Height = 15
+          Top = 0
+          Width = 47
+          Caption = 'Gravure: '
+          ParentFont = False
+        end
+        object CmdGravureAuto: TBCButton
+          Left = 16
+          Height = 38
+          Top = 32
+          Width = 101
+          StateClicked.Background.Gradient1.StartColor = clWhite
+          StateClicked.Background.Gradient1.EndColor = clSkyBlue
+          StateClicked.Background.Gradient1.GradientType = gtRadial
+          StateClicked.Background.Gradient1.Point1XPercent = 50
+          StateClicked.Background.Gradient1.Point1YPercent = 100
+          StateClicked.Background.Gradient1.Point2XPercent = 0
+          StateClicked.Background.Gradient1.Point2YPercent = 0
+          StateClicked.Background.Gradient2.StartColor = clWhite
+          StateClicked.Background.Gradient2.EndColor = clSkyBlue
+          StateClicked.Background.Gradient2.GradientType = gtLinear
+          StateClicked.Background.Gradient2.Point1XPercent = 0
+          StateClicked.Background.Gradient2.Point1YPercent = 0
+          StateClicked.Background.Gradient2.Point2XPercent = 0
+          StateClicked.Background.Gradient2.Point2YPercent = 100
+          StateClicked.Background.Gradient1EndPercent = 100
+          StateClicked.Background.Style = bbsGradient
+          StateClicked.Border.Style = bboNone
+          StateClicked.FontEx.Color = 16770790
+          StateClicked.FontEx.FontQuality = fqSystemClearType
+          StateClicked.FontEx.Shadow = True
+          StateClicked.FontEx.ShadowRadius = 2
+          StateClicked.FontEx.ShadowOffsetX = 1
+          StateClicked.FontEx.ShadowOffsetY = 1
+          StateClicked.FontEx.Style = [fsBold]
+          StateHover.Background.Gradient1.StartColor = clSkyBlue
+          StateHover.Background.Gradient1.EndColor = clSkyBlue
+          StateHover.Background.Gradient1.GradientType = gtRadial
+          StateHover.Background.Gradient1.Point1XPercent = 50
+          StateHover.Background.Gradient1.Point1YPercent = 100
+          StateHover.Background.Gradient1.Point2XPercent = 0
+          StateHover.Background.Gradient1.Point2YPercent = 0
+          StateHover.Background.Gradient2.StartColor = clWhite
+          StateHover.Background.Gradient2.EndColor = clBlack
+          StateHover.Background.Gradient2.GradientType = gtLinear
+          StateHover.Background.Gradient2.Point1XPercent = 0
+          StateHover.Background.Gradient2.Point1YPercent = 0
+          StateHover.Background.Gradient2.Point2XPercent = 0
+          StateHover.Background.Gradient2.Point2YPercent = 100
+          StateHover.Background.Gradient1EndPercent = 100
+          StateHover.Background.Style = bbsGradient
+          StateHover.Border.Style = bboNone
+          StateHover.FontEx.Color = clWhite
+          StateHover.FontEx.FontQuality = fqSystemClearType
+          StateHover.FontEx.Shadow = True
+          StateHover.FontEx.ShadowRadius = 2
+          StateHover.FontEx.ShadowOffsetX = 1
+          StateHover.FontEx.ShadowOffsetY = 1
+          StateHover.FontEx.Style = [fsBold]
+          StateNormal.Background.Gradient1.StartColor = clSkyBlue
+          StateNormal.Background.Gradient1.EndColor = clSkyBlue
+          StateNormal.Background.Gradient1.GradientType = gtLinear
+          StateNormal.Background.Gradient1.Point1XPercent = 0
+          StateNormal.Background.Gradient1.Point1YPercent = 0
+          StateNormal.Background.Gradient1.Point2XPercent = 0
+          StateNormal.Background.Gradient1.Point2YPercent = 100
+          StateNormal.Background.Gradient2.StartColor = clSkyBlue
+          StateNormal.Background.Gradient2.EndColor = clSkyBlue
+          StateNormal.Background.Gradient2.GradientType = gtRadial
+          StateNormal.Background.Gradient2.Point1XPercent = 50
+          StateNormal.Background.Gradient2.Point1YPercent = 100
+          StateNormal.Background.Gradient2.Point2XPercent = 0
+          StateNormal.Background.Gradient2.Point2YPercent = 0
+          StateNormal.Background.Gradient1EndPercent = 60
+          StateNormal.Background.Style = bbsGradient
+          StateNormal.Border.Style = bboNone
+          StateNormal.FontEx.Color = 16770790
+          StateNormal.FontEx.FontQuality = fqSystemClearType
+          StateNormal.FontEx.Shadow = True
+          StateNormal.FontEx.ShadowRadius = 2
+          StateNormal.FontEx.ShadowOffsetX = 1
+          StateNormal.FontEx.ShadowOffsetY = 1
+          StateNormal.FontEx.Style = [fsBold]
+          Caption = 'Gravure Auto'
+          Color = clNone
+          DropDownWidth = 16
+          DropDownArrowSize = 8
+          Enabled = False
+          GlobalOpacity = 255
+          OnClick = CmdGravureAutoClick
+          OnMouseDown = CmdGravureAutoMouseDown
+          OnMouseUp = CmdGravureAutoMouseUp
+          ParentColor = False
+          Rounding.RoundX = 5
+          Rounding.RoundY = 5
+          RoundingDropDown.RoundX = 1
+          RoundingDropDown.RoundY = 1
+          TextApplyGlobalOpacity = False
+          MemoryUsage = bmuHigh
+        end
+        object CmdGravureManual: TBCButton
+          Left = 16
+          Height = 38
+          Top = 80
+          Width = 101
+          StateClicked.Background.Gradient1.StartColor = clWhite
+          StateClicked.Background.Gradient1.EndColor = clSkyBlue
+          StateClicked.Background.Gradient1.GradientType = gtRadial
+          StateClicked.Background.Gradient1.Point1XPercent = 50
+          StateClicked.Background.Gradient1.Point1YPercent = 100
+          StateClicked.Background.Gradient1.Point2XPercent = 0
+          StateClicked.Background.Gradient1.Point2YPercent = 0
+          StateClicked.Background.Gradient2.StartColor = clWhite
+          StateClicked.Background.Gradient2.EndColor = clSkyBlue
+          StateClicked.Background.Gradient2.GradientType = gtLinear
+          StateClicked.Background.Gradient2.Point1XPercent = 0
+          StateClicked.Background.Gradient2.Point1YPercent = 0
+          StateClicked.Background.Gradient2.Point2XPercent = 0
+          StateClicked.Background.Gradient2.Point2YPercent = 100
+          StateClicked.Background.Gradient1EndPercent = 100
+          StateClicked.Background.Style = bbsGradient
+          StateClicked.Border.Style = bboNone
+          StateClicked.FontEx.Color = 16770790
+          StateClicked.FontEx.FontQuality = fqSystemClearType
+          StateClicked.FontEx.Shadow = True
+          StateClicked.FontEx.ShadowRadius = 2
+          StateClicked.FontEx.ShadowOffsetX = 1
+          StateClicked.FontEx.ShadowOffsetY = 1
+          StateClicked.FontEx.Style = [fsBold]
+          StateHover.Background.Gradient1.StartColor = clSkyBlue
+          StateHover.Background.Gradient1.EndColor = clSkyBlue
+          StateHover.Background.Gradient1.GradientType = gtRadial
+          StateHover.Background.Gradient1.Point1XPercent = 50
+          StateHover.Background.Gradient1.Point1YPercent = 100
+          StateHover.Background.Gradient1.Point2XPercent = 0
+          StateHover.Background.Gradient1.Point2YPercent = 0
+          StateHover.Background.Gradient2.StartColor = clWhite
+          StateHover.Background.Gradient2.EndColor = clBlack
+          StateHover.Background.Gradient2.GradientType = gtLinear
+          StateHover.Background.Gradient2.Point1XPercent = 0
+          StateHover.Background.Gradient2.Point1YPercent = 0
+          StateHover.Background.Gradient2.Point2XPercent = 0
+          StateHover.Background.Gradient2.Point2YPercent = 100
+          StateHover.Background.Gradient1EndPercent = 100
+          StateHover.Background.Style = bbsGradient
+          StateHover.Border.Style = bboNone
+          StateHover.FontEx.Color = clWhite
+          StateHover.FontEx.FontQuality = fqSystemClearType
+          StateHover.FontEx.Shadow = True
+          StateHover.FontEx.ShadowRadius = 2
+          StateHover.FontEx.ShadowOffsetX = 1
+          StateHover.FontEx.ShadowOffsetY = 1
+          StateHover.FontEx.Style = [fsBold]
+          StateNormal.Background.Gradient1.StartColor = clSkyBlue
+          StateNormal.Background.Gradient1.EndColor = clSkyBlue
+          StateNormal.Background.Gradient1.GradientType = gtLinear
+          StateNormal.Background.Gradient1.Point1XPercent = 0
+          StateNormal.Background.Gradient1.Point1YPercent = 0
+          StateNormal.Background.Gradient1.Point2XPercent = 0
+          StateNormal.Background.Gradient1.Point2YPercent = 100
+          StateNormal.Background.Gradient2.StartColor = clSkyBlue
+          StateNormal.Background.Gradient2.EndColor = clSkyBlue
+          StateNormal.Background.Gradient2.GradientType = gtRadial
+          StateNormal.Background.Gradient2.Point1XPercent = 50
+          StateNormal.Background.Gradient2.Point1YPercent = 100
+          StateNormal.Background.Gradient2.Point2XPercent = 0
+          StateNormal.Background.Gradient2.Point2YPercent = 0
+          StateNormal.Background.Gradient1EndPercent = 60
+          StateNormal.Background.Style = bbsGradient
+          StateNormal.Border.Style = bboNone
+          StateNormal.FontEx.Color = 16770790
+          StateNormal.FontEx.FontQuality = fqSystemClearType
+          StateNormal.FontEx.Shadow = True
+          StateNormal.FontEx.ShadowRadius = 2
+          StateNormal.FontEx.ShadowOffsetX = 1
+          StateNormal.FontEx.ShadowOffsetY = 1
+          StateNormal.FontEx.Style = [fsBold]
+          Caption = 'Gravure Manual'
+          Color = clNone
+          DropDownWidth = 16
+          DropDownArrowSize = 8
+          Enabled = False
+          GlobalOpacity = 255
+          OnClick = CmdGravureManualClick
+          OnMouseDown = CmdGravureManualMouseDown
+          OnMouseUp = CmdGravureManualMouseUp
+          ParentColor = False
+          Rounding.RoundX = 5
+          Rounding.RoundY = 5
+          RoundingDropDown.RoundX = 1
+          RoundingDropDown.RoundY = 1
+          TextApplyGlobalOpacity = False
+          MemoryUsage = bmuHigh
         end
       end
     end
@@ -4172,7 +4479,6 @@ object Form1: TForm1
         Caption = 'Electrode'
         ClientHeight = 131
         ClientWidth = 128
-        Color = clWhite
         Font.CharSet = ANSI_CHARSET
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
@@ -4375,10 +4681,7 @@ object Form1: TForm1
           Top = 0
           Width = 55
           Caption = 'Electrode: '
-          Color = clWhite
-          ParentColor = False
           ParentFont = False
-          Transparent = False
         end
       end
       object GroupBox7: TGroupBox
@@ -4389,7 +4692,6 @@ object Form1: TForm1
         Caption = 'Corona Roll'
         ClientHeight = 131
         ClientWidth = 284
-        Color = clWhite
         Font.CharSet = ANSI_CHARSET
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
@@ -4592,10 +4894,7 @@ object Form1: TForm1
           Top = 0
           Width = 68
           Caption = 'Corona Roll: '
-          Color = clWhite
-          ParentColor = False
           ParentFont = False
-          Transparent = False
         end
         object CoronaSpeed_Act01: THMILabel
           Left = 129
@@ -4662,7 +4961,6 @@ object Form1: TForm1
         Caption = 'Corona Exhaust Fan'
         ClientHeight = 131
         ClientWidth = 128
-        Color = clWhite
         Font.CharSet = ANSI_CHARSET
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
@@ -4865,10 +5163,7 @@ object Form1: TForm1
           Top = 0
           Width = 46
           Caption = 'Exhaust: '
-          Color = clWhite
-          ParentColor = False
           ParentFont = False
-          Transparent = False
         end
       end
       object GroupBox10: TGroupBox
@@ -4884,6 +5179,7 @@ object Form1: TForm1
         Font.Quality = fqDraft
         Font.Style = [fsBold]
         ParentBackground = False
+        ParentColor = False
         ParentFont = False
         TabOrder = 3
         object CmdGeneratorOn: TBCButton
@@ -5080,13 +5376,10 @@ object Form1: TForm1
           Top = 0
           Width = 58
           Caption = 'Generator: '
-          Color = clWhite
           Font.CharSet = ANSI_CHARSET
           Font.Pitch = fpVariable
           Font.Quality = fqDraft
-          ParentColor = False
           ParentFont = False
-          Transparent = False
         end
         object Label4: TLabel
           Left = 136

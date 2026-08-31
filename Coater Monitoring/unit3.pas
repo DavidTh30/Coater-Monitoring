@@ -20,6 +20,14 @@ procedure IsCoronaExhaustFanRun();
 procedure IsCoronaExhaustFanOff();
 procedure IsCoronaGeneratorOn();
 procedure IsCoronaGeneratorOff();
+procedure IsTakeOffRollRun();
+procedure IsTakeOffRollOff();
+procedure IsGravureRollRun();
+procedure IsGravureRollOff();
+procedure IsCartridgeIn();
+procedure IsCartridgeOut();
+procedure IsGravureAutoMode();
+procedure IsGravureManualMode();
 
 implementation
 
@@ -450,7 +458,7 @@ end;
 
 procedure IsCoronaGeneratorOff();
 begin
-  if Q0_4.Value < 1 then
+  if Q0_4.Value > 0 then
   begin
     Unit1.Form1.CmdGeneratorOff.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdGeneratorOff.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -483,6 +491,310 @@ begin
     Unit1.Form1.CmdGeneratorOff.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
     Unit1.Form1.CmdGeneratorOff.StateClicked.Background.Gradient2.StartColor:=clWhite;
     Unit1.Form1.CmdGeneratorOff.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
+  end;
+end;
+
+procedure IsTakeOffRollRun();
+begin
+  if Q0_2.Value > 0 then
+  begin
+    Unit1.Form1.CmdTakeOffRollRun.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
+    Unit1.Form1.CmdTakeOffRollRun.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
+    Unit1.Form1.CmdTakeOffRollRun.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
+    Unit1.Form1.CmdTakeOffRollRun.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
+
+    Unit1.Form1.CmdTakeOffRollRun.StateHover.Background.Gradient1.StartColor:=clGreen;
+    Unit1.Form1.CmdTakeOffRollRun.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
+    Unit1.Form1.CmdTakeOffRollRun.StateHover.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdTakeOffRollRun.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+    Unit1.Form1.CmdTakeOffRollRun.StateClicked.Background.Gradient1.StartColor:=clWhite;
+    Unit1.Form1.CmdTakeOffRollRun.StateClicked.Background.Gradient1.EndColor:=clGreen;
+    Unit1.Form1.CmdTakeOffRollRun.StateClicked.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdTakeOffRollRun.StateClicked.Background.Gradient2.EndColor:=clGreen;
+  end
+  else
+  begin
+    Unit1.Form1.CmdTakeOffRollRun.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdTakeOffRollRun.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdTakeOffRollRun.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdTakeOffRollRun.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
+
+    Unit1.Form1.CmdTakeOffRollRun.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdTakeOffRollRun.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdTakeOffRollRun.StateHover.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdTakeOffRollRun.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+    Unit1.Form1.CmdTakeOffRollRun.StateClicked.Background.Gradient1.StartColor:=clWhite;
+    Unit1.Form1.CmdTakeOffRollRun.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdTakeOffRollRun.StateClicked.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdTakeOffRollRun.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
+  end;
+end;
+
+procedure IsTakeOffRollOff();
+begin
+  if Q0_2.Value < 1 then
+  begin
+    Unit1.Form1.CmdakeOffRollOff.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
+    Unit1.Form1.CmdakeOffRollOff.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
+    Unit1.Form1.CmdakeOffRollOff.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
+    Unit1.Form1.CmdakeOffRollOff.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
+
+    Unit1.Form1.CmdakeOffRollOff.StateHover.Background.Gradient1.StartColor:=clGreen;
+    Unit1.Form1.CmdakeOffRollOff.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
+    Unit1.Form1.CmdakeOffRollOff.StateHover.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdakeOffRollOff.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+    Unit1.Form1.CmdakeOffRollOff.StateClicked.Background.Gradient1.StartColor:=clWhite;
+    Unit1.Form1.CmdakeOffRollOff.StateClicked.Background.Gradient1.EndColor:=clGreen;
+    Unit1.Form1.CmdakeOffRollOff.StateClicked.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdakeOffRollOff.StateClicked.Background.Gradient2.EndColor:=clGreen;
+  end
+  else
+  begin
+    Unit1.Form1.CmdakeOffRollOff.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdakeOffRollOff.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdakeOffRollOff.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdakeOffRollOff.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
+
+    Unit1.Form1.CmdakeOffRollOff.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdakeOffRollOff.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdakeOffRollOff.StateHover.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdakeOffRollOff.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+    Unit1.Form1.CmdakeOffRollOff.StateClicked.Background.Gradient1.StartColor:=clWhite;
+    Unit1.Form1.CmdakeOffRollOff.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdakeOffRollOff.StateClicked.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdakeOffRollOff.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
+  end;
+end;
+
+procedure IsGravureRollRun();
+begin
+  if Q0_2.Value > 0 then
+  begin
+    Unit1.Form1.CmdGravureRollRun.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
+    Unit1.Form1.CmdGravureRollRun.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
+    Unit1.Form1.CmdGravureRollRun.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
+    Unit1.Form1.CmdGravureRollRun.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
+
+    Unit1.Form1.CmdGravureRollRun.StateHover.Background.Gradient1.StartColor:=clGreen;
+    Unit1.Form1.CmdGravureRollRun.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
+    Unit1.Form1.CmdGravureRollRun.StateHover.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureRollRun.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+    Unit1.Form1.CmdGravureRollRun.StateClicked.Background.Gradient1.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureRollRun.StateClicked.Background.Gradient1.EndColor:=clGreen;
+    Unit1.Form1.CmdGravureRollRun.StateClicked.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureRollRun.StateClicked.Background.Gradient2.EndColor:=clGreen;
+  end
+  else
+  begin
+    Unit1.Form1.CmdGravureRollRun.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureRollRun.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureRollRun.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureRollRun.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
+
+    Unit1.Form1.CmdGravureRollRun.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureRollRun.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureRollRun.StateHover.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureRollRun.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+    Unit1.Form1.CmdGravureRollRun.StateClicked.Background.Gradient1.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureRollRun.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureRollRun.StateClicked.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureRollRun.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
+  end;
+end;
+
+procedure IsGravureRollOff();
+begin
+  if Q0_2.Value < 1 then
+  begin
+    Unit1.Form1.CmdGravureRollOff.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
+    Unit1.Form1.CmdGravureRollOff.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
+    Unit1.Form1.CmdGravureRollOff.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
+    Unit1.Form1.CmdGravureRollOff.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
+
+    Unit1.Form1.CmdGravureRollOff.StateHover.Background.Gradient1.StartColor:=clGreen;
+    Unit1.Form1.CmdGravureRollOff.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
+    Unit1.Form1.CmdGravureRollOff.StateHover.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureRollOff.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+    Unit1.Form1.CmdGravureRollOff.StateClicked.Background.Gradient1.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureRollOff.StateClicked.Background.Gradient1.EndColor:=clGreen;
+    Unit1.Form1.CmdGravureRollOff.StateClicked.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureRollOff.StateClicked.Background.Gradient2.EndColor:=clGreen;
+  end
+  else
+  begin
+    Unit1.Form1.CmdGravureRollOff.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureRollOff.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureRollOff.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureRollOff.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
+
+    Unit1.Form1.CmdGravureRollOff.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureRollOff.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureRollOff.StateHover.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureRollOff.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+    Unit1.Form1.CmdGravureRollOff.StateClicked.Background.Gradient1.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureRollOff.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureRollOff.StateClicked.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureRollOff.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
+  end;
+end;
+
+procedure IsCartridgeIn();
+begin
+  if Q0_2.Value > 0 then
+  begin
+    Unit1.Form1.CmdCartridgeIn.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
+    Unit1.Form1.CmdCartridgeIn.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
+    Unit1.Form1.CmdCartridgeIn.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
+    Unit1.Form1.CmdCartridgeIn.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
+
+    Unit1.Form1.CmdCartridgeIn.StateHover.Background.Gradient1.StartColor:=clGreen;
+    Unit1.Form1.CmdCartridgeIn.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
+    Unit1.Form1.CmdCartridgeIn.StateHover.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdCartridgeIn.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+    Unit1.Form1.CmdCartridgeIn.StateClicked.Background.Gradient1.StartColor:=clWhite;
+    Unit1.Form1.CmdCartridgeIn.StateClicked.Background.Gradient1.EndColor:=clGreen;
+    Unit1.Form1.CmdCartridgeIn.StateClicked.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdCartridgeIn.StateClicked.Background.Gradient2.EndColor:=clGreen;
+  end
+  else
+  begin
+    Unit1.Form1.CmdCartridgeIn.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdCartridgeIn.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdCartridgeIn.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdCartridgeIn.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
+
+    Unit1.Form1.CmdCartridgeIn.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdCartridgeIn.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdCartridgeIn.StateHover.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdCartridgeIn.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+    Unit1.Form1.CmdCartridgeIn.StateClicked.Background.Gradient1.StartColor:=clWhite;
+    Unit1.Form1.CmdCartridgeIn.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdCartridgeIn.StateClicked.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdCartridgeIn.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
+  end;
+end;
+
+procedure IsCartridgeOut();
+begin
+  if Q0_2.Value < 1 then
+  begin
+    Unit1.Form1.CmdCartridgeOut.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
+    Unit1.Form1.CmdCartridgeOut.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
+    Unit1.Form1.CmdCartridgeOut.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
+    Unit1.Form1.CmdCartridgeOut.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
+
+    Unit1.Form1.CmdCartridgeOut.StateHover.Background.Gradient1.StartColor:=clGreen;
+    Unit1.Form1.CmdCartridgeOut.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
+    Unit1.Form1.CmdCartridgeOut.StateHover.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdCartridgeOut.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+    Unit1.Form1.CmdCartridgeOut.StateClicked.Background.Gradient1.StartColor:=clWhite;
+    Unit1.Form1.CmdCartridgeOut.StateClicked.Background.Gradient1.EndColor:=clGreen;
+    Unit1.Form1.CmdCartridgeOut.StateClicked.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdCartridgeOut.StateClicked.Background.Gradient2.EndColor:=clGreen;
+  end
+  else
+  begin
+    Unit1.Form1.CmdCartridgeOut.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdCartridgeOut.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdCartridgeOut.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdCartridgeOut.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
+
+    Unit1.Form1.CmdCartridgeOut.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdCartridgeOut.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdCartridgeOut.StateHover.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdCartridgeOut.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+    Unit1.Form1.CmdCartridgeOut.StateClicked.Background.Gradient1.StartColor:=clWhite;
+    Unit1.Form1.CmdCartridgeOut.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdCartridgeOut.StateClicked.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdCartridgeOut.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
+  end;
+end;
+
+procedure IsGravureAutoMode();
+begin
+  if M20_0.Value > 0 then
+  begin
+    Unit1.Form1.CmdGravureAuto.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
+    Unit1.Form1.CmdGravureAuto.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
+    Unit1.Form1.CmdGravureAuto.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
+    Unit1.Form1.CmdGravureAuto.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
+
+    Unit1.Form1.CmdGravureAuto.StateHover.Background.Gradient1.StartColor:=clGreen;
+    Unit1.Form1.CmdGravureAuto.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
+    Unit1.Form1.CmdGravureAuto.StateHover.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureAuto.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+    Unit1.Form1.CmdGravureAuto.StateClicked.Background.Gradient1.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureAuto.StateClicked.Background.Gradient1.EndColor:=clGreen;
+    Unit1.Form1.CmdGravureAuto.StateClicked.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureAuto.StateClicked.Background.Gradient2.EndColor:=clGreen;
+  end
+  else
+  begin
+    Unit1.Form1.CmdGravureAuto.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureAuto.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureAuto.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureAuto.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
+
+    Unit1.Form1.CmdGravureAuto.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureAuto.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureAuto.StateHover.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureAuto.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+    Unit1.Form1.CmdGravureAuto.StateClicked.Background.Gradient1.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureAuto.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureAuto.StateClicked.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureAuto.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
+  end;
+end;
+
+procedure IsGravureManualMode();
+begin
+  if M20_1.Value > 0 then
+  begin
+    Unit1.Form1.CmdGravureManual.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
+    Unit1.Form1.CmdGravureManual.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
+    Unit1.Form1.CmdGravureManual.StateNormal.Background.Gradient2.StartColor:=clMoneyGreen;
+    Unit1.Form1.CmdGravureManual.StateNormal.Background.Gradient2.EndColor:=clMoneyGreen;
+
+    Unit1.Form1.CmdGravureManual.StateHover.Background.Gradient1.StartColor:=clGreen;
+    Unit1.Form1.CmdGravureManual.StateHover.Background.Gradient1.EndColor:=clMoneyGreen;
+    Unit1.Form1.CmdGravureManual.StateHover.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureManual.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+    Unit1.Form1.CmdGravureManual.StateClicked.Background.Gradient1.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureManual.StateClicked.Background.Gradient1.EndColor:=clGreen;
+    Unit1.Form1.CmdGravureManual.StateClicked.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureManual.StateClicked.Background.Gradient2.EndColor:=clGreen;
+  end
+  else
+  begin
+    Unit1.Form1.CmdGravureManual.StateNormal.Background.Gradient1.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureManual.StateNormal.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureManual.StateNormal.Background.Gradient2.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureManual.StateNormal.Background.Gradient2.EndColor:=clSkyBlue;
+
+    Unit1.Form1.CmdGravureManual.StateHover.Background.Gradient1.StartColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureManual.StateHover.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureManual.StateHover.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureManual.StateHover.Background.Gradient2.EndColor:=clBlack;
+
+    Unit1.Form1.CmdGravureManual.StateClicked.Background.Gradient1.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureManual.StateClicked.Background.Gradient1.EndColor:=clSkyBlue;
+    Unit1.Form1.CmdGravureManual.StateClicked.Background.Gradient2.StartColor:=clWhite;
+    Unit1.Form1.CmdGravureManual.StateClicked.Background.Gradient2.EndColor:=clSkyBlue;
   end;
 end;
 

@@ -12,11 +12,14 @@ procedure CreateTag_MB0();
 procedure CreateTag_MB1();
 procedure CreateTag_MB2();
 procedure CreateTag_MB17();
+procedure CreateTag_MB20();  //Gravure Auto/Manual Cmd (Read Only)
 procedure CreateTag_MB22();
 procedure CreateTag_MB30();
 procedure CreateTag_MB31();
 procedure CreateTag_MB32();
+procedure CreateTag_MB33();   // Gravure roll Start/Stop HMI
 procedure CreateTag_MB34();
+procedure CreateTag_MB35();   //Takeoff roll Run/Off HMI
 procedure CreateTag_MB98();
 procedure CreateTag_MB101();
 procedure CreateTag_QB0();
@@ -40,11 +43,14 @@ procedure FreeAndNil_MB0();
 procedure FreeAndNil_MB1();
 procedure FreeAndNil_MB2();
 procedure FreeAndNil_MB17();
+procedure FreeAndNil_MB20();
 procedure FreeAndNil_MB22();
 procedure FreeAndNil_MB30();
 procedure FreeAndNil_MB31();
 procedure FreeAndNil_MB32();
+procedure FreeAndNil_MB33();
 procedure FreeAndNil_MB34();
+procedure FreeAndNil_MB35();
 procedure FreeAndNil_MB98();
 procedure FreeAndNil_MB101();
 procedure FreeAndNil_QB0();
@@ -75,8 +81,8 @@ var
   M1_0: TTagBit;
   M1_1: TTagBit;
   M1_2: TTagBit;
-  M1_3: TTagBit;
-  M1_4: TTagBit;
+  M1_3: TTagBit;  // Gravure Auto HMI
+  M1_4: TTagBit;  // Gravure Manual HMI
   M1_5: TTagBit;
   M1_6: TTagBit;
   M1_7: TTagBit;
@@ -85,8 +91,8 @@ var
   MB2: TPLCBlockElement;
   M2_0: TTagBit;
   M2_1: TTagBit;
-  M2_2: TTagBit;
-  M2_3: TTagBit;
+  M2_2: TTagBit;  // Cartridge In HMI
+  M2_3: TTagBit;  // Cartridge Out HMI
   M2_4: TTagBit;
   M2_5: TTagBit;
   M2_6: TTagBit;
@@ -102,6 +108,17 @@ var
   M17_5: TTagBit;
   M17_6: TTagBit;
   M17_7: TTagBit;
+
+  MB20_: TPLCBlock;
+  MB20: TPLCBlockElement;
+  M20_0: TTagBit;  // Gravure Auto Cmd
+  M20_1: TTagBit;  // Gravure Manual Cmd
+  M20_2: TTagBit;
+  M20_3: TTagBit;
+  M20_4: TTagBit;
+  M20_5: TTagBit;
+  M20_6: TTagBit;
+  M20_7: TTagBit;
 
   MB22_: TPLCBlock;
   MB22: TPLCBlockElement;
@@ -147,6 +164,17 @@ var
   M32_6: TTagBit;
   M32_7: TTagBit;
 
+  MB33_: TPLCBlock;
+  MB33: TPLCBlockElement;
+  M33_0: TTagBit;  // Gravure roll Start HMI
+  M33_1: TTagBit;  // Gravure roll Stop HMI
+  M33_2: TTagBit;
+  M33_3: TTagBit;
+  M33_4: TTagBit;
+  M33_5: TTagBit;
+  M33_6: TTagBit;
+  M33_7: TTagBit;
+
   MB34_: TPLCBlock;
   MB34: TPLCBlockElement;
   M34_0: TTagBit;
@@ -157,6 +185,17 @@ var
   M34_5: TTagBit;
   M34_6: TTagBit;
   M34_7: TTagBit;
+
+  MB35_: TPLCBlock;
+  MB35: TPLCBlockElement;
+  M35_0: TTagBit;   // Takeoff roll Run HMI
+  M35_1: TTagBit;   // Takeoff roll Off HMI
+  M35_2: TTagBit;
+  M35_3: TTagBit;
+  M35_4: TTagBit;
+  M35_5: TTagBit;
+  M35_6: TTagBit;
+  M35_7: TTagBit;
 
   IB0_: TPLCBlock;
   IB0: TPLCBlockElement;
@@ -526,6 +565,67 @@ begin
   M17_7.PLCTag:=MB17;
 end;
 
+procedure CreateTag_MB20();  //Gravure Auto/Manual Cmd (Read Only)
+begin
+  MB20_:= TPLCBlock.Create(nil);
+  MB20_.PLCRack:=0;
+  MB20_.PLCSlot:=0;
+  MB20_.PLCStation:=2;
+  MB20_.MemAddress:=20;
+  MB20_.MemReadFunction:=3;
+  MB20_.AutoRead:=true;
+  MB20_.AutoWrite:=false;
+  MB20_.TagType:= TTagType.pttByte;
+  MB20_.Size:=1;
+  MB20_.RefreshTime:=500;
+  MB20_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
+
+  MB20:= TPLCBlockElement.Create(nil);
+  MB20.Index:=0;
+  MB20.PLCBlock:=MB20_;
+
+  M20_0:= TTagBit.Create(nil);
+  M20_1:= TTagBit.Create(nil);
+  M20_2:= TTagBit.Create(nil);
+  M20_3:= TTagBit.Create(nil);
+  M20_4:= TTagBit.Create(nil);
+  M20_5:= TTagBit.Create(nil);
+  M20_6:= TTagBit.Create(nil);
+  M20_7:= TTagBit.Create(nil);
+
+  M20_0.StartBit:=0;
+  M20_0.EndBit:=0;
+  M20_0.PLCTag:=MB20;
+
+  M20_1.StartBit:=1;
+  M20_1.EndBit:=1;
+  M20_1.PLCTag:=MB20;
+
+  M20_2.StartBit:=2;
+  M20_2.EndBit:=2;
+  M20_2.PLCTag:=MB20;
+
+  M20_3.StartBit:=3;
+  M20_3.EndBit:=3;
+  M20_3.PLCTag:=MB20;
+
+  M20_4.StartBit:=4;
+  M20_4.EndBit:=4;
+  M20_4.PLCTag:=MB20;
+
+  M20_5.StartBit:=5;
+  M20_5.EndBit:=5;
+  M20_5.PLCTag:=MB20;
+
+  M20_6.StartBit:=6;
+  M20_6.EndBit:=6;
+  M20_6.PLCTag:=MB20;
+
+  M20_7.StartBit:=7;
+  M20_7.EndBit:=7;
+  M20_7.PLCTag:=MB20;
+end;
+
 procedure CreateTag_MB22();
 begin
   MB22_:= TPLCBlock.Create(nil);
@@ -770,6 +870,67 @@ begin
   M32_7.PLCTag:=MB32;
 end;
 
+procedure CreateTag_MB33();   // Gravure roll Start/Stop HMI
+begin
+  MB33_:= TPLCBlock.Create(nil);
+  MB33_.PLCRack:=0;
+  MB33_.PLCSlot:=0;
+  MB33_.PLCStation:=2;
+  MB33_.MemAddress:=33;
+  MB33_.MemReadFunction:=3;
+  MB33_.AutoRead:=true;
+  MB33_.AutoWrite:=true;
+  MB33_.TagType:= TTagType.pttByte;
+  MB33_.Size:=1;
+  MB33_.RefreshTime:=500;
+  MB33_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
+
+  MB33:= TPLCBlockElement.Create(nil);
+  MB33.Index:=0;
+  MB33.PLCBlock:=MB33_;
+
+  M33_0:= TTagBit.Create(nil);
+  M33_1:= TTagBit.Create(nil);
+  M33_2:= TTagBit.Create(nil);
+  M33_3:= TTagBit.Create(nil);
+  M33_4:= TTagBit.Create(nil);
+  M33_5:= TTagBit.Create(nil);
+  M33_6:= TTagBit.Create(nil);
+  M33_7:= TTagBit.Create(nil);
+
+  M33_0.StartBit:=0;
+  M33_0.EndBit:=0;
+  M33_0.PLCTag:=MB33;
+
+  M33_1.StartBit:=1;
+  M33_1.EndBit:=1;
+  M33_1.PLCTag:=MB33;
+
+  M33_2.StartBit:=2;
+  M33_2.EndBit:=2;
+  M33_2.PLCTag:=MB33;
+
+  M33_3.StartBit:=3;
+  M33_3.EndBit:=3;
+  M33_3.PLCTag:=MB33;
+
+  M33_4.StartBit:=4;
+  M33_4.EndBit:=4;
+  M33_4.PLCTag:=MB33;
+
+  M33_5.StartBit:=5;
+  M33_5.EndBit:=5;
+  M33_5.PLCTag:=MB33;
+
+  M33_6.StartBit:=6;
+  M33_6.EndBit:=6;
+  M33_6.PLCTag:=MB33;
+
+  M33_7.StartBit:=7;
+  M33_7.EndBit:=7;
+  M33_7.PLCTag:=MB33;
+end;
+
 procedure CreateTag_MB34();
 begin
   MB34_:= TPLCBlock.Create(nil);
@@ -829,6 +990,67 @@ begin
   M34_7.StartBit:=7;
   M34_7.EndBit:=7;
   M34_7.PLCTag:=MB34;
+end;
+
+procedure CreateTag_MB35();   //Takeoff roll Run/Off HMI
+begin
+  MB35_:= TPLCBlock.Create(nil);
+  MB35_.PLCRack:=0;
+  MB35_.PLCSlot:=0;
+  MB35_.PLCStation:=2;
+  MB35_.MemAddress:=35;
+  MB35_.MemReadFunction:=3;
+  MB35_.AutoRead:=true;
+  MB35_.AutoWrite:=true;
+  MB35_.TagType:= TTagType.pttByte;
+  MB35_.Size:=1;
+  MB35_.RefreshTime:=500;
+  MB35_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
+
+  MB35:= TPLCBlockElement.Create(nil);
+  MB35.Index:=0;
+  MB35.PLCBlock:=MB35_;
+
+  M35_0:= TTagBit.Create(nil);
+  M35_1:= TTagBit.Create(nil);
+  M35_2:= TTagBit.Create(nil);
+  M35_3:= TTagBit.Create(nil);
+  M35_4:= TTagBit.Create(nil);
+  M35_5:= TTagBit.Create(nil);
+  M35_6:= TTagBit.Create(nil);
+  M35_7:= TTagBit.Create(nil);
+
+  M35_0.StartBit:=0;
+  M35_0.EndBit:=0;
+  M35_0.PLCTag:=MB35;
+
+  M35_1.StartBit:=1;
+  M35_1.EndBit:=1;
+  M35_1.PLCTag:=MB35;
+
+  M35_2.StartBit:=2;
+  M35_2.EndBit:=2;
+  M35_2.PLCTag:=MB35;
+
+  M35_3.StartBit:=3;
+  M35_3.EndBit:=3;
+  M35_3.PLCTag:=MB35;
+
+  M35_4.StartBit:=4;
+  M35_4.EndBit:=4;
+  M35_4.PLCTag:=MB35;
+
+  M35_5.StartBit:=5;
+  M35_5.EndBit:=5;
+  M35_5.PLCTag:=MB35;
+
+  M35_6.StartBit:=6;
+  M35_6.EndBit:=6;
+  M35_6.PLCTag:=MB35;
+
+  M35_7.StartBit:=7;
+  M35_7.EndBit:=7;
+  M35_7.PLCTag:=MB35;
 end;
 
 procedure CreateTag_MB98();
@@ -1650,6 +1872,20 @@ begin
   FreeAndNil(MB17_);
 end;
 
+procedure FreeAndNil_MB20();
+begin
+  FreeAndNil(M20_0);
+  FreeAndNil(M20_1);
+  FreeAndNil(M20_2);
+  FreeAndNil(M20_3);
+  FreeAndNil(M20_4);
+  FreeAndNil(M20_5);
+  FreeAndNil(M20_6);
+  FreeAndNil(M20_7);
+  FreeAndNil(MB20);
+  FreeAndNil(MB20_);
+end;
+
 procedure FreeAndNil_MB22();
 begin
   FreeAndNil(M22_0);
@@ -1706,6 +1942,20 @@ begin
   FreeAndNil(MB32_);
 end;
 
+procedure FreeAndNil_MB33();
+begin
+  FreeAndNil(M33_0);
+  FreeAndNil(M33_1);
+  FreeAndNil(M33_2);
+  FreeAndNil(M33_3);
+  FreeAndNil(M33_4);
+  FreeAndNil(M33_5);
+  FreeAndNil(M33_6);
+  FreeAndNil(M33_7);
+  FreeAndNil(MB33);
+  FreeAndNil(MB33_);
+end;
+
 procedure FreeAndNil_MB34();
 begin
   FreeAndNil(M34_0);
@@ -1718,6 +1968,20 @@ begin
   FreeAndNil(M34_7);
   FreeAndNil(MB34);
   FreeAndNil(MB34_);
+end;
+
+procedure FreeAndNil_MB35();
+begin
+  FreeAndNil(M35_0);
+  FreeAndNil(M35_1);
+  FreeAndNil(M35_2);
+  FreeAndNil(M35_3);
+  FreeAndNil(M35_4);
+  FreeAndNil(M35_5);
+  FreeAndNil(M35_6);
+  FreeAndNil(M35_7);
+  FreeAndNil(MB35);
+  FreeAndNil(MB35_);
 end;
 
 procedure FreeAndNil_MB98();

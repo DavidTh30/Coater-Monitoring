@@ -25,6 +25,8 @@ type
     AdditionalGravureSpeed_Set: THMIEdit;
     AdditionalTakeOffRollSpeed_Set: THMIEdit;
     CmdBypassMode: TBCButton;
+    CmdGravureAuto: TBCButton;
+    CmdGravureManual: TBCButton;
     CmdCoatingMode: TBCButton;
     CmdGravureRollOff: TBCButton;
     CmdakeOffRollOff: TBCButton;
@@ -44,18 +46,24 @@ type
     CmdElectrodeOut: TBCButton;
     BCSVGButton1: TBCSVGButton;
     CmdGeneratorOn: TBCButton;
+    CoronaSetpoint1: THMIEdit;
     CoronaSpeed_Act02: THMILabel;
+    CoronaWattDensityAct1: THMILabel;
+    Corona_Act1: THMILabel;
     GravureSpeed_Act: THMILabel;
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
     GroupBox3: TGroupBox;
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
+    GroupBox9: TGroupBox;
     ImageElectrode: TImage;
     ImageCartridge: TImage;
     Label29: TLabel;
     Label30: TLabel;
     Label33: TLabel;
+    Label34: TLabel;
+    Label35: TLabel;
     Label46: TLabel;
     Label47: TLabel;
     Label5: TLabel;
@@ -64,7 +72,10 @@ type
     Label66: TLabel;
     Label67: TLabel;
     Label68: TLabel;
+    Label69: TLabel;
     Label7: TLabel;
+    Label70: TLabel;
+    Label8: TLabel;
     LineSpeed_Act01: THMILabel;
     TakeOffRollSpeed_Act: THMILabel;
     LineSpeed_Act: THMILabel;
@@ -158,6 +169,21 @@ type
     TabSheet6: TTabSheet;
     TCP_UDPPort1: TTCP_UDPPort;
     Timer1: TTimer;
+    procedure CmdakeOffRollOffClick(Sender: TObject);
+    procedure CmdakeOffRollOffMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdakeOffRollOffMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdCartridgeInClick(Sender: TObject);
+    procedure CmdCartridgeInMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdCartridgeInMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdCartridgeOutClick(Sender: TObject);
+    procedure CmdCartridgeOutMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdCartridgeOutMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure CmdCoronaRollOffClick(Sender: TObject);
     procedure CmdCoronaRollRunClick(Sender: TObject);
     procedure CmdCoronaRollRunMouseDown(Sender: TObject; Button: TMouseButton;
@@ -190,6 +216,26 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure CmdGeneratorOnMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure CmdGravureAutoClick(Sender: TObject);
+    procedure CmdGravureAutoMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdGravureAutoMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdGravureManualClick(Sender: TObject);
+    procedure CmdGravureManualMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdGravureManualMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdGravureRollOffClick(Sender: TObject);
+    procedure CmdGravureRollOffMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdGravureRollOffMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdGravureRollRunClick(Sender: TObject);
+    procedure CmdGravureRollRunMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdGravureRollRunMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure CmdSystemOffClick(Sender: TObject);
     procedure CmdSystemOnClick(Sender: TObject);
     procedure CmdCoatingModeClick(Sender: TObject);
@@ -201,6 +247,11 @@ type
     procedure CmdElectrodeOutMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure CmdElectrodeOutMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdTakeOffRollRunClick(Sender: TObject);
+    procedure CmdTakeOffRollRunMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure CmdTakeOffRollRunMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure ConnectClick(Sender: TObject);
     procedure DisconnectClick(Sender: TObject);
@@ -383,6 +434,8 @@ begin
   Label29.Color:=clSilver;
   Label30.Color:=clSilver;
   Label45.Color:=clSilver;
+  Label51.Color:=clSilver;
+  Label57.Color:=clSilver;
 
 
   LineSpeedUpper_Set.Enabled:=false;
@@ -426,6 +479,37 @@ begin
   AdditionalTakeOffRollSpeed_Set.Enabled:=false;
   ImageElectrode.ImageIndex:=18;
   ImageCartridge.ImageIndex:=18;
+
+  Label47.Color:=clSilver;
+  CmdTakeOffRollRun.Enabled:=false;
+  CmdakeOffRollOff.Enabled:=false;
+  Label46.Color:=clSilver;
+  CmdGravureRollRun.Enabled:=false;
+  CmdGravureRollOff.Enabled:=false;
+  Label33.Color:=clSilver;
+  CmdCartridgeIn.Enabled:=false;
+  CmdCartridgeOut.Enabled:=false;
+
+  Corona_Act1.Color:=clSilver;
+  CoronaSetpoint1.Enabled:=false;
+  CoronaWattDensityAct1.Color:=clSilver;
+
+  Label34.Color:=clSilver;
+  Label35.Color:=clSilver;
+  CmdGravureAuto.Enabled:=false;
+  CmdGravureManual.Enabled:=false;
+
+  Label28.Transparent:=false;
+  Label29.Transparent:=false;
+  Label30.Transparent:=false;
+  Label33.Transparent:=false;
+  Label34.Transparent:=false;
+  Label35.Transparent:=false;
+  Label45.Transparent:=false;
+  Label46.Transparent:=false;
+  Label47.Transparent:=false;
+  Label51.Transparent:=false;
+  Label57.Transparent:=false;
 end;
 
 procedure TForm1.CommunicationIsActive;
@@ -448,16 +532,16 @@ begin
 
   CmdElectrodeIn.Enabled:=true;
   CmdElectrodeOut.Enabled:=true;
-  Label28.Color:=clWhite;
 
   CmdSystemOn.Enabled:=true;
   CmdSystemOff.Enabled:=true;
 
-  Label29.Color:=clWhite;
-  Label30.Color:=clWhite;
-  Label45.Color:=clWhite;
-  Label51.Color:=clWhite;
-  Label57.Color:=clWhite;
+  Label28.ParentColor:=true;
+  Label29.ParentColor:=true;
+  Label30.ParentColor:=true;
+  Label45.ParentColor:=true;
+  Label51.ParentColor:=true;
+  Label57.ParentColor:=true;
 
   CmdCoronaRollRun.Enabled:=true;
   CmdCoronaRollOff.Enabled:=true;
@@ -481,6 +565,36 @@ begin
   AdditionalGravureSpeed_Set.Enabled:=true;
   AdditionalTakeOffRollSpeed_Set.Enabled:=true;
 
+  Label47.ParentColor:=true;
+  CmdTakeOffRollRun.Enabled:=true;
+  CmdakeOffRollOff.Enabled:=true;
+  Label46.ParentColor:=true;
+  CmdGravureRollRun.Enabled:=true;
+  CmdGravureRollOff.Enabled:=true;
+  Label33.ParentColor:=true;
+  CmdCartridgeIn.Enabled:=true;
+  CmdCartridgeOut.Enabled:=true;
+
+  Corona_Act1.ParentColor:=true;
+  CoronaSetpoint1.Enabled:=true;
+  CoronaWattDensityAct1.ParentColor:=true;
+
+  Label34.ParentColor:=true;
+  Label35.ParentColor:=true;
+  CmdGravureAuto.Enabled:=true;
+  CmdGravureManual.Enabled:=true;
+
+  Label28.Transparent:=true;
+  Label29.Transparent:=true;
+  Label30.Transparent:=true;
+  Label33.Transparent:=true;
+  Label34.Transparent:=true;
+  Label35.Transparent:=true;
+  Label45.Transparent:=true;
+  Label46.Transparent:=true;
+  Label47.Transparent:=true;
+  Label51.Transparent:=true;
+  Label57.Transparent:=true;
 end;
 
 procedure TForm1.MenuexitClick(Sender: TObject);
@@ -617,6 +731,7 @@ begin
       HMIPolylineCoatetStation.Left:=376;
       GravureRoll.Left:=315;
       Label7.Left:=411;
+      Label33.Caption:='Cartridge: In position';
     end
     else
     begin
@@ -625,6 +740,7 @@ begin
       HMIPolylineCoatetStation.Left:=386;
       GravureRoll.Left:=325;
       Label7.Left:=421;
+      Label33.Caption:='Cartridge: Out position';
     end;
 
     if Q0_3.Value > 0 then   //Electrode
@@ -664,14 +780,14 @@ begin
     begin Label45.Caption:='Corona Roll: Off'; CoronaRoll.Brush.Color:=clSkyBlue; end;
 
     if Q213_0.Value > 0 then
-    begin GravureRoll.Brush.Color:=clLime; end
+    begin Label46.Caption:='Gravure roll: Run'; GravureRoll.Brush.Color:=clLime; end
     else
-    begin GravureRoll.Brush.Color:=clSilver; end;
+    begin Label46.Caption:='Gravure roll: Off'; GravureRoll.Brush.Color:=clSilver; end;
 
     if Q217_0.Value > 0 then
-    begin TakeOffRoll.Brush.Color:=clLime; end
+    begin Label47.Caption:='Takeoff roll: Run'; TakeOffRoll.Brush.Color:=clLime; end
     else
-    begin TakeOffRoll.Brush.Color:=clCream; end;
+    begin Label47.Caption:='Takeoff roll: Off'; TakeOffRoll.Brush.Color:=clCream; end;
 
     if I0_0.Value > 0 then
     begin end
@@ -705,6 +821,10 @@ begin
       begin end
     else
       begin end;
+
+    if M20_0.Value > 0 then begin Label34.Caption:='Gravure: Auto'; Label35.Caption:='Gravure: Auto'; end;
+    if M20_1.Value > 0 then begin Label34.Caption:='Gravure: Manual'; Label35.Caption:='Gravure: Manual'; end;
+    if (M20_0.Value < 1) and (M20_1.Value < 1) then begin Label34.Caption:='Gravure: '; Label35.Caption:='Gravure: '; end;
 
     if M22_0.Value > 0 then begin end
     else begin end;
@@ -750,6 +870,14 @@ begin
     IsCoronaExhaustFanOff();
     IsCoronaGeneratorOn();
     IsCoronaGeneratorOff();
+    IsTakeOffRollRun();
+    IsTakeOffRollOff();
+    IsGravureRollRun();
+    IsGravureRollOff();
+    IsCartridgeIn();
+    IsCartridgeOut();
+    IsGravureAutoMode();
+    IsGravureManualMode();
 
     if M98_0.Value > 0 then
     begin end
@@ -807,6 +935,59 @@ procedure TForm1.CmdCoronaRollOffClick(Sender: TObject);
 begin
   M34_0.Value:=0;
   M34_1.Value:=0;
+end;
+
+procedure TForm1.CmdCartridgeInMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  M2_2.Value:=1;
+end;
+
+procedure TForm1.CmdCartridgeInClick(Sender: TObject);
+begin
+  M2_2.Value:=0;
+end;
+
+procedure TForm1.CmdakeOffRollOffClick(Sender: TObject);
+begin
+  M35_0.Value:=0;  // Takeoff roll Run HMI
+  M35_1.Value:=0;  // Takeoff roll Off HMI
+end;
+
+procedure TForm1.CmdakeOffRollOffMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  M35_1.Value:=1;
+end;
+
+procedure TForm1.CmdakeOffRollOffMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  M35_1.Value:=0;
+end;
+
+procedure TForm1.CmdCartridgeInMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  M2_2.Value:=0;
+end;
+
+procedure TForm1.CmdCartridgeOutClick(Sender: TObject);
+begin
+  M2_2.Value:=0;  // Cartridge In HMI
+  M2_3.Value:=0;  // Cartridge Out HMI
+end;
+
+procedure TForm1.CmdCartridgeOutMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  M2_3.Value:=1;
+end;
+
+procedure TForm1.CmdCartridgeOutMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  M2_3.Value:=0;
 end;
 
 procedure TForm1.CmdCoronaRollRunMouseUp(Sender: TObject; Button: TMouseButton;
@@ -910,6 +1091,75 @@ begin
   M0_6.Value:=0;
 end;
 
+procedure TForm1.CmdGravureAutoClick(Sender: TObject);
+begin
+  M1_3.Value:=0;
+end;
+
+procedure TForm1.CmdGravureAutoMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  M1_3.Value:=1;
+end;
+
+procedure TForm1.CmdGravureAutoMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  M1_3.Value:=0;
+end;
+
+procedure TForm1.CmdGravureManualClick(Sender: TObject);
+begin
+  M1_4.Value:=0;
+end;
+
+procedure TForm1.CmdGravureManualMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  M1_4.Value:=1;
+end;
+
+procedure TForm1.CmdGravureManualMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  M1_4.Value:=0;
+end;
+
+procedure TForm1.CmdGravureRollOffClick(Sender: TObject);
+begin
+  M33_0.Value:=0;  // Gravure roll Start HMI
+  M33_1.Value:=0;  // Gravure roll Stop HMI
+end;
+
+procedure TForm1.CmdGravureRollOffMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  M33_1.Value:=1;
+end;
+
+procedure TForm1.CmdGravureRollOffMouseUp(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  M33_1.Value:=0;
+end;
+
+procedure TForm1.CmdGravureRollRunClick(Sender: TObject);
+begin
+  M33_0.Value:=0;
+end;
+
+procedure TForm1.CmdGravureRollRunMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  M33_0.Value:=1;
+end;
+
+procedure TForm1.CmdGravureRollRunMouseUp(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  M33_0.Value:=0;
+end;
+
 procedure TForm1.CmdBypassModeClick(Sender: TObject);
 begin
   M32_0.Value:=0;
@@ -940,6 +1190,23 @@ begin
   M2_1.Value:=0;
 end;
 
+procedure TForm1.CmdTakeOffRollRunClick(Sender: TObject);
+begin
+  M35_0.Value:=0;
+end;
+
+procedure TForm1.CmdTakeOffRollRunMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  M35_0.Value:=1;
+end;
+
+procedure TForm1.CmdTakeOffRollRunMouseUp(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  M35_0.Value:=0;
+end;
+
 procedure TForm1.DisconnectClick(Sender: TObject);
 begin
   Timer1.Enabled:=false;
@@ -968,11 +1235,14 @@ begin
   FreeAndNil_MB1();
   FreeAndNil_MB2();
   FreeAndNil_MB17();
+  FreeAndNil_MB20();
   FreeAndNil_MB22();
   FreeAndNil_MB30();
   FreeAndNil_MB31();
   FreeAndNil_MB32();
+  FreeAndNil_MB33();
   FreeAndNil_MB34();
+  FreeAndNil_MB35();
   FreeAndNil_MB98();
   FreeAndNil_MB101();
   FreeAndNil_QB0();
@@ -1026,11 +1296,14 @@ begin
   CreateTag_MB1();
   CreateTag_MB2();
   CreateTag_MB17();
+  CreateTag_MB20();  //Gravure Auto/Manual Cmd (Read Only)
   CreateTag_MB22();
   CreateTag_MB30();
   CreateTag_MB31();
   CreateTag_MB32();
+  CreateTag_MB33();   // Gravure roll Start/Stop HMI
   CreateTag_MB34();
+  CreateTag_MB35();   //Takeoff roll Run/Off HMI
   CreateTag_MB98();
   CreateTag_MB101();
   CreateTag_QB0();
@@ -1068,8 +1341,11 @@ begin
   GravureSpeed_Act.PLCTag:=DB9_DBD36;
   TakeOffRollSpeed_Act.PLCTag:=DB9_DBD40;
   Corona_Act.PLCTag:=DB9_DBD60;
+  Corona_Act1.PLCTag:=DB9_DBD60;
   CoronaSetpoint.PLCTag:=DB9_DBD56;
+  CoronaSetpoint1.PLCTag:=DB9_DBD56;
   CoronaWattDensityAct.PLCTag:=DB9_DBD64;
+  CoronaWattDensityAct1.PLCTag:=DB9_DBD64;
   LineSpeed_Act01.PLCTag:=DB10_DBD4;
   LineSpeed_Act.PLCTag:=DB10_DBD4;
   AdditionalCoronaSpeed_Set.PLCTag:=DB10_DBD22;
