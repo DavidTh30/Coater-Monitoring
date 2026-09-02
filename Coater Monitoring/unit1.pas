@@ -663,6 +663,7 @@ begin
   ElectrodeValve.ImageIndex:=24;
 
   ImageCoatetStation.ImageIndex:=0;
+  ImageElectrodeStation.ImageIndex:=0;
 end;
 
 procedure TForm1.CommunicationIsActive;
@@ -961,9 +962,15 @@ begin
     end;
 
     if Q[0]._5 then
-    begin Label57.Caption:='Generator: On'; end
+    begin
+      Label57.Caption:='Generator: On';
+      ImageElectrodeStation.ImageIndex:=2;
+    end
     else
-    begin Label57.Caption:='Generator: Off'; end;
+    begin
+      Label57.Caption:='Generator: Off';
+      ImageElectrodeStation.ImageIndex:=1;
+    end;
 
     if Q[201]._0 then begin end
     else begin end;
