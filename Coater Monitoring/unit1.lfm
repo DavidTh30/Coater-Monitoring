@@ -3130,6 +3130,7 @@ object Form1: TForm1
         AntialiasingMode = amOn
         ImageIndex = 14
         Images = ImageList2
+        PopupMenu = PopupMenuCoronaExhaustFan
         Stretch = True
       end
       object ImageCoatetStation: TImage
@@ -3874,7 +3875,7 @@ object Form1: TForm1
           StateNormal.FontEx.ShadowOffsetX = 1
           StateNormal.FontEx.ShadowOffsetY = 1
           StateNormal.FontEx.Style = [fsBold]
-          Caption = 'Gravure roll Run'
+          Caption = 'Gravure roll Start'
           Color = clNone
           DropDownWidth = 16
           DropDownArrowSize = 8
@@ -3968,7 +3969,7 @@ object Form1: TForm1
           StateNormal.FontEx.ShadowOffsetX = 1
           StateNormal.FontEx.ShadowOffsetY = 1
           StateNormal.FontEx.Style = [fsBold]
-          Caption = 'Gravure roll Off'
+          Caption = 'Gravure roll Stop'
           Color = clNone
           DropDownWidth = 16
           DropDownArrowSize = 8
@@ -4082,7 +4083,7 @@ object Form1: TForm1
           StateNormal.FontEx.ShadowOffsetX = 1
           StateNormal.FontEx.ShadowOffsetY = 1
           StateNormal.FontEx.Style = [fsBold]
-          Caption = 'Takeoff roll Run'
+          Caption = 'Takeoff roll Start'
           Color = clNone
           DropDownWidth = 16
           DropDownArrowSize = 8
@@ -4176,7 +4177,7 @@ object Form1: TForm1
           StateNormal.FontEx.ShadowOffsetX = 1
           StateNormal.FontEx.ShadowOffsetY = 1
           StateNormal.FontEx.Style = [fsBold]
-          Caption = 'Takeoff roll Off'
+          Caption = 'Takeoff roll Stop'
           Color = clNone
           DropDownWidth = 16
           DropDownArrowSize = 8
@@ -4735,7 +4736,7 @@ object Form1: TForm1
           StateNormal.FontEx.ShadowOffsetX = 1
           StateNormal.FontEx.ShadowOffsetY = 1
           StateNormal.FontEx.Style = [fsBold]
-          Caption = 'Corona Roll Run'
+          Caption = 'Corona Roll Start'
           Color = clNone
           DropDownWidth = 16
           DropDownArrowSize = 8
@@ -4829,7 +4830,7 @@ object Form1: TForm1
           StateNormal.FontEx.ShadowOffsetX = 1
           StateNormal.FontEx.ShadowOffsetY = 1
           StateNormal.FontEx.Style = [fsBold]
-          Caption = 'Corona Roll Off'
+          Caption = 'Corona Roll Stop'
           Color = clNone
           DropDownWidth = 16
           DropDownArrowSize = 8
@@ -5004,7 +5005,7 @@ object Form1: TForm1
           StateNormal.FontEx.ShadowOffsetX = 1
           StateNormal.FontEx.ShadowOffsetY = 1
           StateNormal.FontEx.Style = [fsBold]
-          Caption = 'Exhaust Run'
+          Caption = 'Exhaust Start'
           Color = clNone
           DropDownWidth = 16
           DropDownArrowSize = 8
@@ -5098,7 +5099,7 @@ object Form1: TForm1
           StateNormal.FontEx.ShadowOffsetX = 1
           StateNormal.FontEx.ShadowOffsetY = 1
           StateNormal.FontEx.Style = [fsBold]
-          Caption = 'Exhaust Off'
+          Caption = 'Exhaust Stop'
           Color = clNone
           DropDownWidth = 16
           DropDownArrowSize = 8

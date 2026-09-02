@@ -664,6 +664,10 @@ begin
 
   ImageCoatetStation.ImageIndex:=0;
   ImageElectrodeStation.ImageIndex:=0;
+  //MenuICoronaExhaustFanStart.Caption:='---';
+  //MenuICoronaExhaustFanStop.Caption:='---';
+  //MenuTakeoffRollStart.Caption:='---';
+  //MenuTakeoffRollStop.Caption:='---';
 end;
 
 procedure TForm1.CommunicationIsActive;
@@ -749,6 +753,11 @@ begin
   Label47.Transparent:=true;
   Label51.Transparent:=true;
   Label57.Transparent:=true;
+
+  //MenuICoronaExhaustFanStart.Caption:='Start';
+  //MenuICoronaExhaustFanStop.Caption:='Stop';
+  //MenuTakeoffRollStart.Caption:='Start';
+  //MenuTakeoffRollStop.Caption:='Start';
 end;
 
 procedure TForm1.MenuexitClick(Sender: TObject);
