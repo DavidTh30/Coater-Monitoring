@@ -2626,6 +2626,7 @@ object Form1: TForm1
           end>
       end
       object ImageElectrode: TImage
+        Cursor = crHandPoint
         Left = 425
         Height = 45
         Top = 208
@@ -2636,6 +2637,7 @@ object Form1: TForm1
         Stretch = True
       end
       object ImageCartridge: TImage
+        Cursor = crHandPoint
         Left = 420
         Height = 45
         Top = 344
@@ -2645,66 +2647,8 @@ object Form1: TForm1
         PopupMenu = PopupMenuCartridge
         Stretch = True
       end
-      object HMIPolylineElectrode: THMIPolyline
-        Left = 390
-        Height = 72
-        Top = 171
-        Width = 34
-        PointCoordinates = <        
-          item
-            X = 1
-            Y = 8
-          end        
-          item
-            X = 8
-            Y = 20
-          end        
-          item
-            X = 11
-            Y = 28
-          end        
-          item
-            X = 11
-            Y = 35
-          end        
-          item
-            X = 11
-            Y = 41
-          end        
-          item
-            X = 8
-            Y = 48
-          end        
-          item
-            X = 1
-            Y = 55
-          end        
-          item
-            X = 0
-            Y = 61
-          end        
-          item
-            X = 10
-            Y = 68
-          end        
-          item
-            X = 25
-            Y = 60
-          end        
-          item
-            X = 25
-            Y = 8
-          end        
-          item
-            X = 10
-            Y = 0
-          end        
-          item
-            X = 1
-            Y = 8
-          end>
-      end
       object TakeOffRoll: TShape
+        Cursor = crHandPoint
         Left = 256
         Height = 60
         Top = 384
@@ -2714,6 +2658,7 @@ object Form1: TForm1
         Shape = stCircle
       end
       object GravureRoll: TShape
+        Cursor = crHandPoint
         Left = 325
         Height = 68
         Top = 312
@@ -2795,14 +2740,23 @@ object Form1: TForm1
         Font.Style = [fsBold]
         ParentFont = False
       end
-      object Electrode02: TShape
-        Left = 400
+      object ImageElectrodeStation: TImage
+        Cursor = crHandPoint
+        Left = 390
+        Height = 72
+        Top = 171
+        Width = 34
+        Images = ImageList3
+        PopupMenu = PopupMenuElectrode
+      end
+      object Electrode01: TShape
+        Left = 395
         Height = 39
         Top = 188
         Width = 4
       end
-      object Electrode01: TShape
-        Left = 395
+      object Electrode02: TShape
+        Left = 400
         Height = 39
         Top = 188
         Width = 4
@@ -2862,73 +2816,6 @@ object Form1: TForm1
         Prefix = 'Corona Speed: '
         Sufix = ' m/min'
         FormatDateTimeOptions = []
-      end
-      object HMIPolylineCoatetStation: THMIPolyline
-        Left = 386
-        Height = 72
-        Top = 312
-        Width = 34
-        PointCoordinates = <        
-          item
-            X = 1
-            Y = 8
-          end        
-          item
-            X = 8
-            Y = 20
-          end        
-          item
-            X = 11
-            Y = 28
-          end        
-          item
-            X = 11
-            Y = 35
-          end        
-          item
-            X = 11
-            Y = 41
-          end        
-          item
-            X = 8
-            Y = 48
-          end        
-          item
-            X = 1
-            Y = 55
-          end        
-          item
-            X = 0
-            Y = 61
-          end        
-          item
-            X = 10
-            Y = 68
-          end        
-          item
-            X = 25
-            Y = 60
-          end        
-          item
-            X = 25
-            Y = 8
-          end        
-          item
-            X = 10
-            Y = 0
-          end        
-          item
-            X = 1
-            Y = 8
-          end>
-      end
-      object Image2: TImage
-        Cursor = crHandPoint
-        Left = 390
-        Height = 72
-        Top = 171
-        Width = 34
-        PopupMenu = PopupMenuElectrode
       end
       object ImageFlow1: TImage
         Left = 648
@@ -3012,7 +2899,7 @@ object Form1: TForm1
         Font.Color = clWindowText
         ParentFont = False
         TabStop = False
-        TabOrder = 8
+        TabOrder = 6
         NumberFormat = '#0.0'
         EnableMinValue = False
         EnableMaxValue = False
@@ -3055,7 +2942,7 @@ object Form1: TForm1
         Font.Color = clWindowText
         ParentFont = False
         TabStop = False
-        TabOrder = 9
+        TabOrder = 7
         NumberFormat = '#0.0'
         EnableMinValue = False
         EnableMaxValue = False
@@ -3144,7 +3031,7 @@ object Form1: TForm1
         Font.Color = clWindowText
         ParentFont = False
         TabStop = False
-        TabOrder = 10
+        TabOrder = 8
         NumberFormat = '#0.0'
         EnableMinValue = True
         EnableMaxValue = True
@@ -3194,6 +3081,7 @@ object Form1: TForm1
         Style = bsRaised
       end
       object Image1: TImage
+        Cursor = crHandPoint
         Left = 720
         Height = 61
         Top = 444
@@ -3206,6 +3094,7 @@ object Form1: TForm1
         OnMouseUp = Image1MouseUp
       end
       object ElectrodeValve: TImage
+        Cursor = crHandPoint
         Left = 440
         Height = 19
         Top = 240
@@ -3219,6 +3108,7 @@ object Form1: TForm1
         Transparent = True
       end
       object CartridgeValve: TImage
+        Cursor = crHandPoint
         Left = 440
         Height = 19
         Top = 376
@@ -3241,6 +3131,16 @@ object Form1: TForm1
         ImageIndex = 14
         Images = ImageList2
         Stretch = True
+      end
+      object ImageCoatetStation: TImage
+        Cursor = crHandPoint
+        Left = 386
+        Height = 70
+        Top = 311
+        Width = 27
+        AutoSize = True
+        Images = ImageList3
+        PopupMenu = PopupMenuCartridge
       end
     end
     object TabSheet2: TTabSheet
@@ -5527,7 +5427,7 @@ object Form1: TForm1
       ClientHeight = 524
       ClientWidth = 813
       object LineSpeedUpper_Set: THMIEdit
-        Left = 136
+        Left = 176
         Height = 23
         Top = 32
         Width = 89
@@ -5545,12 +5445,12 @@ object Form1: TForm1
         AnchorSideTop.Control = LineSpeedUpper_Set
         AnchorSideTop.Side = asrCenter
         AnchorSideRight.Control = LineSpeedUpper_Set
-        Left = 18
+        Left = 25
         Height = 15
         Top = 36
-        Width = 118
+        Width = 151
         Anchors = [akTop, akRight]
-        Caption = 'LineSpeedDetectStart: '
+        Caption = 'Line Speed Upper #1 Detect: '
       end
       object BypassFilmbrake_Set: THMICheckBox
         Left = 21
@@ -8353,5 +8253,39 @@ object Form1: TForm1
       Caption = 'Cartridge Valve Interlock'
       OnClick = MenuItemCartridgeValveInterlockClick
     end
+  end
+  object ImageList3: TImageList
+    Height = 70
+    Width = 27
+    Left = 440
+    Top = 3
+    Bitmap = {
+      4C7A030000001B00000046000000280300000000000078DAED99BF8AC2401087
+      2388A088A29D854DC0422C542CB5D2F62A7D0545B0F6C5EE197CB01CB3B8615D
+      FC93C4CC1772ECC0A09CB97CD94974677EBF28CA16D3E934994C2649A41CAD56
+      4B1869AE56ABD2999BCDC69CBBD1682497CB25B9DD6EC968344A99DBEDB61466
+      AFD733E793730BC3CFC160905EC7E17028C4DCEFF7E975CBFB671C9BD7EB3569
+      B7DBE6D866B3991C8FC7CC4C5B1F59D33B869FC21096FC6FA7D331D7F08A21F7
+      426A21C7CA3DCAC371536A69CF73AFF1432C160BF3993C6B45197EDE9F99F47E
+      5BD67038347F2B8BE3E6FDBB6172B95C26EBF55A8D65D3F24EA713C6BA97D230
+      2996D49262F5FB7D84359FCFCDFBD96C46AC2B128E16CF6769F29EB1B478AF58
+      1ABC77ACB2799F582E4F9E536D96C4783CFEFA372C2BCB7ED7659F2058DD6ED7
+      EC8104EB7C3E9B63E515A86124EB92F511ACDD6E57F819C9CBB2CF481CC718AB
+      C8DA022BB0022BB002AB3E2C624F21F74AAA07207B1BB267A37A51AAC7A66607
+      6A26A2663D6A86A566734A7380B5144C23A2B52F42D323B54A528325B5655233
+      27BD00DAE3A8C2BBA13DA92ABC36DA43ACC21BFDEF3EAC84B60FFB2C347CD877
+      51960F9B27BEF1618B461E1FB6ACF8E4C36AC42B1F5633FCDE8660B93D1BC592
+      5A522CE9B109963B3B00EB7A9889B4599ABC2C33AC364B83974773D066F95A8A
+      36CBD5880896AB7D112CABE9112C57AB046A986AB004CB6ACB04CBD5CC295691
+      B505566005566005567D58C49E42EE95540F40F63664CF46F5A2548F4DCD0ED4
+      4C44CD7AD40C4BCDE694E6006B299846446B5F84A6476A95A4064B6ACBA4664E
+      7A01B4C7518577437B5255786DC187ADBF0FFBF31BABFBB0C2F053C3877DC6B1
+      59960FFB8EE1E7373E6C1E8E9B797CD8A20C3F3FF9B06571DC7CE5C36AB06CFA
+      BD0DC1727B368A25B5A458D263132C777600D6F5301369B334795966586D9606
+      2F8FE6A0CDF2B5146D96AB11112C57FB225856D32358AE5609D430D5600996D5
+      960996AB9953AC226B0BACC00AACC00AACFAB0883D85DC2BA91E80EC6DC89E8D
+      EA45A91E9B9A1DA899889AF5A819969ACD29CD01D652308D88D6BE084D8FD42A
+      490D96D49649CD9CF402688FA30AEF86F6A4AAF0DAEAEEC3FE01285F03BA
+    }
   end
 end

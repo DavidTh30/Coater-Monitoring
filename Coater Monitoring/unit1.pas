@@ -67,8 +67,10 @@ type
     Image1: TImage;
     ElectrodeValve: TImage;
     CartridgeValve: TImage;
+    ImageCoatetStation: TImage;
     ImageElectrode: TImage;
     ImageCartridge: TImage;
+    ImageList3: TImageList;
     Label29: TLabel;
     Label30: TLabel;
     Label33: TLabel;
@@ -105,13 +107,11 @@ type
     BypassFilmbrake_Set: THMICheckBox;
     GroupBox8: TGroupBox;
     FilmCoater: THMIPolyline;
-    HMIPolylineElectrode: THMIPolyline;
-    HMIPolylineCoatetStation: THMIPolyline;
     HMIPolyline2: THMIPolyline;
     HMIPolyline3: THMIPolyline;
     HMIPolyline5: THMIPolyline;
     ImageCoronaExhaustFan: TImage;
-    Image2: TImage;
+    ImageElectrodeStation: TImage;
     ImageFlow1: TImage;
     ImageFlow2: TImage;
     ImageList1: TImageList;
@@ -303,7 +303,9 @@ type
   public
     procedure CommunicationNotActive;
     procedure CommunicationIsActive;
-    procedure ValueChange(Sender: TObject);
+    procedure MemoryValueChange(Sender: TObject);
+    procedure InputValueChange(Sender: TObject);
+    procedure OutputValueChange(Sender: TObject);
   end;
 
 var
@@ -335,7 +337,7 @@ begin
 
 end;
 
-procedure TForm1.ValueChange(Sender: TObject);
+procedure TForm1.MemoryValueChange(Sender: TObject);
 var
   s:string;
   Main_:integer;
@@ -371,6 +373,70 @@ begin
   //M_[StrToInt(s)]:=Round(TTagBit(Sender).Value).ToBoolean;
   //M_[StrToInt(s)]:=(TTagBit(Sender).Value > 0.5);
   //showmessage(M_[StrToInt(s)].ToInteger.ToString);
+end;
+
+procedure TForm1.InputValueChange(Sender: TObject);
+var
+  s:string;
+  Main_:integer;
+  Sub_:integer;
+begin
+  //showmessage(TTagBit(Sender).Name);
+  s:=TTagBit(Sender).Name;
+  Sub_:= StrToInt(RightStr(s,2));
+  s:=RightStr(s,length(s)-1);
+  s:=LeftStr(s,length(s)-2);
+  Main_:=StrToInt(s);
+  //showmessage(Main_.ToString + ' ' + Sub_.ToString);
+  if Sub_ = 0 then I_[Main_]._0:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 1 then I_[Main_]._1:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 2 then I_[Main_]._2:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 3 then I_[Main_]._3:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 4 then I_[Main_]._4:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 5 then I_[Main_]._5:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 6 then I_[Main_]._6:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 7 then I_[Main_]._7:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 8 then I_[Main_]._8:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 9 then I_[Main_]._9:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 10 then I_[Main_]._10:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 11 then I_[Main_]._11:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 12 then I_[Main_]._12:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 13 then I_[Main_]._13:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 14 then I_[Main_]._14:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 15 then I_[Main_]._15:=(TTagBit(Sender).Value > 0.5);
+  //showmessage(M[StrToInt(s)].ToInteger.ToString);
+end;
+
+procedure TForm1.OutputValueChange(Sender: TObject);
+var
+  s:string;
+  Main_:integer;
+  Sub_:integer;
+begin
+  //showmessage(TTagBit(Sender).Name);
+  s:=TTagBit(Sender).Name;
+  Sub_:= StrToInt(RightStr(s,2));
+  s:=RightStr(s,length(s)-1);
+  s:=LeftStr(s,length(s)-2);
+  Main_:=StrToInt(s);
+  //showmessage(Main_.ToString + ' ' + Sub_.ToString);
+  if Sub_ = 0 then Q[Main_]._0:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 1 then Q[Main_]._1:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 2 then Q[Main_]._2:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 3 then Q[Main_]._3:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 4 then Q[Main_]._4:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 5 then Q[Main_]._5:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 6 then Q[Main_]._6:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 7 then Q[Main_]._7:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 8 then Q[Main_]._8:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 9 then Q[Main_]._9:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 10 then Q[Main_]._10:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 11 then Q[Main_]._11:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 12 then Q[Main_]._12:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 13 then Q[Main_]._13:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 14 then Q[Main_]._14:=(TTagBit(Sender).Value > 0.5);
+  if Sub_ = 15 then Q[Main_]._15:=(TTagBit(Sender).Value > 0.5);
+  //showmessage(M[StrToInt(s)].ToInteger.ToString);
 end;
 
 function IsAppAlreadyRunning(const AppID: string): Boolean;
@@ -595,6 +661,8 @@ begin
 
   CartridgeValve.ImageIndex:=24;
   ElectrodeValve.ImageIndex:=24;
+
+  ImageCoatetStation.ImageIndex:=0;
 end;
 
 procedure TForm1.CommunicationIsActive;
@@ -824,12 +892,12 @@ begin
     OldClock_Bool:=not OldClock_Bool;
     Communication_Active:=true;
 
-    if Q0_1.Value > 0 then
+    if Q[0]._1 then
     begin Label51.Caption:='Exhaust: Run'; end
     else
     begin Label51.Caption:='Exhaust: Off'; end;
 
-    if Q0_1.Value > 0 then
+    if Q[0]._1 then
     begin ImageCoronaExhaustFan.ImageIndex:=12;
           ImageFlow1.Top:=96; ImageFlow1.Height:=71;
           ImageFlow2.Left:=552; ImageFlow2.Width:=100;
@@ -840,38 +908,39 @@ begin
            ImageFlow2.Left:=608; ImageFlow2.Width:=44;
     end;
 
-    if Q0_2.Value > 0 then  //Cartridge
+    if Q[0]._2 then  //Cartridge
     begin
       ImageCartridge.ImageIndex:=19;
       ImageCartridge.Left:=410;
-      HMIPolylineCoatetStation.Left:=376;
+      ImageCoatetStation.Left:=376;
       GravureRoll.Left:=315;
       Label7.Left:=411;
       Label33.Caption:='Cartridge: In position';
       Label35.Left:=413;
       CartridgeValve.Left:=430;
       CartridgeValve.ImageIndex:=23;
+      ImageCoatetStation.ImageIndex:=2;
     end
     else
     begin
       ImageCartridge.ImageIndex:=20;
       ImageCartridge.Left:=420;
-      HMIPolylineCoatetStation.Left:=386;
+      ImageCoatetStation.Left:=386;
       GravureRoll.Left:=325;
       Label7.Left:=421;
       Label33.Caption:='Cartridge: Out position';
       Label35.Left:=423;
       CartridgeValve.Left:=440;
       CartridgeValve.ImageIndex:=22;
+      ImageCoatetStation.ImageIndex:=1;
     end;
 
-    if Q0_3.Value > 0 then   //Electrode
+    if Q[0]._3 then   //Electrode
     begin
       Label28.Caption:='Electrode: In';
       ImageElectrode.ImageIndex:=19;
       ImageElectrode.Left:=425;
-      Image2.Left:=390;
-      HMIPolylineElectrode.Left:=390;
+      ImageElectrodeStation.Left:=390;
       Label5.Left:=426;
       Electrode01.Left:=395;
       Electrode02.Left:=400;
@@ -883,8 +952,7 @@ begin
       Label28.Caption:='Electrode: Out';
       ImageElectrode.ImageIndex:=20;
       ImageElectrode.Left:=435;
-      Image2.Left:=400;
-      HMIPolylineElectrode.Left:=400;
+      ImageElectrodeStation.Left:=400;
       Label5.Left:=436;
       Electrode01.Left:=405;
       Electrode02.Left:=410;
@@ -892,25 +960,25 @@ begin
       ElectrodeValve.ImageIndex:=22;
     end;
 
-    if Q0_5.Value > 0 then
+    if Q[0]._5 then
     begin Label57.Caption:='Generator: On'; end
     else
     begin Label57.Caption:='Generator: Off'; end;
 
-    if Q201_0.Value > 0 then begin end
+    if Q[201]._0 then begin end
     else begin end;
 
-    if Q209_0.Value > 0 then
+    if Q[209]._0 then
     begin Label45.Caption:='Corona Roll: Run'; CoronaRoll.Brush.Color:=clLime; end
     else
     begin Label45.Caption:='Corona Roll: Off'; CoronaRoll.Brush.Color:=clSkyBlue; end;
 
-    if Q213_0.Value > 0 then
+    if Q[213]._0 then
     begin Label46.Caption:='Gravure roll: Run'; GravureRoll.Brush.Color:=clLime; end
     else
     begin Label46.Caption:='Gravure roll: Off'; GravureRoll.Brush.Color:=clSilver; end;
 
-    if Q217_0.Value > 0 then
+    if Q[217]._0 then
     begin Label47.Caption:='Takeoff roll: Run'; TakeOffRoll.Brush.Color:=clLime; end
     else
     begin Label47.Caption:='Takeoff roll: Off'; TakeOffRoll.Brush.Color:=clCream; end;
@@ -930,17 +998,17 @@ begin
     else
     begin end;
 
-    if M0_6.Value > 0 then begin end
+    if M[0]._6 then begin end
     else begin end;
-    if M0_7.Value > 0 then begin end
-    else begin end;
-
-    if M2_0.Value > 0 then begin end
-    else begin end;
-    if M2_1.Value > 0 then begin end
+    if M[0]._7 then begin end
     else begin end;
 
-    if M17_0.Value > 0 then begin end
+    if M[2]._0 then begin end
+    else begin end;
+    if M[2]._1 then begin end
+    else begin end;
+
+    if M[17]._0 then begin end
     else begin end;
 
     if ProductionView then
@@ -948,18 +1016,18 @@ begin
     else
       begin end;
 
-    if M20_0.Value > 0 then begin Label34.Caption:='Gravure: Auto'; Label35.Caption:='Gravure: Auto'; end;
-    if M20_1.Value > 0 then begin Label34.Caption:='Gravure: Manual'; Label35.Caption:='Gravure: Manual'; end;
-    if (M20_0.Value < 1) and (M20_1.Value < 1) then begin Label34.Caption:='Gravure: '; Label35.Caption:='Gravure: '; end;
+    if M[20]._0 then begin Label34.Caption:='Gravure: Auto'; Label35.Caption:='Gravure: Auto'; end;
+    if M[20]._1 then begin Label34.Caption:='Gravure: Manual'; Label35.Caption:='Gravure: Manual'; end;
+    if (not M[20]._0) and (not M[20]._1) then begin Label34.Caption:='Gravure: '; Label35.Caption:='Gravure: '; end;
 
-    if M22_0.Value > 0 then begin end
+    if M[22]._0 then begin end
     else begin end;
-    if M22_1.Value < 1 then begin end
+    if not M[22]._1 then begin end
     else begin end;
 
-    if M30_1.Value > 0 then begin end
+    if M[30]._1 then begin end
     else begin end;
-    if M30_0.Value > 0 then
+    if M[30]._0 then
     begin end
     else
     begin end;
@@ -1068,12 +1136,12 @@ end;
 procedure TForm1.CmdCartridgeInMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  M2_2.Value:=1;
+  SetTag('M202',1); //M2_2.Value:=1;
 end;
 
 procedure TForm1.CmdCartridgeInClick(Sender: TObject);
 begin
-  M2_2.Value:=0;
+  SetTag('M202',0); //M2_2.Value:=0;
 end;
 
 procedure TForm1.CmdakeOffRollOffClick(Sender: TObject);
@@ -1122,25 +1190,25 @@ end;
 procedure TForm1.CmdCartridgeInMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  M2_2.Value:=0;
+  SetTag('M202',0); //M2_2.Value:=0;
 end;
 
 procedure TForm1.CmdCartridgeOutClick(Sender: TObject);
 begin
-  M2_2.Value:=0;  // Cartridge In HMI
-  M2_3.Value:=0;  // Cartridge Out HMI
+  SetTag('M202',0); //M2_2.Value:=0;  // Cartridge In HMI
+  SetTag('M203',0); //M2_3.Value:=0;  // Cartridge Out HMI
 end;
 
 procedure TForm1.CmdCartridgeOutMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  M2_3.Value:=1;
+  SetTag('M203',1); //M2_3.Value:=1;
 end;
 
 procedure TForm1.CmdCartridgeOutMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  M2_3.Value:=0;
+  SetTag('M203',0); //M2_3.Value:=0;
 end;
 
 procedure TForm1.CmdCoronaRollRunMouseUp(Sender: TObject; Button: TMouseButton;
@@ -1164,118 +1232,118 @@ end;
 
 procedure TForm1.CmdExhaustRunClick(Sender: TObject);
 begin
-  M22_0.Value:=0;
+  SetTag('M2200',0); //M22_0.Value:=0;
 end;
 
 procedure TForm1.CmdExhaustRunMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  M22_0.Value:=1;
+  SetTag('M2200',1); //M22_0.Value:=1;
 end;
 
 procedure TForm1.CmdExhaustRunMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  M22_0.Value:=0;
+  SetTag('M2200',0); //M22_0.Value:=0;
 end;
 
 procedure TForm1.CmdElectrodeInClick(Sender: TObject);
 begin
-  M2_0.Value:=0;
+  SetTag('M200',0); //M2_0.Value:=0;
 end;
 
 procedure TForm1.CmdExhaustOffClick(Sender: TObject);
 begin
-  M22_0.Value:=0;
-  M22_1.Value:=0;
+  SetTag('M2200',0); //M22_0.Value:=0;
+  SetTag('M2201',0); //M22_1.Value:=0;
 end;
 
 procedure TForm1.CmdExhaustOffMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  M22_0.Value:=0;
-  M22_1.Value:=1;
+  SetTag('M2200',0); //M22_0.Value:=0;
+  SetTag('M2201',1); //M22_1.Value:=1;
 end;
 
 procedure TForm1.CmdExhaustOffMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  M22_1.Value:=0;
+  SetTag('M2201',0); //M22_1.Value:=0;
 end;
 
 procedure TForm1.CmdElectrodeOutClick(Sender: TObject);
 begin
-  M2_0.Value:=0;
-  M2_1.Value:=0;
+  SetTag('M200',0); //M2_0.Value:=0;
+  SetTag('M201',0); //M2_1.Value:=0;
 end;
 
 procedure TForm1.CmdGeneratorOffButtonClick(Sender: TObject);
 begin
-  M0_6.Value:=0;
-  M0_7.Value:=0;
+  SetTag('M006',0); //M0_6.Value:=0;
+  SetTag('M007',0); //M0_7.Value:=0;
 end;
 
 procedure TForm1.CmdGeneratorOffMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  M0_7.Value:=1;
+  SetTag('M007',1); //M0_7.Value:=1;
 end;
 
 procedure TForm1.CmdGeneratorOffMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  M0_7.Value:=0;
+  SetTag('M007',0); //M0_7.Value:=0;
 end;
 
 procedure TForm1.CmdGeneratorOnClick(Sender: TObject);
 begin
-  M0_6.Value:=0;
+  SetTag('M006',0); //M0_6.Value:=0;
 end;
 
 procedure TForm1.CmdGeneratorOnMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  M0_6.Value:=1;
+  SetTag('M006',1); //M0_6.Value:=1;
 end;
 
 procedure TForm1.CmdGeneratorOnMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  M0_6.Value:=0;
+  SetTag('M006',0); //M0_6.Value:=0;
 end;
 
 procedure TForm1.CmdGravureAutoClick(Sender: TObject);
 begin
-  M1_3.Value:=0;
+  SetTag('M103',0); //M1_3.Value:=0;
 end;
 
 procedure TForm1.CmdGravureAutoMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  M1_3.Value:=1;
+  SetTag('M103',1); //M1_3.Value:=1;
 end;
 
 procedure TForm1.CmdGravureAutoMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  M1_3.Value:=0;
+  SetTag('M103',0); //M1_3.Value:=0;
 end;
 
 procedure TForm1.CmdGravureManualClick(Sender: TObject);
 begin
-  M1_4.Value:=0;
+  SetTag('M104',0); //M1_4.Value:=0;
 end;
 
 procedure TForm1.CmdGravureManualMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  M1_4.Value:=1;
+  SetTag('M104',1); //M1_4.Value:=1;
 end;
 
 procedure TForm1.CmdGravureManualMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  M1_4.Value:=0;
+  SetTag('M104',0); //M1_4.Value:=0;
 end;
 
 procedure TForm1.CmdGravureRollOffClick(Sender: TObject);
@@ -1321,26 +1389,26 @@ end;
 procedure TForm1.CmdElectrodeInMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  M2_0.Value:=1;
+  SetTag('M200',1); //M2_0.Value:=1;
 end;
 
 procedure TForm1.CmdElectrodeInMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  M2_0.Value:=0;
+  SetTag('M200',0); //M2_0.Value:=0;
 end;
 
 procedure TForm1.CmdElectrodeOutMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  M2_0.Value:=0;
-  M2_1.Value:=1;
+  SetTag('M200',0); //M2_0.Value:=0;
+  SetTag('M201',1); //M2_1.Value:=1;
 end;
 
 procedure TForm1.CmdElectrodeOutMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  M2_1.Value:=0;
+  SetTag('M201',0); //M2_1.Value:=0;
 end;
 
 procedure TForm1.CmdTakeOffRollRunClick(Sender: TObject);
@@ -1384,13 +1452,13 @@ procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   //Terminate object
 
-  FreeAndNil_MB0();
-  FreeAndNil_MB1();
-  FreeAndNil_MB2();
-  FreeAndNil_MB17();
-  FreeAndNil_MB20();
-  FreeAndNil_MB22();
-  FreeAndNil_MB30();
+  //FreeAndNil_MB0();
+  //FreeAndNil_MB1();
+  //FreeAndNil_MB2();
+  //FreeAndNil_MB17();
+  //FreeAndNil_MB20();
+  //FreeAndNil_MB22();
+  //FreeAndNil_MB30();
   //FreeAndNil_MB31();
   //FreeAndNil_MB32();
   //FreeAndNil_MB33();
@@ -1402,11 +1470,11 @@ begin
   //AutoNilMemoryTag(7,98);
   //AutoNilMemoryTag(7,101);
   //AutoNilMemoryTag(7,120);
-  FreeAndNil_QB0();
-  FreeAndNil_QB201();
-  FreeAndNil_QB209();
-  FreeAndNil_QB213();
-  FreeAndNil_QB217();
+  //FreeAndNil_QB0();
+  //FreeAndNil_QB201();
+  //FreeAndNil_QB209();
+  //FreeAndNil_QB213();
+  //FreeAndNil_QB217();
   //FreeAndNil_IB0();
   //FreeAndNil_IB201();
   //FreeAndNil_IB209();
@@ -1440,6 +1508,8 @@ begin
   ImageCoronaExhaustFan.PopupMenu := PopupMenuCoronaExhaustFan;
   GravureRoll.PopupMenu := PopupMenuGravureRoll;
   TakeOffRoll.PopupMenu := PopupMenuTakeoffRoll;
+  Electrode01.PopupMenu:=PopupMenuElectrode;
+  Electrode02.PopupMenu:=PopupMenuElectrode;
   ProductionView:=true;
   DebugIsActive:=false;
   {$IFOPT D+}

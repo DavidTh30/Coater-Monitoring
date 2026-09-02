@@ -54,10 +54,10 @@ procedure AutoCreateMemoryTag(maxbit:integer;Address_:integer; TPLCBlock_:TPLCBl
 procedure AutoNilMemoryTag(maxbit:integer; Address_:integer); // Auto Nil
 procedure AutoCreateInputTag(maxbit:integer; Address_:integer; TPLCBlock_:TPLCBlockElement ); // Auto creat tag
 procedure AutoNilInputTag(maxbit:integer; Address_:integer); // Auto Nil
+procedure AutoCreateOutputTag(maxbit:integer; Address_:integer; TPLCBlock_:TPLCBlockElement ); // Auto creat tag
+procedure AutoNilOutputTag(maxbit:integer; Address_:integer); // Auto Nil
 Function FindTTagBit(Name_:string) : TTagBit; // Return TTagBit
 procedure SetTag(Name_:string; Set_:double); // Give value to PLC tag
-
-function CalculateTotal(A, B: Integer): Integer;
 
 procedure CreateTag_MB0();
 procedure CreateTag_MB1();
@@ -126,86 +126,31 @@ procedure FreeAndNil_DBD();
 
 var
   M : array [0..120] of Tag_;
-  I_ : array [0..221] of Tag_;
+  I_: array [0..221] of Tag_;
+  Q : array [0..217] of Tag_;
   LiveCounter_:integer;
   Communication_Active:boolean;
   ProductionView:boolean;
-  MB0_: TPLCBlock;
+  MB0_: TPLCBlock;  // Generator On/Off HMI
   MB0: TPLCBlockElement;
-  M0_0: TTagBit;
-  M0_1: TTagBit;
-  M0_2: TTagBit;
-  M0_3: TTagBit;
-  M0_4: TTagBit;
-  M0_5: TTagBit;
-  M0_6: TTagBit;  // Generator On HMI
-  M0_7: TTagBit;  // Generator Off HMI
 
-  MB1_: TPLCBlock;
+  MB1_: TPLCBlock;  // Gravure Auto/Manual HMI
   MB1: TPLCBlockElement;
-  M1_0: TTagBit;
-  M1_1: TTagBit;
-  M1_2: TTagBit;
-  M1_3: TTagBit;  // Gravure Auto HMI
-  M1_4: TTagBit;  // Gravure Manual HMI
-  M1_5: TTagBit;
-  M1_6: TTagBit;
-  M1_7: TTagBit;
 
-  MB2_: TPLCBlock;
+  MB2_: TPLCBlock;  // Cartridge In/Out HMI
   MB2: TPLCBlockElement;
-  M2_0: TTagBit;
-  M2_1: TTagBit;
-  M2_2: TTagBit;  // Cartridge In HMI
-  M2_3: TTagBit;  // Cartridge Out HMI
-  M2_4: TTagBit;
-  M2_5: TTagBit;
-  M2_6: TTagBit;
-  M2_7: TTagBit;
 
-  MB17_: TPLCBlock;
+  MB17_: TPLCBlock;  //Speed upper #1,2
   MB17: TPLCBlockElement;
-  M17_0: TTagBit;
-  M17_1: TTagBit;
-  M17_2: TTagBit;
-  M17_3: TTagBit;
-  M17_4: TTagBit;
-  M17_5: TTagBit;
-  M17_6: TTagBit;
-  M17_7: TTagBit;
 
-  MB20_: TPLCBlock;
+  MB20_: TPLCBlock;  // Gravure Auto/Manual
   MB20: TPLCBlockElement;
-  M20_0: TTagBit;  // Gravure Auto Cmd
-  M20_1: TTagBit;  // Gravure Manual Cmd
-  M20_2: TTagBit;
-  M20_3: TTagBit;
-  M20_4: TTagBit;
-  M20_5: TTagBit;
-  M20_6: TTagBit;
-  M20_7: TTagBit;
 
-  MB22_: TPLCBlock;
+  MB22_: TPLCBlock; // Exhaust fan corona HMI
   MB22: TPLCBlockElement;
-  M22_0: TTagBit;  // Exhaust fan corona on HMI
-  M22_1: TTagBit;  // Exhaust fan corona off HMI
-  M22_2: TTagBit;
-  M22_3: TTagBit;
-  M22_4: TTagBit;
-  M22_5: TTagBit;
-  M22_6: TTagBit;
-  M22_7: TTagBit;
 
   MB30_: TPLCBlock;  //Coating/Bypass Mode Status
   MB30: TPLCBlockElement;
-  M30_0: TTagBit;  //CoatingMode Status
-  M30_1: TTagBit;  //BypassMode Status
-  M30_2: TTagBit;
-  M30_3: TTagBit;
-  M30_4: TTagBit;
-  M30_5: TTagBit;
-  M30_6: TTagBit;
-  M30_7: TTagBit;
 
   MB31_: TPLCBlock;  // System Status
   MB31: TPLCBlockElement;
@@ -234,7 +179,7 @@ var
   IB0_: TPLCBlock;
   IB0: TPLCBlockElement;  //0..7
 
-  IB201_: TPLCBlock;  // Drive Infeed
+  IB201_: TPLCBlock;  // Infeed unit
   IB201: TPLCBlockElement;
 
   IB209_: TPLCBlock;  // Drive Corona Roll
@@ -251,58 +196,18 @@ var
 
   QB0_: TPLCBlock;
   QB0: TPLCBlockElement;
-  Q0_0: TTagBit;
-  Q0_1: TTagBit;  // Exhaust fan corona run
-  Q0_2: TTagBit;  // Cartridge In
-  Q0_3: TTagBit;  // Electrode In
-  Q0_4: TTagBit;  // Generator Off Status
-  Q0_5: TTagBit;  // Generator On Status
-  Q0_6: TTagBit;
-  Q0_7: TTagBit;
 
-  QB201_: TPLCBlock;
+  QB201_: TPLCBlock;  // Infeed unit
   QB201: TPLCBlockElement;
-  Q201_0: TTagBit;  // Infeed On
-  Q201_1: TTagBit;
-  Q201_2: TTagBit;
-  Q201_3: TTagBit;
-  Q201_4: TTagBit;
-  Q201_5: TTagBit;
-  Q201_6: TTagBit;
-  Q201_7: TTagBit;
 
-  QB209_: TPLCBlock;
+  QB209_: TPLCBlock; // Drive Corona Roll
   QB209: TPLCBlockElement;
-  Q209_0: TTagBit;  // Corona Roll Run
-  Q209_1: TTagBit;
-  Q209_2: TTagBit;
-  Q209_3: TTagBit;
-  Q209_4: TTagBit;
-  Q209_5: TTagBit;
-  Q209_6: TTagBit;
-  Q209_7: TTagBit;
 
-  QB213_: TPLCBlock;
+  QB213_: TPLCBlock; // Drive Gravure roll
   QB213: TPLCBlockElement;
-  Q213_0: TTagBit;  // Gravure roll run
-  Q213_1: TTagBit;
-  Q213_2: TTagBit;
-  Q213_3: TTagBit;
-  Q213_4: TTagBit;
-  Q213_5: TTagBit;
-  Q213_6: TTagBit;
-  Q213_7: TTagBit;
 
-  QB217_: TPLCBlock;
+  QB217_: TPLCBlock; // Drive Takeoff roll
   QB217: TPLCBlockElement;
-  Q217_0: TTagBit;  // Takeoff roll run
-  Q217_1: TTagBit;
-  Q217_2: TTagBit;
-  Q217_3: TTagBit;
-  Q217_4: TTagBit;
-  Q217_5: TTagBit;
-  Q217_6: TTagBit;
-  Q217_7: TTagBit;
 
   DB9_DBD32_: TPLCBlock;        //CoronaSpeed_Act
   DB9_DBD32: TPLCBlockElement;  //CoronaSpeed_Act
@@ -335,11 +240,6 @@ implementation
 
 uses Unit1;
 
-function CalculateTotal(A, B: Integer): Integer;
-begin
-  Result := A + B;
-end;
-
 procedure AutoCreateMemoryTag(maxbit:integer; Address_:integer; TPLCBlock_:TPLCBlockElement ); // Auto creat tag
 var
   i:integer;
@@ -352,7 +252,7 @@ begin
     Tempo.EndBit:=i;
     Tempo.PLCTag:=TPLCBlock_;
     Tempo.Name:='M'+Address_.ToString+Format('%.2d',[i]);
-    Tempo.OnValueChange:=@Unit1.Form1.ValueChange;
+    Tempo.OnValueChange:=@Unit1.Form1.MemoryValueChange;
   end;
 end;
 
@@ -386,7 +286,7 @@ begin
     Tempo.EndBit:=i;
     Tempo.PLCTag:=TPLCBlock_;
     Tempo.Name:='I'+Address_.ToString+Format('%.2d',[i]);
-    Tempo.OnValueChange:=@Unit1.Form1.ValueChange;
+    Tempo.OnValueChange:=@Unit1.Form1.InputValueChange;
   end;
 end;
 
@@ -400,6 +300,40 @@ begin
   for i:= 0 to maxbit do
   begin
     MyControl:=Unit1.Form1.FindComponent('I'+Address_.ToString+Format('%.2d',[i]));
+    if MyControl <> nil then
+    begin
+      //showmessage(TTagBit(MyControl).Name);
+      FreeAndNil(MyControl);
+    end;
+  end;
+end;
+
+procedure AutoCreateOutputTag(maxbit:integer; Address_:integer; TPLCBlock_:TPLCBlockElement ); // Auto creat tag
+var
+  i:integer;
+  Tempo: TTagBit;
+begin
+  for i:= 0 to maxbit do
+  begin
+    Tempo:= TTagBit.Create(Unit1.Form1);
+    Tempo.StartBit:=i;
+    Tempo.EndBit:=i;
+    Tempo.PLCTag:=TPLCBlock_;
+    Tempo.Name:='Q'+Address_.ToString+Format('%.2d',[i]);
+    Tempo.OnValueChange:=@Unit1.Form1.OutputValueChange;
+  end;
+end;
+
+procedure AutoNilOutputTag(maxbit:integer; Address_:integer); // Auto Nil
+var
+  i:integer;
+  MyControl: TComponent;
+begin
+  // no need to free and nil because create under Unit1.Form1
+  exit;
+  for i:= 0 to maxbit do
+  begin
+    MyControl:=Unit1.Form1.FindComponent('Q'+Address_.ToString+Format('%.2d',[i]));
     if MyControl <> nil then
     begin
       //showmessage(TTagBit(MyControl).Name);
@@ -440,7 +374,7 @@ end;
 
 procedure CreateTag_MB0();
 begin
-  MB0_:= TPLCBlock.Create(nil);
+  MB0_:= TPLCBlock.Create(Unit1.Form1);
   MB0_.PLCRack:=0;
   MB0_.PLCSlot:=0;
   MB0_.PLCStation:=2;
@@ -453,55 +387,19 @@ begin
   MB0_.RefreshTime:=500;
   MB0_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
 
-  MB0:= TPLCBlockElement.Create(nil);
+  MB0:= TPLCBlockElement.Create(Unit1.Form1);
   MB0.Index:=0;
   MB0.PLCBlock:=MB0_;
 
-  M0_0:= TTagBit.Create(nil);
-  M0_1:= TTagBit.Create(nil);
-  M0_2:= TTagBit.Create(nil);
-  M0_3:= TTagBit.Create(nil);
-  M0_4:= TTagBit.Create(nil);
-  M0_5:= TTagBit.Create(nil);
-  M0_6:= TTagBit.Create(nil);
-  M0_7:= TTagBit.Create(nil);
-
-  M0_0.StartBit:=0;
-  M0_0.EndBit:=0;
-  M0_0.PLCTag:=MB0;
-
-  M0_1.StartBit:=1;
-  M0_1.EndBit:=1;
-  M0_1.PLCTag:=MB0;
-
-  M0_2.StartBit:=2;
-  M0_2.EndBit:=2;
-  M0_2.PLCTag:=MB0;
-
-  M0_3.StartBit:=3;
-  M0_3.EndBit:=3;
-  M0_3.PLCTag:=MB0;
-
-  M0_4.StartBit:=4;
-  M0_4.EndBit:=4;
-  M0_4.PLCTag:=MB0;
-
-  M0_5.StartBit:=5;
-  M0_5.EndBit:=5;
-  M0_5.PLCTag:=MB0;
-
-  M0_6.StartBit:=6;
-  M0_6.EndBit:=6;
-  M0_6.PLCTag:=MB0;
-
-  M0_7.StartBit:=7;
-  M0_7.EndBit:=7;
-  M0_7.PLCTag:=MB0;
+  AutoCreateMemoryTag(7,0,MB0);
+  m[0].Name:='MB0 Generator On/Off HMI';
+  m[0].TagName._6:='Generator On HMI';
+  m[0].TagName._7:='Generator Off HMI';
 end;
 
 procedure CreateTag_MB1();
 begin
-  MB1_:= TPLCBlock.Create(nil);
+  MB1_:= TPLCBlock.Create(Unit1.Form1);
   MB1_.PLCRack:=0;
   MB1_.PLCSlot:=0;
   MB1_.PLCStation:=2;
@@ -514,55 +412,19 @@ begin
   MB1_.RefreshTime:=500;
   MB1_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
 
-  MB1:= TPLCBlockElement.Create(nil);
+  MB1:= TPLCBlockElement.Create(Unit1.Form1);
   MB1.Index:=0;
   MB1.PLCBlock:=MB1_;
 
-  M1_0:= TTagBit.Create(nil);
-  M1_1:= TTagBit.Create(nil);
-  M1_2:= TTagBit.Create(nil);
-  M1_3:= TTagBit.Create(nil);
-  M1_4:= TTagBit.Create(nil);
-  M1_5:= TTagBit.Create(nil);
-  M1_6:= TTagBit.Create(nil);
-  M1_7:= TTagBit.Create(nil);
-
-  M1_0.StartBit:=0;
-  M1_0.EndBit:=0;
-  M1_0.PLCTag:=MB1;
-
-  M1_1.StartBit:=1;
-  M1_1.EndBit:=1;
-  M1_1.PLCTag:=MB1;
-
-  M1_2.StartBit:=2;
-  M1_2.EndBit:=2;
-  M1_2.PLCTag:=MB1;
-
-  M1_3.StartBit:=3;
-  M1_3.EndBit:=3;
-  M1_3.PLCTag:=MB1;
-
-  M1_4.StartBit:=4;
-  M1_4.EndBit:=4;
-  M1_4.PLCTag:=MB1;
-
-  M1_5.StartBit:=5;
-  M1_5.EndBit:=5;
-  M1_5.PLCTag:=MB1;
-
-  M1_6.StartBit:=6;
-  M1_6.EndBit:=6;
-  M1_6.PLCTag:=MB1;
-
-  M1_7.StartBit:=7;
-  M1_7.EndBit:=7;
-  M1_7.PLCTag:=MB1;
+  AutoCreateMemoryTag(7,1,MB1);
+  m[1].Name:='MB1 Gravure Auto/Manual HMI ';
+  m[1].TagName._3:='Gravure Auto';
+  m[1].TagName._4:='Gravure Manual';
 end;
 
 procedure CreateTag_MB2();
 begin
-  MB2_:= TPLCBlock.Create(nil);
+  MB2_:= TPLCBlock.Create(Unit1.Form1);
   MB2_.PLCRack:=0;
   MB2_.PLCSlot:=0;
   MB2_.PLCStation:=2;
@@ -575,55 +437,19 @@ begin
   MB2_.RefreshTime:=500;
   MB2_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
 
-  MB2:= TPLCBlockElement.Create(nil);
+  MB2:= TPLCBlockElement.Create(Unit1.Form1);
   MB2.Index:=0;
   MB2.PLCBlock:=MB2_;
 
-  M2_0:= TTagBit.Create(nil);
-  M2_1:= TTagBit.Create(nil);
-  M2_2:= TTagBit.Create(nil);
-  M2_3:= TTagBit.Create(nil);
-  M2_4:= TTagBit.Create(nil);
-  M2_5:= TTagBit.Create(nil);
-  M2_6:= TTagBit.Create(nil);
-  M2_7:= TTagBit.Create(nil);
-
-  M2_0.StartBit:=0;
-  M2_0.EndBit:=0;
-  M2_0.PLCTag:=MB2;
-
-  M2_1.StartBit:=1;
-  M2_1.EndBit:=1;
-  M2_1.PLCTag:=MB2;
-
-  M2_2.StartBit:=2;
-  M2_2.EndBit:=2;
-  M2_2.PLCTag:=MB2;
-
-  M2_3.StartBit:=3;
-  M2_3.EndBit:=3;
-  M2_3.PLCTag:=MB2;
-
-  M2_4.StartBit:=4;
-  M2_4.EndBit:=4;
-  M2_4.PLCTag:=MB2;
-
-  M2_5.StartBit:=5;
-  M2_5.EndBit:=5;
-  M2_5.PLCTag:=MB2;
-
-  M2_6.StartBit:=6;
-  M2_6.EndBit:=6;
-  M2_6.PLCTag:=MB2;
-
-  M2_7.StartBit:=7;
-  M2_7.EndBit:=7;
-  M2_7.PLCTag:=MB2;
+  AutoCreateMemoryTag(7,2,MB2);
+  m[2].Name:='MB2 Cartridge In/Out HMI';
+  m[2].TagName._2:='Cartridge In HMI';
+  m[2].TagName._3:='Cartridge Out HMI';
 end;
 
 procedure CreateTag_MB17();
 begin
-  MB17_:= TPLCBlock.Create(nil);
+  MB17_:= TPLCBlock.Create(Unit1.Form1);
   MB17_.PLCRack:=0;
   MB17_.PLCSlot:=0;
   MB17_.PLCStation:=2;
@@ -636,55 +462,19 @@ begin
   MB17_.RefreshTime:=500;
   MB17_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
 
-  MB17:= TPLCBlockElement.Create(nil);
+  MB17:= TPLCBlockElement.Create(Unit1.Form1);
   MB17.Index:=0;
   MB17.PLCBlock:=MB17_;
 
-  M17_0:= TTagBit.Create(nil);
-  M17_1:= TTagBit.Create(nil);
-  M17_2:= TTagBit.Create(nil);
-  M17_3:= TTagBit.Create(nil);
-  M17_4:= TTagBit.Create(nil);
-  M17_5:= TTagBit.Create(nil);
-  M17_6:= TTagBit.Create(nil);
-  M17_7:= TTagBit.Create(nil);
-
-  M17_0.StartBit:=0;
-  M17_0.EndBit:=0;
-  M17_0.PLCTag:=MB17;
-
-  M17_1.StartBit:=1;
-  M17_1.EndBit:=1;
-  M17_1.PLCTag:=MB17;
-
-  M17_2.StartBit:=2;
-  M17_2.EndBit:=2;
-  M17_2.PLCTag:=MB17;
-
-  M17_3.StartBit:=3;
-  M17_3.EndBit:=3;
-  M17_3.PLCTag:=MB17;
-
-  M17_4.StartBit:=4;
-  M17_4.EndBit:=4;
-  M17_4.PLCTag:=MB17;
-
-  M17_5.StartBit:=5;
-  M17_5.EndBit:=5;
-  M17_5.PLCTag:=MB17;
-
-  M17_6.StartBit:=6;
-  M17_6.EndBit:=6;
-  M17_6.PLCTag:=MB17;
-
-  M17_7.StartBit:=7;
-  M17_7.EndBit:=7;
-  M17_7.PLCTag:=MB17;
+  AutoCreateMemoryTag(7,17,MB17);
+  m[17].Name:='MB17 Speed upper #1,2';
+  m[17].TagName._0:='Speed upper #1';
+  m[17].TagName._1:='Speed upper #2';
 end;
 
 procedure CreateTag_MB20();  //Gravure Auto/Manual Cmd (Read Only)
 begin
-  MB20_:= TPLCBlock.Create(nil);
+  MB20_:= TPLCBlock.Create(Unit1.Form1);
   MB20_.PLCRack:=0;
   MB20_.PLCSlot:=0;
   MB20_.PLCStation:=2;
@@ -697,55 +487,19 @@ begin
   MB20_.RefreshTime:=500;
   MB20_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
 
-  MB20:= TPLCBlockElement.Create(nil);
+  MB20:= TPLCBlockElement.Create(Unit1.Form1);
   MB20.Index:=0;
   MB20.PLCBlock:=MB20_;
 
-  M20_0:= TTagBit.Create(nil);
-  M20_1:= TTagBit.Create(nil);
-  M20_2:= TTagBit.Create(nil);
-  M20_3:= TTagBit.Create(nil);
-  M20_4:= TTagBit.Create(nil);
-  M20_5:= TTagBit.Create(nil);
-  M20_6:= TTagBit.Create(nil);
-  M20_7:= TTagBit.Create(nil);
-
-  M20_0.StartBit:=0;
-  M20_0.EndBit:=0;
-  M20_0.PLCTag:=MB20;
-
-  M20_1.StartBit:=1;
-  M20_1.EndBit:=1;
-  M20_1.PLCTag:=MB20;
-
-  M20_2.StartBit:=2;
-  M20_2.EndBit:=2;
-  M20_2.PLCTag:=MB20;
-
-  M20_3.StartBit:=3;
-  M20_3.EndBit:=3;
-  M20_3.PLCTag:=MB20;
-
-  M20_4.StartBit:=4;
-  M20_4.EndBit:=4;
-  M20_4.PLCTag:=MB20;
-
-  M20_5.StartBit:=5;
-  M20_5.EndBit:=5;
-  M20_5.PLCTag:=MB20;
-
-  M20_6.StartBit:=6;
-  M20_6.EndBit:=6;
-  M20_6.PLCTag:=MB20;
-
-  M20_7.StartBit:=7;
-  M20_7.EndBit:=7;
-  M20_7.PLCTag:=MB20;
+  AutoCreateMemoryTag(7,20,MB20);
+  m[20].Name:='MB20 Gravure Auto/Manual';
+  m[20].TagName._0:='Gravure Auto Cmd';
+  m[20].TagName._1:='Gravure Manual Cmd';
 end;
 
 procedure CreateTag_MB22();
 begin
-  MB22_:= TPLCBlock.Create(nil);
+  MB22_:= TPLCBlock.Create(Unit1.Form1);
   MB22_.PLCRack:=0;
   MB22_.PLCSlot:=0;
   MB22_.PLCStation:=2;
@@ -758,55 +512,19 @@ begin
   MB22_.RefreshTime:=500;
   MB22_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
 
-  MB22:= TPLCBlockElement.Create(nil);
+  MB22:= TPLCBlockElement.Create(Unit1.Form1);
   MB22.Index:=0;
   MB22.PLCBlock:=MB22_;
 
-  M22_0:= TTagBit.Create(nil);
-  M22_1:= TTagBit.Create(nil);
-  M22_2:= TTagBit.Create(nil);
-  M22_3:= TTagBit.Create(nil);
-  M22_4:= TTagBit.Create(nil);
-  M22_5:= TTagBit.Create(nil);
-  M22_6:= TTagBit.Create(nil);
-  M22_7:= TTagBit.Create(nil);
-
-  M22_0.StartBit:=0;
-  M22_0.EndBit:=0;
-  M22_0.PLCTag:=MB22;
-
-  M22_1.StartBit:=1;
-  M22_1.EndBit:=1;
-  M22_1.PLCTag:=MB22;
-
-  M22_2.StartBit:=2;
-  M22_2.EndBit:=2;
-  M22_2.PLCTag:=MB22;
-
-  M22_3.StartBit:=3;
-  M22_3.EndBit:=3;
-  M22_3.PLCTag:=MB22;
-
-  M22_4.StartBit:=4;
-  M22_4.EndBit:=4;
-  M22_4.PLCTag:=MB22;
-
-  M22_5.StartBit:=5;
-  M22_5.EndBit:=5;
-  M22_5.PLCTag:=MB22;
-
-  M22_6.StartBit:=6;
-  M22_6.EndBit:=6;
-  M22_6.PLCTag:=MB22;
-
-  M22_7.StartBit:=7;
-  M22_7.EndBit:=7;
-  M22_7.PLCTag:=MB22;
+  AutoCreateMemoryTag(7,22,MB22);
+  m[22].Name:='MB22 Exhaust fan corona HMI';
+  m[22].TagName._0:='Exhaust fan corona on HMI';
+  m[22].TagName._1:='Exhaust fan corona off HMI';
 end;
 
 procedure CreateTag_MB30();
 begin
-  MB30_:= TPLCBlock.Create(nil);
+  MB30_:= TPLCBlock.Create(Unit1.Form1);
   MB30_.PLCRack:=0;
   MB30_.PLCSlot:=0;
   MB30_.PLCStation:=2;
@@ -819,50 +537,14 @@ begin
   MB30_.RefreshTime:=500;
   MB30_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
 
-  MB30:= TPLCBlockElement.Create(nil);
+  MB30:= TPLCBlockElement.Create(Unit1.Form1);
   MB30.Index:=0;
   MB30.PLCBlock:=MB30_;
 
-  M30_0:= TTagBit.Create(nil);
-  M30_1:= TTagBit.Create(nil);
-  M30_2:= TTagBit.Create(nil);
-  M30_3:= TTagBit.Create(nil);
-  M30_4:= TTagBit.Create(nil);
-  M30_5:= TTagBit.Create(nil);
-  M30_6:= TTagBit.Create(nil);
-  M30_7:= TTagBit.Create(nil);
-
-  M30_0.StartBit:=0;
-  M30_0.EndBit:=0;
-  M30_0.PLCTag:=MB30;
-
-  M30_1.StartBit:=1;
-  M30_1.EndBit:=1;
-  M30_1.PLCTag:=MB30;
-
-  M30_2.StartBit:=2;
-  M30_2.EndBit:=2;
-  M30_2.PLCTag:=MB30;
-
-  M30_3.StartBit:=3;
-  M30_3.EndBit:=3;
-  M30_3.PLCTag:=MB30;
-
-  M30_4.StartBit:=4;
-  M30_4.EndBit:=4;
-  M30_4.PLCTag:=MB30;
-
-  M30_5.StartBit:=5;
-  M30_5.EndBit:=5;
-  M30_5.PLCTag:=MB30;
-
-  M30_6.StartBit:=6;
-  M30_6.EndBit:=6;
-  M30_6.PLCTag:=MB30;
-
-  M30_7.StartBit:=7;
-  M30_7.EndBit:=7;
-  M30_7.PLCTag:=MB30;
+  AutoCreateMemoryTag(7,30,MB30);
+  m[30].Name:='MB30 Coating/Bypass Mode Status';
+  m[30].TagName._0:='BypassMode Status';
+  m[30].TagName._1:='BypassMode Status';
 end;
 
 procedure CreateTag_MB31();
@@ -885,8 +567,8 @@ begin
   MB31.PLCBlock:=MB31_;
 
   AutoCreateMemoryTag(7,31,MB31);
-  m[31].Name:='System Status';
-  m[31].TagName._0:='SystemOn Status, HMI Set/Reset  ';
+  m[31].Name:='MB31 System Status';
+  m[31].TagName._0:='SystemOn Status, HMI Set/Reset';
 end;
 
 procedure CreateTag_MB32();
@@ -1034,7 +716,7 @@ begin
   MB101.Index:=0;
   MB101.PLCBlock:=MB101_;
 
-  AutoCreateMemoryTag(7,101,MB101);
+  AutoCreateMemoryTag(7,101,MB101);  //bit 0..7
   m[101].Name:='MB101 Clock';
   m[101].TagName._0:='10Hz';
   m[101].TagName._1:='5Hz';
@@ -1069,14 +751,14 @@ begin
   MW120.Index:=0;
   MW120.PLCBlock:=MW120_;
 
-  AutoCreateMemoryTag(15,120,MW120);
+  AutoCreateMemoryTag(15,120,MW120); //bit 0..15
   m[120].Name:='MW120 Alarm';
   m[120].TagName._1:='Emergency Stop';
 end;
 
 procedure CreateTag_QB0();
 begin
-  QB0_:= TPLCBlock.Create(nil);
+  QB0_:= TPLCBlock.Create(Unit1.Form1);
   QB0_.PLCRack:=0;
   QB0_.PLCSlot:=0;
   QB0_.PLCStation:=2;
@@ -1089,55 +771,25 @@ begin
   QB0_.RefreshTime:=500;
   QB0_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
 
-  QB0:= TPLCBlockElement.Create(nil);
+  QB0:= TPLCBlockElement.Create(Unit1.Form1);
   QB0.Index:=0;
   QB0.PLCBlock:=QB0_;
 
-  Q0_0:= TTagBit.Create(nil);
-  Q0_1:= TTagBit.Create(nil);
-  Q0_2:= TTagBit.Create(nil);
-  Q0_3:= TTagBit.Create(nil);
-  Q0_4:= TTagBit.Create(nil);
-  Q0_5:= TTagBit.Create(nil);
-  Q0_6:= TTagBit.Create(nil);
-  Q0_7:= TTagBit.Create(nil);
-
-  Q0_0.StartBit:=0;
-  Q0_0.EndBit:=0;
-  Q0_0.PLCTag:=QB0;
-
-  Q0_1.StartBit:=1;
-  Q0_1.EndBit:=1;
-  Q0_1.PLCTag:=QB0;
-
-  Q0_2.StartBit:=2;
-  Q0_2.EndBit:=2;
-  Q0_2.PLCTag:=QB0;
-
-  Q0_3.StartBit:=3;
-  Q0_3.EndBit:=3;
-  Q0_3.PLCTag:=QB0;
-
-  Q0_4.StartBit:=4;
-  Q0_4.EndBit:=4;
-  Q0_4.PLCTag:=QB0;
-
-  Q0_5.StartBit:=5;
-  Q0_5.EndBit:=5;
-  Q0_5.PLCTag:=QB0;
-
-  Q0_6.StartBit:=6;
-  Q0_6.EndBit:=6;
-  Q0_6.PLCTag:=QB0;
-
-  Q0_7.StartBit:=7;
-  Q0_7.EndBit:=7;
-  Q0_7.PLCTag:=QB0;
+  AutoCreateOutputTag(7,0,QB0);
+  Q[0].Name:='QB0';
+  Q[0].TagName._0:='Emergency Stop';
+  Q[0].TagName._1:='Corona Exhaust Fan Run';
+  Q[0].TagName._2:='Cartridge Valve';
+  Q[0].TagName._3:='Electrode Valve';
+  Q[0].TagName._4:='Corona Generator Stop';
+  Q[0].TagName._5:='Corona Generator Start';
+  Q[0].TagName._6:='Corona Exhaust Fan Run';
+  Q[0].TagName._7:='Corona Exhaust Fan Run';
 end;
 
 procedure CreateTag_QB201();
 begin
-  QB201_:= TPLCBlock.Create(nil);
+  QB201_:= TPLCBlock.Create(Unit1.Form1);
   QB201_.PLCRack:=0;
   QB201_.PLCSlot:=0;
   QB201_.PLCStation:=2;
@@ -1150,55 +802,18 @@ begin
   QB201_.RefreshTime:=500;
   QB201_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
 
-  QB201:= TPLCBlockElement.Create(nil);
+  QB201:= TPLCBlockElement.Create(Unit1.Form1);
   QB201.Index:=0;
   QB201.PLCBlock:=QB201_;
 
-  Q201_0:= TTagBit.Create(nil);
-  Q201_1:= TTagBit.Create(nil);
-  Q201_2:= TTagBit.Create(nil);
-  Q201_3:= TTagBit.Create(nil);
-  Q201_4:= TTagBit.Create(nil);
-  Q201_5:= TTagBit.Create(nil);
-  Q201_6:= TTagBit.Create(nil);
-  Q201_7:= TTagBit.Create(nil);
-
-  Q201_0.StartBit:=0;
-  Q201_0.EndBit:=0;
-  Q201_0.PLCTag:=QB201;
-
-  Q201_1.StartBit:=1;
-  Q201_1.EndBit:=1;
-  Q201_1.PLCTag:=QB201;
-
-  Q201_2.StartBit:=2;
-  Q201_2.EndBit:=2;
-  Q201_2.PLCTag:=QB201;
-
-  Q201_3.StartBit:=3;
-  Q201_3.EndBit:=3;
-  Q201_3.PLCTag:=QB201;
-
-  Q201_4.StartBit:=4;
-  Q201_4.EndBit:=4;
-  Q201_4.PLCTag:=QB201;
-
-  Q201_5.StartBit:=5;
-  Q201_5.EndBit:=5;
-  Q201_5.PLCTag:=QB201;
-
-  Q201_6.StartBit:=6;
-  Q201_6.EndBit:=6;
-  Q201_6.PLCTag:=QB201;
-
-  Q201_7.StartBit:=7;
-  Q201_7.EndBit:=7;
-  Q201_7.PLCTag:=QB201;
+  AutoCreateOutputTag(7,201,QB201);
+  Q[201].Name:='QB201 Infeed unit';
+  Q[201].TagName._0:='Infeed unit On';
 end;
 
 procedure CreateTag_QB209();
 begin
-  QB209_:= TPLCBlock.Create(nil);
+  QB209_:= TPLCBlock.Create(Unit1.Form1);
   QB209_.PLCRack:=0;
   QB209_.PLCSlot:=0;
   QB209_.PLCStation:=2;
@@ -1211,55 +826,18 @@ begin
   QB209_.RefreshTime:=500;
   QB209_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
 
-  QB209:= TPLCBlockElement.Create(nil);
+  QB209:= TPLCBlockElement.Create(Unit1.Form1);
   QB209.Index:=0;
   QB209.PLCBlock:=QB209_;
 
-  Q209_0:= TTagBit.Create(nil);
-  Q209_1:= TTagBit.Create(nil);
-  Q209_2:= TTagBit.Create(nil);
-  Q209_3:= TTagBit.Create(nil);
-  Q209_4:= TTagBit.Create(nil);
-  Q209_5:= TTagBit.Create(nil);
-  Q209_6:= TTagBit.Create(nil);
-  Q209_7:= TTagBit.Create(nil);
-
-  Q209_0.StartBit:=0;
-  Q209_0.EndBit:=0;
-  Q209_0.PLCTag:=QB209;
-
-  Q209_1.StartBit:=1;
-  Q209_1.EndBit:=1;
-  Q209_1.PLCTag:=QB209;
-
-  Q209_2.StartBit:=2;
-  Q209_2.EndBit:=2;
-  Q209_2.PLCTag:=QB209;
-
-  Q209_3.StartBit:=3;
-  Q209_3.EndBit:=3;
-  Q209_3.PLCTag:=QB209;
-
-  Q209_4.StartBit:=4;
-  Q209_4.EndBit:=4;
-  Q209_4.PLCTag:=QB209;
-
-  Q209_5.StartBit:=5;
-  Q209_5.EndBit:=5;
-  Q209_5.PLCTag:=QB209;
-
-  Q209_6.StartBit:=6;
-  Q209_6.EndBit:=6;
-  Q209_6.PLCTag:=QB209;
-
-  Q209_7.StartBit:=7;
-  Q209_7.EndBit:=7;
-  Q209_7.PLCTag:=QB209;
+  AutoCreateOutputTag(7,209,QB209);
+  Q[209].Name:='QB209 Drive Corona Roll';
+  Q[209].TagName._0:='Corona Roll Run';
 end;
 
 procedure CreateTag_QB213();  //Gravure roll run
 begin
-  QB213_:= TPLCBlock.Create(nil);
+  QB213_:= TPLCBlock.Create(Unit1.Form1);
   QB213_.PLCRack:=0;
   QB213_.PLCSlot:=0;
   QB213_.PLCStation:=2;
@@ -1272,55 +850,18 @@ begin
   QB213_.RefreshTime:=500;
   QB213_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
 
-  QB213:= TPLCBlockElement.Create(nil);
+  QB213:= TPLCBlockElement.Create(Unit1.Form1);
   QB213.Index:=0;
   QB213.PLCBlock:=QB213_;
 
-  Q213_0:= TTagBit.Create(nil);
-  Q213_1:= TTagBit.Create(nil);
-  Q213_2:= TTagBit.Create(nil);
-  Q213_3:= TTagBit.Create(nil);
-  Q213_4:= TTagBit.Create(nil);
-  Q213_5:= TTagBit.Create(nil);
-  Q213_6:= TTagBit.Create(nil);
-  Q213_7:= TTagBit.Create(nil);
-
-  Q213_0.StartBit:=0;
-  Q213_0.EndBit:=0;
-  Q213_0.PLCTag:=QB213;
-
-  Q213_1.StartBit:=1;
-  Q213_1.EndBit:=1;
-  Q213_1.PLCTag:=QB213;
-
-  Q213_2.StartBit:=2;
-  Q213_2.EndBit:=2;
-  Q213_2.PLCTag:=QB213;
-
-  Q213_3.StartBit:=3;
-  Q213_3.EndBit:=3;
-  Q213_3.PLCTag:=QB213;
-
-  Q213_4.StartBit:=4;
-  Q213_4.EndBit:=4;
-  Q213_4.PLCTag:=QB213;
-
-  Q213_5.StartBit:=5;
-  Q213_5.EndBit:=5;
-  Q213_5.PLCTag:=QB213;
-
-  Q213_6.StartBit:=6;
-  Q213_6.EndBit:=6;
-  Q213_6.PLCTag:=QB213;
-
-  Q213_7.StartBit:=7;
-  Q213_7.EndBit:=7;
-  Q213_7.PLCTag:=QB213;
+  AutoCreateOutputTag(7,213,QB213);
+  Q[213].Name:='QB213 Drive Gravure roll';
+  Q[213].TagName._0:='Gravure roll Run'
 end;
 
 procedure CreateTag_QB217();  //Takeoff roll run
 begin
-  QB217_:= TPLCBlock.Create(nil);
+  QB217_:= TPLCBlock.Create(Unit1.Form1);
   QB217_.PLCRack:=0;
   QB217_.PLCSlot:=0;
   QB217_.PLCStation:=2;
@@ -1333,50 +874,13 @@ begin
   QB217_.RefreshTime:=500;
   QB217_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
 
-  QB217:= TPLCBlockElement.Create(nil);
+  QB217:= TPLCBlockElement.Create(Unit1.Form1);
   QB217.Index:=0;
   QB217.PLCBlock:=QB217_;
 
-  Q217_0:= TTagBit.Create(nil);
-  Q217_1:= TTagBit.Create(nil);
-  Q217_2:= TTagBit.Create(nil);
-  Q217_3:= TTagBit.Create(nil);
-  Q217_4:= TTagBit.Create(nil);
-  Q217_5:= TTagBit.Create(nil);
-  Q217_6:= TTagBit.Create(nil);
-  Q217_7:= TTagBit.Create(nil);
-
-  Q217_0.StartBit:=0;
-  Q217_0.EndBit:=0;
-  Q217_0.PLCTag:=QB217;
-
-  Q217_1.StartBit:=1;
-  Q217_1.EndBit:=1;
-  Q217_1.PLCTag:=QB217;
-
-  Q217_2.StartBit:=2;
-  Q217_2.EndBit:=2;
-  Q217_2.PLCTag:=QB217;
-
-  Q217_3.StartBit:=3;
-  Q217_3.EndBit:=3;
-  Q217_3.PLCTag:=QB217;
-
-  Q217_4.StartBit:=4;
-  Q217_4.EndBit:=4;
-  Q217_4.PLCTag:=QB217;
-
-  Q217_5.StartBit:=5;
-  Q217_5.EndBit:=5;
-  Q217_5.PLCTag:=QB217;
-
-  Q217_6.StartBit:=6;
-  Q217_6.EndBit:=6;
-  Q217_6.PLCTag:=QB217;
-
-  Q217_7.StartBit:=7;
-  Q217_7.EndBit:=7;
-  Q217_7.PLCTag:=QB217;
+  AutoCreateOutputTag(7,217,QB217);
+  Q[217].Name:='QB217 Drive Takeoff roll';
+  Q[217].TagName._0:='Drive Takeoff Run'
 end;
 
 procedure CreateTag_IB0();
@@ -1399,7 +903,7 @@ begin
   IB0.PLCBlock:=IB0_;
 
   AutoCreateInputTag(7,0,IB0);
-  I_[0].Name:='Infeed unit';
+  I_[0].Name:='IB0';
   I_[0].TagName._0:='E-Stop OK';
   I_[0].TagName._1:='Flow Switch OK';
   I_[0].TagName._2:='MDO Film Brake';
@@ -1430,8 +934,8 @@ begin
   IB201.PLCBlock:=IB201_;
 
   AutoCreateInputTag(7,201,IB201);
-  I_[201].Name:='Infeed unit';
-  I_[201].TagName._1:='Infeed unit fault';
+  I_[201].Name:='IB201 Infeed unit';
+  I_[201].TagName._1:='Alarm Infeed unit';
 end;
 
 procedure CreateTag_IB209();
@@ -1454,7 +958,7 @@ begin
   IB209.PLCBlock:=IB209_;
 
   AutoCreateInputTag(7,209,IB209);
-  I_[209].Name:='Corona roll drive';
+  I_[209].Name:='Drive Corona roll';
   I_[209].TagName._1:='Corona roll drive fault';
 end;
 
@@ -1478,7 +982,7 @@ begin
   IB213.PLCBlock:=IB213_;
 
   AutoCreateInputTag(7,213,IB213);
-  I_[213].Name:='Gravure roll drive';
+  I_[213].Name:='Drive Gravure roll';
   I_[213].TagName._1:='Gravure roll drive fault';
 end;
 
@@ -1502,7 +1006,7 @@ begin
   IB217.PLCBlock:=IB217_;
 
   AutoCreateInputTag(7,217,IB217);
-  I_[217].Name:='Takeoff roll drive';
+  I_[217].Name:='Drive Takeoff roll';
   I_[217].TagName._1:='Takeoff roll drive fault';
 end;
 
@@ -1808,100 +1312,100 @@ end;
 
 procedure FreeAndNil_MB0();
 begin
-  FreeAndNil(M0_0);
-  FreeAndNil(M0_1);
-  FreeAndNil(M0_2);
-  FreeAndNil(M0_3);
-  FreeAndNil(M0_4);
-  FreeAndNil(M0_5);
-  FreeAndNil(M0_6);
-  FreeAndNil(M0_7);
-  FreeAndNil(MB0);
-  FreeAndNil(MB0_);
+  //FreeAndNil(M0_0);
+  //FreeAndNil(M0_1);
+  //FreeAndNil(M0_2);
+  //FreeAndNil(M0_3);
+  //FreeAndNil(M0_4);
+  //FreeAndNil(M0_5);
+  //FreeAndNil(M0_6);
+  //FreeAndNil(M0_7);
+  //FreeAndNil(MB0);
+  //FreeAndNil(MB0_);
 end;
 
 procedure FreeAndNil_MB1();
 begin
-  FreeAndNil(M1_0);
-  FreeAndNil(M1_1);
-  FreeAndNil(M1_2);
-  FreeAndNil(M1_3);
-  FreeAndNil(M1_4);
-  FreeAndNil(M1_5);
-  FreeAndNil(M1_6);
-  FreeAndNil(M1_7);
-  FreeAndNil(MB1);
-  FreeAndNil(MB1_);
+  //FreeAndNil(M1_0);
+  //FreeAndNil(M1_1);
+  //FreeAndNil(M1_2);
+  //FreeAndNil(M1_3);
+  //FreeAndNil(M1_4);
+  //FreeAndNil(M1_5);
+  //FreeAndNil(M1_6);
+  //FreeAndNil(M1_7);
+  //FreeAndNil(MB1);
+  //FreeAndNil(MB1_);
 end;
 
 procedure FreeAndNil_MB2();
 begin
-  FreeAndNil(M2_0);
-  FreeAndNil(M2_1);
-  FreeAndNil(M2_2);
-  FreeAndNil(M2_3);
-  FreeAndNil(M2_4);
-  FreeAndNil(M2_5);
-  FreeAndNil(M2_6);
-  FreeAndNil(M2_7);
-  FreeAndNil(MB2);
-  FreeAndNil(MB2_);
+  //FreeAndNil(M2_0);
+  //FreeAndNil(M2_1);
+  //FreeAndNil(M2_2);
+  //FreeAndNil(M2_3);
+  //FreeAndNil(M2_4);
+  //FreeAndNil(M2_5);
+  //FreeAndNil(M2_6);
+  //FreeAndNil(M2_7);
+  //FreeAndNil(MB2);
+  //FreeAndNil(MB2_);
 end;
 
 procedure FreeAndNil_MB17();
 begin
-  FreeAndNil(M17_0);
-  FreeAndNil(M17_1);
-  FreeAndNil(M17_2);
-  FreeAndNil(M17_3);
-  FreeAndNil(M17_4);
-  FreeAndNil(M17_5);
-  FreeAndNil(M17_6);
-  FreeAndNil(M17_7);
-  FreeAndNil(MB17);
-  FreeAndNil(MB17_);
+  //FreeAndNil(M17_0);
+  //FreeAndNil(M17_1);
+  //FreeAndNil(M17_2);
+  //FreeAndNil(M17_3);
+  //FreeAndNil(M17_4);
+  //FreeAndNil(M17_5);
+  //FreeAndNil(M17_6);
+  //FreeAndNil(M17_7);
+  //FreeAndNil(MB17);
+  //FreeAndNil(MB17_);
 end;
 
 procedure FreeAndNil_MB20();
 begin
-  FreeAndNil(M20_0);
-  FreeAndNil(M20_1);
-  FreeAndNil(M20_2);
-  FreeAndNil(M20_3);
-  FreeAndNil(M20_4);
-  FreeAndNil(M20_5);
-  FreeAndNil(M20_6);
-  FreeAndNil(M20_7);
-  FreeAndNil(MB20);
-  FreeAndNil(MB20_);
+  //FreeAndNil(M20_0);
+  //FreeAndNil(M20_1);
+  //FreeAndNil(M20_2);
+  //FreeAndNil(M20_3);
+  //FreeAndNil(M20_4);
+  //FreeAndNil(M20_5);
+  //FreeAndNil(M20_6);
+  //FreeAndNil(M20_7);
+  //FreeAndNil(MB20);
+  //FreeAndNil(MB20_);
 end;
 
 procedure FreeAndNil_MB22();
 begin
-  FreeAndNil(M22_0);
-  FreeAndNil(M22_1);
-  FreeAndNil(M22_2);
-  FreeAndNil(M22_3);
-  FreeAndNil(M22_4);
-  FreeAndNil(M22_5);
-  FreeAndNil(M22_6);
-  FreeAndNil(M22_7);
-  FreeAndNil(MB22);
-  FreeAndNil(MB22_);
+  //FreeAndNil(M22_0);
+  //FreeAndNil(M22_1);
+  //FreeAndNil(M22_2);
+  //FreeAndNil(M22_3);
+  //FreeAndNil(M22_4);
+  //FreeAndNil(M22_5);
+  //FreeAndNil(M22_6);
+  //FreeAndNil(M22_7);
+  //FreeAndNil(MB22);
+  //FreeAndNil(MB22_);
 end;
 
 procedure FreeAndNil_MB30();
 begin
-  FreeAndNil(M30_0);
-  FreeAndNil(M30_1);
-  FreeAndNil(M30_2);
-  FreeAndNil(M30_3);
-  FreeAndNil(M30_4);
-  FreeAndNil(M30_5);
-  FreeAndNil(M30_6);
-  FreeAndNil(M30_7);
-  FreeAndNil(MB30);
-  FreeAndNil(MB30_);
+  //FreeAndNil(M30_0);
+  //FreeAndNil(M30_1);
+  //FreeAndNil(M30_2);
+  //FreeAndNil(M30_3);
+  //FreeAndNil(M30_4);
+  //FreeAndNil(M30_5);
+  //FreeAndNil(M30_6);
+  //FreeAndNil(M30_7);
+  //FreeAndNil(MB30);
+  //FreeAndNil(MB30_);
 end;
 
 procedure FreeAndNil_MB31();
@@ -2026,72 +1530,72 @@ end;
 
 procedure FreeAndNil_QB0();
 begin
-  FreeAndNil(Q0_0);
-  FreeAndNil(Q0_1);
-  FreeAndNil(Q0_2);
-  FreeAndNil(Q0_3);
-  FreeAndNil(Q0_4);
-  FreeAndNil(Q0_5);
-  FreeAndNil(Q0_6);
-  FreeAndNil(Q0_7);
-  FreeAndNil(QB0);
-  FreeAndNil(QB0_);
+  //FreeAndNil(Q0_0);
+  //FreeAndNil(Q0_1);
+  //FreeAndNil(Q0_2);
+  //FreeAndNil(Q0_3);
+  //FreeAndNil(Q0_4);
+  //FreeAndNil(Q0_5);
+  //FreeAndNil(Q0_6);
+  //FreeAndNil(Q0_7);
+  //FreeAndNil(QB0);
+  //FreeAndNil(QB0_);
 end;
 
 procedure FreeAndNil_QB201();
 begin
-  FreeAndNil(Q201_0);
-  FreeAndNil(Q201_1);
-  FreeAndNil(Q201_2);
-  FreeAndNil(Q201_3);
-  FreeAndNil(Q201_4);
-  FreeAndNil(Q201_5);
-  FreeAndNil(Q201_6);
-  FreeAndNil(Q201_7);
-  FreeAndNil(QB201);
-  FreeAndNil(QB201_);
+  //FreeAndNil(Q201_0);
+  //FreeAndNil(Q201_1);
+  //FreeAndNil(Q201_2);
+  //FreeAndNil(Q201_3);
+  //FreeAndNil(Q201_4);
+  //FreeAndNil(Q201_5);
+  //FreeAndNil(Q201_6);
+  //FreeAndNil(Q201_7);
+  //FreeAndNil(QB201);
+  //FreeAndNil(QB201_);
 end;
 
 procedure FreeAndNil_QB209();
 begin
-  FreeAndNil(Q209_0);
-  FreeAndNil(Q209_1);
-  FreeAndNil(Q209_2);
-  FreeAndNil(Q209_3);
-  FreeAndNil(Q209_4);
-  FreeAndNil(Q209_5);
-  FreeAndNil(Q209_6);
-  FreeAndNil(Q209_7);
-  FreeAndNil(QB209);
-  FreeAndNil(QB209_);
+  //FreeAndNil(Q209_0);
+  //FreeAndNil(Q209_1);
+  //FreeAndNil(Q209_2);
+  //FreeAndNil(Q209_3);
+  //FreeAndNil(Q209_4);
+  //FreeAndNil(Q209_5);
+  //FreeAndNil(Q209_6);
+  //FreeAndNil(Q209_7);
+  //FreeAndNil(QB209);
+  //FreeAndNil(QB209_);
 end;
 
 procedure FreeAndNil_QB213();
 begin
-  FreeAndNil(Q213_0);
-  FreeAndNil(Q213_1);
-  FreeAndNil(Q213_2);
-  FreeAndNil(Q213_3);
-  FreeAndNil(Q213_4);
-  FreeAndNil(Q213_5);
-  FreeAndNil(Q213_6);
-  FreeAndNil(Q213_7);
-  FreeAndNil(QB213);
-  FreeAndNil(QB213_);
+  //FreeAndNil(Q213_0);
+  //FreeAndNil(Q213_1);
+  //FreeAndNil(Q213_2);
+  //FreeAndNil(Q213_3);
+  //FreeAndNil(Q213_4);
+  //FreeAndNil(Q213_5);
+  //FreeAndNil(Q213_6);
+  //FreeAndNil(Q213_7);
+  //FreeAndNil(QB213);
+  //FreeAndNil(QB213_);
 end;
 
 procedure FreeAndNil_QB217();
 begin
-  FreeAndNil(Q217_0);
-  FreeAndNil(Q217_1);
-  FreeAndNil(Q217_2);
-  FreeAndNil(Q217_3);
-  FreeAndNil(Q217_4);
-  FreeAndNil(Q217_5);
-  FreeAndNil(Q217_6);
-  FreeAndNil(Q217_7);
-  FreeAndNil(QB217);
-  FreeAndNil(QB217_);
+  //FreeAndNil(Q217_0);
+  //FreeAndNil(Q217_1);
+  //FreeAndNil(Q217_2);
+  //FreeAndNil(Q217_3);
+  //FreeAndNil(Q217_4);
+  //FreeAndNil(Q217_5);
+  //FreeAndNil(Q217_6);
+  //FreeAndNil(Q217_7);
+  //FreeAndNil(QB217);
+  //FreeAndNil(QB217_);
 end;
 
 procedure FreeAndNil_IB0();

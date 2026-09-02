@@ -118,7 +118,7 @@ begin
       Interlock9.Caption:='6.3: Bypass Filmbrake (M98.0=1)             << Done by HMI';
       Interlock10.Caption:='7:  Electrode In position (I0.5=1)         << Done by HMI and Hardware';
       Interlock11.Caption:='8:  Corona Exhaust Fan Run (Q0.1=1)        << Done by HMI and Hardware';
-      Status_.Caption:='Corona Start (Q0.5=1)';
+      Status_.Caption:='Corona Start (contactor) (Q0.5=1)';
     end;
   end;
 
@@ -164,11 +164,11 @@ begin
       Interlock6.Caption:='3.3: Bypass Filmbrake (M98.0=1)                               << Done by HMI';
       Interlock7.Caption:='4:  '+'LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min'+' (M17.0=1)';
       Interlock8.Caption:='5:  Corona Exhaust Fan Run (Q0.1=1)';
-      Status_.Caption:='Electrode In Position (Q0.3=1)                                    << Done by HMI and Hardware';
+      Status_.Caption:='Electrode In Position (Valve) (Q0.3=1)                           << Done by HMI and Hardware';
     end;
   end;
 
-  if (InterlockName_ = 'Cartridge Valve Interlock') then
+  if (InterlockName_ = 'Cartridge Interlock') then
   begin
     if ProductionView then
     begin
@@ -180,7 +180,7 @@ begin
       Interlock6.Caption:='4.2 or 4.3: All zone TDO Film Break';
       Interlock7.Caption:='4.3: Bypass Filmbrake';
       Interlock8.Caption:='5:  '+'LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min';
-      Status_.Caption:='Gravure Roll Run';
+      Status_.Caption:='Cartridge In Position';
     end
     else
     begin
@@ -192,7 +192,7 @@ begin
       Interlock6.Caption:='4.2 or 4.3: All zone TDO Film Break (I0.7=1)';
       Interlock7.Caption:='4.3: Bypass Filmbrake (M98.0=1)                                << Done by HMI';
       Interlock8.Caption:='5:  '+'LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min'+' (M17.0=1)';
-      Status_.Caption:='Gravure Roll Run (Q0.2=1)                                         << Done by HMI and Hardware';
+      Status_.Caption:='Cartridge In Position (Valve) (Q0.2=1)                            << Done by HMI and Hardware';
     end;
   end;
 
@@ -278,37 +278,37 @@ begin
   begin
     if M[34]._0 then begin Interlock1.Color:=clLime; end
       else begin Interlock1.ParentColor:=true; end; //Interlock1.Color:=clDefault; //DefaultColor
-    if M30_0.Value > 0 then begin Interlock2.Color:=clLime; end
+    if M[30]._0 then begin Interlock2.Color:=clLime; end
       else begin Interlock2.ParentColor:=true; end;
-    if Q209_0.Value > 0 then begin Status_.Color:=clLime; end
+    if Q[209]._0 then begin Status_.Color:=clLime; end
     else begin Status_.ParentColor:=true; end;
   end;
 
   if (InterlockName_ = 'Corona Exhaust Fan Interlock') then
   begin
-    if M22_0.Value > 0 then begin Interlock1.Color:=clLime; end
+    if M[22]._0 then begin Interlock1.Color:=clLime; end
     else begin Interlock1.ParentColor:=true; end;
-    if M22_1.Value < 1 then begin Interlock2.Color:=clLime; end
+    if not M[22]._1 then begin Interlock2.Color:=clLime; end
     else begin Interlock2.ParentColor:=true; end;
     if I_[0]._0 then begin Interlock3.Color:=clLime; end
     else begin Interlock3.ParentColor:=true; end;
-    if Q0_1.Value > 0 then begin Status_.Color:=clLime;end
+    if Q[0]._1 then begin Status_.Color:=clLime;end
     else begin Status_.ParentColor:=true; end;
   end;
 
   if (InterlockName_ = 'Corona Generator Interlock') then
   begin
-    if M0_6.Value > 0 then begin Interlock1.Color:=clLime; end
+    if M[0]._6 then begin Interlock1.Color:=clLime; end
     else begin Interlock1.ParentColor:=true; end;
-    if M0_7.Value > 0 then begin Interlock2.ParentColor:=true; end
+    if M[0]._7 then begin Interlock2.ParentColor:=true; end
     else begin Interlock2.Color:=clLime; end;
-    if M30_1.Value > 0 then begin Interlock3.ParentColor:=true; end
+    if M[30]._1 then begin Interlock3.ParentColor:=true; end
     else begin Interlock3.Color:=clLime; end;
     if I_[0]._0 then begin Interlock4.Color:=clLime; end
     else begin Interlock4.ParentColor:=true; end;
-    if Q201_0.Value > 0 then begin Interlock5.Color:=clLime; end
+    if Q[201]._0 then begin Interlock5.Color:=clLime; end
     else begin Interlock5.ParentColor:=true; end;
-    if M30_0.Value > 0 then begin Interlock6.Color:=clLime; end
+    if M[30]._0 then begin Interlock6.Color:=clLime; end
     else begin Interlock6.ParentColor:=true;end;
     if (I_[0]._2) or (M[98]._0) then begin Interlock7.Color:=clLime;end
     else begin Interlock7.ParentColor:=true; end;
@@ -318,17 +318,17 @@ begin
     else begin Interlock9.ParentColor:=true; end;
     if I_[0]._5 then begin Interlock10.Color:=clLime; end
     else begin Interlock10.ParentColor:=true; end;
-    if Q0_1.Value > 0 then begin Interlock11.Color:=clLime; end
+    if Q[0]._1 then begin Interlock11.Color:=clLime; end
     else begin Interlock11.ParentColor:=true; end;
-    if Q0_5.Value > 0 then begin Status_.Color:=clLime; end
+    if Q[0]._5 then begin Status_.Color:=clLime; end
     else begin Status_.ParentColor:=true; end;
   end;
 
   if (InterlockName_ = 'Corona Electrode Interlock') then
   begin
-    if M2_0.Value > 0 then begin Interlock1.Color:=clLime; end
+    if M[2]._0 then begin Interlock1.Color:=clLime; end
     else begin Interlock1.ParentColor:=true; end;
-    if M2_1.Value > 0 then begin Interlock2.ParentColor:=true; end
+    if M[2]._1 then begin Interlock2.ParentColor:=true; end
     else begin Interlock2.Color:=clLime; end;
     if I_[0]._0 then begin Interlock3.Color:=clLime; end
     else begin Interlock3.ParentColor:=true; end;
@@ -338,23 +338,23 @@ begin
     else  begin Interlock5.ParentColor:=true; end;
     if M[98]._0 then begin Interlock6.Color:=clLime; end
     else begin Interlock6.ParentColor:=true; end;
-    if M17_0.Value > 0 then begin Interlock7.Color:=clLime; end
+    if M[17]._0 then begin Interlock7.Color:=clLime; end
     else begin Interlock7.ParentColor:=true; end;
-    if Q0_1.Value > 0 then  begin Interlock8.Color:=clLime; end
+    if Q[0]._1 then  begin Interlock8.Color:=clLime; end
     else begin Interlock8.ParentColor:=true; end;
-    if Q0_3.Value > 0 then begin Status_.Color:=clMoneyGreen; end
+    if Q[0]._3 then begin Status_.Color:=clMoneyGreen; end
     else begin Status_.ParentColor:=true; end;
   end;
 
   if (InterlockName_ = 'Cartridge Valve Interlock') then
   begin
-    if M2_2.Value > 0 then begin Interlock1.Color:=clLime; end
+    if M[2]._2 then begin Interlock1.Color:=clLime; end
     else begin Interlock1.ParentColor:=true; end;
-    if M2_3.Value < 1 then begin Interlock2.Color:=clLime; end
+    if not M[2]._3 then begin Interlock2.Color:=clLime; end
     else begin Interlock2.ParentColor:=true; end;
     if I_[0]._0 then begin Interlock3.Color:=clLime; end
     else begin Interlock3.ParentColor:=true; end;
-    if Q201_0.Value > 0 then  begin Interlock4.Color:=clLime; end
+    if Q[201]._0 then  begin Interlock4.Color:=clLime; end
     else begin Interlock4.ParentColor:=true; end;
     if (I_[0]._2) or (M[98]._0) then  begin Interlock5.Color:=clLime; end
     else  begin Interlock5.ParentColor:=true; end;
@@ -362,9 +362,9 @@ begin
     else  begin Interlock6.ParentColor:=true; end;
     if M[98]._0 then begin Interlock7.Color:=clLime; end
     else begin Interlock7.ParentColor:=true; end;
-    if M17_0.Value > 0 then begin Interlock8.Color:=clLime; end
+    if M[17]._0 then begin Interlock8.Color:=clLime; end
     else begin Interlock8.ParentColor:=true; end;
-    if Q0_2.Value > 0 then begin Status_.Color:=clMoneyGreen; end
+    if Q[0]._2 then begin Status_.Color:=clMoneyGreen; end
     else begin Status_.ParentColor:=true; end;
   end;
 
@@ -374,9 +374,9 @@ begin
     else begin Interlock1.ParentColor:=true; end;
     if not M[33]._1 then begin Interlock2.Color:=clLime; end
     else begin Interlock2.ParentColor:=true; end;
-    if Q201_0.Value > 0 then  begin Interlock3.Color:=clLime; end
+    if Q[201]._0 then  begin Interlock3.Color:=clLime; end
     else begin Interlock3.ParentColor:=true; end;
-    if Q213_0.Value > 0 then  begin Status_.Color:=clLime; end
+    if Q[213]._0 then  begin Status_.Color:=clLime; end
     else begin Status_.ParentColor:=true; end;
   end;
 
@@ -386,9 +386,9 @@ begin
     else begin Interlock1.ParentColor:=true; end;
     if not M[35]._1 then begin Interlock2.Color:=clLime; end
     else begin Interlock2.ParentColor:=true; end;
-    if Q201_0.Value > 0 then  begin Interlock3.Color:=clLime; end
+    if Q[201]._0 then  begin Interlock3.Color:=clLime; end
     else begin Interlock3.ParentColor:=true; end;
-    if Q217_0.Value > 0 then  begin Status_.Color:=clLime; end
+    if Q[217]._0 then  begin Status_.Color:=clLime; end
     else begin Status_.ParentColor:=true; end;
   end;
 end;

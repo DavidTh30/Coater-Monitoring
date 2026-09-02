@@ -40,7 +40,7 @@ end;
 
 procedure IsCoatingMode();
 begin
-  if M30_0.Value > 0 then
+  if M[30]._0 then
   begin
     Unit1.Form1.CmdCoatingMode.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdCoatingMode.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -78,7 +78,7 @@ end;
 
 procedure IsBypassMode();
 begin
-  if M30_1.Value > 0 then
+  if M[30]._1 then
   begin
     Unit1.Form1.CmdBypassMode.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdBypassMode.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -116,7 +116,7 @@ end;
 
 procedure IsElectrodeIn();
 begin
-  if Q0_3.Value > 0 then
+  if Q[0]._3 then
   begin
     Unit1.Form1.CmdElectrodeIn.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdElectrodeIn.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -154,7 +154,7 @@ end;
 
 procedure IsElectrodeOut();
 begin
-  if Q0_3.Value < 1 then
+  if not Q[0]._3 then
   begin
     Unit1.Form1.CmdElectrodeOut.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdElectrodeOut.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -192,7 +192,7 @@ end;
 
 procedure IsCoronaRollRun();
 begin
-  if Q209_0.Value > 0 then
+  if Q[209]._0 then
   begin
     Unit1.Form1.CmdCoronaRollRun.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdCoronaRollRun.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -230,7 +230,7 @@ end;
 
 procedure IsCoronaRollOff();
 begin
-  if Q209_0.Value < 1 then
+  if not Q[209]._0 then
   begin
     Unit1.Form1.CmdCoronaRollOff.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdCoronaRollOff.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -344,7 +344,7 @@ end;
 
 procedure IsCoronaExhaustFanRun();
 begin
-  if Q0_1.Value > 0 then
+  if Q[0]._1 then
   begin
     Unit1.Form1.CmdExhaustRun.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdExhaustRun.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -382,7 +382,7 @@ end;
 
 procedure IsCoronaExhaustFanOff();
 begin
-  if Q0_1.Value < 1 then
+  if not Q[0]._1 then
   begin
     Unit1.Form1.CmdExhaustOff.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdExhaustOff.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -420,7 +420,7 @@ end;
 
 procedure IsCoronaGeneratorOn();
 begin
-  if Q0_5.Value > 0 then
+  if Q[0]._5 then
   begin
     Unit1.Form1.CmdGeneratorOn.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdGeneratorOn.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -458,7 +458,7 @@ end;
 
 procedure IsCoronaGeneratorOff();
 begin
-  if Q0_4.Value > 0 then
+  if Q[0]._4 then
   begin
     Unit1.Form1.CmdGeneratorOff.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdGeneratorOff.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -496,7 +496,7 @@ end;
 
 procedure IsTakeOffRollRun();
 begin
-  if Q217_0.Value > 0 then
+  if Q[217]._0 then
   begin
     Unit1.Form1.CmdTakeOffRollRun.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdTakeOffRollRun.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -534,7 +534,7 @@ end;
 
 procedure IsTakeOffRollOff();
 begin
-  if Q217_0.Value < 1 then
+  if not Q[217]._0 then
   begin
     Unit1.Form1.CmdakeOffRollOff.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdakeOffRollOff.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -572,7 +572,7 @@ end;
 
 procedure IsGravureRollRun();
 begin
-  if Q213_0.Value > 0 then
+  if Q[213]._0 then
   begin
     Unit1.Form1.CmdGravureRollRun.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdGravureRollRun.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -610,7 +610,7 @@ end;
 
 procedure IsGravureRollOff();
 begin
-  if Q213_0.Value < 1 then
+  if not Q[213]._0 then
   begin
     Unit1.Form1.CmdGravureRollOff.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdGravureRollOff.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -648,7 +648,7 @@ end;
 
 procedure IsCartridgeIn();
 begin
-  if Q0_2.Value > 0 then
+  if Q[0]._2 then
   begin
     Unit1.Form1.CmdCartridgeIn.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdCartridgeIn.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -686,7 +686,7 @@ end;
 
 procedure IsCartridgeOut();
 begin
-  if Q0_2.Value < 1 then
+  if not Q[0]._2 then
   begin
     Unit1.Form1.CmdCartridgeOut.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdCartridgeOut.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -724,7 +724,7 @@ end;
 
 procedure IsGravureAutoMode();
 begin
-  if M20_0.Value > 0 then
+  if M[20]._0 then
   begin
     Unit1.Form1.CmdGravureAuto.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdGravureAuto.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -762,7 +762,7 @@ end;
 
 procedure IsGravureManualMode();
 begin
-  if M20_1.Value > 0 then
+  if M[20]._1 then
   begin
     Unit1.Form1.CmdGravureManual.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdGravureManual.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
