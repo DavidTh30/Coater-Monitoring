@@ -159,6 +159,13 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="Unit5"/>
       </Unit>
+      <Unit>
+        <Filename Value="unit6.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form3"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="Unit6"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

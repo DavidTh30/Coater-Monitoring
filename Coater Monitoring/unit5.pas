@@ -108,6 +108,16 @@ begin
     CurrentAlarm[i].Object_:='';
   end;
 
+  i:=6;
+  AlarmData[i].Number:=6;
+  AlarmData[i].Name:='Emergency Stop';
+  AlarmData[i].Caption:='';
+  AlarmData[i].DateTime_:='';
+  AlarmData[i].IsActive:=false;
+  AlarmData[i].IsReset:=false;
+  AlarmData[i].Type_:=1;
+  AlarmData[i].Color:=clRed;
+
   i:=12;
   AlarmData[i].Number:=12;
   AlarmData[i].Name:='Infeed unit fault';
@@ -179,7 +189,7 @@ begin
 
   AddAlarm:=false;
 
-  if ((I201_1.Value > 0) or SimulateAlarm1) and (not AlarmData[12].IsActive) then
+  if ((I_[201]._1) or SimulateAlarm1) and (not AlarmData[12].IsActive) then
   begin
     for i:=0 to 99 do
     begin
@@ -194,7 +204,7 @@ begin
     end;
   end;
 
-  if ((I209_1.Value > 0) or SimulateAlarm2) and (not AlarmData[13].IsActive) then
+  if ((I_[209]._1) or SimulateAlarm2) and (not AlarmData[13].IsActive) then
   begin
     for i:=0 to 99 do
     begin
@@ -209,7 +219,7 @@ begin
     end;
   end;
 
-  if ((I213_1.Value > 0) or SimulateAlarm3) and (not AlarmData[14].IsActive) then
+  if ((I_[213]._1) or SimulateAlarm3) and (not AlarmData[14].IsActive) then
   begin
     for i:=0 to 99 do
     begin
@@ -224,7 +234,7 @@ begin
     end;
   end;
 
-  if ((I217_1.Value > 0) or SimulateAlarm4) and (not AlarmData[15].IsActive) then
+  if ((I_[217]._1) or SimulateAlarm4) and (not AlarmData[15].IsActive) then
   begin
     for i:=0 to 99 do
     begin
@@ -239,7 +249,7 @@ begin
     end;
   end;
 
-  if ((I221_1.Value > 0) or SimulateAlarm5) and (not AlarmData[16].IsActive) then
+  if ((I_[221]._1) or SimulateAlarm5) and (not AlarmData[16].IsActive) then
   begin
     for i:=0 to 99 do
     begin
@@ -254,10 +264,25 @@ begin
     end;
   end;
 
+  if (M[120]._1) and (not AlarmData[6].IsActive) then //M120.1  M120_1.Value
+  begin
+    for i:=0 to 99 do
+    begin
+      if (not CurrentAlarm[i].IsActive) then
+      begin
+        AlarmData[6].IsActive:=true;
+        CurrentAlarm[i]:=AlarmData[6];
+        CurrentAlarm[i].DateTime_:=FormatDateTime('dd/mm/yyyy hh:nn:ss', Now);
+        AddAlarm:=true;
+        break;
+      end;
+    end;
+  end;
+
   if AddAlarm then
   begin
 
-    for i:=0 to 99 do
+    for i:=99 downto 0  do
     if CurrentAlarm[i].IsActive and (CurrentAlarm[i].Object_='') then
     begin
       AlarmLabel:=TLabel.Create(Unit1.Form1.ScrollBox1);
@@ -275,6 +300,7 @@ begin
       //AlarmLabel.ParentColor:=true;
       AlarmLabel.Transparent:=false;
       AlarmLabel.Visible:=true;
+      AlarmLabel.OnClick:=@Unit1.Form1.AlarmClick;
 
       TotalAlarm:=TotalAlarm+1;
     end
@@ -301,7 +327,7 @@ var
 begin
   RemoveAlarm:=false;
 
-  if (I201_1.Value < 1) and (AlarmData[12].IsActive) and (not SimulateAlarm1) then
+  if (not I_[201]._1) and (AlarmData[12].IsActive) and (not SimulateAlarm1) then
   begin
     for i:=0 to 99 do
     begin
@@ -318,7 +344,7 @@ begin
     end;
   end;
 
-  if (I209_1.Value < 1) and (AlarmData[13].IsActive) and (not SimulateAlarm2) then
+  if (not I_[209]._1) and (AlarmData[13].IsActive) and (not SimulateAlarm2) then
   begin
     for i:=0 to 99 do
     begin
@@ -335,7 +361,7 @@ begin
     end;
   end;
 
-  if (I213_1.Value < 1) and (AlarmData[14].IsActive) and (not SimulateAlarm3) then
+  if (not I_[213]._1) and (AlarmData[14].IsActive) and (not SimulateAlarm3) then
   begin
     for i:=0 to 99 do
     begin
@@ -352,7 +378,7 @@ begin
     end;
   end;
 
-  if (I217_1.Value < 1) and (AlarmData[15].IsActive) and (not SimulateAlarm4) then
+  if (not I_[217]._1) and (AlarmData[15].IsActive) and (not SimulateAlarm4) then
   begin
     for i:=0 to 99 do
     begin
@@ -369,7 +395,7 @@ begin
     end;
   end;
 
-  if (I221_1.Value < 1) and (AlarmData[16].IsActive) and (not SimulateAlarm5) then
+  if (Not I_[221]._1) and (AlarmData[16].IsActive) and (not SimulateAlarm5) then
   begin
     for i:=0 to 99 do
     begin
@@ -377,6 +403,23 @@ begin
       begin
         TotalAlarm:=TotalAlarm-1;
         AlarmData[16].IsActive:=false;
+        MyControl := Unit1.Form1.ScrollBox1.FindComponent(CurrentAlarm[i].Object_);
+        if MyControl <> nil then  FreeAndNil(MyControl);
+        CurrentAlarm[i]:=ClearAlarmData;
+        RemoveAlarm:=true;
+        break;
+      end;
+    end;
+  end;
+
+  if (Not M[120]._1) and (AlarmData[6].IsActive) then  //M120.1  M120_1.Value
+  begin
+    for i:=0 to 99 do
+    begin
+      if (CurrentAlarm[i].IsActive) and (CurrentAlarm[i].Number = AlarmData[6].Number) then
+      begin
+        TotalAlarm:=TotalAlarm-1;
+        AlarmData[6].IsActive:=false;
         MyControl := Unit1.Form1.ScrollBox1.FindComponent(CurrentAlarm[i].Object_);
         if MyControl <> nil then  FreeAndNil(MyControl);
         CurrentAlarm[i]:=ClearAlarmData;
@@ -406,7 +449,7 @@ begin
     end;
 
     TotalAlarm:=0;
-    for i:=0 to 99 do
+    for i:=99 downto 0 do
     begin
       if (CurrentAlarm[i].Object_<>'') then
       begin

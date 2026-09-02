@@ -268,7 +268,7 @@ end;
 
 procedure IsSystemOn();
 begin
-  if M31_0.Value > 0 then
+  if M[31]._0 then
   begin
     Unit1.Form1.CmdSystemOn.StateNormal.Background.Gradient1.StartColor:=clMoneyGreen;
     Unit1.Form1.CmdSystemOn.StateNormal.Background.Gradient1.EndColor:=clMoneyGreen;
@@ -306,7 +306,7 @@ end;
 
 procedure IsSystemOff();
 begin
-  if M31_0.Value < 1 then
+  if not M[31]._0 then
   begin
     Unit1.Form1.CmdSystemOff.StateNormal.Background.Gradient1.StartColor:=$008080FF;
     Unit1.Form1.CmdSystemOff.StateNormal.Background.Gradient1.EndColor:=$008080FF;

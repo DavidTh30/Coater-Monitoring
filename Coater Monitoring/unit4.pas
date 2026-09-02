@@ -276,7 +276,7 @@ begin
 
   if (InterlockName_ = 'Corona roll Interlock') then
   begin
-    if M34_0.Value > 0 then begin Interlock1.Color:=clLime; end
+    if M[34]._0 then begin Interlock1.Color:=clLime; end
       else begin Interlock1.ParentColor:=true; end; //Interlock1.Color:=clDefault; //DefaultColor
     if M30_0.Value > 0 then begin Interlock2.Color:=clLime; end
       else begin Interlock2.ParentColor:=true; end;
@@ -290,7 +290,7 @@ begin
     else begin Interlock1.ParentColor:=true; end;
     if M22_1.Value < 1 then begin Interlock2.Color:=clLime; end
     else begin Interlock2.ParentColor:=true; end;
-    if I0_0.Value > 0 then begin Interlock3.Color:=clLime; end
+    if I_[0]._0 then begin Interlock3.Color:=clLime; end
     else begin Interlock3.ParentColor:=true; end;
     if Q0_1.Value > 0 then begin Status_.Color:=clLime;end
     else begin Status_.ParentColor:=true; end;
@@ -304,19 +304,19 @@ begin
     else begin Interlock2.Color:=clLime; end;
     if M30_1.Value > 0 then begin Interlock3.ParentColor:=true; end
     else begin Interlock3.Color:=clLime; end;
-    if I0_0.Value > 0 then begin Interlock4.Color:=clLime; end
+    if I_[0]._0 then begin Interlock4.Color:=clLime; end
     else begin Interlock4.ParentColor:=true; end;
     if Q201_0.Value > 0 then begin Interlock5.Color:=clLime; end
     else begin Interlock5.ParentColor:=true; end;
     if M30_0.Value > 0 then begin Interlock6.Color:=clLime; end
     else begin Interlock6.ParentColor:=true;end;
-    if (I0_2.Value > 0) or (M98_0.Value > 0) then begin Interlock7.Color:=clLime;end
+    if (I_[0]._2) or (M[98]._0) then begin Interlock7.Color:=clLime;end
     else begin Interlock7.ParentColor:=true; end;
-    if (I0_7.Value > 0) or (M98_0.Value > 0) then begin Interlock8.Color:=clLime; end
+    if (I_[0]._7) or (M[98]._0) then begin Interlock8.Color:=clLime; end
     else begin Interlock8.ParentColor:=true; end;
-    if M98_0.Value > 0 then begin Interlock9.Color:=clLime; end
+    if M[98]._0 then begin Interlock9.Color:=clLime; end
     else begin Interlock9.ParentColor:=true; end;
-    if I0_5.Value > 0 then begin Interlock10.Color:=clLime; end
+    if I_[0]._5 then begin Interlock10.Color:=clLime; end
     else begin Interlock10.ParentColor:=true; end;
     if Q0_1.Value > 0 then begin Interlock11.Color:=clLime; end
     else begin Interlock11.ParentColor:=true; end;
@@ -330,13 +330,13 @@ begin
     else begin Interlock1.ParentColor:=true; end;
     if M2_1.Value > 0 then begin Interlock2.ParentColor:=true; end
     else begin Interlock2.Color:=clLime; end;
-    if I0_0.Value > 0 then begin Interlock3.Color:=clLime; end
+    if I_[0]._0 then begin Interlock3.Color:=clLime; end
     else begin Interlock3.ParentColor:=true; end;
-    if (I0_2.Value > 0) or (M98_0.Value > 0) then  begin Interlock4.Color:=clLime; end
+    if (I_[0]._2) or (M[98]._0) then  begin Interlock4.Color:=clLime; end
     else  begin Interlock4.ParentColor:=true; end;
-    if (I0_7.Value > 0) or (M98_0.Value > 0) then  begin Interlock5.Color:=clLime; end
+    if (I_[0]._7) or (M[98]._0) then  begin Interlock5.Color:=clLime; end
     else  begin Interlock5.ParentColor:=true; end;
-    if M98_0.Value > 0 then begin Interlock6.Color:=clLime; end
+    if M[98]._0 then begin Interlock6.Color:=clLime; end
     else begin Interlock6.ParentColor:=true; end;
     if M17_0.Value > 0 then begin Interlock7.Color:=clLime; end
     else begin Interlock7.ParentColor:=true; end;
@@ -352,15 +352,15 @@ begin
     else begin Interlock1.ParentColor:=true; end;
     if M2_3.Value < 1 then begin Interlock2.Color:=clLime; end
     else begin Interlock2.ParentColor:=true; end;
-    if I0_0.Value > 0 then begin Interlock3.Color:=clLime; end
+    if I_[0]._0 then begin Interlock3.Color:=clLime; end
     else begin Interlock3.ParentColor:=true; end;
     if Q201_0.Value > 0 then  begin Interlock4.Color:=clLime; end
     else begin Interlock4.ParentColor:=true; end;
-    if (I0_2.Value > 0) or (M98_0.Value > 0) then  begin Interlock5.Color:=clLime; end
+    if (I_[0]._2) or (M[98]._0) then  begin Interlock5.Color:=clLime; end
     else  begin Interlock5.ParentColor:=true; end;
-     if (I0_7.Value > 0) or (M98_0.Value > 0) then  begin Interlock6.Color:=clLime; end
+     if (I_[0]._7) or (M[98]._0) then  begin Interlock6.Color:=clLime; end
     else  begin Interlock6.ParentColor:=true; end;
-    if M98_0.Value > 0 then begin Interlock7.Color:=clLime; end
+    if M[98]._0 then begin Interlock7.Color:=clLime; end
     else begin Interlock7.ParentColor:=true; end;
     if M17_0.Value > 0 then begin Interlock8.Color:=clLime; end
     else begin Interlock8.ParentColor:=true; end;
@@ -370,9 +370,9 @@ begin
 
   if (InterlockName_ = 'Gravure Roll Interlock') then
   begin
-    if M33_0.Value > 0 then begin Interlock1.Color:=clLime; end
+    if M[33]._0 then begin Interlock1.Color:=clLime; end
     else begin Interlock1.ParentColor:=true; end;
-    if M33_1.Value < 1 then begin Interlock2.Color:=clLime; end
+    if not M[33]._1 then begin Interlock2.Color:=clLime; end
     else begin Interlock2.ParentColor:=true; end;
     if Q201_0.Value > 0 then  begin Interlock3.Color:=clLime; end
     else begin Interlock3.ParentColor:=true; end;
@@ -382,9 +382,9 @@ begin
 
   if (InterlockName_ = 'Takeoff Roll Interlock') then
   begin
-    if M35_0.Value > 0 then begin Interlock1.Color:=clLime; end
+    if M[35]._0 then begin Interlock1.Color:=clLime; end
     else begin Interlock1.ParentColor:=true; end;
-    if M35_1.Value < 1 then begin Interlock2.Color:=clLime; end
+    if not M[35]._1 then begin Interlock2.Color:=clLime; end
     else begin Interlock2.ParentColor:=true; end;
     if Q201_0.Value > 0 then  begin Interlock3.Color:=clLime; end
     else begin Interlock3.ParentColor:=true; end;
