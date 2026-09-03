@@ -50,6 +50,24 @@ type
     TagName:Caption_;
   end;
 
+  type
+  LifeCommand_ = record
+    Name:String;
+    TagSet:String;
+    TagSetValue:double;
+    TagReset:String;
+    TagResetValue:double;
+    TagCounterSet:integer;
+    TagCounterAct:integer;
+    Start:boolean;
+  end;
+  type
+
+  LifeCommand = record
+    Total:integer;
+    Obj_: array [0..49] of LifeCommand_;
+  end;
+
 procedure AutoCreateMemoryTag(maxbit:integer;Address_:integer; TPLCBlock_:TPLCBlockElement ); // Auto creat tag
 procedure AutoNilMemoryTag(maxbit:integer; Address_:integer); // Auto Nil
 procedure AutoCreateInputTag(maxbit:integer; Address_:integer; TPLCBlock_:TPLCBlockElement ); // Auto creat tag
@@ -58,6 +76,8 @@ procedure AutoCreateOutputTag(maxbit:integer; Address_:integer; TPLCBlock_:TPLCB
 procedure AutoNilOutputTag(maxbit:integer; Address_:integer); // Auto Nil
 Function FindTTagBit(Name_:string) : TTagBit; // Return TTagBit
 procedure SetTag(Name_:string; Set_:double); // Give value to PLC tag
+procedure InitLifeCommand();
+procedure AddLifeCmd(Name:string; TagSet:string; TagSetValue:double; TagReset:string; TagResetValue:double);
 
 procedure CreateTag_MB0();
 procedure CreateTag_MB1();
@@ -128,6 +148,10 @@ var
   M : array [0..120] of Tag_;
   I_: array [0..221] of Tag_;
   Q : array [0..217] of Tag_;
+  SimulateCorona01:boolean;
+  SimulateCorona02:boolean;
+  LifeCmd: LifeCommand;
+
   LiveCounter_:integer;
   Communication_Active:boolean;
   ProductionView:boolean;
@@ -239,6 +263,47 @@ var
 implementation
 
 uses Unit1;
+
+procedure InitLifeCommand();
+var
+  i:integer;
+  Tempo: LifeCommand_;
+begin
+  Tempo.Name:='';
+  Tempo.Start:=false;
+  Tempo.TagCounterSet:=3;
+  Tempo.TagCounterAct:=0;
+  Tempo.TagSet:='';
+  Tempo.TagSetValue:=0;
+  Tempo.TagReset:='';
+  Tempo.TagResetValue:=0;
+
+  LifeCmd.Total:=0;
+  for i:= 0 to 49 do
+  begin
+    LifeCmd.Obj_[i]:=Tempo;
+  end;
+end;
+
+procedure AddLifeCmd(Name:string; TagSet:string; TagSetValue:double; TagReset:string; TagResetValue:double);
+var
+  i:integer;
+begin
+  for i:=0 to 49 do
+  begin
+    if not LifeCmd.Obj_[i].Start then
+    begin
+      LifeCmd.Obj_[i].Name:=Name;
+      LifeCmd.Obj_[i].TagSet:=TagSet;
+      LifeCmd.Obj_[i].TagSetValue:=TagSetValue;
+      LifeCmd.Obj_[i].TagReset:=TagReset;
+      LifeCmd.Obj_[i].TagResetValue:=TagResetValue;
+      LifeCmd.Obj_[i].TagCounterAct:=0;
+      LifeCmd.Obj_[i].Start:=true;
+      exit;
+    end;
+  end;
+end;
 
 procedure AutoCreateMemoryTag(maxbit:integer; Address_:integer; TPLCBlock_:TPLCBlockElement ); // Auto creat tag
 var

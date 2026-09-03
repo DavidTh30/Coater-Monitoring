@@ -10,10 +10,10 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, Menus,
-  StdCtrls, ExtCtrls, SpinEx, tcp_udpport, ISOTCPDriver, HMIEdit, HMICheckBox,
-  HMILabel, hmi_polyline, dbugintf, commtypes, TypInfo, StrUtils, Tag, PLCBlock,
-  PLCBlockElement, TagBit, BCSVGButton, BCButton, BCMDButton,
-  simpleipc;
+  StdCtrls, ExtCtrls, SpinEx, TAChartLiveView, TAGraph, TATransformations,
+  tcp_udpport, ISOTCPDriver, HMIEdit, HMICheckBox, HMILabel, hmi_polyline,
+  dbugintf, commtypes, TypInfo, StrUtils, Tag, TagBit, BCSVGButton, BCButton,
+  BCMDButton, simpleipc, TASeries, Math;
 
 function IsDebuggerPresent(): integer stdcall; external 'kernel32.dll';
 
@@ -31,6 +31,9 @@ type
     Button3: TButton;
     Button4: TButton;
     Button5: TButton;
+    Button6: TButton;
+    Button7: TButton;
+    Chart1: TChart;
     CmdBypassMode: TBCButton;
     CmdGravureAuto: TBCButton;
     CmdGravureManual: TBCButton;
@@ -67,10 +70,14 @@ type
     Image1: TImage;
     ElectrodeValve: TImage;
     CartridgeValve: TImage;
+    Image2: TImage;
     ImageCoatetStation: TImage;
     ImageElectrode: TImage;
     ImageCartridge: TImage;
     ImageList3: TImageList;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
     Label29: TLabel;
     Label30: TLabel;
     Label33: TLabel;
@@ -88,10 +95,15 @@ type
     Label7: TLabel;
     Label70: TLabel;
     Label8: TLabel;
+    Label9: TLabel;
     LineSpeed_Act01: THMILabel;
     MenuGravureRollInterlock: TMenuItem;
     MenuItemCartridgeValveInterlock: TMenuItem;
     PopupMenuCartridge: TPopupMenu;
+    Shape1: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
+    Shape4: TShape;
     TakeoffRollInterlock: TMenuItem;
     PopupMenuTakeoffRoll: TPopupMenu;
     PopupMenuGravureRoll: TPopupMenu;
@@ -181,13 +193,18 @@ type
     TabSheet5: TTabSheet;
     TabSheet6: TTabSheet;
     TCP_UDPPort1: TTCP_UDPPort;
+    Timer: TTimer;
     Timer1: TTimer;
+    Timer2: TTimer;
+    VelocitySeries: TLineSeries;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
-    procedure CmdakeOffRollOffClick(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
+    procedure CmdTakeOffRollOffClick(Sender: TObject);
     procedure CmdakeOffRollOffMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure CmdakeOffRollOffMouseUp(Sender: TObject; Button: TMouseButton;
@@ -298,9 +315,12 @@ type
     procedure TCP_UDPPort1CommPortOpened(Sender: TObject);
     procedure TCP_UDPPort1CommPortOpenError(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
+    procedure Timer2Timer(Sender: TObject);
+    procedure TimerTimer(Sender: TObject);
   private
 
   public
+    FStartTime: TDateTime;
     procedure CommunicationNotActive;
     procedure CommunicationIsActive;
     procedure MemoryValueChange(Sender: TObject);
@@ -316,6 +336,12 @@ var
 implementation
 
 uses Unit2, Unit3, Unit4, Unit5, Unit6;
+
+const
+  A0 = 10.0;   // (initial) oscillation amplitude
+  t0 =  5.0;   // oscillation period
+  td = 20.0;   // damping time constant
+  TWO_PI = 2.0*pi;
 
 {$R *.lfm}
 
@@ -1109,6 +1135,94 @@ begin
   end;
 end;
 
+procedure TForm1.Timer2Timer(Sender: TObject);
+var
+  i:integer;
+begin
+  for i:=0 to 49 do
+  begin
+    if (LifeCmd.Obj_[i].TagSet<>'') and (LifeCmd.Obj_[i].TagReset<>'') then
+    if LifeCmd.Obj_[i].Start and (LifeCmd.Obj_[i].TagCounterAct =0) then
+    begin
+       LifeCmd.Obj_[i].TagCounterAct:=LifeCmd.Obj_[i].TagCounterAct+1;
+       SetTag(LifeCmd.Obj_[i].TagSet,LifeCmd.Obj_[i].TagSetValue);
+    end;
+    if LifeCmd.Obj_[i].Start and (LifeCmd.Obj_[i].TagCounterAct >= LifeCmd.Obj_[i].TagCounterSet) then
+    begin
+       SetTag(LifeCmd.Obj_[i].TagReset,LifeCmd.Obj_[i].TagResetValue);
+       LifeCmd.Obj_[i].Start:=false;
+       LifeCmd.Obj_[i].TagSet:='';
+       LifeCmd.Obj_[i].TagReset:='';
+       LifeCmd.Obj_[i].TagCounterAct:=0;
+    end;
+  end;
+end;
+
+procedure TForm1.TimerTimer(Sender: TObject);
+var
+  t: Double;
+  x, v, a: Double;
+  exp_factor, sin_factor, cos_factor: Double;
+  i:integer;
+begin
+
+  t := (Now() - FStartTime) * SecsPerDay;
+  //exp_factor := exp(-t/td);
+  //SinCos(TWO_PI * t / t0, sin_factor, cos_factor);
+  //// Position: an exponentially damped sinusoidal motion
+  //x := A0 * sin_factor * exp_factor;
+  //// velocity = dx/dt
+  //v := 1.0 / (t0*td) * (A0  * exp_factor * (2.0*pi*td * cos_factor - t0 * sin_factor));
+  //// acceleration = dv/dt = d2x/dt2
+  //a := x / sqr(td) - sqr(TWO_PI/t0) * x - 2.0*TWO_PI*A0/(t0*td) * exp_factor * cos_factor;
+
+  v:=0;
+  if (not SimulateCorona01) and (not SimulateCorona02) then v:=DB9_DBD60.Value;
+  //v := Random(50) + 50;  { Generates 50-100 }
+  //v := Random(200) + 300; { Generates 300 - 500 }
+  if SimulateCorona01 then v := Random(100) + 400; { Generates 400 - 500 }
+  if SimulateCorona02 then v := v+ Random(200) + 800; { Generates 800 - 1000 }
+  if SimulateCorona01 or SimulateCorona02 then v:=v/100;
+
+  if Chart1.Extent.YMax < (V+0.5) then Chart1.Extent.YMax:=(V+0.5);
+  if Chart1.Extent.YMin > (V-0.5) then Chart1.Extent.YMin:=(V-0.5);
+  if (Abs(Chart1.Extent.YMax) > Abs(Chart1.Extent.YMin)) and
+     (Abs(Chart1.Extent.YMax) - Abs(Chart1.Extent.YMin)>2) then
+     begin
+       Chart1.Extent.YMax:=Chart1.Extent.YMax-0.02;
+     end;
+  //if (Abs(Chart1.AxisList[1].Range.Max) < Abs(Chart1.AxisList[1].Range.Min)) and
+  //   (Abs(Chart1.AxisList[1].Range.Min) - Abs(Chart1.AxisList[1].Range.Max)>0.1) then
+  //   begin
+  //     Chart1.AxisList[1].Range.Min:=Chart1.AxisList[1].Range.Min+0.02;
+  //   end;
+  if (Abs(Chart1.Extent.YMax) - Abs(Chart1.Extent.YMin)) > 2 then
+  begin
+    if Chart1.Extent.YMax> v then Chart1.Extent.YMax:=Chart1.Extent.YMax-0.02;
+    if Chart1.Extent.YMin< v then Chart1.Extent.YMin:=Chart1.Extent.YMin+0.02;
+  end;
+  Chart1.ExtentSizeLimit.YMax:=Chart1.Extent.YMax;
+  Chart1.ExtentSizeLimit.YMin:=Chart1.Extent.YMin;
+  Chart1.AxisList[1].Range.Max:=Chart1.Extent.YMax;
+  Chart1.AxisList[1].Range.Min:=Chart1.Extent.YMin;
+  Chart1.LeftAxis.Range.Max:=Chart1.Extent.YMax;
+  Chart1.LeftAxis.Range.Min:=Chart1.Extent.YMin;
+  //VelocitySeries.AddXY(t, v);
+  //VelocitySeries.AddY(v);
+  if VelocitySeries.Count >= 1500 then
+  begin
+    for i:= 0 to VelocitySeries.Count-2 do
+    VelocitySeries.Source.Item[i]^.Y:=VelocitySeries.Source.Item[i+1]^.Y;
+    VelocitySeries.Delete(VelocitySeries.Count-1);
+  end;
+
+  VelocitySeries.AddXY(VelocitySeries.Count, v);
+ // Label60.Caption:=VelocitySeries.Count.ToString;
+  //Label62.Caption:=t.ToString;
+  //if SimulateCorona01 or SimulateCorona02 then Label60.Caption:=Chart1.Extent.YMax.ToString;
+  //if SimulateCorona01 or SimulateCorona02 then Label62.Caption:=Chart1.Extent.YMin.ToString;
+end;
+
 procedure TForm1.ConnectClick(Sender: TObject);
 begin
   TCP_UDPPort1.Active:=true;
@@ -1160,10 +1274,11 @@ begin
   SetTag('M202',0); //M2_2.Value:=0;
 end;
 
-procedure TForm1.CmdakeOffRollOffClick(Sender: TObject);
+procedure TForm1.CmdTakeOffRollOffClick(Sender: TObject);
 begin
   SetTag('M3500',0); //M35_0.Value:=0;  // Takeoff roll Run HMI
   SetTag('M3501',0); //M35_1.Value:=0;  // Takeoff roll Off HMI
+  //AddLifeCmd('CmdTakeOffRollOff M35.1','M3501',1,'M3501',0);
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
@@ -1189,6 +1304,16 @@ end;
 procedure TForm1.Button5Click(Sender: TObject);
 begin
   SimulateAlarm5:= not SimulateAlarm5;
+end;
+
+procedure TForm1.Button6Click(Sender: TObject);
+begin
+  SimulateCorona01:= not SimulateCorona01;
+end;
+
+procedure TForm1.Button7Click(Sender: TObject);
+begin
+  SimulateCorona02:= not SimulateCorona02;
 end;
 
 procedure TForm1.CmdakeOffRollOffMouseDown(Sender: TObject;
@@ -1249,6 +1374,7 @@ end;
 procedure TForm1.CmdExhaustRunClick(Sender: TObject);
 begin
   SetTag('M2200',0); //M22_0.Value:=0;
+  //AddLifeCmd('CmdExhaustRun M22.0','M2200',1,'M2200',0);
 end;
 
 procedure TForm1.CmdExhaustRunMouseDown(Sender: TObject;
@@ -1272,6 +1398,7 @@ procedure TForm1.CmdExhaustOffClick(Sender: TObject);
 begin
   SetTag('M2200',0); //M22_0.Value:=0;
   SetTag('M2201',0); //M22_1.Value:=0;
+  //AddLifeCmd('CmdExhaustOff M22.1','M2201',1,'M2201',0);
 end;
 
 procedure TForm1.CmdExhaustOffMouseDown(Sender: TObject;
@@ -1331,6 +1458,7 @@ end;
 procedure TForm1.CmdGravureAutoClick(Sender: TObject);
 begin
   SetTag('M103',0); //M1_3.Value:=0;
+  //AddLifeCmd('CmdGravureAuto M1.3','M103',1,'M103',0);
 end;
 
 procedure TForm1.CmdGravureAutoMouseDown(Sender: TObject; Button: TMouseButton;
@@ -1348,6 +1476,7 @@ end;
 procedure TForm1.CmdGravureManualClick(Sender: TObject);
 begin
   SetTag('M104',0); //M1_4.Value:=0;
+  //AddLifeCmd('CmdGravureManual M1.4','M1_4',1,'M1_4',0);
 end;
 
 procedure TForm1.CmdGravureManualMouseDown(Sender: TObject;
@@ -1366,6 +1495,7 @@ procedure TForm1.CmdGravureRollOffClick(Sender: TObject);
 begin
   SetTag('M3300',0); //M33_0.Value:=0;  // Gravure roll Start HMI
   SetTag('M3301',0); //M33_1.Value:=0;  // Gravure roll Stop HMI
+  //AddLifeCmd('CmdGravureRollOff M33.1','M3301',1,'M3301',0);
 end;
 
 procedure TForm1.CmdGravureRollOffMouseDown(Sender: TObject;
@@ -1383,6 +1513,7 @@ end;
 procedure TForm1.CmdGravureRollRunClick(Sender: TObject);
 begin
   SetTag('M3300',0); //M33_0.Value:=0;
+  //AddLifeCmd('CmdGravureRollRun M33.0','M3300',1,'M3300',0);
 end;
 
 procedure TForm1.CmdGravureRollRunMouseDown(Sender: TObject;
@@ -1430,6 +1561,7 @@ end;
 procedure TForm1.CmdTakeOffRollRunClick(Sender: TObject);
 begin
   SetTag('M3500',0); //M35_0.Value:=0;
+  //AddLifeCmd('CmdTakeOffRollRun M35.0','M3500',1,'M3500',0);
 end;
 
 procedure TForm1.CmdTakeOffRollRunMouseDown(Sender: TObject;
@@ -1519,6 +1651,7 @@ var
 //  i:integer= 25;
   TempBmp: TBitmap;
 begin
+  InitLifeCommand();
   LiveCounter_:=0;
   CoronaRoll.PopupMenu := PopupMenuCoronaRoll;
   ImageCoronaExhaustFan.PopupMenu := PopupMenuCoronaExhaustFan;
@@ -1627,6 +1760,21 @@ begin
   finally
     TempBmp.Free;
   end;
+  Chart1.Extent.UseYMin:=true;
+  Chart1.Extent.UseYMax:=true;
+  Chart1.Extent.YMax:=10;
+  Chart1.Extent.YMin:=0;
+  //with Chart1.AxisList[1].Range do  //Chart1.AxisList[1].Range
+  //begin
+  //  UseMax := true;
+  //  UseMin := true;
+  //  Max := 10;
+  //  Min := 0;
+  //end;
+  //ChartLiveView1.ViewportSize:=30;
+  FStartTime:=Now;
+  //ChartLiveView1.Active := true;
+  Timer.Enabled := true;
 end;
 
 procedure TForm1.Image1Click(Sender: TObject);
