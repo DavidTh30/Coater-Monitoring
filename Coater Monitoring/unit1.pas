@@ -12,8 +12,9 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, Menus,
   StdCtrls, ExtCtrls, SpinEx, TAChartLiveView, TAGraph, TATransformations,
   tcp_udpport, ISOTCPDriver, HMIEdit, HMICheckBox, HMILabel, hmi_polyline,
-  dbugintf, commtypes, TypInfo, StrUtils, Tag, TagBit, BCSVGButton, BCButton,
-  BCMDButton, simpleipc, TASeries, Math;
+  dbugintf, commtypes, TypInfo, StrUtils, Tag, TagBit, PLCBlock,
+  PLCBlockElement, BCSVGButton, BCButton, BCMDButton, JvXPBar, simpleipc,
+  TASeries, Math;
 
 function IsDebuggerPresent(): integer stdcall; external 'kernel32.dll';
 
@@ -24,15 +25,21 @@ type
   TForm1 = class(TForm)
     AdditionalCoronaSpeed_Set02: THMIEdit;
     AdditionalGravureSpeed_Set: THMIEdit;
+    AdditionalGravureManualSpeed_Set: THMIEdit;
     AdditionalTakeOffRollSpeed_Set: THMIEdit;
     Bevel1: TBevel;
     Button1: TButton;
+    Button10: TButton;
+    Button11: TButton;
+    Button12: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
     Button5: TButton;
     Button6: TButton;
     Button7: TButton;
+    Button8: TButton;
+    Button9: TButton;
     Chart1: TChart;
     CmdBypassMode: TBCButton;
     CmdGravureAuto: TBCButton;
@@ -71,13 +78,28 @@ type
     ElectrodeValve: TImage;
     CartridgeValve: TImage;
     Image2: TImage;
+    Image3: TImage;
+    Image4: TImage;
     ImageCoatetStation: TImage;
     ImageElectrode: TImage;
     ImageCartridge: TImage;
     ImageList3: TImageList;
+    JvXPBar1: TJvXPBar;
+    JvXPBar2: TJvXPBar;
+    JvXPBar3: TJvXPBar;
     Label10: TLabel;
     Label11: TLabel;
     Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    Label16: TLabel;
+    Label17: TLabel;
+    Label18: TLabel;
+    Label19: TLabel;
+    Label20: TLabel;
+    Label21: TLabel;
+    Label22: TLabel;
     Label29: TLabel;
     Label30: TLabel;
     Label33: TLabel;
@@ -94,16 +116,60 @@ type
     Label69: TLabel;
     Label7: TLabel;
     Label70: TLabel;
+    Label71: TLabel;
+    Label72: TLabel;
     Label8: TLabel;
     Label9: TLabel;
     LineSpeed_Act01: THMILabel;
     MenuGravureRollInterlock: TMenuItem;
+    MenuCoronaExhaustFanStart: TMenuItem;
+    MenuCoronaExhaustFanStop: TMenuItem;
+    MenuIGravureRollStart: TMenuItem;
+    MenuIGravureRollStop: TMenuItem;
+    MenuItem1: TMenuItem;
+    MenuCoronaRollStart: TMenuItem;
+    MenuCoronaGeneratorOff: TMenuItem;
+    MenuElectrodeIn: TMenuItem;
+    MenuElectrodeOut: TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
+    MenuCoronaRollstop: TMenuItem;
+    MenuCartridgeIn: TMenuItem;
+    MenuCartridgeOut: TMenuItem;
+    MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
+    MenuItem8: TMenuItem;
+    MenuCoronaGeneratorOn: TMenuItem;
+    MenuTakeoffRollStart: TMenuItem;
+    MenuTakeoffRollStop: TMenuItem;
     MenuItemCartridgeValveInterlock: TMenuItem;
+    PageControl2: TPageControl;
     PopupMenuCartridge: TPopupMenu;
+    Separator1: TMenuItem;
+    Separator10: TMenuItem;
+    Separator11: TMenuItem;
+    Separator12: TMenuItem;
+    Separator2: TMenuItem;
+    Separator3: TMenuItem;
+    Separator4: TMenuItem;
+    Separator5: TMenuItem;
+    Separator6: TMenuItem;
+    Separator7: TMenuItem;
+    Separator8: TMenuItem;
+    Separator9: TMenuItem;
     Shape1: TShape;
     Shape2: TShape;
     Shape3: TShape;
     Shape4: TShape;
+    Shape7: TShape;
+    Shape8: TShape;
+    TabSheet_Drive_Corona: TTabSheet;
+    TabSheet_HMI_Corona: TTabSheet;
+    TabSheet_PLC_Coater: TTabSheet;
+    TabSheet_HMI_Coater: TTabSheet;
+    TabSheet_PLC_Corona: TTabSheet;
     TakeoffRollInterlock: TMenuItem;
     PopupMenuTakeoffRoll: TPopupMenu;
     PopupMenuGravureRoll: TPopupMenu;
@@ -159,10 +225,10 @@ type
     MenuConnect: TMenuItem;
     Connect: TMenuItem;
     Disconnect: TMenuItem;
-    MenuIInterlockCoronaRoll: TMenuItem;
+    MenuInterlockCoronaRoll: TMenuItem;
     MenuIInterlockCoronaExhaustFan: TMenuItem;
     MenuIInterlockElectrode: TMenuItem;
-    MenuInterlockCorona: TMenuItem;
+    MenuInterlockCoronaGenerator: TMenuItem;
     MenuView: TMenuItem;
     MenuProductionView: TMenuItem;
     MenuMaintenanceView: TMenuItem;
@@ -193,10 +259,13 @@ type
     TabSheet5: TTabSheet;
     TabSheet6: TTabSheet;
     TCP_UDPPort1: TTCP_UDPPort;
-    Timer: TTimer;
+    MiniChartTimer: TTimer;
     Timer1: TTimer;
     Timer2: TTimer;
     VelocitySeries: TLineSeries;
+    procedure Button10Click(Sender: TObject);
+    procedure Button11Click(Sender: TObject);
+    procedure Button12Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -204,6 +273,9 @@ type
     procedure Button5Click(Sender: TObject);
     procedure Button6Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
+    procedure Button8Click(Sender: TObject);
+    procedure Button9Click(Sender: TObject);
+    procedure CmdGeneratorOffClick(Sender: TObject);
     procedure CmdTakeOffRollOffClick(Sender: TObject);
     procedure CmdakeOffRollOffMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -241,7 +313,6 @@ type
     procedure CmdExhaustOffMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure CmdElectrodeOutClick(Sender: TObject);
-    procedure CmdGeneratorOffButtonClick(Sender: TObject);
     procedure CmdGeneratorOffMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure CmdGeneratorOffMouseUp(Sender: TObject; Button: TMouseButton;
@@ -300,23 +371,39 @@ type
     procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure AlarmClick(Sender: TObject);
+    procedure JvXPBar1Click(Sender: TObject);
+    procedure JvXPBar2Click(Sender: TObject);
+    procedure JvXPBar3Click(Sender: TObject);
     procedure MaskEditIPEditingDone(Sender: TObject);
+    procedure MenuCoronaExhaustFanStopClick(Sender: TObject);
+    procedure MenuCoronaGeneratorOffClick(Sender: TObject);
+    procedure MenuCoronaGeneratorOnClick(Sender: TObject);
+    procedure MenuCoronaRollStartClick(Sender: TObject);
+    procedure MenuCoronaRollstopClick(Sender: TObject);
     procedure MenuexitClick(Sender: TObject);
     procedure MenuGravureRollInterlockClick(Sender: TObject);
+    procedure MenuIGravureRollStopClick(Sender: TObject);
     procedure MenuIInterlockCoronaExhaustFanClick(Sender: TObject);
-    procedure MenuIInterlockCoronaRollClick(Sender: TObject);
+    procedure MenuInterlockCoronaRollClick(Sender: TObject);
     procedure MenuIInterlockElectrodeClick(Sender: TObject);
-    procedure MenuInterlockCoronaClick(Sender: TObject);
+    procedure MenuInterlockCoronaGeneratorClick(Sender: TObject);
+    procedure MenuCoronaExhaustFanStartClick(Sender: TObject);
+    procedure MenuIGravureRollStartClick(Sender: TObject);
+    procedure MenuCartridgeInClick(Sender: TObject);
+    procedure MenuCartridgeOutClick(Sender: TObject);
+    procedure MenuElectrodeInClick(Sender: TObject);
     procedure MenuItemCartridgeValveInterlockClick(Sender: TObject);
     procedure MenuProductionViewClick(Sender: TObject);
     procedure MenuMaintenanceViewClick(Sender: TObject);
+    procedure MenuTakeoffRollStartClick(Sender: TObject);
+    procedure MenuTakeoffRollStopClick(Sender: TObject);
     procedure TakeoffRollInterlockClick(Sender: TObject);
     procedure TCP_UDPPort1CommErrorReading(Error: TIOResult);
     procedure TCP_UDPPort1CommPortOpened(Sender: TObject);
     procedure TCP_UDPPort1CommPortOpenError(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure Timer2Timer(Sender: TObject);
-    procedure TimerTimer(Sender: TObject);
+    procedure MiniChartTimerTimer(Sender: TObject);
   private
 
   public
@@ -361,6 +448,33 @@ begin
       end;
   end;
 
+end;
+
+procedure TForm1.JvXPBar1Click(Sender: TObject);
+begin
+  JvXPBar1.ItemHeight:=250;
+  JvXPBar2.Grouped:=true;
+  JvXPBar2.ItemHeight:=0;
+  JvXPBar3.Grouped:=true;
+  JvXPBar3.ItemHeight:=0;
+end;
+
+procedure TForm1.JvXPBar2Click(Sender: TObject);
+begin
+  JvXPBar2.ItemHeight:=250;
+  JvXPBar1.Grouped:=true;
+  JvXPBar1.ItemHeight:=0;
+  JvXPBar3.Grouped:=true;
+  JvXPBar3.ItemHeight:=0;
+end;
+
+procedure TForm1.JvXPBar3Click(Sender: TObject);
+begin
+  JvXPBar3.ItemHeight:=250;
+  JvXPBar1.Grouped:=true;
+  JvXPBar1.ItemHeight:=0;
+  JvXPBar2.Grouped:=true;
+  JvXPBar2.ItemHeight:=0
 end;
 
 procedure TForm1.MemoryValueChange(Sender: TObject);
@@ -650,6 +764,7 @@ begin
   ImageCoronaExhaustFan.ImageIndex:=14;
 
   AdditionalGravureSpeed_Set.Enabled:=false;
+  AdditionalGravureManualSpeed_Set.Enabled:=false;
   AdditionalTakeOffRollSpeed_Set.Enabled:=false;
   ImageElectrode.ImageIndex:=18;
   ImageCartridge.ImageIndex:=18;
@@ -747,6 +862,7 @@ begin
   TakeOffRoll.Brush.Style:=bsSolid;
 
   AdditionalGravureSpeed_Set.Enabled:=true;
+  AdditionalGravureManualSpeed_Set.Enabled:=true;
   AdditionalTakeOffRollSpeed_Set.Enabled:=true;
 
   Label47.ParentColor:=true;
@@ -802,6 +918,11 @@ begin
   ff.Show;
 end;
 
+procedure TForm1.MenuIGravureRollStopClick(Sender: TObject);
+begin
+  AddLifeCmd('CmdGravureRollOff M33.1','M3301',1,'M3301',0);
+end;
+
 procedure TForm1.MenuIInterlockCoronaExhaustFanClick(Sender: TObject);
 var
   ff:Tform2;
@@ -812,7 +933,7 @@ begin
   ff.Show;
 end;
 
-procedure TForm1.MenuIInterlockCoronaRollClick(Sender: TObject);
+procedure TForm1.MenuInterlockCoronaRollClick(Sender: TObject);
 var
   ff:Tform2;
 begin
@@ -833,7 +954,7 @@ begin
   ff.Show;
 end;
 
-procedure TForm1.MenuInterlockCoronaClick(Sender: TObject);
+procedure TForm1.MenuInterlockCoronaGeneratorClick(Sender: TObject);
 var
   ff:Tform2;
 begin
@@ -841,6 +962,31 @@ begin
   ff.InterlockName_:='Corona Generator Interlock';
   ff.DateTime_:=FormatDateTime('dd/mm/yyyy ', Now())+TimeToStr(Time);
   ff.Show;
+end;
+
+procedure TForm1.MenuCoronaExhaustFanStartClick(Sender: TObject);
+begin
+  AddLifeCmd('CmdExhaustRun M22.0','M2200',1,'M2200',0);
+end;
+
+procedure TForm1.MenuIGravureRollStartClick(Sender: TObject);
+begin
+  AddLifeCmd('CmdGravureRollRun M33.0','M3300',1,'M3300',0);
+end;
+
+procedure TForm1.MenuCartridgeInClick(Sender: TObject);
+begin
+  AddLifeCmd('CmdCartridgeIn M2.2','M202',1,'M202',0);
+end;
+
+procedure TForm1.MenuCartridgeOutClick(Sender: TObject);
+begin
+  AddLifeCmd('CmdCartridgeOut M2.3','M203',1,'M203',0);
+end;
+
+procedure TForm1.MenuElectrodeInClick(Sender: TObject);
+begin
+  AddLifeCmd('CmdElectrodeIn M2.0','M200',1,'M200',0);
 end;
 
 procedure TForm1.MenuItemCartridgeValveInterlockClick(Sender: TObject);
@@ -867,6 +1013,16 @@ begin
   MenuMaintenanceView.ImageIndex:=7;
   MenuProductionView.ImageIndex:=9;
 
+end;
+
+procedure TForm1.MenuTakeoffRollStartClick(Sender: TObject);
+begin
+  AddLifeCmd('CmdTakeOffRollRun M35.0','M3500',1,'M3500',0);
+end;
+
+procedure TForm1.MenuTakeoffRollStopClick(Sender: TObject);
+begin
+  AddLifeCmd('CmdTakeOffRollOff M35.1','M3501',1,'M3501',0);
 end;
 
 procedure TForm1.TakeoffRollInterlockClick(Sender: TObject);
@@ -953,7 +1109,7 @@ begin
       Label7.Left:=411;
       Label33.Caption:='Cartridge: In position';
       Label35.Left:=413;
-      CartridgeValve.Left:=430;
+      CartridgeValve.Left:=428;
       CartridgeValve.ImageIndex:=23;
       ImageCoatetStation.ImageIndex:=2;
     end
@@ -966,7 +1122,7 @@ begin
       Label7.Left:=421;
       Label33.Caption:='Cartridge: Out position';
       Label35.Left:=423;
-      CartridgeValve.Left:=440;
+      CartridgeValve.Left:=438;
       CartridgeValve.ImageIndex:=22;
       ImageCoatetStation.ImageIndex:=1;
     end;
@@ -1144,8 +1300,11 @@ begin
     if (LifeCmd.Obj_[i].TagSet<>'') and (LifeCmd.Obj_[i].TagReset<>'') then
     if LifeCmd.Obj_[i].Start and (LifeCmd.Obj_[i].TagCounterAct =0) then
     begin
-       LifeCmd.Obj_[i].TagCounterAct:=LifeCmd.Obj_[i].TagCounterAct+1;
        SetTag(LifeCmd.Obj_[i].TagSet,LifeCmd.Obj_[i].TagSetValue);
+    end;
+    if LifeCmd.Obj_[i].Start and (LifeCmd.Obj_[i].TagCounterAct < LifeCmd.Obj_[i].TagCounterSet) then
+    begin
+       LifeCmd.Obj_[i].TagCounterAct:=LifeCmd.Obj_[i].TagCounterAct+1;
     end;
     if LifeCmd.Obj_[i].Start and (LifeCmd.Obj_[i].TagCounterAct >= LifeCmd.Obj_[i].TagCounterSet) then
     begin
@@ -1156,14 +1315,23 @@ begin
        LifeCmd.Obj_[i].TagCounterAct:=0;
     end;
   end;
+  //Label23.Caption:=LifeCmd.Obj_[0].Name + chr(13) +
+  //                 LifeCmd.Obj_[0].TagSet + chr(13) +
+  //                 LifeCmd.Obj_[0].TagReset + chr(13) +
+  //                 LifeCmd.Obj_[0].TagCounterAct.ToString;
+  //Label24.Caption:=LifeCmd.Obj_[1].Name + chr(13) +
+  //                 LifeCmd.Obj_[1].TagSet + chr(13) +
+  //                 LifeCmd.Obj_[1].TagReset + chr(13) +
+  //                 LifeCmd.Obj_[1].TagCounterAct.ToString;
 end;
 
-procedure TForm1.TimerTimer(Sender: TObject);
+procedure TForm1.MiniChartTimerTimer(Sender: TObject);
 var
   t: Double;
   x, v, a: Double;
   exp_factor, sin_factor, cos_factor: Double;
   i:integer;
+  s: string;
 begin
 
   t := (Now() - FStartTime) * SecsPerDay;
@@ -1183,6 +1351,8 @@ begin
   if SimulateCorona01 then v := Random(100) + 400; { Generates 400 - 500 }
   if SimulateCorona02 then v := v+ Random(200) + 800; { Generates 800 - 1000 }
   if SimulateCorona01 or SimulateCorona02 then v:=v/100;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
 
   if Chart1.Extent.YMax < (V+0.5) then Chart1.Extent.YMax:=(V+0.5);
   if Chart1.Extent.YMin > (V-0.5) then Chart1.Extent.YMin:=(V-0.5);
@@ -1211,15 +1381,25 @@ begin
   //VelocitySeries.AddY(v);
   if VelocitySeries.Count >= 1500 then
   begin
-    for i:= 0 to VelocitySeries.Count-2 do
-    VelocitySeries.Source.Item[i]^.Y:=VelocitySeries.Source.Item[i+1]^.Y;
-    VelocitySeries.Delete(VelocitySeries.Count-1);
+    //for i:= 0 to VelocitySeries.Count-2 do
+    //VelocitySeries.Source.Item[i]^.Y:=VelocitySeries.Source.Item[i+1]^.Y;
+    //VelocitySeries.Delete(VelocitySeries.Count-1);
+    //VelocitySeries.BeginUpdate;
+    VelocitySeries.Delete(0);
+
+    //VelocitySeries.EndUpdate;
+    //Button7.Caption:=VelocitySeries.Count.ToString;
   end;
 
-  VelocitySeries.AddXY(VelocitySeries.Count, v);
+  //if VelocitySeries.Count >= 1500 then
+  //  VelocitySeries.AddXY(VelocitySeries.Count, v)
+  //else
+  //  VelocitySeries.AddXY(VelocitySeries.Count, v);
+  VelocitySeries.Add(v);
+
  // Label60.Caption:=VelocitySeries.Count.ToString;
   //Label62.Caption:=t.ToString;
-  //if SimulateCorona01 or SimulateCorona02 then Label60.Caption:=Chart1.Extent.YMax.ToString;
+  if SimulateCorona01 or SimulateCorona02 then Button6.Caption:=VelocitySeries.Count.ToString;
   //if SimulateCorona01 or SimulateCorona02 then Label62.Caption:=Chart1.Extent.YMin.ToString;
 end;
 
@@ -1249,41 +1429,59 @@ end;
 procedure TForm1.CmdCoronaRollRunMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M3400',1); //M34_0.Value:=1;
+  //SetTag('M3400',1); //M34_0.Value:=1;
 end;
 
 procedure TForm1.CmdCoronaRollRunClick(Sender: TObject);
 begin
-  SetTag('M3400',0); //M34_0.Value:=0;
+  //SetTag('M3400',0); //M34_0.Value:=0;
+  AddLifeCmd('CmdCoronaRollRun M34.0','M3400',1,'M3400',0);
 end;
 
 procedure TForm1.CmdCoronaRollOffClick(Sender: TObject);
 begin
-  SetTag('M3400',0); //M34_0.Value:=0;
-  SetTag('M3401',0); //M34_1.Value:=0;
+  //SetTag('M3400',0); //M34_0.Value:=0;
+  //SetTag('M3401',0); //M34_1.Value:=0;
+  AddLifeCmd('CmdCoronaRollStop M34.1','M3401',1,'M3401',0);
 end;
 
 procedure TForm1.CmdCartridgeInMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M202',1); //M2_2.Value:=1;
+  //SetTag('M202',1); //M2_2.Value:=1;
 end;
 
 procedure TForm1.CmdCartridgeInClick(Sender: TObject);
 begin
-  SetTag('M202',0); //M2_2.Value:=0;
+  //SetTag('M202',0); //M2_2.Value:=0;
+  AddLifeCmd('CmdCartridgeIn M2.2','M202',1,'M202',0);
 end;
 
 procedure TForm1.CmdTakeOffRollOffClick(Sender: TObject);
 begin
-  SetTag('M3500',0); //M35_0.Value:=0;  // Takeoff roll Run HMI
-  SetTag('M3501',0); //M35_1.Value:=0;  // Takeoff roll Off HMI
-  //AddLifeCmd('CmdTakeOffRollOff M35.1','M3501',1,'M3501',0);
+  //SetTag('M3500',0); //M35_0.Value:=0;  // Takeoff roll Run HMI
+  //SetTag('M3501',0); //M35_1.Value:=0;  // Takeoff roll Off HMI
+  AddLifeCmd('CmdTakeOffRollOff M35.1','M3501',1,'M3501',0);
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
   SimulateAlarm1:= not SimulateAlarm1;
+end;
+
+procedure TForm1.Button10Click(Sender: TObject);
+begin
+  PageControl2.TabIndex:=3;
+end;
+
+procedure TForm1.Button11Click(Sender: TObject);
+begin
+  PageControl2.TabIndex:=4;
+end;
+
+procedure TForm1.Button12Click(Sender: TObject);
+begin
+  PageControl2.TabIndex:=1;
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
@@ -1316,216 +1514,232 @@ begin
   SimulateCorona02:= not SimulateCorona02;
 end;
 
+procedure TForm1.Button8Click(Sender: TObject);
+begin
+  PageControl2.TabIndex:=0;
+end;
+
+procedure TForm1.Button9Click(Sender: TObject);
+begin
+  PageControl2.TabIndex:=2;
+end;
+
+procedure TForm1.CmdGeneratorOffClick(Sender: TObject);
+begin
+  //SetTag('M006',0); //M0_6.Value:=0;
+  //SetTag('M007',0); //M0_7.Value:=0;
+  AddLifeCmd('CmdGeneratorOff M0.7','M007',1,'M007',0);
+end;
+
 procedure TForm1.CmdakeOffRollOffMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M3501',1); //M35_1.Value:=1;
+  //SetTag('M3501',1); //M35_1.Value:=1;
 end;
 
 procedure TForm1.CmdakeOffRollOffMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M3501',0); //M35_1.Value:=0;
+  //SetTag('M3501',0); //M35_1.Value:=0;
 end;
 
 procedure TForm1.CmdCartridgeInMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M202',0); //M2_2.Value:=0;
+  //SetTag('M202',0); //M2_2.Value:=0;
 end;
 
 procedure TForm1.CmdCartridgeOutClick(Sender: TObject);
 begin
-  SetTag('M202',0); //M2_2.Value:=0;  // Cartridge In HMI
-  SetTag('M203',0); //M2_3.Value:=0;  // Cartridge Out HMI
+  //SetTag('M202',0); //M2_2.Value:=0;  // Cartridge In HMI
+  //SetTag('M203',0); //M2_3.Value:=0;  // Cartridge Out HMI
+  AddLifeCmd('CmdCartridgeOut M2.3','M203',1,'M203',0);
 end;
 
 procedure TForm1.CmdCartridgeOutMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M203',1); //M2_3.Value:=1;
+  //SetTag('M203',1); //M2_3.Value:=1;
 end;
 
 procedure TForm1.CmdCartridgeOutMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M203',0); //M2_3.Value:=0;
+  //SetTag('M203',0); //M2_3.Value:=0;
 end;
 
 procedure TForm1.CmdCoronaRollRunMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M3400',0); //M34_0.Value:=0;
+  //SetTag('M3400',0); //M34_0.Value:=0;
 end;
 
 procedure TForm1.CmdCoronaRollOffMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M3400',0); //M34_0.Value:=0;
-  SetTag('M3401',1); //M34_1.Value:=1;
+  //SetTag('M3400',0); //M34_0.Value:=0;
+  //SetTag('M3401',1); //M34_1.Value:=1;
 end;
 
 procedure TForm1.CmdCoronaRollOffMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M3401',0); //M34_1.Value:=0;
+  //SetTag('M3401',0); //M34_1.Value:=0;
 end;
 
 procedure TForm1.CmdExhaustRunClick(Sender: TObject);
 begin
-  SetTag('M2200',0); //M22_0.Value:=0;
-  //AddLifeCmd('CmdExhaustRun M22.0','M2200',1,'M2200',0);
+  //SetTag('M2200',0); //M22_0.Value:=0;
+  AddLifeCmd('CmdExhaustRun M22.0','M2200',1,'M2200',0);
 end;
 
 procedure TForm1.CmdExhaustRunMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M2200',1); //M22_0.Value:=1;
+  //SetTag('M2200',1); //M22_0.Value:=1;
 end;
 
 procedure TForm1.CmdExhaustRunMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M2200',0); //M22_0.Value:=0;
+  //SetTag('M2200',0); //M22_0.Value:=0;
 end;
 
 procedure TForm1.CmdElectrodeInClick(Sender: TObject);
 begin
-  SetTag('M200',0); //M2_0.Value:=0;
+  //SetTag('M200',0); //M2_0.Value:=0;
+  AddLifeCmd('CmdElectrodeIn M2.0','M200',1,'M200',0);
 end;
 
 procedure TForm1.CmdExhaustOffClick(Sender: TObject);
 begin
-  SetTag('M2200',0); //M22_0.Value:=0;
-  SetTag('M2201',0); //M22_1.Value:=0;
-  //AddLifeCmd('CmdExhaustOff M22.1','M2201',1,'M2201',0);
+  //SetTag('M2200',0); //M22_0.Value:=0;
+  //SetTag('M2201',0); //M22_1.Value:=0;
+  AddLifeCmd('CmdExhaustOff M22.1','M2201',1,'M2201',0);
 end;
 
 procedure TForm1.CmdExhaustOffMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M2200',0); //M22_0.Value:=0;
-  SetTag('M2201',1); //M22_1.Value:=1;
+  //SetTag('M2200',0); //M22_0.Value:=0;
+  //SetTag('M2201',1); //M22_1.Value:=1;
 end;
 
 procedure TForm1.CmdExhaustOffMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M2201',0); //M22_1.Value:=0;
+  //SetTag('M2201',0); //M22_1.Value:=0;
 end;
 
 procedure TForm1.CmdElectrodeOutClick(Sender: TObject);
 begin
-  SetTag('M200',0); //M2_0.Value:=0;
-  SetTag('M201',0); //M2_1.Value:=0;
-end;
-
-procedure TForm1.CmdGeneratorOffButtonClick(Sender: TObject);
-begin
-  SetTag('M006',0); //M0_6.Value:=0;
-  SetTag('M007',0); //M0_7.Value:=0;
+  //SetTag('M200',0); //M2_0.Value:=0;
+  //SetTag('M201',0); //M2_1.Value:=0;
+  AddLifeCmd('CmdElectrodeOut M2.1','M201',1,'M201',0);
 end;
 
 procedure TForm1.CmdGeneratorOffMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M007',1); //M0_7.Value:=1;
+  //SetTag('M007',1); //M0_7.Value:=1;
+  AddLifeCmd('CmdGeneratorOff M0.7','M007',1,'M007',0);
 end;
 
 procedure TForm1.CmdGeneratorOffMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M007',0); //M0_7.Value:=0;
+  //SetTag('M007',0); //M0_7.Value:=0;
 end;
 
 procedure TForm1.CmdGeneratorOnClick(Sender: TObject);
 begin
-  SetTag('M006',0); //M0_6.Value:=0;
+  //SetTag('M006',0); //M0_6.Value:=0;
+  AddLifeCmd('CmdGeneratorOn M0.6','M006',1,'M006',0);
 end;
 
 procedure TForm1.CmdGeneratorOnMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M006',1); //M0_6.Value:=1;
+  //SetTag('M006',1); //M0_6.Value:=1;
 end;
 
 procedure TForm1.CmdGeneratorOnMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M006',0); //M0_6.Value:=0;
+  //SetTag('M006',0); //M0_6.Value:=0;
 end;
 
 procedure TForm1.CmdGravureAutoClick(Sender: TObject);
 begin
-  SetTag('M103',0); //M1_3.Value:=0;
-  //AddLifeCmd('CmdGravureAuto M1.3','M103',1,'M103',0);
+  //SetTag('M103',0); //M1_3.Value:=0;
+  AddLifeCmd('CmdGravureAuto M1.3','M103',1,'M103',0);
 end;
 
 procedure TForm1.CmdGravureAutoMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M103',1); //M1_3.Value:=1;
+  //SetTag('M103',1); //M1_3.Value:=1;
 end;
 
 procedure TForm1.CmdGravureAutoMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M103',0); //M1_3.Value:=0;
+  //SetTag('M103',0); //M1_3.Value:=0;
 end;
 
 procedure TForm1.CmdGravureManualClick(Sender: TObject);
 begin
-  SetTag('M104',0); //M1_4.Value:=0;
-  //AddLifeCmd('CmdGravureManual M1.4','M1_4',1,'M1_4',0);
+  //SetTag('M104',0); //M1_4.Value:=0;
+  AddLifeCmd('CmdGravureManual M1.4','M104',1,'M104',0);
 end;
 
 procedure TForm1.CmdGravureManualMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M104',1); //M1_4.Value:=1;
+  //SetTag('M104',1); //M1_4.Value:=1;
 end;
 
 procedure TForm1.CmdGravureManualMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M104',0); //M1_4.Value:=0;
+  //SetTag('M104',0); //M1_4.Value:=0;
 end;
 
 procedure TForm1.CmdGravureRollOffClick(Sender: TObject);
 begin
-  SetTag('M3300',0); //M33_0.Value:=0;  // Gravure roll Start HMI
-  SetTag('M3301',0); //M33_1.Value:=0;  // Gravure roll Stop HMI
-  //AddLifeCmd('CmdGravureRollOff M33.1','M3301',1,'M3301',0);
+  //SetTag('M3300',0); //M33_0.Value:=0;  // Gravure roll Start HMI
+  //SetTag('M3301',0); //M33_1.Value:=0;  // Gravure roll Stop HMI
+  AddLifeCmd('CmdGravureRollOff M33.1','M3301',1,'M3301',0);
 end;
 
 procedure TForm1.CmdGravureRollOffMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M3301',1); //M33_1.Value:=1;
+  //SetTag('M3301',1); //M33_1.Value:=1;
 end;
 
 procedure TForm1.CmdGravureRollOffMouseUp(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M3301',0); //M33_1.Value:=0;
+  //SetTag('M3301',0); //M33_1.Value:=0;
 end;
 
 procedure TForm1.CmdGravureRollRunClick(Sender: TObject);
 begin
-  SetTag('M3300',0); //M33_0.Value:=0;
-  //AddLifeCmd('CmdGravureRollRun M33.0','M3300',1,'M3300',0);
+  //SetTag('M3300',0); //M33_0.Value:=0;
+  AddLifeCmd('CmdGravureRollRun M33.0','M3300',1,'M3300',0);
 end;
 
 procedure TForm1.CmdGravureRollRunMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M3300',1); //M33_0.Value:=1;
+  //SetTag('M3300',1); //M33_0.Value:=1;
 end;
 
 procedure TForm1.CmdGravureRollRunMouseUp(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M3300',0); //M33_0.Value:=0;
+  //SetTag('M3300',0); //M33_0.Value:=0;
 end;
 
 procedure TForm1.CmdBypassModeClick(Sender: TObject);
@@ -1536,44 +1750,44 @@ end;
 procedure TForm1.CmdElectrodeInMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M200',1); //M2_0.Value:=1;
+  //SetTag('M200',1); //M2_0.Value:=1;
 end;
 
 procedure TForm1.CmdElectrodeInMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M200',0); //M2_0.Value:=0;
+  //SetTag('M200',0); //M2_0.Value:=0;
 end;
 
 procedure TForm1.CmdElectrodeOutMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M200',0); //M2_0.Value:=0;
-  SetTag('M201',1); //M2_1.Value:=1;
+  //SetTag('M200',0); //M2_0.Value:=0;
+  //SetTag('M201',1); //M2_1.Value:=1;
 end;
 
 procedure TForm1.CmdElectrodeOutMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M201',0); //M2_1.Value:=0;
+  //SetTag('M201',0); //M2_1.Value:=0;
 end;
 
 procedure TForm1.CmdTakeOffRollRunClick(Sender: TObject);
 begin
-  SetTag('M3500',0); //M35_0.Value:=0;
-  //AddLifeCmd('CmdTakeOffRollRun M35.0','M3500',1,'M3500',0);
+  //SetTag('M3500',0); //M35_0.Value:=0;
+  AddLifeCmd('CmdTakeOffRollRun M35.0','M3500',1,'M3500',0);
 end;
 
 procedure TForm1.CmdTakeOffRollRunMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M3500',1); //M35_0.Value:=1;
+  //SetTag('M3500',1); //M35_0.Value:=1;
 end;
 
 procedure TForm1.CmdTakeOffRollRunMouseUp(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin
-  SetTag('M3500',0); //M35_0.Value:=0;
+  //SetTag('M3500',0); //M35_0.Value:=0;
 end;
 
 procedure TForm1.DisconnectClick(Sender: TObject);
@@ -1688,6 +1902,7 @@ begin
   CreateTag_MB33();   // Gravure roll Start/Stop HMI
   CreateTag_MB34();
   CreateTag_MB35();   //Takeoff roll Run/Off HMI
+  CreateTag_MD36();  // Gravure roll Manual Speed HMI
   CreateTag_MB98();
   CreateTag_MB101();
   CreateTag_MW120();  // Alarm
@@ -1726,6 +1941,7 @@ begin
   P5.Parent:=StatusBar1;
   P6.Parent:=StatusBar1;
 
+  AdditionalGravureManualSpeed_Set.PLCTag:=MD36;
   CoronaSpeed_Act01.PLCTag:=DB9_DBD32;
   CoronaSpeed_Act02.PLCTag:=DB9_DBD32;
   GravureSpeed_Act.PLCTag:=DB9_DBD36;
@@ -1774,7 +1990,7 @@ begin
   //ChartLiveView1.ViewportSize:=30;
   FStartTime:=Now;
   //ChartLiveView1.Active := true;
-  Timer.Enabled := true;
+  MiniChartTimer.Enabled := true;
 end;
 
 procedure TForm1.Image1Click(Sender: TObject);
@@ -1801,6 +2017,31 @@ procedure TForm1.MaskEditIPEditingDone(Sender: TObject);
 begin
   MaskEditIP.Caption:=RepairIPAddress(MaskEditIP.Caption);
   TCP_UDPPort1.Host:=MaskEditIP.Text;
+end;
+
+procedure TForm1.MenuCoronaExhaustFanStopClick(Sender: TObject);
+begin
+  AddLifeCmd('CmdExhaustOff M22.1','M2201',1,'M2201',0);
+end;
+
+procedure TForm1.MenuCoronaGeneratorOffClick(Sender: TObject);
+begin
+  AddLifeCmd('CmdGeneratorOff M0.7','M007',1,'M007',0);
+end;
+
+procedure TForm1.MenuCoronaGeneratorOnClick(Sender: TObject);
+begin
+  AddLifeCmd('CmdGeneratorOn M0.6','M006',1,'M006',0);
+end;
+
+procedure TForm1.MenuCoronaRollStartClick(Sender: TObject);
+begin
+  AddLifeCmd('CmdCoronaRollRun M34.0','M3400',1,'M3400',0);
+end;
+
+procedure TForm1.MenuCoronaRollstopClick(Sender: TObject);
+begin
+  AddLifeCmd('CmdCoronaRollStop M34.1','M3401',1,'M3401',0);
 end;
 
 end.

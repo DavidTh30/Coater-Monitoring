@@ -91,6 +91,7 @@ procedure CreateTag_MB32();
 procedure CreateTag_MB33();   // Gravure roll Start/Stop HMI
 procedure CreateTag_MB34();
 procedure CreateTag_MB35();   //Takeoff roll Run/Off HMI
+procedure CreateTag_MD36();  // Gravure roll Manual Speed HMI
 procedure CreateTag_MB98();
 procedure CreateTag_MB101();
 procedure CreateTag_MW120();  // Alarm
@@ -190,6 +191,9 @@ var
 
   MB35_: TPLCBlock;   // Takeoff roll HMI
   MB35: TPLCBlockElement;
+
+  MD36_: TPLCBlock;   // Gravure roll Manual Speed HMI
+  MD36: TPLCBlockElement;
 
   MB98_: TPLCBlock;  // Filmbrake parameter
   MB98: TPLCBlockElement;
@@ -471,7 +475,7 @@ begin
   MB1_.MemAddress:=1;
   MB1_.MemReadFunction:=3;
   MB1_.AutoRead:=true;
-  MB1_.AutoWrite:=false;
+  MB1_.AutoWrite:=true;
   MB1_.TagType:= TTagType.pttByte;
   MB1_.Size:=1;
   MB1_.RefreshTime:=500;
@@ -736,6 +740,30 @@ begin
   m[35].Name:='MB35 Takeoff roll HMI';
   m[35].TagName._0:='Takeoff Roll Run HMI Cmd';
   m[35].TagName._1:='Takeoff Roll Off HMI Cmd';
+end;
+
+procedure CreateTag_MD36();  // Gravure roll Manual Speed HMI
+begin
+  MD36_:= TPLCBlock.Create(nil);
+  MD36_.PLCRack:=0;
+  MD36_.PLCSlot:=0;
+  MD36_.PLCStation:=2;
+  MD36_.MemAddress:=36;
+  MD36_.MemReadFunction:=3;
+  MD36_.MemWriteFunction:=0;
+  MD36_.AutoRead:=true;
+  MD36_.AutoWrite:=true;
+  MD36_.TagType:= TTagType.pttFloat;
+  MD36_.Size:=1;
+  MD36_.SwapBytes:=true;
+  MD36_.SwapDWords:=false;
+  MD36_.SwapWords:=true;
+  MD36_.RefreshTime:=1000;
+  MD36_.ProtocolDriver:=Unit1.Form1.ISOTCPDriver1;
+
+  MD36:= TPLCBlockElement.Create(nil);
+  MD36.Index:=0;
+  MD36.PLCBlock:=MD36_;
 end;
 
 procedure CreateTag_MB98();
@@ -1749,6 +1777,8 @@ end;
 
 procedure FreeAndNil_DBD();
 begin
+  FreeAndNil(MD36);
+  FreeAndNil(MD36_);
   FreeAndNil(DB9_DBD32);
   FreeAndNil(DB9_DBD32_);
   FreeAndNil(DB9_DBD36);

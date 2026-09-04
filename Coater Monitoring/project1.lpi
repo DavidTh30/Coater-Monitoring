@@ -102,6 +102,18 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="JvCustomLazR"/>
+      </Item>
+      <Item>
+        <PackageName Value="JvCustomLazD"/>
+      </Item>
+      <Item>
+        <PackageName Value="JvXPCtrlsLazR"/>
+      </Item>
+      <Item>
+        <PackageName Value="JvXPCtrlsLazD"/>
+      </Item>
+      <Item>
         <PackageName Value="TAChartLazarusPkg"/>
       </Item>
       <Item>

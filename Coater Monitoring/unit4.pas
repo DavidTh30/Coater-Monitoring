@@ -168,7 +168,7 @@ begin
     end;
   end;
 
-  if (InterlockName_ = 'Cartridge Interlock') then
+  if (InterlockName_ = 'Cartridge Valve Interlock') then
   begin
     if ProductionView then
     begin
@@ -187,12 +187,12 @@ begin
       Interlock1.Caption:='0:  Cartridge In HMI Cmd (M2.2=1)                           << Done by HMI';
       Interlock2.Caption:='1:  Cartridge Out HMI Cmd (M2.3=0)                          << Done by HMI';
       Interlock3.Caption:='2:  E-Stop OK (I0.0=1)';
-      Interlock4.Caption:='3:  Infeed On (System On) (Q201.0=1)                           << Done by HMI and Hardware';
+      Interlock4.Caption:='3:  Infeed On (System On) (Q201.0=1)                        << Done by HMI and Hardware';
       Interlock5.Caption:='4.1 or 4.3: MDO Film Brake (I0.2=1)';
       Interlock6.Caption:='4.2 or 4.3: All zone TDO Film Break (I0.7=1)';
-      Interlock7.Caption:='4.3: Bypass Filmbrake (M98.0=1)                                << Done by HMI';
+      Interlock7.Caption:='4.3: Bypass Filmbrake (M98.0=1)                             << Done by HMI';
       Interlock8.Caption:='5:  '+'LineSpeed Upper: '+DB10_DBD42.Value.ToString+' m/min'+' (M17.0=1)';
-      Status_.Caption:='Cartridge In Position (Valve) (Q0.2=1)                            << Done by HMI and Hardware';
+      Status_.Caption:='Cartridge In Position (Valve) (Q0.2=1)                         << Done by HMI and Hardware';
     end;
   end;
 
