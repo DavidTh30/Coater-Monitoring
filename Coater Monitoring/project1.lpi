@@ -102,6 +102,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="AnchorDocking"/>
+      </Item>
+      <Item>
         <PackageName Value="JvCustomLazR"/>
       </Item>
       <Item>
@@ -178,8 +181,25 @@
         <Filename Value="unit6.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="Form3"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit6"/>
+      </Unit>
+      <Unit>
+        <Filename Value="unit7.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FormChart"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="Unit7"/>
+      </Unit>
+      <Unit>
+        <Filename Value="unit8.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form4"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="Unit8"/>
       </Unit>
     </Units>
   </ProjectOptions>

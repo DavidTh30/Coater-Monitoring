@@ -14,7 +14,7 @@ uses
   tcp_udpport, ISOTCPDriver, HMIEdit, HMICheckBox, HMILabel, hmi_polyline,
   dbugintf, commtypes, TypInfo, StrUtils, Tag, TagBit, PLCBlock,
   PLCBlockElement, BCSVGButton, BCButton, BCMDButton, JvXPBar, simpleipc,
-  TASeries, Math;
+  TASeries, TASources, Math;
 
 function IsDebuggerPresent(): integer stdcall; external 'kernel32.dll';
 
@@ -32,6 +32,7 @@ type
     Button10: TButton;
     Button11: TButton;
     Button12: TButton;
+    Button13: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
@@ -40,7 +41,9 @@ type
     Button7: TButton;
     Button8: TButton;
     Button9: TButton;
-    Chart1: TChart;
+    MiniChart: TChart;
+    ChartAxisTransformations1: TChartAxisTransformations;
+    ChartAxisTransformations1LinearAxisTransform1: TLinearAxisTransform;
     CmdBypassMode: TBCButton;
     CmdGravureAuto: TBCButton;
     CmdGravureManual: TBCButton;
@@ -121,6 +124,11 @@ type
     Label8: TLabel;
     Label9: TLabel;
     LineSpeed_Act01: THMILabel;
+    ListChartSource1: TListChartSource;
+    ListChartSource2: TListChartSource;
+    ListChartSource3: TListChartSource;
+    ListChartSource4: TListChartSource;
+    ListChartSource5: TListChartSource;
     MenuGravureRollInterlock: TMenuItem;
     MenuCoronaExhaustFanStart: TMenuItem;
     MenuCoronaExhaustFanStop: TMenuItem;
@@ -142,6 +150,7 @@ type
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
     MenuCoronaGeneratorOn: TMenuItem;
+    MenuItem9: TMenuItem;
     MenuTakeoffRollStart: TMenuItem;
     MenuTakeoffRollStop: TMenuItem;
     MenuItemCartridgeValveInterlock: TMenuItem;
@@ -260,12 +269,13 @@ type
     TabSheet6: TTabSheet;
     TCP_UDPPort1: TTCP_UDPPort;
     MiniChartTimer: TTimer;
-    Timer1: TTimer;
-    Timer2: TTimer;
-    VelocitySeries: TLineSeries;
+    OnlinePLC_Timer: TTimer;
+    LifeCMD_Timer: TTimer;
+    CoronaPowerSeries: TLineSeries;
     procedure Button10Click(Sender: TObject);
     procedure Button11Click(Sender: TObject);
     procedure Button12Click(Sender: TObject);
+    procedure Button13Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -392,6 +402,7 @@ type
     procedure MenuCartridgeInClick(Sender: TObject);
     procedure MenuCartridgeOutClick(Sender: TObject);
     procedure MenuElectrodeInClick(Sender: TObject);
+    procedure MenuItem9Click(Sender: TObject);
     procedure MenuItemCartridgeValveInterlockClick(Sender: TObject);
     procedure MenuProductionViewClick(Sender: TObject);
     procedure MenuMaintenanceViewClick(Sender: TObject);
@@ -401,8 +412,8 @@ type
     procedure TCP_UDPPort1CommErrorReading(Error: TIOResult);
     procedure TCP_UDPPort1CommPortOpened(Sender: TObject);
     procedure TCP_UDPPort1CommPortOpenError(Sender: TObject);
-    procedure Timer1Timer(Sender: TObject);
-    procedure Timer2Timer(Sender: TObject);
+    procedure OnlinePLC_TimerTimer(Sender: TObject);
+    procedure LifeCMD_TimerTimer(Sender: TObject);
     procedure MiniChartTimerTimer(Sender: TObject);
   private
 
@@ -422,7 +433,7 @@ var
 
 implementation
 
-uses Unit2, Unit3, Unit4, Unit5, Unit6;
+uses Unit2, Unit3, Unit4, Unit5, Unit6, Unit7, Unit8;
 
 const
   A0 = 10.0;   // (initial) oscillation amplitude
@@ -989,6 +1000,11 @@ begin
   AddLifeCmd('CmdElectrodeIn M2.0','M200',1,'M200',0);
 end;
 
+procedure TForm1.MenuItem9Click(Sender: TObject);
+begin
+  FormChart.Show;
+end;
+
 procedure TForm1.MenuItemCartridgeValveInterlockClick(Sender: TObject);
 var
   ff:Tform2;
@@ -1048,7 +1064,7 @@ end;
 procedure TForm1.TCP_UDPPort1CommPortOpened(Sender: TObject);
 begin
   log({$I %LINE%}+' TCP_UDPPort1CommPortOpened');
-  Timer1.Enabled:=true;
+  OnlinePLC_Timer.Enabled:=true;
 end;
 
 procedure TForm1.TCP_UDPPort1CommPortOpenError(Sender: TObject);
@@ -1056,7 +1072,7 @@ begin
   log({$I %LINE%}+' TCP_UDPPort1CommPortOpenError');
 end;
 
-procedure TForm1.Timer1Timer(Sender: TObject);
+procedure TForm1.OnlinePLC_TimerTimer(Sender: TObject);
 begin
 
   LiveCounter_:=LiveCounter_+1;
@@ -1291,7 +1307,7 @@ begin
   end;
 end;
 
-procedure TForm1.Timer2Timer(Sender: TObject);
+procedure TForm1.LifeCMD_TimerTimer(Sender: TObject);
 var
   i:integer;
 begin
@@ -1332,6 +1348,7 @@ var
   exp_factor, sin_factor, cos_factor: Double;
   i:integer;
   s: string;
+  Txt:String;
 begin
 
   t := (Now() - FStartTime) * SecsPerDay;
@@ -1354,53 +1371,108 @@ begin
   s:=FormatFloat('0.00', v);
   v:=StrToFloat(s);
 
-  if Chart1.Extent.YMax < (V+0.5) then Chart1.Extent.YMax:=(V+0.5);
-  if Chart1.Extent.YMin > (V-0.5) then Chart1.Extent.YMin:=(V-0.5);
-  if (Abs(Chart1.Extent.YMax) > Abs(Chart1.Extent.YMin)) and
-     (Abs(Chart1.Extent.YMax) - Abs(Chart1.Extent.YMin)>2) then
+  if MiniChart.Extent.YMax < (V+0.5) then MiniChart.Extent.YMax:=(V+0.5);
+  if MiniChart.Extent.YMin > (V-0.5) then MiniChart.Extent.YMin:=(V-0.5);
+  if (Abs(MiniChart.Extent.YMax) > Abs(MiniChart.Extent.YMin)) and
+     (Abs(MiniChart.Extent.YMax) - Abs(MiniChart.Extent.YMin)>2) then
      begin
-       Chart1.Extent.YMax:=Chart1.Extent.YMax-0.02;
+       MiniChart.Extent.YMax:=MiniChart.Extent.YMax-0.02;
      end;
-  //if (Abs(Chart1.AxisList[1].Range.Max) < Abs(Chart1.AxisList[1].Range.Min)) and
-  //   (Abs(Chart1.AxisList[1].Range.Min) - Abs(Chart1.AxisList[1].Range.Max)>0.1) then
+  //if (Abs(MiniChart.AxisList[1].Range.Max) < Abs(MiniChart.AxisList[1].Range.Min)) and
+  //   (Abs(MiniChart.AxisList[1].Range.Min) - Abs(MiniChart.AxisList[1].Range.Max)>0.1) then
   //   begin
-  //     Chart1.AxisList[1].Range.Min:=Chart1.AxisList[1].Range.Min+0.02;
+  //     MiniChart.AxisList[1].Range.Min:=MiniChart.AxisList[1].Range.Min+0.02;
   //   end;
-  if (Abs(Chart1.Extent.YMax) - Abs(Chart1.Extent.YMin)) > 2 then
+  if (Abs(MiniChart.Extent.YMax) - Abs(MiniChart.Extent.YMin)) > 2 then
   begin
-    if Chart1.Extent.YMax> v then Chart1.Extent.YMax:=Chart1.Extent.YMax-0.02;
-    if Chart1.Extent.YMin< v then Chart1.Extent.YMin:=Chart1.Extent.YMin+0.02;
+    if MiniChart.Extent.YMax> v then MiniChart.Extent.YMax:=MiniChart.Extent.YMax-0.02;
+    if MiniChart.Extent.YMin< v then MiniChart.Extent.YMin:=MiniChart.Extent.YMin+0.02;
   end;
-  Chart1.ExtentSizeLimit.YMax:=Chart1.Extent.YMax;
-  Chart1.ExtentSizeLimit.YMin:=Chart1.Extent.YMin;
-  Chart1.AxisList[1].Range.Max:=Chart1.Extent.YMax;
-  Chart1.AxisList[1].Range.Min:=Chart1.Extent.YMin;
-  Chart1.LeftAxis.Range.Max:=Chart1.Extent.YMax;
-  Chart1.LeftAxis.Range.Min:=Chart1.Extent.YMin;
-  //VelocitySeries.AddXY(t, v);
-  //VelocitySeries.AddY(v);
-  if VelocitySeries.Count >= 1500 then
+  MiniChart.ExtentSizeLimit.YMax:=MiniChart.Extent.YMax;
+  MiniChart.ExtentSizeLimit.YMin:=MiniChart.Extent.YMin;
+  MiniChart.AxisList[1].Range.Max:=MiniChart.Extent.YMax;
+  MiniChart.AxisList[1].Range.Min:=MiniChart.Extent.YMin;
+  MiniChart.LeftAxis.Range.Max:=MiniChart.Extent.YMax;
+  MiniChart.LeftAxis.Range.Min:=MiniChart.Extent.YMin;
+  //CoronaPowerSeries.AddXY(t, v);
+  //CoronaPowerSeries.AddY(v);
+  if CoronaPowerSeries.Count >= 1500 then
   begin
-    //for i:= 0 to VelocitySeries.Count-2 do
-    //VelocitySeries.Source.Item[i]^.Y:=VelocitySeries.Source.Item[i+1]^.Y;
-    //VelocitySeries.Delete(VelocitySeries.Count-1);
-    //VelocitySeries.BeginUpdate;
-    VelocitySeries.Delete(0);
+    //for i:= 0 to CoronaPowerSeries.Count-2 do
+    //CoronaPowerSeries.Source.Item[i]^.Y:=CoronaPowerSeries.Source.Item[i+1]^.Y;
+    //CoronaPowerSeries.Delete(CoronaPowerSeries.Count-1);
+    //CoronaPowerSeries.BeginUpdate;
+    CoronaPowerSeries.Delete(0);
 
-    //VelocitySeries.EndUpdate;
-    //Button7.Caption:=VelocitySeries.Count.ToString;
+    //CoronaPowerSeries.EndUpdate;
+    //Button7.Caption:=CoronaPowerSeries.Count.ToString;
   end;
 
-  //if VelocitySeries.Count >= 1500 then
-  //  VelocitySeries.AddXY(VelocitySeries.Count, v)
+  //if CoronaPowerSeries.Count >= 1500 then
+  //  CoronaPowerSeries.AddXY(CoronaPowerSeries.Count, v)
   //else
-  //  VelocitySeries.AddXY(VelocitySeries.Count, v);
-  VelocitySeries.Add(v);
+  //  CoronaPowerSeries.AddXY(CoronaPowerSeries.Count, v);
+  CoronaPowerSeries.Add(v);
 
- // Label60.Caption:=VelocitySeries.Count.ToString;
+ // Label60.Caption:=CoronaPowerSeries.Count.ToString;
   //Label62.Caption:=t.ToString;
-  if SimulateCorona01 or SimulateCorona02 then Button6.Caption:=VelocitySeries.Count.ToString;
-  //if SimulateCorona01 or SimulateCorona02 then Label62.Caption:=Chart1.Extent.YMin.ToString;
+  if SimulateCorona01 or SimulateCorona02 then Button6.Caption:=CoronaPowerSeries.Count.ToString;
+  //if SimulateCorona01 or SimulateCorona02 then Label62.Caption:=MiniChart.Extent.YMin.ToString;
+
+  Txt:=FormatDateTime('hh',  Now)+':'+FormatDateTime('nn',  Now)+':'+FormatDateTime('ss',  Now);
+
+  v := v+ Random(100) + 400; { Generates 400 - 500 }
+  v:=v/10;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+  ListChartSource1.Add(ListChartSource1.Count,v, Txt);
+
+  v := v+ Random(100) + 500; { Generates 500 - 600 }
+  v:=v/10;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+  ListChartSource2.Add(ListChartSource2.Count,v, Txt);
+
+  v := v+ Random(100) + 600; { Generates 600 - 700 }
+  v:=v/10;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+  ListChartSource3.Add(ListChartSource3.Count,v, Txt);
+
+  v := v+ Random(100) + 700; { Generates 700 - 800 }
+  v:=v/10;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+  ListChartSource4.Add(ListChartSource4.Count,v, Txt);
+
+  v := v+ Random(100) + 800; { Generates 800 - 900 }
+  v:=v/10;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+  ListChartSource5.Add(ListChartSource5.Count,v, Txt);
+
+  If (ListChartSource1.Count>240) then
+  begin
+    FormChart.Chart1.BottomAxis.Range.Max:=ListChartSource1.Count;
+    //MiniChart.BottomAxis.Range.UseMax:=True;
+    FormChart.Chart1.BottomAxis.Range.Min:=ListChartSource1.Count-240;
+    //MiniChart.BottomAxis.Range.UseMin:=True;
+    FormChart.Chart1.Extent.XMin:=ListChartSource1.Count-240;
+    FormChart.Chart1.Extent.XMax:=ListChartSource1.Count;
+  end;
+  If (ListChartSource1.Count<=240) then
+  begin
+    if(ListChartSource1.Count<=60)then
+    FormChart.Chart1.BottomAxis.Range.Max:=60;
+    if(ListChartSource1.Count>60)then
+    FormChart.Chart1.BottomAxis.Range.Max:=ListChartSource1.Count;
+    FormChart.Chart1.BottomAxis.Range.Min:=0;
+    FormChart.Chart1.Extent.XMin:=0;
+    if(ListChartSource1.Count<=60)then
+    FormChart.Chart1.Extent.XMax:=60;
+    if(ListChartSource1.Count>60)then
+    FormChart.Chart1.Extent.XMax:=ListChartSource1.Count;
+  end;
 end;
 
 procedure TForm1.ConnectClick(Sender: TObject);
@@ -1482,6 +1554,11 @@ end;
 procedure TForm1.Button12Click(Sender: TObject);
 begin
   PageControl2.TabIndex:=1;
+end;
+
+procedure TForm1.Button13Click(Sender: TObject);
+begin
+  Form4.Show;
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
@@ -1792,7 +1869,7 @@ end;
 
 procedure TForm1.DisconnectClick(Sender: TObject);
 begin
-  Timer1.Enabled:=false;
+  OnlinePLC_Timer.Enabled:=false;
   TCP_UDPPort1.Active:=false;
   Communication_Active:=false;
   CommunicationNotActive;
@@ -1852,7 +1929,7 @@ procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   //Close all commucation first before terminate object
 
-  timer1.Enabled:=false;
+  OnlinePLC_Timer.Enabled:=false;
   TCP_UDPPort1.Active:=false; //Disconnect
   Communication_Active:=false;
 
@@ -1976,11 +2053,11 @@ begin
   finally
     TempBmp.Free;
   end;
-  Chart1.Extent.UseYMin:=true;
-  Chart1.Extent.UseYMax:=true;
-  Chart1.Extent.YMax:=10;
-  Chart1.Extent.YMin:=0;
-  //with Chart1.AxisList[1].Range do  //Chart1.AxisList[1].Range
+  MiniChart.Extent.UseYMin:=true;
+  MiniChart.Extent.UseYMax:=true;
+  MiniChart.Extent.YMax:=10;
+  MiniChart.Extent.YMin:=0;
+  //with MiniChart.AxisList[1].Range do  //MiniChart.AxisList[1].Range
   //begin
   //  UseMax := true;
   //  UseMin := true;
