@@ -5,8 +5,8 @@ unit Unit8;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, PairSplitter,
-  StdCtrls, AnchorDockPanel;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  StdCtrls;
 
 type
 
@@ -22,6 +22,7 @@ type
     Label1: TLabel;
     Panel1: TPanel;
     ScrollBox1: TScrollBox;
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
   private
 
   public
@@ -33,7 +34,17 @@ var
 
 implementation
 
+uses
+  Unit1;
+
 {$R *.lfm}
+
+{ TForm4 }
+
+procedure TForm4.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  Form1.show;
+end;
 
 end.
 

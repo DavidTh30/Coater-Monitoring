@@ -1,7 +1,7 @@
 object FormChart: TFormChart
-  Left = 806
+  Left = 945
   Height = 531
-  Top = 148
+  Top = 139
   Width = 820
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -2128,6 +2128,8 @@ object FormChart: TFormChart
   Position = poWorkAreaCenter
   LCLVersion = '4.8.0.0'
   Scaled = False
+  OnClose = FormClose
+  OnCreate = FormCreate
   object Chart1: TChart
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
@@ -2141,10 +2143,13 @@ object FormChart: TFormChart
     Width = 820
     AxisList = <    
       item
+        LabelSize = 25
+        Margin = 1
         Marks.LabelBrush.Style = bsClear
         Minors = <>
         Title.LabelFont.Orientation = 900
         Title.LabelBrush.Style = bsClear
+        Transformations = ChartAxisTransformations1
       end    
       item
         Grid.Visible = False
@@ -2176,6 +2181,9 @@ object FormChart: TFormChart
     )
     Toolset = ChartToolset1
     Anchors = [akTop, akLeft, akRight, akBottom]
+    OnDragDrop = Chart1DragDrop
+    OnDragOver = Chart1DragOver
+    OnMouseMove = Chart1MouseMove
     object Chart1LineSeries1: TLineSeries
       Title = 'time_qqq'
       AxisIndexX = 1
@@ -2185,28 +2193,15 @@ object FormChart: TFormChart
       LinePen.Width = 2
       Source = Form1.ListChartSource1
     end
-    object Chart1LineSeries2: TLineSeries
-      AxisIndexX = 1
-      LinePen.Color = clMaroon
-      Source = Form1.ListChartSource2
-    end
-    object Chart1LineSeries3: TLineSeries
-      AxisIndexX = 1
-      LinePen.Color = clFuchsia
-      Source = Form1.ListChartSource3
-    end
-    object Chart1LineSeries4: TLineSeries
-      AxisIndexX = 1
-      AxisIndexY = 0
-      LinePen.Color = clGreen
-      Source = Form1.ListChartSource4
-    end
-    object Chart1LineSeries5: TLineSeries
-      AxisIndexX = 1
-      AxisIndexY = 0
-      LinePen.Color = clRed
-      Source = Form1.ListChartSource5
-    end
+  end
+  object Button1: TButton
+    Left = 705
+    Height = 30
+    Top = 84
+    Width = 51
+    Caption = 'Button1'
+    TabOrder = 1
+    OnClick = Button1Click
   end
   object ChartMenu: TPopupMenu
     ImagesWidth = 20
@@ -2258,15 +2253,23 @@ object FormChart: TFormChart
       end
     end
   end
-  object IntervalChartSource1: TIntervalChartSource
-    Left = 328
-    Top = 128
-  end
   object ChartToolset1: TChartToolset
     Left = 172
     Top = 50
     object ChartToolset1AxisClickTool1: TAxisClickTool
-      OnClick = ChartToolset1AxisClickTool1Click
+      OnAfterMouseWheelDown = ChartToolset1AxisClickTool1AfterMouseWheelDown
+      OnAfterMouseWheelUp = ChartToolset1AxisClickTool1AfterMouseWheelUp
     end
+  end
+  object ChartAxisTransformations1: TChartAxisTransformations
+    Left = 192
+    Top = 184
+    object AutoScaleAxisTransform1: TAutoScaleAxisTransform
+      MaxValue = 100
+    end
+  end
+  object ChartAxisTransformations2: TChartAxisTransformations
+    Left = 327
+    Top = 168
   end
 end

@@ -1,0 +1,524 @@
+unit Unit9;
+
+{$mode ObjFPC}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, Dialogs;
+
+procedure RecordLogFile();
+procedure InitLogFile();
+procedure LogFileDisconnect();
+procedure LogFileConnect();
+procedure LogFileSoftwareClose();
+
+implementation
+
+uses
+  Unit1, Unit2;
+
+procedure RecordLogFile();
+var
+  MyFolder: string;
+  S_Name:string;
+  fileout : TextFile;
+  File_OK:boolean;
+begin
+  MyFolder := GetCurrentDir+'\'+FormatDateTime('MM YYY',Now);
+
+  if not DirectoryExists(MyFolder) then
+  begin
+    if CreateDir(MyFolder) then
+    begin
+      //showmessage('Directory created successfully.')
+    end
+    else
+    begin
+      showmessage('Failed to create directory.');
+    end;
+  end
+  else
+  begin
+    //showmessage('Directory already exists.');
+  end;
+
+  S_Name:=MyFolder+'\'+FormatDateTime('DD MM YYYY',Now)+'.CSV';
+  if DirectoryExists(MyFolder) then
+  if not FileExists(S_Name) then
+  begin
+    File_OK:=true;
+    try
+      AssignFile(fileout, S_Name);
+      rewrite (fileout);
+    except
+      on E: EInOutError do
+      begin
+        showmessage('AssignFile error: '+ chr(13)+E.ClassName+'/'+ E.Message+'/'+IntToStr(E.ErrorCode));
+        File_OK:=false;
+      end;
+    end;
+    if File_OK then
+    begin
+      //Create Header File
+      writeln(fileout, 'Date,Time,LineSpeed,CoronaSetpoint,CoronaPower,CoronaWattDensity,AdditionalCoronaSpeed,CoronaSpeed,Electrode,ExhaustFan,AdditionalGravureSpeed,GravureRollpeed,Cartridge,AdditionalTakeOffRollSpeed,TakeOffRollSpeed,SystemOn,OperlateMode,LineSpeedUpper,BypassFilmbrake');
+    end;
+  end
+  else
+  begin
+    File_OK:=true;
+    try
+      AssignFile(fileout, S_Name);
+      Append(fileout);
+    except
+      on E: EInOutError do
+      begin
+        showmessage('AssignFile error: '+ chr(13)+E.ClassName+'/'+ E.Message+'/'+IntToStr(E.ErrorCode));
+        File_OK:=false;
+      end;
+    end;
+  end;
+
+  if File_OK then
+  begin
+    writeln(fileout, FormatDateTime('DD/MM/YYYY',Now)+','+FormatDateTime('hh:nn:ss',Now)+
+                     ','+FormatFloat('0.00', DB10_DBD4.Value)+'m/min,'+
+                     DB9_DBD56.Value.ToString+'kW,'+DB9_DBD60.Value.ToString+'kW,'+
+                     DB9_DBD64.Value.ToString+' W/m^2,'+DB10_DBD22.Value.ToString+'%,'+',,,,,,,');
+    CloseFile(fileout);
+  end;
+
+end;
+
+procedure InitLogFile();
+var
+  MyFolder: string;
+  S_Name:string;
+  fileout : TextFile;
+  File_OK:boolean;
+begin
+  MyFolder := GetCurrentDir+'\'+FormatDateTime('MM YYY',Now);
+
+  if not DirectoryExists(MyFolder) then
+  begin
+    if CreateDir(MyFolder) then
+    begin
+      //showmessage('Directory created successfully.')
+    end
+    else
+    begin
+      showmessage('Failed to create directory.');
+      //Self.Menu := nil;
+      Form1.MenuConnect.Enabled:=false;
+      Form1.MenuView.Enabled:=false;
+      Form1.MenuChart.Enabled:=false;
+      Form1.TabSheet1.Free;
+      Form1.TabSheet2.Free;
+      Form1.TabSheet3.Free;
+      Form1.TabSheet4.Free;
+      Form1.TabSheet5.Free;
+      Form1.TabSheet6.Free;
+      Form1.OnlinePLC_Timer.Enabled:=false;
+      Form1.TCP_UDPPort1.Active:=false;
+      Communication_Active:=false;
+    end;
+  end
+  else
+  begin
+    //showmessage('Directory already exists.');
+  end;
+
+  S_Name:=MyFolder+'\'+FormatDateTime('DD MM YYYY',Now)+'.CSV';
+  if DirectoryExists(MyFolder) then
+  if not FileExists(S_Name) then
+  begin
+    File_OK:=true;
+    try
+      AssignFile(fileout, S_Name);
+      rewrite (fileout);
+    except
+      on E: EInOutError do
+      begin
+        showmessage('AssignFile error: '+ chr(13)+E.ClassName+'/'+ E.Message+'/'+IntToStr(E.ErrorCode));
+        //Self.Menu := nil;
+        Form1.MenuConnect.Enabled:=false;
+        Form1.MenuView.Enabled:=false;
+        Form1.MenuChart.Enabled:=false;
+        Form1.TabSheet1.Free;
+        Form1.TabSheet2.Free;
+        Form1.TabSheet3.Free;
+        Form1.TabSheet4.Free;
+        Form1.TabSheet5.Free;
+        Form1.TabSheet6.Free;
+        Form1.OnlinePLC_Timer.Enabled:=false;
+        Form1.TCP_UDPPort1.Active:=false;
+        Communication_Active:=false;
+        File_OK:=false;
+      end;
+    end;
+    if File_OK then
+    begin
+      //Create Header File
+      writeln(fileout, 'Date,Time,LineSpeed,CoronaSetpoint,CoronaPower,CoronaWattDensity,AdditionalCoronaSpeed,CoronaSpeed,Electrode,ExhaustFan,AdditionalGravureSpeed,GravureRollpeed,Cartridge,AdditionalTakeOffRollSpeed,TakeOffRollSpeed,SystemOn,OperlateMode,LineSpeedUpper,BypassFilmbrake');
+    end;
+  end
+  else
+  begin
+    File_OK:=true;
+    try
+      AssignFile(fileout, S_Name);
+      Append(fileout);
+    except
+      on E: EInOutError do
+      begin
+        showmessage('AssignFile error: '+ chr(13)+E.ClassName+'/'+ E.Message+'/'+IntToStr(E.ErrorCode));
+        //Self.Menu := nil;
+        Form1.MenuConnect.Enabled:=false;
+        Form1.MenuView.Enabled:=false;
+        Form1.MenuChart.Enabled:=false;
+        Form1.TabSheet1.Free;
+        Form1.TabSheet2.Free;
+        Form1.TabSheet3.Free;
+        Form1.TabSheet4.Free;
+        Form1.TabSheet5.Free;
+        Form1.TabSheet6.Free;
+        Form1.OnlinePLC_Timer.Enabled:=false;
+        Form1.TCP_UDPPort1.Active:=false;
+        Communication_Active:=false;
+        File_OK:=false;
+      end;
+    end;
+  end;
+
+  if File_OK then
+  begin
+    writeln(fileout, 'Software Start:,'+FormatDateTime('DD/MM/YYYY',Now)+','+FormatDateTime('hh:nn:ss',Now));
+    CloseFile(fileout);
+  end;
+end;
+
+procedure LogFileDisconnect();
+var
+  MyFolder: string;
+  S_Name:string;
+  fileout : TextFile;
+  File_OK:boolean;
+begin
+  MyFolder := GetCurrentDir+'\'+FormatDateTime('MM YYY',Now);
+
+  if not DirectoryExists(MyFolder) then
+  begin
+    if CreateDir(MyFolder) then
+    begin
+      //showmessage('Directory created successfully.')
+    end
+    else
+    begin
+      showmessage('Failed to create directory.');
+      //Self.Menu := nil;
+      Form1.MenuConnect.Enabled:=false;
+      Form1.MenuView.Enabled:=false;
+      Form1.MenuChart.Enabled:=false;
+      Form1.TabSheet1.Free;
+      Form1.TabSheet2.Free;
+      Form1.TabSheet3.Free;
+      Form1.TabSheet4.Free;
+      Form1.TabSheet5.Free;
+      Form1.TabSheet6.Free;
+      Form1.OnlinePLC_Timer.Enabled:=false;
+      Form1.TCP_UDPPort1.Active:=false;
+      Communication_Active:=false;
+    end;
+  end
+  else
+  begin
+    //showmessage('Directory already exists.');
+  end;
+
+  S_Name:=MyFolder+'\'+FormatDateTime('DD MM YYYY',Now)+'.CSV';
+  if DirectoryExists(MyFolder) then
+  if not FileExists(S_Name) then
+  begin
+    File_OK:=true;
+    try
+      AssignFile(fileout, S_Name);
+      rewrite (fileout);
+    except
+      on E: EInOutError do
+      begin
+        showmessage('AssignFile error: '+ chr(13)+E.ClassName+'/'+ E.Message+'/'+IntToStr(E.ErrorCode));
+        //Self.Menu := nil;
+        Form1.MenuConnect.Enabled:=false;
+        Form1.MenuView.Enabled:=false;
+        Form1.MenuChart.Enabled:=false;
+        Form1.TabSheet1.Free;
+        Form1.TabSheet2.Free;
+        Form1.TabSheet3.Free;
+        Form1.TabSheet4.Free;
+        Form1.TabSheet5.Free;
+        Form1.TabSheet6.Free;
+        Form1.OnlinePLC_Timer.Enabled:=false;
+        Form1.TCP_UDPPort1.Active:=false;
+        Communication_Active:=false;
+        File_OK:=false;
+      end;
+    end;
+    if File_OK then
+    begin
+      //Create Header File
+      writeln(fileout, 'Date,Time,LineSpeed,CoronaSetpoint,CoronaPower,CoronaWattDensity,AdditionalCoronaSpeed,CoronaSpeed,Electrode,ExhaustFan,AdditionalGravureSpeed,GravureRollpeed,Cartridge,AdditionalTakeOffRollSpeed,TakeOffRollSpeed,SystemOn,OperlateMode,LineSpeedUpper,BypassFilmbrake');
+    end;
+  end
+  else
+  begin
+    File_OK:=true;
+    try
+      AssignFile(fileout, S_Name);
+      Append(fileout);
+    except
+      on E: EInOutError do
+      begin
+        showmessage('AssignFile error: '+ chr(13)+E.ClassName+'/'+ E.Message+'/'+IntToStr(E.ErrorCode));
+        //Self.Menu := nil;
+        Form1.MenuConnect.Enabled:=false;
+        Form1.MenuView.Enabled:=false;
+        Form1.MenuChart.Enabled:=false;
+        Form1.TabSheet1.Free;
+        Form1.TabSheet2.Free;
+        Form1.TabSheet3.Free;
+        Form1.TabSheet4.Free;
+        Form1.TabSheet5.Free;
+        Form1.TabSheet6.Free;
+        Form1.OnlinePLC_Timer.Enabled:=false;
+        Form1.TCP_UDPPort1.Active:=false;
+        Communication_Active:=false;
+        File_OK:=false;
+      end;
+    end;
+  end;
+
+  if File_OK then
+  begin
+    writeln(fileout, 'Disconnect:,'+FormatDateTime('DD/MM/YYYY',Now)+','+FormatDateTime('hh:nn:ss',Now));
+    CloseFile(fileout);
+  end;
+end;
+
+procedure LogFileConnect();
+var
+  MyFolder: string;
+  S_Name:string;
+  fileout : TextFile;
+  File_OK:boolean;
+begin
+  MyFolder := GetCurrentDir+'\'+FormatDateTime('MM YYY',Now);
+
+  if not DirectoryExists(MyFolder) then
+  begin
+    if CreateDir(MyFolder) then
+    begin
+      //showmessage('Directory created successfully.')
+    end
+    else
+    begin
+      showmessage('Failed to create directory.');
+      //Self.Menu := nil;
+      Form1.MenuConnect.Enabled:=false;
+      Form1.MenuView.Enabled:=false;
+      Form1.MenuChart.Enabled:=false;
+      Form1.TabSheet1.Free;
+      Form1.TabSheet2.Free;
+      Form1.TabSheet3.Free;
+      Form1.TabSheet4.Free;
+      Form1.TabSheet5.Free;
+      Form1.TabSheet6.Free;
+      Form1.OnlinePLC_Timer.Enabled:=false;
+      Form1.TCP_UDPPort1.Active:=false;
+      Communication_Active:=false;
+    end;
+  end
+  else
+  begin
+    //showmessage('Directory already exists.');
+  end;
+
+  S_Name:=MyFolder+'\'+FormatDateTime('DD MM YYYY',Now)+'.CSV';
+  if DirectoryExists(MyFolder) then
+  if not FileExists(S_Name) then
+  begin
+    File_OK:=true;
+    try
+      AssignFile(fileout, S_Name);
+      rewrite (fileout);
+    except
+      on E: EInOutError do
+      begin
+        showmessage('AssignFile error: '+ chr(13)+E.ClassName+'/'+ E.Message+'/'+IntToStr(E.ErrorCode));
+        //Self.Menu := nil;
+        Form1.MenuConnect.Enabled:=false;
+        Form1.MenuView.Enabled:=false;
+        Form1.MenuChart.Enabled:=false;
+        Form1.TabSheet1.Free;
+        Form1.TabSheet2.Free;
+        Form1.TabSheet3.Free;
+        Form1.TabSheet4.Free;
+        Form1.TabSheet5.Free;
+        Form1.TabSheet6.Free;
+        Form1.OnlinePLC_Timer.Enabled:=false;
+        Form1.TCP_UDPPort1.Active:=false;
+        Communication_Active:=false;
+        File_OK:=false;
+      end;
+    end;
+    if File_OK then
+    begin
+      //Create Header File
+      writeln(fileout, 'Date,Time,LineSpeed,CoronaSetpoint,CoronaPower,CoronaWattDensity,AdditionalCoronaSpeed,CoronaSpeed,Electrode,ExhaustFan,AdditionalGravureSpeed,GravureRollpeed,Cartridge,AdditionalTakeOffRollSpeed,TakeOffRollSpeed,SystemOn,OperlateMode,LineSpeedUpper,BypassFilmbrake');
+    end;
+  end
+  else
+  begin
+    File_OK:=true;
+    try
+      AssignFile(fileout, S_Name);
+      Append(fileout);
+    except
+      on E: EInOutError do
+      begin
+        showmessage('AssignFile error: '+ chr(13)+E.ClassName+'/'+ E.Message+'/'+IntToStr(E.ErrorCode));
+        //Self.Menu := nil;
+        Form1.MenuConnect.Enabled:=false;
+        Form1.MenuView.Enabled:=false;
+        Form1.MenuChart.Enabled:=false;
+        Form1.TabSheet1.Free;
+        Form1.TabSheet2.Free;
+        Form1.TabSheet3.Free;
+        Form1.TabSheet4.Free;
+        Form1.TabSheet5.Free;
+        Form1.TabSheet6.Free;
+        Form1.OnlinePLC_Timer.Enabled:=false;
+        Form1.TCP_UDPPort1.Active:=false;
+        Communication_Active:=false;
+        File_OK:=false;
+      end;
+    end;
+  end;
+
+  if File_OK then
+  begin
+    writeln(fileout, 'Connect:,'+FormatDateTime('DD/MM/YYYY',Now)+','+FormatDateTime('hh:nn:ss',Now));
+    CloseFile(fileout);
+  end;
+end;
+
+procedure LogFileSoftwareClose();
+var
+  MyFolder: string;
+  S_Name:string;
+  fileout : TextFile;
+  File_OK:boolean;
+begin
+  MyFolder := GetCurrentDir+'\'+FormatDateTime('MM YYY',Now);
+
+  if not DirectoryExists(MyFolder) then
+  begin
+    if CreateDir(MyFolder) then
+    begin
+      //showmessage('Directory created successfully.')
+    end
+    else
+    begin
+      showmessage('Failed to create directory.');
+      //Self.Menu := nil;
+      Form1.MenuConnect.Enabled:=false;
+      Form1.MenuView.Enabled:=false;
+      Form1.MenuChart.Enabled:=false;
+      Form1.TabSheet1.Free;
+      Form1.TabSheet2.Free;
+      Form1.TabSheet3.Free;
+      Form1.TabSheet4.Free;
+      Form1.TabSheet5.Free;
+      Form1.TabSheet6.Free;
+      Form1.OnlinePLC_Timer.Enabled:=false;
+      Form1.TCP_UDPPort1.Active:=false;
+      Communication_Active:=false;
+    end;
+  end
+  else
+  begin
+    //showmessage('Directory already exists.');
+  end;
+
+  S_Name:=MyFolder+'\'+FormatDateTime('DD MM YYYY',Now)+'.CSV';
+  if DirectoryExists(MyFolder) then
+  if not FileExists(S_Name) then
+  begin
+    File_OK:=true;
+    try
+      AssignFile(fileout, S_Name);
+      rewrite (fileout);
+    except
+      on E: EInOutError do
+      begin
+        showmessage('AssignFile error: '+ chr(13)+E.ClassName+'/'+ E.Message+'/'+IntToStr(E.ErrorCode));
+        //Self.Menu := nil;
+        Form1.MenuConnect.Enabled:=false;
+        Form1.MenuView.Enabled:=false;
+        Form1.MenuChart.Enabled:=false;
+        Form1.TabSheet1.Free;
+        Form1.TabSheet2.Free;
+        Form1.TabSheet3.Free;
+        Form1.TabSheet4.Free;
+        Form1.TabSheet5.Free;
+        Form1.TabSheet6.Free;
+        Form1.OnlinePLC_Timer.Enabled:=false;
+        Form1.TCP_UDPPort1.Active:=false;
+        Communication_Active:=false;
+        File_OK:=false;
+      end;
+    end;
+    if File_OK then
+    begin
+      //Create Header File
+      writeln(fileout, 'Date,Time,LineSpeed,CoronaSetpoint,CoronaPower,CoronaWattDensity,AdditionalCoronaSpeed,CoronaSpeed,Electrode,ExhaustFan,AdditionalGravureSpeed,GravureRollpeed,Cartridge,AdditionalTakeOffRollSpeed,TakeOffRollSpeed,SystemOn,OperlateMode,LineSpeedUpper,BypassFilmbrake');
+    end;
+  end
+  else
+  begin
+    File_OK:=true;
+    try
+      AssignFile(fileout, S_Name);
+      Append(fileout);
+    except
+      on E: EInOutError do
+      begin
+        showmessage('AssignFile error: '+ chr(13)+E.ClassName+'/'+ E.Message+'/'+IntToStr(E.ErrorCode));
+        //Self.Menu := nil;
+        Form1.MenuConnect.Enabled:=false;
+        Form1.MenuView.Enabled:=false;
+        Form1.MenuChart.Enabled:=false;
+        Form1.TabSheet1.Free;
+        Form1.TabSheet2.Free;
+        Form1.TabSheet3.Free;
+        Form1.TabSheet4.Free;
+        Form1.TabSheet5.Free;
+        Form1.TabSheet6.Free;
+        Form1.OnlinePLC_Timer.Enabled:=false;
+        Form1.TCP_UDPPort1.Active:=false;
+        Communication_Active:=false;
+        File_OK:=false;
+      end;
+    end;
+  end;
+
+  if File_OK then
+  begin
+    writeln(fileout, 'Software Close:,'+FormatDateTime('DD/MM/YYYY',Now)+','+FormatDateTime('hh:nn:ss',Now));
+    CloseFile(fileout);
+  end;
+end;
+
+
+
+end.
+

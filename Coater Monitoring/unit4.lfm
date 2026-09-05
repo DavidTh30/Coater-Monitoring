@@ -2846,6 +2846,7 @@ object Form2: TForm2
   Position = poWorkAreaCenter
   LCLVersion = '4.8.0.0'
   Scaled = False
+  OnClose = FormClose
   OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   object InterlockName: TLabel

@@ -155,7 +155,9 @@ var
 
   LiveCounter_:integer;
   Communication_Active:boolean;
+  Previous_Communication_Active:boolean;
   ProductionView:boolean;
+
   MB0_: TPLCBlock;  // Generator On/Off HMI
   MB0: TPLCBlockElement;
 
@@ -1777,6 +1779,7 @@ end;
 
 procedure FreeAndNil_DBD();
 begin
+  //if MD36 = nil then exit;
   FreeAndNil(MD36);
   FreeAndNil(MD36_);
   FreeAndNil(DB9_DBD32);

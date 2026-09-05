@@ -2127,6 +2127,7 @@ object Form4: TForm4
   Position = poWorkAreaCenter
   LCLVersion = '4.8.0.0'
   Scaled = False
+  OnClose = FormClose
   object ScrollBox1: TScrollBox
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner

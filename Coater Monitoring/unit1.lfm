@@ -2631,6 +2631,7 @@ object Form1: TForm1
         Height = 45
         Top = 208
         Width = 50
+        DragMode = dmAutomatic
         ImageIndex = 18
         Images = ImageList2
         PopupMenu = PopupMenuElectrode
@@ -2642,6 +2643,7 @@ object Form1: TForm1
         Height = 45
         Top = 344
         Width = 50
+        DragMode = dmAutomatic
         ImageIndex = 18
         Images = ImageList2
         PopupMenu = PopupMenuCartridge
@@ -2655,6 +2657,7 @@ object Form1: TForm1
         Width = 60
         Brush.Color = clCream
         Brush.Style = bsDiagCross
+        DragMode = dmAutomatic
         Shape = stCircle
       end
       object GravureRoll: TShape
@@ -2665,6 +2668,7 @@ object Form1: TForm1
         Width = 68
         Brush.Color = clSilver
         Brush.Style = bsDiagCross
+        DragMode = dmAutomatic
         Shape = stCircle
       end
       object CoronaRoll: TShape
@@ -2675,6 +2679,7 @@ object Form1: TForm1
         Width = 75
         Brush.Color = clSkyBlue
         Brush.Style = bsDiagCross
+        DragMode = dmAutomatic
         Shape = stCircle
       end
       object BananaRoll: TShape
@@ -2746,6 +2751,7 @@ object Form1: TForm1
         Height = 72
         Top = 171
         Width = 34
+        DragMode = dmAutomatic
         Images = ImageList3
         PopupMenu = PopupMenuElectrode
       end
@@ -2780,6 +2786,7 @@ object Form1: TForm1
         Width = 41
         Alignment = taCenter
         Color = clWindow
+        DragMode = dmAutomatic
         Enabled = False
         Font.Color = clWindowText
         ParentFont = False
@@ -2810,6 +2817,7 @@ object Form1: TForm1
         Top = 224
         Width = 82
         AutoSize = True
+        DragMode = dmAutomatic
         Enabled = True
         ParentFont = False
         NumberFormat = '#0.0'
@@ -2843,6 +2851,7 @@ object Form1: TForm1
         Top = 424
         Width = 82
         AutoSize = True
+        DragMode = dmAutomatic
         Enabled = True
         ParentFont = False
         NumberFormat = '#0.0'
@@ -2856,6 +2865,7 @@ object Form1: TForm1
         Top = 360
         Width = 82
         AutoSize = True
+        DragMode = dmAutomatic
         Enabled = True
         ParentFont = False
         NumberFormat = '#0.0'
@@ -2869,6 +2879,7 @@ object Form1: TForm1
         Top = 456
         Width = 82
         AutoSize = True
+        DragMode = dmAutomatic
         Enabled = True
         ParentFont = False
         NumberFormat = '#0.0'
@@ -2895,6 +2906,7 @@ object Form1: TForm1
         Width = 41
         Alignment = taCenter
         Color = clWindow
+        DragMode = dmAutomatic
         Enabled = False
         Font.Color = clWindowText
         ParentFont = False
@@ -2938,6 +2950,7 @@ object Form1: TForm1
         Width = 41
         Alignment = taCenter
         Color = clWindow
+        DragMode = dmAutomatic
         Enabled = False
         Font.Color = clWindowText
         ParentFont = False
@@ -3011,9 +3024,10 @@ object Form1: TForm1
       object Corona_Act1: THMILabel
         Left = 36
         Height = 15
-        Top = 24
+        Top = 48
         Width = 82
         AutoSize = True
+        DragMode = dmAutomatic
         Enabled = True
         ParentFont = False
         NumberFormat = '#0.0'
@@ -3027,7 +3041,7 @@ object Form1: TForm1
         AnchorSideRight.Control = CoronaSetpoint1
         Left = 30
         Height = 15
-        Top = 44
+        Top = 28
         Width = 50
         Anchors = [akTop, akRight]
         Caption = 'Setpoint: '
@@ -3036,9 +3050,10 @@ object Form1: TForm1
       object CoronaSetpoint1: THMIEdit
         Left = 80
         Height = 23
-        Top = 40
+        Top = 24
         Width = 57
         Color = clWindow
+        DragMode = dmAutomatic
         Enabled = False
         Font.Color = clWindowText
         ParentFont = False
@@ -3058,7 +3073,7 @@ object Form1: TForm1
         AnchorSideRight.Side = asrBottom
         Left = 139
         Height = 15
-        Top = 44
+        Top = 28
         Width = 17
         BorderSpacing.Left = 2
         Caption = 'kW'
@@ -3070,6 +3085,7 @@ object Form1: TForm1
         Top = 64
         Width = 82
         AutoSize = True
+        DragMode = dmAutomatic
         Enabled = True
         ParentFont = False
         NumberFormat = '#0.0'
@@ -3112,6 +3128,7 @@ object Form1: TForm1
         Top = 240
         Width = 16
         AntialiasingMode = amOn
+        DragMode = dmAutomatic
         ImageIndex = 24
         Images = ImageList2
         PopupMenu = PopupMenuElectrode
@@ -3126,6 +3143,7 @@ object Form1: TForm1
         Top = 376
         Width = 16
         AntialiasingMode = amOn
+        DragMode = dmAutomatic
         ImageIndex = 24
         Images = ImageList2
         PopupMenu = PopupMenuCartridge
@@ -3140,6 +3158,7 @@ object Form1: TForm1
         Top = 160
         Width = 64
         AntialiasingMode = amOn
+        DragMode = dmAutomatic
         ImageIndex = 14
         Images = ImageList2
         PopupMenu = PopupMenuCoronaExhaustFan
@@ -3152,6 +3171,7 @@ object Form1: TForm1
         Top = 311
         Width = 27
         AutoSize = True
+        DragMode = dmAutomatic
         Images = ImageList3
         PopupMenu = PopupMenuCartridge
       end
@@ -3244,6 +3264,7 @@ object Form1: TForm1
         Width = 41
         Alignment = taCenter
         Color = clWindow
+        DragMode = dmAutomatic
         Enabled = False
         Font.Color = clWindowText
         ParentFont = False
@@ -3290,6 +3311,7 @@ object Form1: TForm1
           Top = 0
           Width = 55
           Caption = 'Cartridge: '
+          DragMode = dmAutomatic
           ParentFont = False
         end
         object CmdCartridgeIn: TBCButton
@@ -3687,6 +3709,7 @@ object Form1: TForm1
           Top = 0
           Width = 44
           Caption = 'System: '
+          DragMode = dmAutomatic
           ParentFont = False
         end
       end
@@ -3896,6 +3919,7 @@ object Form1: TForm1
           Top = 0
           Width = 37
           Caption = 'Mode: '
+          DragMode = dmAutomatic
           ParentFont = False
         end
         object LineSpeed_Act01: THMILabel
@@ -3904,6 +3928,7 @@ object Form1: TForm1
           Top = 48
           Width = 82
           AutoSize = True
+          DragMode = dmAutomatic
           Enabled = True
           ParentFont = False
           NumberFormat = '#0.0'
@@ -4117,6 +4142,7 @@ object Form1: TForm1
           Top = 0
           Width = 67
           Caption = 'Gravure roll: '
+          DragMode = dmAutomatic
           ParentFont = False
         end
       end
@@ -4325,6 +4351,7 @@ object Form1: TForm1
           Top = 0
           Width = 65
           Caption = 'Takeoff roll: '
+          DragMode = dmAutomatic
           ParentFont = False
         end
       end
@@ -4345,6 +4372,7 @@ object Form1: TForm1
           Top = 0
           Width = 47
           Caption = 'Gravure: '
+          DragMode = dmAutomatic
           ParentFont = False
         end
         object CmdGravureAuto: TBCButton
@@ -4986,6 +5014,7 @@ object Form1: TForm1
           Top = 40
           Width = 82
           AutoSize = True
+          DragMode = dmAutomatic
           Enabled = True
           ParentFont = False
           NumberFormat = '#0.0'
@@ -5000,6 +5029,7 @@ object Form1: TForm1
           Width = 41
           Alignment = taCenter
           Color = clWindow
+          DragMode = dmAutomatic
           Enabled = False
           Font.Color = clWindowText
           ParentFont = False
@@ -5484,6 +5514,7 @@ object Form1: TForm1
           Top = 16
           Width = 82
           AutoSize = True
+          DragMode = dmAutomatic
           Enabled = True
           ParentFont = False
           NumberFormat = '#0.0'
@@ -5509,6 +5540,7 @@ object Form1: TForm1
           Top = 32
           Width = 57
           Color = clWindow
+          DragMode = dmAutomatic
           Enabled = False
           Font.Color = clWindowText
           ParentFont = False
@@ -5539,6 +5571,7 @@ object Form1: TForm1
           Top = 56
           Width = 82
           AutoSize = True
+          DragMode = dmAutomatic
           Enabled = True
           ParentFont = False
           NumberFormat = '#0.0'
@@ -5558,6 +5591,7 @@ object Form1: TForm1
         Top = 32
         Width = 89
         Color = clWindow
+        DragMode = dmAutomatic
         Enabled = False
         Font.Color = clWindowText
         ParentFont = False
@@ -5583,6 +5617,7 @@ object Form1: TForm1
         Height = 19
         Top = 66
         Width = 152
+        DragMode = dmAutomatic
         Enabled = False
         ParentColor = False
         TabOrder = 1
@@ -5609,10 +5644,10 @@ object Form1: TForm1
         Height = 524
         Top = 0
         Width = 693
-        ActivePage = TabSheet_PLC_Coater
+        ActivePage = TabSheet7
         Anchors = [akTop, akLeft, akRight, akBottom]
         ShowTabs = False
-        TabIndex = 0
+        TabIndex = 5
         TabOrder = 0
         object TabSheet_PLC_Coater: TTabSheet
           Caption = 'PLC Coater'
@@ -6714,6 +6749,67 @@ object Form1: TForm1
             Caption = 'HMI Corona'#13#10'IP: 10.10.10.41'#13#10'Sub: 255.255.255.0'
           end
         end
+        object TabSheet7: TTabSheet
+          Caption = 'TabSheet7'
+          ClientHeight = 516
+          ClientWidth = 685
+          object Label23: TLabel
+            Left = 72
+            Height = 15
+            Top = 96
+            Width = 40
+            Caption = 'Label23'
+          end
+          object Label24: TLabel
+            Left = 72
+            Height = 15
+            Top = 112
+            Width = 40
+            Caption = 'Label24'
+          end
+          object Label25: TLabel
+            Left = 72
+            Height = 15
+            Top = 128
+            Width = 40
+            Caption = 'Label25'
+          end
+          object Label26: TLabel
+            Left = 72
+            Height = 15
+            Top = 148
+            Width = 40
+            Caption = 'Label26'
+          end
+          object Label27: TLabel
+            Left = 72
+            Height = 15
+            Top = 168
+            Width = 40
+            Caption = 'Label27'
+          end
+          object Label36: TLabel
+            Left = 72
+            Height = 15
+            Top = 16
+            Width = 40
+            Caption = 'Label36'
+          end
+          object Label37: TLabel
+            Left = 72
+            Height = 15
+            Top = 32
+            Width = 40
+            Caption = 'Label37'
+          end
+          object Label38: TLabel
+            Left = 72
+            Height = 15
+            Top = 48
+            Width = 40
+            Caption = 'Label38'
+          end
+        end
       end
       object JvXPBar1: TJvXPBar
         AnchorSideLeft.Control = TabSheet6
@@ -6883,7 +6979,7 @@ object Form1: TForm1
         AnchorSideTop.Control = JvXPBar2
         AnchorSideTop.Side = asrBottom
         Left = 0
-        Height = 43
+        Height = 35
         Top = 323
         Width = 121
         Caption = 'Manual'
@@ -7083,9 +7179,9 @@ object Form1: TForm1
         OnClick = MenuMaintenanceViewClick
       end
     end
-    object MenuItem9: TMenuItem
+    object MenuChart: TMenuItem
       Caption = 'Chart'
-      OnClick = MenuItem9Click
+      OnClick = MenuChartClick
     end
   end
   object OnlinePLC_Timer: TTimer
@@ -7193,7 +7289,8 @@ object Form1: TForm1
   object PopupMenuCoronaRoll: TPopupMenu
     Images = ImageList2
     ImagesWidth = 20
-    Left = 576
+    Left = 616
+    Top = 16
     object MenuItem1: TMenuItem
       Caption = 'CoronaRoll'
       Default = True
@@ -12896,7 +12993,8 @@ object Form1: TForm1
   object PopupMenuElectrode: TPopupMenu
     Images = ImageList2
     ImagesWidth = 20
-    Left = 576
+    Left = 600
+    Top = 16
     object MenuItem6: TMenuItem
       Caption = 'Corona'
       Default = True
@@ -12947,7 +13045,8 @@ object Form1: TForm1
   object PopupMenuCoronaExhaustFan: TPopupMenu
     Images = ImageList2
     ImagesWidth = 20
-    Left = 576
+    Left = 616
+    Top = 16
     object MenuItem4: TMenuItem
       Caption = 'Corona Exhaust Fan'
       Default = True
@@ -12980,7 +13079,8 @@ object Form1: TForm1
   object PopupMenuGravureRoll: TPopupMenu
     Images = ImageList2
     ImagesWidth = 20
-    Left = 576
+    Left = 608
+    Top = 8
     object MenuItem3: TMenuItem
       Caption = 'Gravure Roll'
       Default = True
@@ -13011,7 +13111,7 @@ object Form1: TForm1
   object PopupMenuTakeoffRoll: TPopupMenu
     Images = ImageList2
     ImagesWidth = 20
-    Left = 576
+    Left = 600
     object MenuItem5: TMenuItem
       Caption = 'Takeoff Roll'
       Default = True
@@ -13042,7 +13142,8 @@ object Form1: TForm1
   object PopupMenuCartridge: TPopupMenu
     Images = ImageList2
     ImagesWidth = 20
-    Left = 576
+    Left = 608
+    Top = 16
     object MenuItem2: TMenuItem
       Caption = 'Cartridge'
       Default = True

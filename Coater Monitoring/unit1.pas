@@ -41,6 +41,14 @@ type
     Button7: TButton;
     Button8: TButton;
     Button9: TButton;
+    Label23: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
+    Label26: TLabel;
+    Label27: TLabel;
+    Label36: TLabel;
+    Label37: TLabel;
+    Label38: TLabel;
     MiniChart: TChart;
     ChartAxisTransformations1: TChartAxisTransformations;
     ChartAxisTransformations1LinearAxisTransform1: TLinearAxisTransform;
@@ -150,7 +158,7 @@ type
     MenuItem7: TMenuItem;
     MenuItem8: TMenuItem;
     MenuCoronaGeneratorOn: TMenuItem;
-    MenuItem9: TMenuItem;
+    MenuChart: TMenuItem;
     MenuTakeoffRollStart: TMenuItem;
     MenuTakeoffRollStop: TMenuItem;
     MenuItemCartridgeValveInterlock: TMenuItem;
@@ -174,6 +182,7 @@ type
     Shape4: TShape;
     Shape7: TShape;
     Shape8: TShape;
+    TabSheet7: TTabSheet;
     TabSheet_Drive_Corona: TTabSheet;
     TabSheet_HMI_Corona: TTabSheet;
     TabSheet_PLC_Coater: TTabSheet;
@@ -402,7 +411,7 @@ type
     procedure MenuCartridgeInClick(Sender: TObject);
     procedure MenuCartridgeOutClick(Sender: TObject);
     procedure MenuElectrodeInClick(Sender: TObject);
-    procedure MenuItem9Click(Sender: TObject);
+    procedure MenuChartClick(Sender: TObject);
     procedure MenuItemCartridgeValveInterlockClick(Sender: TObject);
     procedure MenuProductionViewClick(Sender: TObject);
     procedure MenuMaintenanceViewClick(Sender: TObject);
@@ -433,7 +442,7 @@ var
 
 implementation
 
-uses Unit2, Unit3, Unit4, Unit5, Unit6, Unit7, Unit8;
+uses Unit2, Unit3, Unit4, Unit5, Unit6, Unit7, Unit8, Unit9;
 
 const
   A0 = 10.0;   // (initial) oscillation amplitude
@@ -444,7 +453,6 @@ const
 {$R *.lfm}
 
 { TForm1 }
-
 procedure TForm1.AlarmClick(Sender: TObject);
 var
   i:integer;
@@ -458,7 +466,6 @@ begin
         exit;
       end;
   end;
-
 end;
 
 procedure TForm1.JvXPBar1Click(Sender: TObject);
@@ -722,6 +729,10 @@ end;
 
 procedure TForm1.CommunicationNotActive;
 begin
+
+  if Previous_Communication_Active then LogFileDisconnect();
+  Previous_Communication_Active:=Communication_Active;
+
   p1.Brush.Color:=clSilver;
   p2.Brush.Color:=clSilver;
   p3.Brush.Color:=clSilver;
@@ -824,6 +835,8 @@ end;
 
 procedure TForm1.CommunicationIsActive;
 begin
+
+  LogFileConnect();
   if (p1.Brush.Color=clSilver) then
     begin
       p1.Brush.Color:=clWhite;
@@ -1000,7 +1013,7 @@ begin
   AddLifeCmd('CmdElectrodeIn M2.0','M200',1,'M200',0);
 end;
 
-procedure TForm1.MenuItem9Click(Sender: TObject);
+procedure TForm1.MenuChartClick(Sender: TObject);
 begin
   FormChart.Show;
 end;
@@ -1078,12 +1091,17 @@ begin
   LiveCounter_:=LiveCounter_+1;
   if LiveCounter_ > 100000 then LiveCounter_:=0;
 
+  if Communication_Active and Previous_Communication_Active then
+  begin
+    RecordLogFile();
+  end;
+
   if OldClock_Bool <> M[101]._2 then
   //if OldClock_Bool <> boolean(round(MB101.Value) and 3) then
   begin
     if not Communication_Active then
     begin
-      CommunicationIsActive;
+      CommunicationIsActive();
     end;
 
     if (p6.Brush.Color=clGreen) then p6.Brush.Color:=clWhite;
@@ -1099,6 +1117,7 @@ begin
     //OldClock_Bool:=round(MB101_2.Value).ToBoolean;
     OldClock_Bool:=not OldClock_Bool;
     Communication_Active:=true;
+    Previous_Communication_Active:=Communication_Active;
 
     if Q[0]._1 then
     begin Label51.Caption:='Exhaust: Run'; end
@@ -1350,7 +1369,6 @@ var
   s: string;
   Txt:String;
 begin
-
   t := (Now() - FStartTime) * SecsPerDay;
   //exp_factor := exp(-t/td);
   //SinCos(TWO_PI * t / t0, sin_factor, cos_factor);
@@ -1416,40 +1434,49 @@ begin
 
  // Label60.Caption:=CoronaPowerSeries.Count.ToString;
   //Label62.Caption:=t.ToString;
-  if SimulateCorona01 or SimulateCorona02 then Button6.Caption:=CoronaPowerSeries.Count.ToString;
-  //if SimulateCorona01 or SimulateCorona02 then Label62.Caption:=MiniChart.Extent.YMin.ToString;
+  if SimulateCorona01 or SimulateCorona02 then
+  begin
+    Label36.Caption:=CoronaPowerSeries.Count.ToString;
+    Label37.Caption:=MiniChart.Extent.YMax.ToString;
+    Label38.Caption:=MiniChart.Extent.YMin.ToString;
+  end;
 
   Txt:=FormatDateTime('hh',  Now)+':'+FormatDateTime('nn',  Now)+':'+FormatDateTime('ss',  Now);
 
-  v := v+ Random(100) + 400; { Generates 400 - 500 }
+  v := v+ Random(100) + 40000; { Generates 400 - 500 }
   v:=v/10;
   s:=FormatFloat('0.00', v);
   v:=StrToFloat(s);
   ListChartSource1.Add(ListChartSource1.Count,v, Txt);
+  Label23.Caption:=v.ToString;
 
-  v := v+ Random(100) + 500; { Generates 500 - 600 }
+  v := v+ Random(100) + 50000; { Generates 500 - 600 }
   v:=v/10;
   s:=FormatFloat('0.00', v);
   v:=StrToFloat(s);
   ListChartSource2.Add(ListChartSource2.Count,v, Txt);
+  Label24.Caption:=v.ToString;
 
-  v := v+ Random(100) + 600; { Generates 600 - 700 }
+  v := v+ Random(100) + 60000; { Generates 600 - 700 }
   v:=v/10;
   s:=FormatFloat('0.00', v);
   v:=StrToFloat(s);
   ListChartSource3.Add(ListChartSource3.Count,v, Txt);
+  Label25.Caption:=v.ToString;
 
-  v := v+ Random(100) + 700; { Generates 700 - 800 }
+  v := v+ Random(100) + 70000; { Generates 700 - 800 }
   v:=v/10;
   s:=FormatFloat('0.00', v);
   v:=StrToFloat(s);
   ListChartSource4.Add(ListChartSource4.Count,v, Txt);
+  Label26.Caption:=v.ToString;
 
-  v := v+ Random(100) + 800; { Generates 800 - 900 }
+  v := v+ Random(100) + 80000; { Generates 800 - 900 }
   v:=v/10;
   s:=FormatFloat('0.00', v);
   v:=StrToFloat(s);
   ListChartSource5.Add(ListChartSource5.Count,v, Txt);
+  Label27.Caption:=v.ToString;
 
   If (ListChartSource1.Count>240) then
   begin
@@ -1923,6 +1950,8 @@ begin
   //AutoNilInputTag(7,221);
   FreeAndNil_DBD();
 
+  CloseAction := caFree; // Destroys the form and releases its memory
+
 end;
 
 procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -1935,6 +1964,8 @@ begin
 
   ISOTCPDriver1.ReadSomethingAlways:=false;
   ISOTCPDriver1.CommunicationPort:=nil;  //Unplug  TCP/UDP Port
+
+  LogFileSoftwareClose();
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -1942,6 +1973,9 @@ var
 //  i:integer= 25;
   TempBmp: TBitmap;
 begin
+
+  InitLogFile();
+
   InitLifeCommand();
   LiveCounter_:=0;
   CoronaRoll.PopupMenu := PopupMenuCoronaRoll;

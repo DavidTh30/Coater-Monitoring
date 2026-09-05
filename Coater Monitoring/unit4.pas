@@ -35,6 +35,7 @@ type
     InterlockName: TLabel;
     LabelDateTime: TLabel;
     Timer1: TTimer;
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
     procedure Image1Click(Sender: TObject);
@@ -58,7 +59,7 @@ var
 
 implementation
 
-uses Unit2;
+uses Unit1, Unit2;
 
 {$R *.lfm}
 
@@ -437,6 +438,11 @@ end;
 procedure TForm2.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   timer1.Enabled:=false;
+end;
+
+procedure TForm2.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  Form1.Show;
 end;
 
 procedure TForm2.Timer1Timer(Sender: TObject);

@@ -542,6 +542,7 @@ object Form3: TForm3
   Position = poWorkAreaCenter
   LCLVersion = '4.8.0.0'
   Scaled = False
+  OnClose = FormClose
   object Image1: TImage
     AnchorSideLeft.Control = Owner
     AnchorSideTop.Control = Owner
