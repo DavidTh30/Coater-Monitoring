@@ -29,7 +29,7 @@ var
   S_Name:string;
   fileout : TextFile;
   File_OK:boolean;
-  i:integer;
+  GravureAutoManual:string;
 begin
   MyFolder := GetCurrentDir+'\'+FormatDateTime('MM YYY',Now);
 
@@ -69,7 +69,7 @@ begin
     if File_OK then
     begin
       //Create Header File
-      writeln(fileout, 'Date,Time,LineSpeed,CoronaSetpoint,CoronaPower,CoronaWattDensity,AdditionalCoronaSpeed,CoronaSpeed,Electrode,ExhaustFan,AdditionalGravureSpeed,GravureRollpeed,Cartridge,AdditionalTakeOffRollSpeed,TakeOffRollSpeed,SystemOn,OperlateMode,LineSpeedUpper,BypassFilmbrake');
+      writeln(fileout, 'Date,Time,LineSpeed,CoronaSetpoint,CoronaPower,CoronaWattDensity,AdditionalCoronaSpeed,CoronaRollRun,CoronaSpeed,Electrode,ExhaustFan,GravureMode,AdditionalGravureSpeed,ManualGravureSpeedSet,GravureRollRun,GravureRollSpeed,Cartridge,AdditionalTakeOffRollSpeed,TakeOffRollRun,TakeOffRollSpeed,SystemOn,OperlateMode,LineSpeedUpper,BypassFilmbrake');
     end;
   end
   else
@@ -90,10 +90,33 @@ begin
 
   if File_OK then
   begin
-    writeln(fileout, FormatDateTime('DD/MM/YYYY',Now)+','+FormatDateTime('hh:nn:ss',Now)+
-                     ','+FormatFloat('0.00', DB10_DBD4.Value)+'m/min,'+
-                     DB9_DBD56.Value.ToString+'kW,'+DB9_DBD60.Value.ToString+'kW,'+
-                     DB9_DBD64.Value.ToString+' W/m^2,'+DB10_DBD22.Value.ToString+'%,'+',,,,,,,');
+    GravureAutoManual:='-';
+    if M[20]._0 then GravureAutoManual:='GravureAutoMode';
+    if M[20]._1 then GravureAutoManual:='GravureManualMode';
+    writeln(fileout, FormatDateTime('DD/MM/YYYY',Now)+','+
+                     FormatDateTime('hh:nn:ss',Now)+','+
+                     FormatFloat('0.00', DB10_DBD4.Value)+'m/min,'+
+                     DB9_DBD56.Value.ToString+'kW,'+
+                     FormatFloat('0.00', DB9_DBD60.Value)+'kW,'+
+                     FormatFloat('0.00', DB9_DBD64.Value)+' W/m^2,'+
+                     FormatFloat('0.00', DB10_DBD22.Value)+'%,'+
+                     Q[209]._0.ToInteger.ToString+','+
+                     FormatFloat('0.00', DB9_DBD32.Value)+'m/min,'+
+                     Q[0]._3.ToInteger.ToString+','+
+                     Q[0]._1.ToInteger.ToString+','+
+                     GravureAutoManual+','+
+                     DB10_DBD26.Value.ToString+'m/min,'+
+                     MD36.Value.ToString+'m/min,'+
+                     Q[213]._0.ToInteger.ToString+','+
+                     FormatFloat('0.00',DB9_DBD36.Value)+'m/min,'+
+                     Q[0]._2.ToInteger.ToString+','+
+                     DB10_DBD30.Value.ToString+'%,'+
+                     Q[217]._0.ToInteger.ToString+','+
+                     FormatFloat('0.00',DB9_DBD40.Value)+'m/min,'+
+                     M[31]._0.ToInteger.ToString+','+
+                     M[32]._0.ToInteger.ToString+','+
+                     DB10_DBD42.Value.ToString+'m/min,'+
+                     M[98]._0.ToInteger.ToString);
     CloseFile(fileout);
   end;
 end;

@@ -50,6 +50,8 @@ type
     Label37: TLabel;
     Label38: TLabel;
     DataLoger_Timer: TTimer;
+    LineSpeedUpper_Set2: TLabel;
+    BypassFilmbrake_Set1: TLabel;
     MiniChart: TChart;
     ChartAxisTransformations1: TChartAxisTransformations;
     ChartAxisTransformations1LinearAxisTransform1: TLinearAxisTransform;
@@ -120,16 +122,16 @@ type
     Label46: TLabel;
     Label47: TLabel;
     Label5: TLabel;
-    Label6: TLabel;
-    Label64: TLabel;
-    Label66: TLabel;
-    Label67: TLabel;
-    Label68: TLabel;
+    LabelCoronaExhaustFan: TLabel;
+    LabelAdditionalGravureSpeed_Set2: TLabel;
+    LabelAdditionalGravureSpeed_Set3: TLabel;
+    LabelAdditionalTakeOffRollSpeed_Set2: TLabel;
+    LabelAdditionalTakeOffRollSpeed_Set3: TLabel;
     Label69: TLabel;
     Label7: TLabel;
     Label70: TLabel;
-    Label71: TLabel;
-    Label72: TLabel;
+    LabelAdditionalGravureManualSpeed_Set2: TLabel;
+    LabelAdditionalGravureManualSpeed_Set3: TLabel;
     Label8: TLabel;
     Label9: TLabel;
     LineSpeed_Act01: THMILabel;
@@ -201,7 +203,7 @@ type
     GroupBox10: TGroupBox;
     GroupBox4: TGroupBox;
     GroupBox7: TGroupBox;
-    BypassFilmbrake_Set: THMICheckBox;
+    BypassFilmbrake_Set_CheckBox: THMICheckBox;
     GroupBox8: TGroupBox;
     FilmCoater: THMIPolyline;
     HMIPolyline2: THMIPolyline;
@@ -216,22 +218,22 @@ type
     Label4: TLabel;
     Label51: TLabel;
     Label57: TLabel;
-    Label58: TLabel;
-    Label59: TLabel;
+    LabelCoronaSetpoint: TLabel;
+    LabelCoronaSetpoint1: TLabel;
     Label60: TLabel;
     Label61: TLabel;
     Label62: TLabel;
-    Label63: TLabel;
-    Label65: TLabel;
+    LabelAdditionalCoronaSpeed_Set2: TLabel;
+    LabelAdditionalCoronaSpeed_Set3: TLabel;
     LineSpeedUpper_Set: THMIEdit;
     AdditionalCoronaSpeed_Set: THMIEdit;
     CoronaSpeed_Act01: THMILabel;
 
     ISOTCPDriver1: TISOTCPDriver;
-    Label1: TLabel;
-    Label2: TLabel;
+    LineSpeedUpper_Set1: TLabel;
+    LabelAdditionalCoronaSpeed_Set: TLabel;
     Label28: TLabel;
-    Label3: TLabel;
+    LabelAdditionalCoronaSpeed_Set1: TLabel;
     Label31: TLabel;
     Label32: TLabel;
     Label45: TLabel;
@@ -751,7 +753,7 @@ begin
 
 
   LineSpeedUpper_Set.Enabled:=false;
-  BypassFilmbrake_Set.Enabled:=false;
+  BypassFilmbrake_Set_CheckBox.Enabled:=false;
 
   CmdCoatingMode.Enabled:=false;
   CmdBypassMode.Enabled:=false;
@@ -850,7 +852,7 @@ begin
     end;
 
   LineSpeedUpper_Set.Enabled:=true;
-  BypassFilmbrake_Set.Enabled:=true;
+  BypassFilmbrake_Set_CheckBox.Enabled:=true;
 
   CmdCoatingMode.Enabled:=true;
   CmdBypassMode.Enabled:=true;
@@ -2081,7 +2083,7 @@ begin
   AdditionalTakeOffRollSpeed_Set.PLCTag:=DB10_DBD30;
   LineSpeedUpper_Set.PLCTag:=DB10_DBD42;
 
-  BypassFilmbrake_Set.PLCTag:=FindTTagBit('M9800'); //M98.0  // Format => [M]+[Address]+[Bit00-15]
+  BypassFilmbrake_Set_CheckBox.PLCTag:=FindTTagBit('M9800'); //M98.0  // Format => [M]+[Address]+[Bit00-15]
 
   if ProductionView then
     begin end
