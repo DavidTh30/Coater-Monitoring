@@ -17,6 +17,7 @@ procedure LogFileSoftwareClose();
 var
   FolderError:boolean;
   FileError:boolean;
+  HeaderFile_:string;
 
 implementation
 
@@ -69,7 +70,7 @@ begin
     if File_OK then
     begin
       //Create Header File
-      writeln(fileout, 'Date,Time,LineSpeed,CoronaSetpoint,CoronaPower,CoronaWattDensity,AdditionalCoronaSpeed,CoronaRollRun,CoronaSpeed,Electrode,ExhaustFan,GravureMode,AdditionalGravureSpeed,ManualGravureSpeedSet,GravureRollRun,GravureRollSpeed,Cartridge,AdditionalTakeOffRollSpeed,TakeOffRollRun,TakeOffRollSpeed,SystemOn,OperlateMode,LineSpeedUpper,BypassFilmbrake');
+      writeln(fileout, HeaderFile_);
     end;
   end
   else
@@ -215,7 +216,30 @@ var
   fileout : TextFile;
   File_OK:boolean;
 begin
-
+  HeaderFile_:='Date,'+
+               'Time,'+
+               'LineSpeed,'+
+               'CoronaSetpoint,'+
+               'CoronaPower,'+
+               'CoronaWattDensity,'+
+               'AdditionalCoronaSpeed,'+
+               'CoronaRollRun,'+
+               'CoronaSpeed,'+
+               'Electrode,'+
+               'ExhaustFan,'+
+               'GravureMode,'+
+               'AdditionalGravureSpeed,'+
+               'ManualGravureSpeedSet,'+
+               'GravureRollRun,'+
+               'GravureRollSpeed,'+
+               'Cartridge,'+
+               'AdditionalTakeOffRollSpeed,'+
+               'TakeOffRollRun,'+
+               'TakeOffRollSpeed,'+
+               'SystemOn,'+
+               'OperlateMode,'+
+               'LineSpeedUpper,'+
+               'BypassFilmbrake';
   FolderError:=false;
   FileError:=false;
 
@@ -283,7 +307,7 @@ begin
     if File_OK then
     begin
       //Create Header File
-      writeln(fileout, 'Date,Time,LineSpeed,CoronaSetpoint,CoronaPower,CoronaWattDensity,AdditionalCoronaSpeed,CoronaSpeed,Electrode,ExhaustFan,AdditionalGravureSpeed,GravureRollpeed,Cartridge,AdditionalTakeOffRollSpeed,TakeOffRollSpeed,SystemOn,OperlateMode,LineSpeedUpper,BypassFilmbrake');
+      writeln(fileout, HeaderFile_);
     end;
   end
   else
@@ -393,7 +417,7 @@ begin
     if File_OK then
     begin
       //Create Header File
-      writeln(fileout, 'Date,Time,LineSpeed,CoronaSetpoint,CoronaPower,CoronaWattDensity,AdditionalCoronaSpeed,CoronaSpeed,Electrode,ExhaustFan,AdditionalGravureSpeed,GravureRollpeed,Cartridge,AdditionalTakeOffRollSpeed,TakeOffRollSpeed,SystemOn,OperlateMode,LineSpeedUpper,BypassFilmbrake');
+      writeln(fileout, HeaderFile_);
     end;
   end
   else
@@ -503,7 +527,7 @@ begin
     if File_OK then
     begin
       //Create Header File
-      writeln(fileout, 'Date,Time,LineSpeed,CoronaSetpoint,CoronaPower,CoronaWattDensity,AdditionalCoronaSpeed,CoronaSpeed,Electrode,ExhaustFan,AdditionalGravureSpeed,GravureRollpeed,Cartridge,AdditionalTakeOffRollSpeed,TakeOffRollSpeed,SystemOn,OperlateMode,LineSpeedUpper,BypassFilmbrake');
+      writeln(fileout, HeaderFile_);
     end;
   end
   else
@@ -613,7 +637,7 @@ begin
     if File_OK then
     begin
       //Create Header File
-      writeln(fileout, 'Date,Time,LineSpeed,CoronaSetpoint,CoronaPower,CoronaWattDensity,AdditionalCoronaSpeed,CoronaSpeed,Electrode,ExhaustFan,AdditionalGravureSpeed,GravureRollpeed,Cartridge,AdditionalTakeOffRollSpeed,TakeOffRollSpeed,SystemOn,OperlateMode,LineSpeedUpper,BypassFilmbrake');
+      writeln(fileout, HeaderFile_);
     end;
   end
   else
