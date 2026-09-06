@@ -8,15 +8,20 @@ uses
   Classes, SysUtils, Dialogs;
 
 procedure RecordLogFile();
+procedure AlarmLogFile();
 procedure InitLogFile();
 procedure LogFileDisconnect();
 procedure LogFileConnect();
 procedure LogFileSoftwareClose();
 
+var
+  FolderError:boolean;
+  FileError:boolean;
+
 implementation
 
 uses
-  Unit1, Unit2;
+  Unit1, Unit2, Unit5;
 
 procedure RecordLogFile();
 var
@@ -24,6 +29,7 @@ var
   S_Name:string;
   fileout : TextFile;
   File_OK:boolean;
+  i:integer;
 begin
   MyFolder := GetCurrentDir+'\'+FormatDateTime('MM YYY',Now);
 
@@ -35,7 +41,8 @@ begin
     end
     else
     begin
-      showmessage('Failed to create directory.');
+      //showmessage('Failed to create directory.');
+      FolderError:=true;
     end;
   end
   else
@@ -54,7 +61,8 @@ begin
     except
       on E: EInOutError do
       begin
-        showmessage('AssignFile error: '+ chr(13)+E.ClassName+'/'+ E.Message+'/'+IntToStr(E.ErrorCode));
+        //showmessage('AssignFile error: '+ chr(13)+E.ClassName+'/'+ E.Message+'/'+IntToStr(E.ErrorCode));
+        FileError:=false;
         File_OK:=false;
       end;
     end;
@@ -73,7 +81,8 @@ begin
     except
       on E: EInOutError do
       begin
-        showmessage('AssignFile error: '+ chr(13)+E.ClassName+'/'+ E.Message+'/'+IntToStr(E.ErrorCode));
+        //showmessage('AssignFile error: '+ chr(13)+E.ClassName+'/'+ E.Message+'/'+IntToStr(E.ErrorCode));
+        FileError:=true;
         File_OK:=false;
       end;
     end;
@@ -87,6 +96,92 @@ begin
                      DB9_DBD64.Value.ToString+' W/m^2,'+DB10_DBD22.Value.ToString+'%,'+',,,,,,,');
     CloseFile(fileout);
   end;
+end;
+
+procedure AlarmLogFile();
+var
+  MyFolder: string;
+  S_Name:string;
+  fileout : TextFile;
+  File_OK:boolean;
+  i:integer;
+begin
+  MyFolder := GetCurrentDir+'\'+FormatDateTime('MM YYY',Now);
+
+  for i:=99 downto 0  do
+  begin
+    if LogAlarm[i].IsActive then
+    begin
+      LogAlarm[i].IsActive:=false;
+
+      if not DirectoryExists(MyFolder) then
+      begin
+        if CreateDir(MyFolder) then
+        begin
+          //showmessage('Directory created successfully.')
+        end
+        else
+        begin
+          showmessage('Failed to create directory.');
+          FolderError:=true;
+        end;
+      end
+      else
+      begin
+        //showmessage('Directory already exists.');
+      end;
+
+      S_Name:=MyFolder+'\'+'Alarm_'+FormatDateTime('DD MM YYYY',Now)+'.CSV';
+      if DirectoryExists(MyFolder) then
+      if not FileExists(S_Name) then
+      begin
+        File_OK:=true;
+        try
+          AssignFile(fileout, S_Name);
+          rewrite (fileout);
+        except
+          on E: EInOutError do
+          begin
+            //showmessage('AssignFile error: '+ chr(13)+E.ClassName+'/'+ E.Message+'/'+IntToStr(E.ErrorCode));
+            FileError:=false;
+            File_OK:=false;
+          end;
+        end;
+        if File_OK then
+        begin
+          //Create Header File
+          writeln(fileout, 'Date,Time,AlarmMessage');
+        end;
+      end
+      else
+      begin
+        File_OK:=true;
+        try
+          AssignFile(fileout, S_Name);
+          Append(fileout);
+        except
+          on E: EInOutError do
+          begin
+            //showmessage('AssignFile error: '+ chr(13)+E.ClassName+'/'+ E.Message+'/'+IntToStr(E.ErrorCode));
+            FileError:=true;
+            File_OK:=false;
+          end;
+        end;
+      end;
+
+      if File_OK then
+      begin
+        writeln(fileout, FormatDateTime('DD/MM/YYYY',Now)+','+FormatDateTime('hh:nn:ss',Now)+
+                         ','+LogAlarm[i].Name);
+        CloseFile(fileout);
+      end;
+
+    end;
+    if (not CurrentAlarm[i].IsActive) and (LogAlarm[i].Object_<>'') then
+    begin
+      LogAlarm[i]:=CurrentAlarm[i];
+    end;
+  end;
 
 end;
 
@@ -97,6 +192,10 @@ var
   fileout : TextFile;
   File_OK:boolean;
 begin
+
+  FolderError:=false;
+  FileError:=false;
+
   MyFolder := GetCurrentDir+'\'+FormatDateTime('MM YYY',Now);
 
   if not DirectoryExists(MyFolder) then
@@ -121,6 +220,7 @@ begin
       Form1.OnlinePLC_Timer.Enabled:=false;
       Form1.TCP_UDPPort1.Active:=false;
       Communication_Active:=false;
+      FolderError:=true;
     end;
   end
   else
@@ -153,6 +253,7 @@ begin
         Form1.OnlinePLC_Timer.Enabled:=false;
         Form1.TCP_UDPPort1.Active:=false;
         Communication_Active:=false;
+        FileError:=true;
         File_OK:=false;
       end;
     end;
@@ -185,6 +286,7 @@ begin
         Form1.OnlinePLC_Timer.Enabled:=false;
         Form1.TCP_UDPPort1.Active:=false;
         Communication_Active:=false;
+        FileError:=true;
         File_OK:=false;
       end;
     end;
@@ -228,6 +330,7 @@ begin
       Form1.OnlinePLC_Timer.Enabled:=false;
       Form1.TCP_UDPPort1.Active:=false;
       Communication_Active:=false;
+      FolderError:=true;
     end;
   end
   else
@@ -260,6 +363,7 @@ begin
         Form1.OnlinePLC_Timer.Enabled:=false;
         Form1.TCP_UDPPort1.Active:=false;
         Communication_Active:=false;
+        FileError:=true;
         File_OK:=false;
       end;
     end;
@@ -292,6 +396,7 @@ begin
         Form1.OnlinePLC_Timer.Enabled:=false;
         Form1.TCP_UDPPort1.Active:=false;
         Communication_Active:=false;
+        FileError:=true;
         File_OK:=false;
       end;
     end;
@@ -335,6 +440,7 @@ begin
       Form1.OnlinePLC_Timer.Enabled:=false;
       Form1.TCP_UDPPort1.Active:=false;
       Communication_Active:=false;
+      FolderError:=true;
     end;
   end
   else
@@ -367,6 +473,7 @@ begin
         Form1.OnlinePLC_Timer.Enabled:=false;
         Form1.TCP_UDPPort1.Active:=false;
         Communication_Active:=false;
+        FileError:=true;
         File_OK:=false;
       end;
     end;
@@ -399,6 +506,7 @@ begin
         Form1.OnlinePLC_Timer.Enabled:=false;
         Form1.TCP_UDPPort1.Active:=false;
         Communication_Active:=false;
+        FileError:=true;
         File_OK:=false;
       end;
     end;
@@ -442,6 +550,7 @@ begin
       Form1.OnlinePLC_Timer.Enabled:=false;
       Form1.TCP_UDPPort1.Active:=false;
       Communication_Active:=false;
+      FolderError:=true;
     end;
   end
   else
@@ -474,6 +583,7 @@ begin
         Form1.OnlinePLC_Timer.Enabled:=false;
         Form1.TCP_UDPPort1.Active:=false;
         Communication_Active:=false;
+        FileError:=true;
         File_OK:=false;
       end;
     end;
@@ -506,6 +616,7 @@ begin
         Form1.OnlinePLC_Timer.Enabled:=false;
         Form1.TCP_UDPPort1.Active:=false;
         Communication_Active:=false;
+        FileError:=true;
         File_OK:=false;
       end;
     end;

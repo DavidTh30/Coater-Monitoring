@@ -13204,9 +13204,9 @@ object Form1: TForm1
       490D96D49649CD9CF402688FA30AEF86F6A4AAF0DAEAEEC3FE01285F03BA
     }
   end
-  object LifeCMD_Timer: TTimer
+  object LifeCMD_Alarm_Timer: TTimer
     Interval = 200
-    OnTimer = LifeCMD_TimerTimer
+    OnTimer = LifeCMD_Alarm_TimerTimer
     Left = 664
   end
   object MiniChartTimer: TTimer
@@ -13241,5 +13241,11 @@ object Form1: TForm1
     object ChartAxisTransformations1LinearAxisTransform1: TLinearAxisTransform
       Offset = 2
     end
+  end
+  object DataLoger_Timer: TTimer
+    Enabled = False
+    Interval = 500
+    OnTimer = DataLoger_TimerTimer
+    Left = 728
   end
 end

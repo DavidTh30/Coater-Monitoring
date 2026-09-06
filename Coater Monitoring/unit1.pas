@@ -49,6 +49,7 @@ type
     Label36: TLabel;
     Label37: TLabel;
     Label38: TLabel;
+    DataLoger_Timer: TTimer;
     MiniChart: TChart;
     ChartAxisTransformations1: TChartAxisTransformations;
     ChartAxisTransformations1LinearAxisTransform1: TLinearAxisTransform;
@@ -279,7 +280,7 @@ type
     TCP_UDPPort1: TTCP_UDPPort;
     MiniChartTimer: TTimer;
     OnlinePLC_Timer: TTimer;
-    LifeCMD_Timer: TTimer;
+    LifeCMD_Alarm_Timer: TTimer;
     CoronaPowerSeries: TLineSeries;
     procedure Button10Click(Sender: TObject);
     procedure Button11Click(Sender: TObject);
@@ -379,6 +380,7 @@ type
     procedure CmdTakeOffRollRunMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure ConnectClick(Sender: TObject);
+    procedure DataLoger_TimerTimer(Sender: TObject);
     procedure DisconnectClick(Sender: TObject);
     procedure EditPortEditingDone(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -422,7 +424,7 @@ type
     procedure TCP_UDPPort1CommPortOpened(Sender: TObject);
     procedure TCP_UDPPort1CommPortOpenError(Sender: TObject);
     procedure OnlinePLC_TimerTimer(Sender: TObject);
-    procedure LifeCMD_TimerTimer(Sender: TObject);
+    procedure LifeCMD_Alarm_TimerTimer(Sender: TObject);
     procedure MiniChartTimerTimer(Sender: TObject);
   private
 
@@ -1091,11 +1093,6 @@ begin
   LiveCounter_:=LiveCounter_+1;
   if LiveCounter_ > 100000 then LiveCounter_:=0;
 
-  if Communication_Active and Previous_Communication_Active then
-  begin
-    RecordLogFile();
-  end;
-
   if OldClock_Bool <> M[101]._2 then
   //if OldClock_Bool <> boolean(round(MB101.Value) and 3) then
   begin
@@ -1316,8 +1313,6 @@ begin
     else
     begin end;
 
-    ScanAlarm();
-
   end;
 
   if not Communication_Active then
@@ -1326,10 +1321,14 @@ begin
   end;
 end;
 
-procedure TForm1.LifeCMD_TimerTimer(Sender: TObject);
+procedure TForm1.LifeCMD_Alarm_TimerTimer(Sender: TObject);
 var
   i:integer;
 begin
+
+  ScanAlarm();
+  AlarmLogFile();
+
   for i:=0 to 49 do
   begin
     if (LifeCmd.Obj_[i].TagSet<>'') and (LifeCmd.Obj_[i].TagReset<>'') then
@@ -1508,6 +1507,14 @@ begin
   Communication_Active:=false;
   MaskEditIP.Enabled:=false;
   EditPort.Enabled:=false;
+end;
+
+procedure TForm1.DataLoger_TimerTimer(Sender: TObject);
+begin
+  if Communication_Active and Previous_Communication_Active then
+  begin
+    RecordLogFile();
+  end;
 end;
 
 procedure TForm1.CmdCoatingModeClick(Sender: TObject);
@@ -1916,6 +1923,7 @@ end;
 
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
+
   //Terminate object
 
   //FreeAndNil_MB0();
@@ -1959,6 +1967,9 @@ begin
   //Close all commucation first before terminate object
 
   OnlinePLC_Timer.Enabled:=false;
+  DataLoger_Timer.Enabled:=false;
+  LifeCMD_Alarm_Timer.Enabled:=false;
+
   TCP_UDPPort1.Active:=false; //Disconnect
   Communication_Active:=false;
 
@@ -1975,7 +1986,6 @@ var
 begin
 
   InitLogFile();
-
   InitLifeCommand();
   LiveCounter_:=0;
   CoronaRoll.PopupMenu := PopupMenuCoronaRoll;
@@ -2102,11 +2112,10 @@ begin
   FStartTime:=Now;
   //ChartLiveView1.Active := true;
   MiniChartTimer.Enabled := true;
+  DataLoger_Timer.Enabled:=true;;
 end;
 
 procedure TForm1.Image1Click(Sender: TObject);
-var
-  i:integer;
 begin
   ResetAlarm();
   Bevel1.Style:=bsRaised;

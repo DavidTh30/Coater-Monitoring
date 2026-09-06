@@ -32,6 +32,7 @@ var
   SimulateAlarm5:boolean;
   AlarmData : array[0..99] of Alarm_;
   CurrentAlarm : array[0..99] of Alarm_;
+  LogAlarm : array[0..99] of Alarm_;
   ClearAlarmData: Alarm_;
   TotalAlarm:integer;
 
@@ -39,7 +40,7 @@ var
 implementation
 
 uses
-  Unit1, Unit2;
+  Unit1, Unit2, Unit9;
 
 procedure InitAlarm();
 var
@@ -106,6 +107,16 @@ begin
     CurrentAlarm[i].Type_:=0;
     CurrentAlarm[i].Color:=clDefault;
     CurrentAlarm[i].Object_:='';
+
+    LogAlarm[i].Number:=0;
+    LogAlarm[i].Name:='';
+    LogAlarm[i].Caption:='';
+    LogAlarm[i].DateTime_:='';
+    LogAlarm[i].IsActive:=false;
+    LogAlarm[i].IsReset:=false;
+    LogAlarm[i].Type_:=0;
+    LogAlarm[i].Color:=clDefault;
+    LogAlarm[i].Object_:='';
   end;
 
   i:=6;
@@ -171,6 +182,26 @@ begin
   i:=i+1;
   AlarmData[i].Number:=17;
   AlarmData[i].Name:='Flow low level';
+  AlarmData[i].Caption:='';
+  AlarmData[i].DateTime_:='';
+  AlarmData[i].IsActive:=false;
+  AlarmData[i].IsReset:=false;
+  AlarmData[i].Type_:=1;
+  AlarmData[i].Color:=clRed;
+
+  i:=98;
+  AlarmData[i].Number:=98;
+  AlarmData[i].Name:='Failed to create directory.';
+  AlarmData[i].Caption:='';
+  AlarmData[i].DateTime_:='';
+  AlarmData[i].IsActive:=false;
+  AlarmData[i].IsReset:=false;
+  AlarmData[i].Type_:=1;
+  AlarmData[i].Color:=clRed;
+
+  i:=i+1;
+  AlarmData[i].Number:=99;
+  AlarmData[i].Name:='Failed to create log file.';
   AlarmData[i].Caption:='';
   AlarmData[i].DateTime_:='';
   AlarmData[i].IsActive:=false;
@@ -279,6 +310,36 @@ begin
     end;
   end;
 
+  if (FolderError) and (not AlarmData[98].IsActive) then
+  begin
+    for i:=0 to 99 do
+    begin
+      if (not CurrentAlarm[i].IsActive) then
+      begin
+        AlarmData[98].IsActive:=true;
+        CurrentAlarm[i]:=AlarmData[98];
+        CurrentAlarm[i].DateTime_:=FormatDateTime('dd/mm/yyyy hh:nn:ss', Now);
+        AddAlarm:=true;
+        break;
+      end;
+    end;
+  end;
+
+  if (FileError) and (not AlarmData[99].IsActive) then
+  begin
+    for i:=0 to 99 do
+    begin
+      if (not CurrentAlarm[i].IsActive) then
+      begin
+        AlarmData[99].IsActive:=true;
+        CurrentAlarm[i]:=AlarmData[99];
+        CurrentAlarm[i].DateTime_:=FormatDateTime('dd/mm/yyyy hh:nn:ss', Now);
+        AddAlarm:=true;
+        break;
+      end;
+    end;
+  end;
+
   if AddAlarm then
   begin
 
@@ -310,6 +371,12 @@ begin
       //Unit1.Form1.Alarm1.Color:=clDefault;
       //Unit1.Form1.Alarm1.ParentColor:=true;
       //Unit1.Form1.Alarm1.Transparent:=true;
+    end;
+
+    for i:=99 downto 0  do
+    if CurrentAlarm[i].IsActive and (LogAlarm[i].Object_='') then
+    begin
+      LogAlarm[i]:=CurrentAlarm[i];
     end;
 
   end;
@@ -420,6 +487,40 @@ begin
       begin
         TotalAlarm:=TotalAlarm-1;
         AlarmData[6].IsActive:=false;
+        MyControl := Unit1.Form1.ScrollBox1.FindComponent(CurrentAlarm[i].Object_);
+        if MyControl <> nil then  FreeAndNil(MyControl);
+        CurrentAlarm[i]:=ClearAlarmData;
+        RemoveAlarm:=true;
+        break;
+      end;
+    end;
+  end;
+
+  if (Not FolderError) and (AlarmData[98].IsActive) then
+  begin
+    for i:=0 to 99 do
+    begin
+      if (CurrentAlarm[i].IsActive) and (CurrentAlarm[i].Number = AlarmData[6].Number) then
+      begin
+        TotalAlarm:=TotalAlarm-1;
+        AlarmData[98].IsActive:=false;
+        MyControl := Unit1.Form1.ScrollBox1.FindComponent(CurrentAlarm[i].Object_);
+        if MyControl <> nil then  FreeAndNil(MyControl);
+        CurrentAlarm[i]:=ClearAlarmData;
+        RemoveAlarm:=true;
+        break;
+      end;
+    end;
+  end;
+
+  if (Not FileError) and (AlarmData[99].IsActive) then
+  begin
+    for i:=0 to 99 do
+    begin
+      if (CurrentAlarm[i].IsActive) and (CurrentAlarm[i].Number = AlarmData[6].Number) then
+      begin
+        TotalAlarm:=TotalAlarm-1;
+        AlarmData[99].IsActive:=false;
         MyControl := Unit1.Form1.ScrollBox1.FindComponent(CurrentAlarm[i].Object_);
         if MyControl <> nil then  FreeAndNil(MyControl);
         CurrentAlarm[i]:=ClearAlarmData;
