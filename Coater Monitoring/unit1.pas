@@ -10,11 +10,11 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, Menus,
-  StdCtrls, ExtCtrls, SpinEx, TAChartLiveView, TAGraph, TATransformations,
-  tcp_udpport, ISOTCPDriver, HMIEdit, HMICheckBox, HMILabel, hmi_polyline,
-  dbugintf, commtypes, TypInfo, StrUtils, Tag, TagBit, PLCBlock,
-  PLCBlockElement, BCSVGButton, BCButton, BCMDButton, JvXPBar, simpleipc,
-  TASeries, TASources, Math;
+  StdCtrls, ExtCtrls, SpinEx, TAGraph, TATransformations, tcp_udpport,
+  ISOTCPDriver, HMIEdit, HMICheckBox, HMILabel, hmi_polyline, dbugintf,
+  commtypes, TypInfo, StrUtils, Tag, TagBit, PLCBlock, PLCBlockElement,
+  BCSVGButton, BCButton, BCMDButton, JvXPBar, simpleipc, TASeries, TASources,
+  LazUTF8;
 
 function IsDebuggerPresent(): integer stdcall; external 'kernel32.dll';
 
@@ -33,6 +33,7 @@ type
     Button11: TButton;
     Button12: TButton;
     Button13: TButton;
+    Button14: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
@@ -52,6 +53,7 @@ type
     DataLoger_Timer: TTimer;
     LineSpeedUpper_Set2: TLabel;
     BypassFilmbrake_Set1: TLabel;
+    MenuItem9: TMenuItem;
     MiniChart: TChart;
     ChartAxisTransformations1: TChartAxisTransformations;
     ChartAxisTransformations1LinearAxisTransform1: TLinearAxisTransform;
@@ -288,6 +290,7 @@ type
     procedure Button11Click(Sender: TObject);
     procedure Button12Click(Sender: TObject);
     procedure Button13Click(Sender: TObject);
+    procedure Button14Click(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
@@ -416,6 +419,7 @@ type
     procedure MenuCartridgeOutClick(Sender: TObject);
     procedure MenuElectrodeInClick(Sender: TObject);
     procedure MenuChartClick(Sender: TObject);
+    procedure MenuItem9Click(Sender: TObject);
     procedure MenuItemCartridgeValveInterlockClick(Sender: TObject);
     procedure MenuProductionViewClick(Sender: TObject);
     procedure MenuMaintenanceViewClick(Sender: TObject);
@@ -1022,6 +1026,14 @@ begin
   FormChart.Show;
 end;
 
+procedure TForm1.MenuItem9Click(Sender: TObject);
+var
+  FileName_:string;
+begin
+  FileName_:=GetCurrentDir;
+  SysUtils.ExecuteProcess(UTF8ToSys('explorer.exe'), FileName_, []);
+end;
+
 procedure TForm1.MenuItemCartridgeValveInterlockClick(Sender: TObject);
 var
   ff:Tform2;
@@ -1433,74 +1445,124 @@ begin
   //  CoronaPowerSeries.AddXY(CoronaPowerSeries.Count, v);
   CoronaPowerSeries.Add(v);
 
- // Label60.Caption:=CoronaPowerSeries.Count.ToString;
+  //Label60.Caption:=CoronaPowerSeries.Count.ToString;
   //Label62.Caption:=t.ToString;
   if SimulateCorona01 or SimulateCorona02 then
   begin
-    Label36.Caption:=CoronaPowerSeries.Count.ToString;
-    Label37.Caption:=MiniChart.Extent.YMax.ToString;
-    Label38.Caption:=MiniChart.Extent.YMin.ToString;
+    //Label36.Caption:=CoronaPowerSeries.Count.ToString;
+    //Label37.Caption:=MiniChart.Extent.YMax.ToString;
+    //Label38.Caption:=MiniChart.Extent.YMin.ToString;
   end;
 
   Txt:=FormatDateTime('hh',  Now)+':'+FormatDateTime('nn',  Now)+':'+FormatDateTime('ss',  Now);
 
-  v := v+ Random(100) + 40000; { Generates 400 - 500 }
-  v:=v/10;
-  s:=FormatFloat('0.00', v);
-  v:=StrToFloat(s);
-  ListChartSource1.Add(ListChartSource1.Count,v, Txt);
-  Label23.Caption:=v.ToString;
 
-  v := v+ Random(100) + 50000; { Generates 500 - 600 }
-  v:=v/10;
-  s:=FormatFloat('0.00', v);
-  v:=StrToFloat(s);
-  ListChartSource2.Add(ListChartSource2.Count,v, Txt);
-  Label24.Caption:=v.ToString;
-
-  v := v+ Random(100) + 60000; { Generates 600 - 700 }
-  v:=v/10;
-  s:=FormatFloat('0.00', v);
-  v:=StrToFloat(s);
-  ListChartSource3.Add(ListChartSource3.Count,v, Txt);
-  Label25.Caption:=v.ToString;
-
-  v := v+ Random(100) + 70000; { Generates 700 - 800 }
-  v:=v/10;
-  s:=FormatFloat('0.00', v);
-  v:=StrToFloat(s);
-  ListChartSource4.Add(ListChartSource4.Count,v, Txt);
-  Label26.Caption:=v.ToString;
-
-  v := v+ Random(100) + 80000; { Generates 800 - 900 }
-  v:=v/10;
-  s:=FormatFloat('0.00', v);
-  v:=StrToFloat(s);
-  ListChartSource5.Add(ListChartSource5.Count,v, Txt);
-  Label27.Caption:=v.ToString;
-
-  If (ListChartSource1.Count>240) then
+  If (Series_LineSpeed_Act.Count>= 1500) then
   begin
-    FormChart.Chart1.BottomAxis.Range.Max:=ListChartSource1.Count;
-    //MiniChart.BottomAxis.Range.UseMax:=True;
-    FormChart.Chart1.BottomAxis.Range.Min:=ListChartSource1.Count-240;
-    //MiniChart.BottomAxis.Range.UseMin:=True;
-    FormChart.Chart1.Extent.XMin:=ListChartSource1.Count-240;
-    FormChart.Chart1.Extent.XMax:=ListChartSource1.Count;
+     Series_LineSpeed_Act.Delete(0);
+     Series_TakeOffRollSpeed_Act.Delete(0);
+     Series_GravureSpeed_Act.Delete(0);
+     Series_CoronaSpeed_Act.Delete(0);
+     Series_Corona_Act.Delete(0);
   end;
-  If (ListChartSource1.Count<=240) then
+
+  v:=DB9_DBD60.Value; //Corona Actual Power
+  if SimulateChart then
   begin
-    if(ListChartSource1.Count<=60)then
-    FormChart.Chart1.BottomAxis.Range.Max:=60;
-    if(ListChartSource1.Count>60)then
-    FormChart.Chart1.BottomAxis.Range.Max:=ListChartSource1.Count;
-    FormChart.Chart1.BottomAxis.Range.Min:=0;
-    FormChart.Chart1.Extent.XMin:=0;
-    if(ListChartSource1.Count<=60)then
-    FormChart.Chart1.Extent.XMax:=60;
-    if(ListChartSource1.Count>60)then
-    FormChart.Chart1.Extent.XMax:=ListChartSource1.Count;
+    v := v+ Random(100) + 40000; { Generates 400 - 500 }
+    v:=v/10;
   end;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+
+  Series_Corona_Act.Add(v, Txt);
+
+  v:=DB9_DBD32.Value; //Corona roll Actual Speed
+  if SimulateChart then
+  begin
+    v := v+ Random(100) + 50000; { Generates 500 - 600 }
+    v:=v/10;
+  end;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+
+  Series_CoronaSpeed_Act.Add(v, Txt);
+
+  v:=DB9_DBD36.Value; //Gravure roll Actual Speed
+  if SimulateChart then
+  begin
+    v := v+ Random(100) + 60000; { Generates 600 - 700 }
+    v:=v/10;
+  end;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+
+  Series_GravureSpeed_Act.Add(v, Txt);
+
+  v:=DB9_DBD40.Value; //Takeoff roll Actual Speed
+  if SimulateChart then
+  begin
+    v := v+ Random(100) + 70000; { Generates 700 - 800 }
+    v:=v/10;
+  end;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+
+  Series_TakeOffRollSpeed_Act.Add(v, Txt);
+
+  v:=DB10_DBD4.Value; //Line Actual Speed
+  if SimulateChart then
+  begin
+    v := v+ Random(100) + 80000; { Generates 800 - 900 }
+    v:=v/10;
+  end;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+
+  Series_LineSpeed_Act.Add(v, Txt);
+
+  Label36.Caption:=CoronaPowerSeries.Count.ToString;
+  //if FormChart.Chart1.Series.Count>0 then
+  //begin
+  //  //if FormChart.Chart1.Series[0] is TLineSeries then Label37.Caption:=FormChart.Chart1.Series.Count.ToString;
+  //  if FormChart.Chart1.Series[0] is TLineSeries then
+  //  begin
+  //    Label37.Caption:=TLineSeries(FormChart.Chart1.Series[0]).Count.ToString;
+  //    if TLineSeries(FormChart.Chart1.Series[0]).Count >= 100 then TLineSeries(FormChart.Chart1.Series[0]).Delete(0);
+  //  end;
+  //end;
+
+  Label27.Caption:=Series_LineSpeed_Act.Count.ToString;
+  Label26.Caption:=Series_TakeOffRollSpeed_Act.Count.ToString;
+  Label25.Caption:=Series_GravureSpeed_Act.Count.ToString;
+  Label24.Caption:=Series_CoronaSpeed_Act.Count.ToString;
+  Label23.Caption:=Series_Corona_Act.Count.ToString;
+
+  //if TotalBottomAxis>0 then
+  //If (ListChartSource1.Count>240) then
+  //begin
+  //  FormChart.Chart1.BottomAxis.Range.Max:=ListChartSource1.Count;
+  //  //MiniChart.BottomAxis.Range.UseMax:=True;
+  //  FormChart.Chart1.BottomAxis.Range.Min:=ListChartSource1.Count-240;
+  //  //MiniChart.BottomAxis.Range.UseMin:=True;
+  //  FormChart.Chart1.Extent.XMin:=ListChartSource1.Count-240;
+  //  FormChart.Chart1.Extent.XMax:=ListChartSource1.Count;
+  //end;
+  //
+  //if TotalBottomAxis>0 then
+  //If (ListChartSource1.Count<=240) then
+  //begin
+  //  if(ListChartSource1.Count<=60)then
+  //  FormChart.Chart1.BottomAxis.Range.Max:=60;
+  //  if(ListChartSource1.Count>60)then
+  //  FormChart.Chart1.BottomAxis.Range.Max:=ListChartSource1.Count;
+  //  FormChart.Chart1.BottomAxis.Range.Min:=0;
+  //  FormChart.Chart1.Extent.XMin:=0;
+  //  if(ListChartSource1.Count<=60)then
+  //  FormChart.Chart1.Extent.XMax:=60;
+  //  if(ListChartSource1.Count>60)then
+  //  FormChart.Chart1.Extent.XMax:=ListChartSource1.Count;
+  //end;
 end;
 
 procedure TForm1.ConnectClick(Sender: TObject);
@@ -1595,6 +1657,11 @@ end;
 procedure TForm1.Button13Click(Sender: TObject);
 begin
   Form4.Show;
+end;
+
+procedure TForm1.Button14Click(Sender: TObject);
+begin
+  SimulateChart:=not SimulateChart;
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
@@ -1986,7 +2053,7 @@ var
 //  i:integer= 25;
   TempBmp: TBitmap;
 begin
-
+  InitLineSeries();
   InitLogFile();
   InitLifeCommand();
   LiveCounter_:=0;

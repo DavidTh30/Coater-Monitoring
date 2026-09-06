@@ -151,6 +151,7 @@ var
   Q : array [0..217] of Tag_;
   SimulateCorona01:boolean;
   SimulateCorona02:boolean;
+  SimulateChart:boolean;
   LifeCmd: LifeCommand;
 
   LiveCounter_:integer;

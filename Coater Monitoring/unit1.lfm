@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 508
+  Left = 802
   Height = 671
-  Top = 142
+  Top = 170
   Width = 821
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -6852,7 +6852,7 @@ object Form1: TForm1
       object JvXPBar1: TJvXPBar
         AnchorSideLeft.Control = TabSheet6
         Left = 0
-        Height = 35
+        Height = 43
         Top = -5
         Width = 120
         Caption = 'Simulate'
@@ -6874,7 +6874,7 @@ object Form1: TForm1
         OnClick = JvXPBar1Click
         object Button1: TButton
           Left = 8
-          Height = 33
+          Height = 24
           Top = 40
           Width = 104
           Caption = 'SimulateAlarm1'
@@ -6884,8 +6884,8 @@ object Form1: TForm1
         end
         object Button2: TButton
           Left = 8
-          Height = 33
-          Top = 73
+          Height = 25
+          Top = 64
           Width = 104
           Caption = 'SimulateAlarm2'
           TabOrder = 1
@@ -6894,8 +6894,8 @@ object Form1: TForm1
         end
         object Button3: TButton
           Left = 8
-          Height = 33
-          Top = 105
+          Height = 24
+          Top = 88
           Width = 104
           Caption = 'SimulateAlarm3'
           TabOrder = 2
@@ -6904,8 +6904,8 @@ object Form1: TForm1
         end
         object Button4: TButton
           Left = 8
-          Height = 33
-          Top = 137
+          Height = 25
+          Top = 112
           Width = 104
           Caption = 'SimulateAlarm4'
           TabOrder = 3
@@ -6914,8 +6914,8 @@ object Form1: TForm1
         end
         object Button5: TButton
           Left = 8
-          Height = 33
-          Top = 169
+          Height = 25
+          Top = 136
           Width = 104
           Caption = 'SimulateAlarm5'
           TabOrder = 4
@@ -6924,8 +6924,8 @@ object Form1: TForm1
         end
         object Button6: TButton
           Left = 8
-          Height = 33
-          Top = 208
+          Height = 25
+          Top = 224
           Width = 104
           Caption = 'SimulateCorona01'
           TabOrder = 5
@@ -6934,13 +6934,23 @@ object Form1: TForm1
         end
         object Button7: TButton
           Left = 8
-          Height = 33
-          Top = 240
+          Height = 25
+          Top = 248
           Width = 104
           Caption = 'SimulateCorona02'
           TabOrder = 6
           Visible = False
           OnClick = Button7Click
+        end
+        object Button14: TButton
+          Left = 8
+          Height = 24
+          Top = 176
+          Width = 104
+          Caption = 'Button14'
+          TabOrder = 7
+          Visible = False
+          OnClick = Button14Click
         end
       end
       object JvXPBar2: TJvXPBar
@@ -6949,7 +6959,7 @@ object Form1: TForm1
         AnchorSideTop.Side = asrBottom
         Left = 0
         Height = 293
-        Top = 30
+        Top = 38
         Width = 120
         Caption = 'Topology'
         Items = <        
@@ -7018,7 +7028,7 @@ object Form1: TForm1
         AnchorSideTop.Side = asrBottom
         Left = 0
         Height = 35
-        Top = 323
+        Top = 331
         Width = 121
         Caption = 'Manual'
         Collapsed = True
@@ -7187,6 +7197,10 @@ object Form1: TForm1
     Left = 576
     object MenuIFile: TMenuItem
       Caption = 'File'
+      object MenuItem9: TMenuItem
+        Caption = 'OpenFolder'
+        OnClick = MenuItem9Click
+      end
       object Menuexit: TMenuItem
         Caption = 'Exit'
         OnClick = MenuexitClick
@@ -13266,15 +13280,15 @@ object Form1: TForm1
     Top = 64
   end
   object ListChartSource4: TListChartSource
-    Left = 624
-    Top = 64
+    Left = 552
+    Top = 120
   end
   object ListChartSource1: TListChartSource
-    Left = 592
-    Top = 64
+    Left = 456
+    Top = 112
   end
   object ChartAxisTransformations1: TChartAxisTransformations
-    Left = 544
+    Left = 464
     Top = 56
     object ChartAxisTransformations1LinearAxisTransform1: TLinearAxisTransform
       Offset = 2

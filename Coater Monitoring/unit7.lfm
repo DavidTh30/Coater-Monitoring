@@ -1,12 +1,10 @@
 object FormChart: TFormChart
-  Left = 945
-  Height = 531
-  Top = 139
+  Left = 582
+  Height = 511
+  Top = 210
   Width = 820
-  BorderIcons = [biSystemMenu, biMinimize]
-  BorderStyle = bsSingle
   Caption = 'Chart'
-  ClientHeight = 531
+  ClientHeight = 511
   ClientWidth = 820
   Icon.Data = {
     3E08010000000100010080800000010020002808010016000000280000008000
@@ -2125,6 +2123,7 @@ object FormChart: TFormChart
     0000000000000000000000000000000000000000000000000000000000000000
     0000
   }
+  Menu = MainMenu1
   Position = poWorkAreaCenter
   LCLVersion = '4.8.0.0'
   Scaled = False
@@ -2138,38 +2137,10 @@ object FormChart: TFormChart
     AnchorSideBottom.Control = Owner
     AnchorSideBottom.Side = asrBottom
     Left = 0
-    Height = 531
+    Height = 511
     Top = 0
     Width = 820
-    AxisList = <    
-      item
-        LabelSize = 25
-        Margin = 1
-        Marks.LabelBrush.Style = bsClear
-        Minors = <>
-        Title.LabelFont.Orientation = 900
-        Title.LabelBrush.Style = bsClear
-        Transformations = ChartAxisTransformations1
-      end    
-      item
-        Grid.Visible = False
-        Alignment = calBottom
-        Marks.LabelFont.Orientation = 900
-        Marks.Format = '%2:s'
-        Marks.LabelBrush.Style = bsClear
-        Marks.OverlapPolicy = opHideNeighbour
-        Marks.Source = Form1.ListChartSource1
-        Marks.Style = smsLabel
-        Minors = <>
-        Range.Max = 60
-        Range.UseMax = True
-        Range.UseMin = True
-        Title.Caption = 'Time Date'
-        Title.LabelBrush.Style = bsClear
-      end>
-    Extent.UseYMax = True
-    Extent.UseYMin = True
-    Extent.YMax = 100
+    AxisList = <>
     Foot.Brush.Color = clBtnFace
     Foot.Font.Color = clBlue
     Foot.Frame.Visible = True
@@ -2184,24 +2155,6 @@ object FormChart: TFormChart
     OnDragDrop = Chart1DragDrop
     OnDragOver = Chart1DragOver
     OnMouseMove = Chart1MouseMove
-    object Chart1LineSeries1: TLineSeries
-      Title = 'time_qqq'
-      AxisIndexX = 1
-      AxisIndexY = 0
-      LinePen.Color = clBlue
-      LinePen.Mode = pmMask
-      LinePen.Width = 2
-      Source = Form1.ListChartSource1
-    end
-  end
-  object Button1: TButton
-    Left = 705
-    Height = 30
-    Top = 84
-    Width = 51
-    Caption = 'Button1'
-    TabOrder = 1
-    OnClick = Button1Click
   end
   object ChartMenu: TPopupMenu
     ImagesWidth = 20
@@ -2261,15 +2214,21 @@ object FormChart: TFormChart
       OnAfterMouseWheelUp = ChartToolset1AxisClickTool1AfterMouseWheelUp
     end
   end
-  object ChartAxisTransformations1: TChartAxisTransformations
-    Left = 192
-    Top = 184
-    object AutoScaleAxisTransform1: TAutoScaleAxisTransform
-      MaxValue = 100
+  object MainMenu1: TMainMenu
+    Left = 492
+    Top = 95
+    object MenuCustom: TMenuItem
+      Caption = 'Custom'
+    end
+    object MenuClear: TMenuItem
+      Caption = 'Clear'
+      OnClick = MenuClearClick
     end
   end
-  object ChartAxisTransformations2: TChartAxisTransformations
-    Left = 327
-    Top = 168
+  object ChartAxisTransformations1: TChartAxisTransformations
+    Left = 254
+    Top = 56
+    object ChartAxisTransformations1AutoScaleAxisTransform1: TAutoScaleAxisTransform
+    end
   end
 end
