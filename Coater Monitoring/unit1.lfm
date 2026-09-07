@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 802
+  Left = 546
   Height = 671
-  Top = 170
+  Top = 212
   Width = 821
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -6852,7 +6852,7 @@ object Form1: TForm1
       object JvXPBar1: TJvXPBar
         AnchorSideLeft.Control = TabSheet6
         Left = 0
-        Height = 43
+        Height = 35
         Top = -5
         Width = 120
         Caption = 'Simulate'
@@ -6959,7 +6959,7 @@ object Form1: TForm1
         AnchorSideTop.Side = asrBottom
         Left = 0
         Height = 293
-        Top = 38
+        Top = 30
         Width = 120
         Caption = 'Topology'
         Items = <        
@@ -7028,7 +7028,7 @@ object Form1: TForm1
         AnchorSideTop.Side = asrBottom
         Left = 0
         Height = 35
-        Top = 331
+        Top = 323
         Width = 121
         Caption = 'Manual'
         Collapsed = True

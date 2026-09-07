@@ -102,6 +102,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="eccontrols"/>
+      </Item>
+      <Item>
         <PackageName Value="AnchorDocking"/>
       </Item>
       <Item>

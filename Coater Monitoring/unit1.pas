@@ -2181,7 +2181,8 @@ begin
   FStartTime:=Now;
   //ChartLiveView1.Active := true;
   MiniChartTimer.Enabled := true;
-  DataLoger_Timer.Enabled:=true;;
+  DataLoger_Timer.Enabled:=true;
+
 end;
 
 procedure TForm1.Image1Click(Sender: TObject);

@@ -6,9 +6,10 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Menus, ExtCtrls,
-  StdCtrls, Spin, HMIEdit, HMILabel, HMICheckBox, TAGraph, TASeries,
-  TANavigation, TAIntervalSources, TATools, TAChartAxis, Types, TATextElements,
-  TAChartUtils, TATransformations, TAChartAxisUtils, TAChartLiveView;
+  StdCtrls, Spin, ComCtrls, HMIEdit, HMILabel, HMICheckBox, ECRuler, TAGraph,
+  TASeries, TANavigation, TAIntervalSources, TATools, TAChartAxis, Types,
+  TATextElements, TAChartUtils, TATransformations, TAChartAxisUtils,
+  TAChartLiveView, TASources, TAChartExtentLink;
 
 type
 
@@ -16,8 +17,10 @@ type
 
   TFormChart = class(TForm)
     Chart1: TChart;
-    ChartAxisTransformations1: TChartAxisTransformations;
-    ChartAxisTransformations1AutoScaleAxisTransform1: TAutoScaleAxisTransform;
+
+
+
+
     ChartMenu: TPopupMenu;
     ChartRefreshMenu: TMenuItem;
     ChartToolset1: TChartToolset;
@@ -39,6 +42,7 @@ type
     MenuClear: TMenuItem;
     MenuItem20: TMenuItem;
     MenuItem9: TMenuItem;
+    StatusBar1: TStatusBar;
     procedure Chart1DragDrop(Sender, Source: TObject; X, Y: Integer);
     procedure Chart1DragOver(Sender, Source: TObject; X, Y: Integer;
       State: TDragState; var Accept: Boolean);
@@ -88,23 +92,28 @@ var
 begin
   Series_LineSpeed_Act := TLineSeries.Create(Unit1.Form1);
   Series_LineSpeed_Act.Title:='LineSpeed_Act';
-  //Series_LineSpeed_Act.Source:=Unit1.Form1.ListChartSource1;
+  Series_LineSpeed_Act.Source:=Unit1.Form1.ListChartSource1;
+  //Series_LineSpeed_Act.Active:=false;
 
   Series_TakeOffRollSpeed_Act := TLineSeries.Create(Unit1.Form1);
   Series_TakeOffRollSpeed_Act.Title:='TakeOffRollSpeed_Act';
-  //Series_TakeOffRollSpeed_Act.Source:=Unit1.Form1.ListChartSource2;
+  Series_TakeOffRollSpeed_Act.Source:=Unit1.Form1.ListChartSource2;
+  //Series_TakeOffRollSpeed_Act.Active:=false;
 
   Series_GravureSpeed_Act := TLineSeries.Create(Unit1.Form1);
   Series_GravureSpeed_Act.Title:='GravureSpeed_Act';
-  //Series_GravureSpeed_Act.Source:=Unit1.Form1.ListChartSource3;
+  Series_GravureSpeed_Act.Source:=Unit1.Form1.ListChartSource3;
+  //Series_GravureSpeed_Act.Active:=false;
 
   Series_CoronaSpeed_Act := TLineSeries.Create(Unit1.Form1);
   Series_CoronaSpeed_Act.Title:='CoronaSpeed_Act';
-  //Series_CoronaSpeed_Act.Source:=Unit1.Form1.ListChartSource4;
+  Series_CoronaSpeed_Act.Source:=Unit1.Form1.ListChartSource4;
+  //Series_CoronaSpeed_Act.Active:=false;
 
   Series_Corona_Act := TLineSeries.Create(Unit1.Form1);
   Series_Corona_Act.Title:='Corona_Act';
-  //Series_Corona_Act.Source:=Unit1.Form1.ListChartSource5;
+  Series_Corona_Act.Source:=Unit1.Form1.ListChartSource5;
+  //Series_Corona_Act.Active:=false;
 
   for i:=0 to 1500 do
   begin
@@ -165,7 +174,7 @@ begin
 
   if not calBottomOK then
   begin
-    CustomAxisBottom := TChartAxis.Create(AChart.AxisList);
+    CustomAxisBottom := AChart.AxisList.Add; //TChartAxis.Create(AChart.AxisList);
     CustomAxisBottom.Alignment := calBottom;
     CustomAxisBottom.Title.Caption := 'DateTime';
     CustomAxisBottom.LabelSize:=0;
@@ -186,7 +195,7 @@ begin
     end;
   end;
 
-  CustomAxis := TChartAxis.Create(Chart1.AxisList);
+  CustomAxis := AChart.AxisList.Add; //TChartAxis.Create(Chart1.AxisList);
   CustomAxis.Alignment := calLeft;
   CustomAxis.Title.Caption := Name_;
   if Name_ = 'LineSpeed_Act' then CustomAxis.Marks.LabelFont.Color:=clRed;
@@ -196,6 +205,8 @@ begin
   if Name_ = 'Corona_Act' then CustomAxis.Marks.LabelFont.Color:=clPurple;
   CustomAxis.LabelSize:=25;
   CustomAxis.Margin:=1;
+  CustomAxis.Range.UseMax:=false;
+  CustomAxis.Range.UseMin:=false;
   CustomAxis.Title.Visible:=false;
   CustomAxis.Grid.Visible:=false;
 
@@ -230,6 +241,7 @@ procedure TFormChart.AddAutoScaleToAxis(AChart: TChart; AxisIndex: Integer);
 var
   AxisTrans: TChartAxisTransformations;
   AutoScaleTrans: TAutoscaleAxisTransform;
+  LinearTrans: TLinearAxisTransform;
 begin
   if AxisIndex >= AChart.AxisList.Count then begin exit; end;
   if AChart.AxisList[AxisIndex].Transformations <> nil then begin exit; end;
@@ -237,18 +249,19 @@ begin
 
   AxisTrans := TChartAxisTransformations.Create(AChart);
 
-  // 2. Link the container to the chosen axis (e.g., 0 for LeftAxis)
-  AChart.AxisList[AxisIndex].Transformations := AxisTrans;
-
-  // 3. Create the AutoScale transformation object inside the container
   AutoScaleTrans := TAutoscaleAxisTransform.Create(AxisTrans);
-
-  // 4. Configure ranges if necessary (Defaults are 0 and 1)
   AutoScaleTrans.MinValue := 0;
   AutoScaleTrans.MaxValue := 100;
-  AutoScaleTrans.Enabled:=true;
-
+  AutoScaleTrans.Enabled:=false;
   AutoScaleTrans.Transformations := AxisTrans;
+
+  LinearTrans := TLinearAxisTransform.Create(AxisTrans);
+  LinearTrans.Offset:=0;
+  LinearTrans.Scale:=1;
+  LinearTrans.Enabled:=true;
+  LinearTrans.Transformations := AxisTrans;
+
+  AChart.AxisList[AxisIndex].Transformations := AxisTrans;
 end;
 
 procedure TFormChart.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -270,9 +283,22 @@ begin
 
   //showmessage(AChart.AxisList.Count.ToString);
 
-  for i:=Chart1.Series.Count-1 downto 0 do
+  i:=0;
+  while i <= Chart1.Series.Count-1 do //for i:=Chart1.Series.Count-1 downto 0 do
   begin
-    TLineSeries(Chart1.Series[i]).Delete(i);
+    if i > Chart1.Series.Count-1 then break;
+    if Chart1.Series =  nil then break;
+    if Chart1.Series[i] =  nil then break;
+    if Chart1.Series[i] is TLineSeries then
+    begin
+      TLineSeries(Chart1.Series[i]).Source:=nil;
+      if TLineSeries(Chart1.Series[i]).Count > 0 then
+      begin
+        TLineSeries(Chart1.Series[i]).Delete(TLineSeries(Chart1.Series[i]).Count-1);
+        i:=i-1;
+      end;
+    end;
+    i:=i+1;
   end;
 
   for i := Chart1.AxisList.Count-1 downto 0 do
@@ -292,9 +318,15 @@ begin
   //showmessage('WheelDown');
   if MouseWheel and (TotalLeftAxis>0) then
   begin
+    if Chart1.AxisList[ChartAxisIndex].Transformations=nil then exit;
     //showmessage(TAutoscaleAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[0]).MaxValue.ToString);
-    if TAutoscaleAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[0]).MaxValue<= 1 then exit;
-    TAutoscaleAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[0]).MaxValue:=TAutoscaleAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[0]).MaxValue-1;
+    //if TAutoscaleAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[1]).MaxValue<= 1 then exit;
+    TLinearAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[1]).Offset:=TLinearAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[1]).Offset-TLinearAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[1]).Scale;
+    //StatusBar1.Panels.Items[4].Text:=TAutoscaleAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[0]).MaxValue.ToString;
+    //Chart1.AxisList[ChartAxisIndex].Range.UseMin:=true;
+    //Chart1.AxisList[ChartAxisIndex].Range.UseMax:=true;
+    //Chart1.AxisList[ChartAxisIndex].Range.Max:=Chart1.AxisList[ChartAxisIndex].Range.Max-1;
+    StatusBar1.Panels.Items[5].Text:=TLinearAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[1]).Offset.ToString;
   end;
 end;
 
@@ -304,9 +336,15 @@ begin
   //showmessage('WheelUp');
   if MouseWheel and (TotalLeftAxis>0) then
   begin
+    if Chart1.AxisList[ChartAxisIndex].Transformations=nil then exit;
     //showmessage(TAutoscaleAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[0]).MaxValue.ToString);
-    if TAutoscaleAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[0]).MaxValue >=1000 then exit;
-    TAutoscaleAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[0]).MaxValue:=TAutoscaleAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[0]).MaxValue+1;
+    //if TAutoscaleAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[0]).MaxValue >=1000 then exit;
+    TLinearAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[1]).Offset:=TLinearAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[1]).Offset+TLinearAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[1]).Scale;
+    //StatusBar1.Panels.Items[4].Text:=TAutoscaleAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[0]).MaxValue.ToString;
+    //Chart1.AxisList[ChartAxisIndex].Range.UseMin:=true;
+    //Chart1.AxisList[ChartAxisIndex].Range.UseMax:=true;
+    //Chart1.AxisList[ChartAxisIndex].Range.Max:=Chart1.AxisList[ChartAxisIndex].Range.Max+1;
+    StatusBar1.Panels.Items[5].Text:=TLinearAxisTransform(Chart1.AxisList[ChartAxisIndex].Transformations.List[1]).Offset.ToString;
   end;
 end;
 
@@ -398,7 +436,6 @@ var
   //Ex: TDoubleRect;
   //MinY, MaxY: Double;
   i:integer;
-  TotalLeftAxis:integer;
   Sum_01:integer;
   Sum_02:integer;
 begin
@@ -415,11 +452,14 @@ begin
   Sum_01:=0;
   Sum_02:=0;
   ChartAxisIndex:=0;
+
   for i:=0 to Chart1.AxisList.Count-1 do
   begin
     if Chart1.AxisList[i].Visible then
-    if LeftStr(Chart1.AxisList[i].DisplayName,4) = 'Left' then
+    if Chart1.AxisList[i].Alignment=calLeft then
     begin
+      //Chart1.AxisList[i].Range.UseMin:=false;
+      //Chart1.AxisList[i].Range.UseMax:=false;
       TotalLeftAxis:=TotalLeftAxis+1;
 
       if Chart1.AxisList[i].LabelSize = 0 then Chart1.AxisList[i].LabelSize:=25;
@@ -434,8 +474,7 @@ begin
     end;
   end;
   //FormChart.Caption:= Format('X = %d, Y = %d , %d , MinY = %.2f, MaxY = %.2f, %d', [x, y, Chart1.LeftAxis.Intervals.Count,Ex.a.Y,Ex.b.Y, Chart1.LeftAxis.LabelSize]);
-  FormChart.Caption:= Format('TotalLeftAxis = %d , ChartAxisIndex = %d ,  Sum_01 = %d', [TotalLeftAxis, ChartAxisIndex, Sum_01]);
-
+  //FormChart.Caption:= Format('TotalLeftAxis = %d , ChartAxisIndex = %d ,  Sum_01 = %d', [TotalLeftAxis, ChartAxisIndex, Sum_01]);
   if X <= Sum_01 then
   begin
     MouseWheel:=true;
@@ -444,7 +483,10 @@ begin
   begin
     MouseWheel:=false;
   end;
-
+  StatusBar1.Panels.Items[0].Text:=TotalLeftAxis.ToString;
+  StatusBar1.Panels.Items[1].Text:=ChartAxisIndex.ToString;
+  StatusBar1.Panels.Items[2].Text:=Sum_01.ToString;
+  StatusBar1.Panels.Items[3].Text:=MouseWheel.ToInteger.ToString;
 end;
 
 

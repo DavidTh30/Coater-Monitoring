@@ -1,10 +1,10 @@
 object FormChart: TFormChart
-  Left = 582
-  Height = 511
-  Top = 210
+  Left = 1023
+  Height = 520
+  Top = 337
   Width = 820
   Caption = 'Chart'
-  ClientHeight = 511
+  ClientHeight = 520
   ClientWidth = 820
   Icon.Data = {
     3E08010000000100010080800000010020002808010016000000280000008000
@@ -2134,27 +2134,70 @@ object FormChart: TFormChart
     AnchorSideTop.Control = Owner
     AnchorSideRight.Control = Owner
     AnchorSideRight.Side = asrBottom
-    AnchorSideBottom.Control = Owner
-    AnchorSideBottom.Side = asrBottom
+    AnchorSideBottom.Control = StatusBar1
     Left = 0
-    Height = 511
+    Height = 497
     Top = 0
     Width = 820
-    AxisList = <>
-    Foot.Brush.Color = clBtnFace
-    Foot.Font.Color = clBlue
-    Foot.Frame.Visible = True
-    Foot.Shape = clsUserDefined
-    Title.Brush.Color = clBtnFace
-    Title.Font.Color = clBlue
+    AxisList = <    
+      item
+        EnabledHitTests = [ahtTitle, ahtLine, ahtLabels, ahtGrid, ahtAxisStart, ahtAxisCenter]
+        Marks.LabelBrush.Style = bsClear
+        Minors = <>
+        Title.LabelFont.Orientation = 900
+        Title.LabelBrush.Style = bsClear
+      end    
+      item
+        Alignment = calBottom
+        Marks.LabelBrush.Style = bsClear
+        Minors = <>
+        Title.LabelBrush.Style = bsClear
+      end>
     Title.Text.Strings = (
       'TAChart'
     )
-    Toolset = ChartToolset1
     Anchors = [akTop, akLeft, akRight, akBottom]
     OnDragDrop = Chart1DragDrop
     OnDragOver = Chart1DragOver
     OnMouseMove = Chart1MouseMove
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 497
+    Width = 820
+    Panels = <    
+      item
+        Width = 50
+      end    
+      item
+        Width = 50
+      end    
+      item
+        Width = 50
+      end    
+      item
+        Width = 50
+      end    
+      item
+        Width = 50
+      end    
+      item
+        Width = 50
+      end    
+      item
+        Width = 50
+      end    
+      item
+        Width = 50
+      end    
+      item
+        Width = 50
+      end    
+      item
+        Width = 50
+      end>
+    SimplePanel = False
   end
   object ChartMenu: TPopupMenu
     ImagesWidth = 20
@@ -2223,12 +2266,6 @@ object FormChart: TFormChart
     object MenuClear: TMenuItem
       Caption = 'Clear'
       OnClick = MenuClearClick
-    end
-  end
-  object ChartAxisTransformations1: TChartAxisTransformations
-    Left = 254
-    Top = 56
-    object ChartAxisTransformations1AutoScaleAxisTransform1: TAutoScaleAxisTransform
     end
   end
 end
