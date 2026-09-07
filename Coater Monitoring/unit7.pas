@@ -75,7 +75,16 @@ var
   Series_TakeOffRollSpeed_Act: TLineSeries;
   Series_GravureSpeed_Act: TLineSeries;
   Series_CoronaSpeed_Act: TLineSeries;
+  Series_CoronaSetpoint: TLineSeries;
   Series_Corona_Act: TLineSeries;
+  Series_CoronaWattDensityAct: TLineSeries;
+  Series_AdditionalCoronaSpeed: TLineSeries;
+  Series_AdditionalGravureSpeed: TLineSeries;
+  Series_AdditionalGravureManualSpeed: TLineSeries;
+  Series_AdditionalTakeOffRollSpeed: TLineSeries;
+  Series_Electrode: TLineSeries;
+  Series_Cartridge: TLineSeries;
+  Series_CoronaExhaustFan: TLineSeries;
 
 implementation
 
@@ -115,6 +124,34 @@ begin
   Series_Corona_Act.Source:=Unit1.Form1.ListChartSource5;
   //Series_Corona_Act.Active:=false;
 
+  Series_CoronaSetpoint:= TLineSeries.Create(Unit1.Form1);
+  Series_CoronaSetpoint.Title:='CoronaSetpoint';
+
+  Series_CoronaWattDensityAct:= TLineSeries.Create(Unit1.Form1);
+  Series_CoronaWattDensityAct.Title:='CoronaWattDensityAct';
+
+  Series_AdditionalCoronaSpeed:= TLineSeries.Create(Unit1.Form1);
+  Series_AdditionalCoronaSpeed.Title:='AdditionalCoronaSpeed';
+
+  Series_AdditionalGravureSpeed:= TLineSeries.Create(Unit1.Form1);
+  Series_AdditionalGravureSpeed.Title:='AdditionalGravureSpeed';
+
+  Series_AdditionalGravureManualSpeed:= TLineSeries.Create(Unit1.Form1);
+  Series_AdditionalGravureManualSpeed.Title:='AdditionalGravureManualSpeed';
+
+  Series_AdditionalTakeOffRollSpeed:= TLineSeries.Create(Unit1.Form1);
+  Series_AdditionalTakeOffRollSpeed.Title:='AdditionalTakeOffRollSpeed';
+
+  Series_Electrode:= TLineSeries.Create(Unit1.Form1);
+  Series_Electrode.Title:='Electrode';
+
+  Series_Cartridge:= TLineSeries.Create(Unit1.Form1);
+  Series_Cartridge.Title:='Cartridge';
+
+  Series_CoronaExhaustFan:= TLineSeries.Create(Unit1.Form1);
+  Series_CoronaExhaustFan.Title:='CoronaExhaustFan';
+
+
   for i:=0 to 1500 do
   begin
     Series_LineSpeed_Act.Add(0,'');
@@ -122,6 +159,15 @@ begin
     Series_GravureSpeed_Act.Add(0,'');
     Series_CoronaSpeed_Act.Add(0,'');
     Series_Corona_Act.Add(0,'');
+    Series_CoronaSetpoint.Add(0,'');
+    Series_CoronaWattDensityAct.Add(0,'');
+    Series_AdditionalCoronaSpeed.Add(0,'');
+    Series_AdditionalGravureSpeed.Add(0,'');
+    Series_AdditionalGravureManualSpeed.Add(0,'');
+    Series_AdditionalTakeOffRollSpeed.Add(0,'');
+    Series_Electrode.Add(0,'');
+    Series_Cartridge.Add(0,'');
+    Series_CoronaExhaustFan.Add(0,'');
   end;
 end;
 
@@ -203,6 +249,17 @@ begin
   if Name_ = 'GravureSpeed_Act' then CustomAxis.Marks.LabelFont.Color:=clBlue;
   if Name_ = 'CoronaSpeed_Act' then CustomAxis.Marks.LabelFont.Color:=clGreen;
   if Name_ = 'Corona_Act' then CustomAxis.Marks.LabelFont.Color:=clPurple;
+
+  if Name_ = 'CoronaSetpoint' then CustomAxis.Marks.LabelFont.Color:=clNavy;
+  if Name_ = 'CoronaWattDensityAct' then CustomAxis.Marks.LabelFont.Color:=clOlive;
+  if Name_ = 'AdditionalCoronaSpeed' then CustomAxis.Marks.LabelFont.Color:=clMaroon;
+  if Name_ = 'AdditionalGravureSpeed' then CustomAxis.Marks.LabelFont.Color:=clYellow;
+  if Name_ = 'AdditionalGravureManualSpeed' then CustomAxis.Marks.LabelFont.Color:=clFuchsia;
+  if Name_ = 'AdditionalTakeOffRollSpeed' then CustomAxis.Marks.LabelFont.Color:=clAqua;
+  if Name_ = 'Electrode' then CustomAxis.Marks.LabelFont.Color:=clSkyBlue;
+  if Name_ = 'Cartridge' then CustomAxis.Marks.LabelFont.Color:=clTeal;
+  if Name_ = 'CoronaExhaustFan' then CustomAxis.Marks.LabelFont.Color:=clBlack;
+
   CustomAxis.LabelSize:=25;
   CustomAxis.Margin:=1;
   CustomAxis.Range.UseMax:=false;
@@ -216,13 +273,21 @@ begin
   if Name_ = 'GravureSpeed_Act' then CustomLineSeries.Source:=Series_GravureSpeed_Act.Source;
   if Name_ = 'CoronaSpeed_Act' then CustomLineSeries.Source:=Series_CoronaSpeed_Act.Source;
   if Name_ = 'Corona_Act' then CustomLineSeries.Source:=Series_Corona_Act.Source;
+
+  if Name_ = 'CoronaSetpoint' then CustomLineSeries.Source:=Series_CoronaSetpoint.Source;
+  if Name_ = 'CoronaWattDensityAct' then CustomLineSeries.Source:=Series_CoronaWattDensityAct.Source;
+  if Name_ = 'AdditionalCoronaSpeed' then CustomLineSeries.Source:=Series_AdditionalCoronaSpeed.Source;
+  if Name_ = 'AdditionalGravureSpeed' then CustomLineSeries.Source:=Series_AdditionalGravureSpeed.Source;
+  if Name_ = 'AdditionalGravureManualSpeed' then CustomLineSeries.Source:=Series_AdditionalGravureManualSpeed.Source;
+  if Name_ = 'AdditionalTakeOffRollSpeed' then CustomLineSeries.Source:=Series_AdditionalTakeOffRollSpeed.Source;
+  if Name_ = 'Electrode' then CustomLineSeries.Source:=Series_Electrode.Source;
+  if Name_ = 'Cartridge' then CustomLineSeries.Source:=Series_Cartridge.Source;
+  if Name_ = 'CoronaExhaustFan' then CustomLineSeries.Source:=Series_CoronaExhaustFan.Source;
+
   CustomLineSeries.Title:=Name_;
   CustomLineSeries.AxisIndexX:=-1;
-  if Name_ = 'LineSpeed_Act' then CustomLineSeries.SeriesColor:=clRed;
-  if Name_ = 'TakeOffRollSpeed_Act' then CustomLineSeries.SeriesColor:=clLime;
-  if Name_ = 'GravureSpeed_Act' then CustomLineSeries.SeriesColor:=clBlue;
-  if Name_ = 'CoronaSpeed_Act' then CustomLineSeries.SeriesColor:=clGreen;
-  if Name_ = 'Corona_Act' then CustomLineSeries.SeriesColor:=clPurple;
+  CustomLineSeries.SeriesColor:=CustomAxis.Marks.LabelFont.Color;
+
   CustomLineSeries.AxisIndexY:=CustomAxis.Index;
   AChart.AddSeries(CustomLineSeries);
 
@@ -258,7 +323,7 @@ begin
   LinearTrans := TLinearAxisTransform.Create(AxisTrans);
   LinearTrans.Offset:=0;
   LinearTrans.Scale:=1;
-  LinearTrans.Enabled:=true;
+  LinearTrans.Enabled:=false;
   LinearTrans.Transformations := AxisTrans;
 
   AChart.AxisList[AxisIndex].Transformations := AxisTrans;
@@ -359,20 +424,73 @@ begin
     //showmessage(TShape(Source).Name);
     exit;
   end;
+
   if Source is TImage then
   begin
     //showmessage(TImage(Source).Name);
+
+    TextPosition := Pos('Electrode', TImage(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('Electrode',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('Cartridge', TImage(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('Cartridge',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('CoronaExhaustFan', TImage(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('CoronaExhaustFan',Chart1);
+      exit;
+    end;
+
     exit;
   end;
+
   if Source is THMIEdit then
   begin
-    //showmessage(THMIEdit(Source).Name);
+    //showmessage({$I %LINE%} + ' ' +THMIEdit(Source).Name);
+
+    TextPosition := Pos('AdditionalCoronaSpeed', THMIEdit(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('AdditionalCoronaSpeed',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('AdditionalGravureSpeed', THMIEdit(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('AdditionalGravureSpeed',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('AdditionalGravureManualSpeed', THMIEdit(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('AdditionalGravureManualSpeed',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('AdditionalTakeOffRollSpeed', THMIEdit(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('AdditionalTakeOffRollSpeed',Chart1);
+      exit;
+    end;
+
     exit;
   end;
 
   if Source is THMILabel then
   begin
-    //showmessage(THMILabel(Source).Name);
+    //showmessage({$I %LINE%} + ' ' +THMILabel(Source).Name);
     TextPosition := Pos('Corona_Act', THMILabel(Source).Name);
     if TextPosition > 0 then
     begin
@@ -408,6 +526,70 @@ begin
       exit;
     end;
 
+    TextPosition := Pos('CoronaSetpoint', THMILabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('CoronaSetpoint',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('CoronaWattDensityAct', THMILabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('CoronaWattDensityAct',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('AdditionalCoronaSpeed', THMILabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('AdditionalCoronaSpeed',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('AdditionalGravureSpeed', THMILabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('AdditionalGravureSpeed',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('AdditionalGravureManualSpeed', THMILabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('AdditionalGravureManualSpeed',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('AdditionalTakeOffRollSpeed', THMILabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('AdditionalTakeOffRollSpeed',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('Electrode', THMILabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('Electrode',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('Cartridge', THMILabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('Cartridge',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('CoronaExhaustFan', THMILabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('CoronaExhaustFan',Chart1);
+      exit;
+    end;
+
+    exit;
   end;
 
   if Source is THMICheckBox then
@@ -415,9 +597,107 @@ begin
     //showmessage(THMICheckBox(Source).Name);
     exit;
   end;
+
   if Source is Tlabel then
   begin
-    //showmessage(Tlabel(Source).Name);
+    //showmessage({$I %LINE%} + ' ' +Tlabel(Source).Name);
+     TextPosition := Pos('Corona_Act', Tlabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('Corona_Act',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('CoronaSpeed_Act', Tlabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('CoronaSpeed_Act',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('GravureSpeed_Act', Tlabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('GravureSpeed_Act',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('TakeOffRollSpeed_Act', Tlabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('TakeOffRollSpeed_Act',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('LineSpeed_Act', Tlabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('LineSpeed_Act',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('CoronaSetpoint', Tlabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('CoronaSetpoint',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('CoronaWattDensityAct', Tlabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('CoronaWattDensityAct',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('AdditionalCoronaSpeed', Tlabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('AdditionalCoronaSpeed',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('AdditionalGravureSpeed', Tlabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('AdditionalGravureSpeed',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('AdditionalGravureManualSpeed', Tlabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('AdditionalGravureManualSpeed',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('AdditionalTakeOffRollSpeed', Tlabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('AdditionalTakeOffRollSpeed',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('Electrode', Tlabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('Electrode',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('Cartridge', Tlabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('Cartridge',Chart1);
+      exit;
+    end;
+
+    TextPosition := Pos('CoronaExhaustFan', Tlabel(Source).Name);
+    if TextPosition > 0 then
+    begin
+      AddTChartAxis('CoronaExhaustFan',Chart1);
+      exit;
+    end;
     exit;
   end;
 end;

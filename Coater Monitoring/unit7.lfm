@@ -1,7 +1,7 @@
 object FormChart: TFormChart
-  Left = 1023
+  Left = 889
   Height = 520
-  Top = 337
+  Top = 157
   Width = 820
   Caption = 'Chart'
   ClientHeight = 520

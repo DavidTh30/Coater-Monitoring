@@ -129,9 +129,9 @@ type
     LabelAdditionalGravureSpeed_Set3: TLabel;
     LabelAdditionalTakeOffRollSpeed_Set2: TLabel;
     LabelAdditionalTakeOffRollSpeed_Set3: TLabel;
-    Label69: TLabel;
+    LabelCoronaSetpoint2: TLabel;
     Label7: TLabel;
-    Label70: TLabel;
+    LabelCoronaSetpoint3: TLabel;
     LabelAdditionalGravureManualSpeed_Set2: TLabel;
     LabelAdditionalGravureManualSpeed_Set3: TLabel;
     Label8: TLabel;
@@ -1378,9 +1378,7 @@ var
   t: Double;
   x, v, a: Double;
   exp_factor, sin_factor, cos_factor: Double;
-  i:integer;
   s: string;
-  Txt:String;
 begin
   t := (Now() - FStartTime) * SecsPerDay;
   //exp_factor := exp(-t/td);
@@ -1454,74 +1452,7 @@ begin
     //Label38.Caption:=MiniChart.Extent.YMin.ToString;
   end;
 
-  Txt:=FormatDateTime('hh',  Now)+':'+FormatDateTime('nn',  Now)+':'+FormatDateTime('ss',  Now);
-
-
-  If (Series_LineSpeed_Act.Count>= 1500) then
-  begin
-     Series_LineSpeed_Act.Delete(0);
-     Series_TakeOffRollSpeed_Act.Delete(0);
-     Series_GravureSpeed_Act.Delete(0);
-     Series_CoronaSpeed_Act.Delete(0);
-     Series_Corona_Act.Delete(0);
-  end;
-
-  v:=DB9_DBD60.Value; //Corona Actual Power
-  if SimulateChart then
-  begin
-    v := v+ Random(100) + 40000; { Generates 400 - 500 }
-    v:=v/10;
-  end;
-  s:=FormatFloat('0.00', v);
-  v:=StrToFloat(s);
-
-  Series_Corona_Act.Add(v, Txt);
-
-  v:=DB9_DBD32.Value; //Corona roll Actual Speed
-  if SimulateChart then
-  begin
-    v := v+ Random(100) + 50000; { Generates 500 - 600 }
-    v:=v/10;
-  end;
-  s:=FormatFloat('0.00', v);
-  v:=StrToFloat(s);
-
-  Series_CoronaSpeed_Act.Add(v, Txt);
-
-  v:=DB9_DBD36.Value; //Gravure roll Actual Speed
-  if SimulateChart then
-  begin
-    v := v+ Random(100) + 60000; { Generates 600 - 700 }
-    v:=v/10;
-  end;
-  s:=FormatFloat('0.00', v);
-  v:=StrToFloat(s);
-
-  Series_GravureSpeed_Act.Add(v, Txt);
-
-  v:=DB9_DBD40.Value; //Takeoff roll Actual Speed
-  if SimulateChart then
-  begin
-    v := v+ Random(100) + 70000; { Generates 700 - 800 }
-    v:=v/10;
-  end;
-  s:=FormatFloat('0.00', v);
-  v:=StrToFloat(s);
-
-  Series_TakeOffRollSpeed_Act.Add(v, Txt);
-
-  v:=DB10_DBD4.Value; //Line Actual Speed
-  if SimulateChart then
-  begin
-    v := v+ Random(100) + 80000; { Generates 800 - 900 }
-    v:=v/10;
-  end;
-  s:=FormatFloat('0.00', v);
-  v:=StrToFloat(s);
-
-  Series_LineSpeed_Act.Add(v, Txt);
-
-  Label36.Caption:=CoronaPowerSeries.Count.ToString;
+  //Label36.Caption:=CoronaPowerSeries.Count.ToString;
   //if FormChart.Chart1.Series.Count>0 then
   //begin
   //  //if FormChart.Chart1.Series[0] is TLineSeries then Label37.Caption:=FormChart.Chart1.Series.Count.ToString;
@@ -1532,11 +1463,11 @@ begin
   //  end;
   //end;
 
-  Label27.Caption:=Series_LineSpeed_Act.Count.ToString;
-  Label26.Caption:=Series_TakeOffRollSpeed_Act.Count.ToString;
-  Label25.Caption:=Series_GravureSpeed_Act.Count.ToString;
-  Label24.Caption:=Series_CoronaSpeed_Act.Count.ToString;
-  Label23.Caption:=Series_Corona_Act.Count.ToString;
+  //Label27.Caption:=Series_LineSpeed_Act.Count.ToString;
+  //Label26.Caption:=Series_TakeOffRollSpeed_Act.Count.ToString;
+  //Label25.Caption:=Series_GravureSpeed_Act.Count.ToString;
+  //Label24.Caption:=Series_CoronaSpeed_Act.Count.ToString;
+  //Label23.Caption:=Series_Corona_Act.Count.ToString;
 
   //if TotalBottomAxis>0 then
   //If (ListChartSource1.Count>240) then
@@ -1574,11 +1505,127 @@ begin
 end;
 
 procedure TForm1.DataLoger_TimerTimer(Sender: TObject);
+var
+  v:double;
+  s:string;
+  Txt:string;
 begin
   if Communication_Active and Previous_Communication_Active then
   begin
     RecordLogFile();
   end;
+
+  Txt:=FormatDateTime('hh',  Now)+':'+FormatDateTime('nn',  Now)+':'+FormatDateTime('ss',  Now);
+
+  If (Series_LineSpeed_Act.Count>= 1500) then Series_LineSpeed_Act.Delete(0);
+  If (Series_TakeOffRollSpeed_Act.Count>= 1500) then Series_TakeOffRollSpeed_Act.Delete(0);
+  If (Series_GravureSpeed_Act.Count>= 1500) then Series_GravureSpeed_Act.Delete(0);
+  If (Series_CoronaSpeed_Act.Count>= 1500) then Series_CoronaSpeed_Act.Delete(0);
+  If (Series_Corona_Act.Count>= 1500) then Series_Corona_Act.Delete(0);
+  If (Series_CoronaSetpoint.Count>= 1500) then Series_CoronaSetpoint.Delete(0);
+  If (Series_CoronaWattDensityAct.Count>= 1500) then Series_CoronaWattDensityAct.Delete(0);
+  If (Series_AdditionalCoronaSpeed.Count>= 1500) then Series_AdditionalCoronaSpeed.Delete(0);
+  If (Series_AdditionalGravureSpeed.Count>= 1500) then Series_AdditionalGravureSpeed.Delete(0);
+  If (Series_AdditionalGravureManualSpeed.Count>= 1500) then Series_AdditionalGravureManualSpeed.Delete(0);
+  If (Series_AdditionalTakeOffRollSpeed.Count>= 1500) then Series_AdditionalTakeOffRollSpeed.Delete(0);
+  If (Series_Electrode.Count>= 1500) then Series_Electrode.Delete(0);
+  If (Series_Cartridge.Count>= 1500) then Series_Cartridge.Delete(0);
+  If (Series_CoronaExhaustFan.Count>= 1500) then Series_CoronaExhaustFan.Delete(0);
+
+  v:=DB9_DBD60.Value; //Corona Actual Power
+  if SimulateChart then
+  begin
+    v := v+ Random(100) + 40000; { Generates 400 - 500 }
+    v:=v/10;
+  end;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+  Series_Corona_Act.Add(v, Txt);
+
+  v:=DB9_DBD32.Value; //Corona roll Actual Speed
+  if SimulateChart then
+  begin
+    v := v+ Random(100) + 50000; { Generates 500 - 600 }
+    v:=v/10;
+  end;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+  Series_CoronaSpeed_Act.Add(v, Txt);
+
+  v:=DB9_DBD36.Value; //Gravure roll Actual Speed
+  if SimulateChart then
+  begin
+    v := v+ Random(100) + 60000; { Generates 600 - 700 }
+    v:=v/10;
+  end;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+  Series_GravureSpeed_Act.Add(v, Txt);
+
+  v:=DB9_DBD40.Value; //Takeoff roll Actual Speed
+  if SimulateChart then
+  begin
+    v := v+ Random(100) + 70000; { Generates 700 - 800 }
+    v:=v/10;
+  end;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+  Series_TakeOffRollSpeed_Act.Add(v, Txt);
+
+  v:=DB10_DBD4.Value; //Line Actual Speed
+  if SimulateChart then
+  begin
+    v := v+ Random(100) + 80000; { Generates 800 - 900 }
+    v:=v/10;
+  end;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+  Series_LineSpeed_Act.Add(v, Txt);
+
+  v:=DB9_DBD56.Value;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+  Series_CoronaSetpoint.Add(0,Txt);
+
+  v:=DB9_DBD64.Value;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+  Series_CoronaWattDensityAct.Add(0,Txt);
+
+  v:=DB10_DBD22.Value;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+  Series_AdditionalCoronaSpeed.Add(0,Txt);
+
+  v:=DB10_DBD26.Value;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+  Series_AdditionalGravureSpeed.Add(0,Txt);
+
+  v:=MD36.Value;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+  Series_AdditionalGravureManualSpeed.Add(0,Txt);
+
+  v:=DB10_DBD30.Value;
+  s:=FormatFloat('0.00', v);
+  v:=StrToFloat(s);
+  Series_AdditionalTakeOffRollSpeed.Add(0,Txt);
+
+  v:=Q[0]._3.ToInteger;
+  s:=FormatFloat('0', v);
+  v:=StrToFloat(s);
+  Series_Electrode.Add(0,Txt);
+
+  v:=Q[0]._2.ToInteger;
+  s:=FormatFloat('0', v);
+  v:=StrToFloat(s);
+  Series_Cartridge.Add(0,Txt);
+
+  v:=Q[0]._1.ToInteger;
+  s:=FormatFloat('0', v);
+  v:=StrToFloat(s);
+  Series_CoronaExhaustFan.Add(0,Txt);
 end;
 
 procedure TForm1.CmdCoatingModeClick(Sender: TObject);
